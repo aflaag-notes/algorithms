@@ -1,0 +1,96 @@
+% === BEGIN TEMPLATE ===
+
+\documentclass[14pt]{extreport}
+
+% tools
+\usepackage{amsthm}
+\usepackage{hyperref}
+\usepackage{mathtools}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+
+% theorems
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definizione}[section]
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+% misc
+\usepackage[italian]{babel} % set the language to italian
+\usepackage{indentfirst} % spacing at the beginning of every paragraph
+\usepackage[margin = 1.0in]{geometry} % size of the margins
+
+\begin{document}
+
+\begin{titlepage}
+    \centering
+    \vspace*{1cm}
+
+    \textbf{\huge Algoritmi II}
+
+    \vspace{1.5cm}
+
+    \textit{\Large Alessio Bandiera}
+
+    \vfill
+        
+    \large Informatica, La Sapienza
+\end{titlepage}
+
+\tableofcontents
+
+\pagebreak
+
+% === END TEMPLATE ===
+
+\chapter{Grafi}
+
+\section{Grafi}
+
+\begin{definition}[Grafo]
+\
+    Un grafo è una struttura matematica descritta da vertici, collegati da archi. Un grafo viene descritto formalmente come $G=(V, E)$, dove $V$ sono i \textbf{vertici} del grafo, mentre $E$ sono gli \textbf{archi} (dall'inglese \textit{edges}). In particolare, $V(G)$ è l'insieme dei vertici di $G$, comunemente indicato con $n$, mentre $E(G)$ è l'insieme degli archi di $G$, comunemente indicato con $m$.
+\end{definition}
+
+\begin{figure}[h]
+    \centering
+    \begin{tikzpicture}
+        [-,>=stealth',shorten >=1pt,auto,node distance=3cm,thick,main node/.style={circle,draw,font=\sffamily\normalsize}]
+
+        \node[main node] (1) {1};
+        \node[main node] (2) [below left of=1] {2};
+        \node[main node] (3) [below right of=2] {3};
+        \node[main node] (6) [right of=1] {6};
+        \node[main node] (5) [below right of=6] {5};
+        \node[main node] (4) [below left of=5] {4};
+
+        \path[every node/.style={font=\sffamily\small}]
+        (1) edge (2)
+        (2) edge (3)
+        (2) edge (4)
+        (3) edge (4)
+        (4) edge (1)
+        (5) edge (1)
+        (6) edge (3)
+        (6) edge (5)
+        ;
+    \end{tikzpicture}
+    \caption{Un grafo}
+\end{figure}
+
+\begin{lemma}[Cammini euleriani]
+    Cacca
+\end{lemma}
+
+\begin{proof}
+\end{proof}
+
+\pagebreak
+
+\end{document}
