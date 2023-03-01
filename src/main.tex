@@ -54,7 +54,7 @@
 \section{Grafi}
 
 \begin{definition}[Grafo]
-    Un grafo è una struttura matematica descritta da vertici, collegati da archi. Un grafo viene descritto formalmente come $G=(V, E)$, dove $V$ sono i \textbf{vertici} del grafo, mentre $E$ sono gli \textbf{archi} (dall'inglese \textit{edges}). In particolare, $V(G)$ è l'insieme dei vertici di $G$, comunemente indicato con $n$, mentre $E(G)$ è l'insieme degli archi di $G$, comunemente indicato con $m$. Presi due vertici $v_1,v_2 \in V(G)$, allora $(v_1, v_2) \in E(G)$ è l'arco che li collega. Si noti che $E(G) \subseteq V^2$.
+    Un grafo è una struttura matematica descritta da vertici, collegati da archi. Un grafo viene descritto formalmente come $G=(V, E)$, dove i $v \in V$ sono i \textit{vertici} del grafo, mentre gli $e \in E$ sono gli \textit{archi} (dall'inglese \textit{edges}). In particolare, $V(G)$ è l'insieme dei vertici di $G$, comunemente indicato con $n$, mentre $E(G)$ è l'insieme degli archi di $G$, comunemente indicato con $m$. Presi due vertici $v_1,v_2 \in V(G)$, allora $(v_1, v_2) \in E(G)$ è l'arco che li collega. Si noti che $E(G) \subseteq V^2$.
 \end{definition}
 
 \begin{definition}[Vertici adiacenti]
@@ -89,7 +89,7 @@
     \caption{Un grafo indiretto.}
 \end{figure}
 
-In particolare, nell'esempio proposto si ha che $V(G) = \{1, 2, 3, 4, 5, 6\}$ e $E(G) = \{(1, 2), (1, 4), (1, 5) (2, 3), (2, 4), (3, 4), (3, 6), (5, 6)\}$.
+In particolare, in questo esempio si ha che $V(G) = \{1, 2, 3, 4, 5, 6\}$ e $E(G) = \{(1, 2), (1, 4), (1, 5) (2, 3), (2, 4), (3, 4), (3, 6), (5, 6)\}$.
 
 \begin{definition}[Grafo diretto]
     Un grafo è detto \textit{diretto} se gli archi hanno direzione, o equivalentemente $$\forall v_1, v_2 \in V(G) \quad (v_1, v_2) \neq (v_2, v_1) \in E(G)$$
@@ -119,11 +119,19 @@ In particolare, nell'esempio proposto si ha che $V(G) = \{1, 2, 3, 4, 5, 6\}$ e 
     \caption{Un grafo diretto.}
 \end{figure}
 
-In particolare, nell'esempio proposto si ha che $V(G) = \{1, 2, 3, 4, 5, 6\}$ e $E(G) = \{(1, 2), (2, 3), (2, 4), (3, 4), (4, 1), (5, 1), (6, 3), (6, 5)\}$.
+In particolare, in questo esempio si ha che $V(G) = \{1, 2, 3, 4, 5, 6\}$ e $E(G) = \{(1, 2), (2, 3), (2, 4), (3, 4), (4, 1), (5, 1), (6, 3), (6, 5)\}$.
 
 \begin{definition}[Grado]
     Il \textit{grado} di un vertice $v \in V(G)$ è il numero di archi incidenti su $v$, indicato con $\deg(v)$.
 \end{definition}
+
+\begin{theorem}[Somma dei gradi]
+    Dato un grafo $G$, la somma dei gradi dei vertici è pari a $2 |E(G)|$.
+\end{theorem}
+
+\begin{proof}
+    Sia $G$ un grafo. Allora, ogni arco $e \in E(G)$ collega due vertici; allora necessariamente $\displaystyle \sum_{v \in V(G)}{\deg(v)} = 2 |E(G)|$.
+\end{proof}
 
 \begin{definition}[Cappio]
     Un arco con estremi coincidenti è detto \textit{cappio}.
@@ -146,15 +154,17 @@ In particolare, nell'esempio proposto si ha che $V(G) = \{1, 2, 3, 4, 5, 6\}$ e 
     \caption{Un grafo diretto con cappio in 3.}
 \end{figure}
 
+\begin{definition}[Grafo semplice]
+    Un grafo è detto \textit{semplice} se non contiene cappi, né lati multipli, ovvero più archi per due vertici.
+\end{definition}
+
 \begin{definition}[Cammino]
     Un \textit{cammino} è una sequenza di vertici ed archi, della forma $v_0, e_1, v_1, e_2, \ldots , e_{n - 1}, v_{n - 1}, e_n, v_n$, dove $e_i=(v_{i - 1}, v_i)$.
 \end{definition}
 
 \begin{definition}[Ciclo]
-    Un cammino è detto \textit{ciclo} se è della forma \\ $v_0, e_1, v_1, e_2, \ldots , e_{n - 1}, v_{n - 1}, e_n, v_0$, dunque il primo e l'ultimo vertice coincidono.
+    Un cammino è detto \textit{ciclo}, o \textit{circuito}, o \textit{cammino chiuso}, se è della forma $v_0, e_1, v_1, e_2, \ldots , e_{n - 1}, v_{n - 1}, e_n, v_0$, dunque il primo e l'ultimo vertice coincidono.
 \end{definition}
-
-\pagebreak
 
 \begin{figure}[h]
     \centering
@@ -175,7 +185,7 @@ In particolare, nell'esempio proposto si ha che $V(G) = \{1, 2, 3, 4, 5, 6\}$ e 
     \caption{Un grafo indiretto.}
 \end{figure}
 
-In particolare, nell'esempio proposto si hanno tre cicli: $$2, (2, 4), 4, (4,3), 3, (3, 2), 2$$ $$2, (2, 4), 4, (4, 1), 1, (1, 2), 2$$ $$1, (1, 2), 2, (2, 3), 3, (3, 4), 4, (4, 1), 1$$
+In particolare, in questo esempio si hanno tre cicli: $$\{2, (2, 4), 4, (4,3), 3, (3, 2), 2\}$$ $$\{2, (2, 4), 4, (4, 1), 1, (1, 2), 2\}$$ $$\{1, (1, 2), 2, (2, 3), 3, (3, 4), 4, (4, 1), 1\}$$
 
 \begin{definition}[Grafo connesso]
     Un grafo è detto \textit{connesso} se per ogni $v_1, v_2 \in V(G)$ esiste un cammino che li collega.
@@ -206,15 +216,37 @@ In particolare, nell'esempio proposto si hanno tre cicli: $$2, (2, 4), 4, (4,3),
     \caption{Un grafo non connesso.}
 \end{figure}
 
-In particolare, nell'esempio proposto non esiste un cammino che possa collegare $4$ e $5$, dunque il grafo non è connesso.
+In particolare, in questo esempio non esiste un cammino che possa collegare $4$ e $5$, dunque il grafo non è connesso.
 
-% \begin{lemma}[Cammini euleriani]
-    % Cacca
-% \end{lemma}
-
-% \begin{proof}
-% \end{proof}
+\begin{definition}[Cammino euleriano]
+    Un cammino si dice \textit{euleriano} se attraversa ogni vertice del grafo, senza ripetere nessun arco.
+\end{definition}
 
 \pagebreak
+
+\begin{figure}[h]
+    \centering
+    \begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=3cm,thick,main node/.style={scale=0.6,circle,draw,font=\sffamily\normalsize}]
+        \node[main node] (1) {1};
+        \node[main node] (2) [below left of=1] {2};
+        \node[main node] (3) [below right of=2] {3};
+
+        \path[every node/.style={font=\sffamily\small}]
+            (1) edge (2)
+            (2) edge (3)
+            ;
+    \end{tikzpicture}
+    \caption{Un grafo indiretto.}
+\end{figure}
+
+In particolare, in questo esempio si ha il cammino euleriano: $$\{1, (1,2), 2, (2,3), 3\}$$
+
+\begin{theorem}
+    Dato un grafo $G$, esiste un circuito euleriano su $G$ se e solo se $G$ è connesso, e per ogni $v$, $\deg(v)$ è pari.
+\end{theorem}
+
+\begin{proof}
+    \textit{Prima implicazione.} Sia $G$ un grafo avente un circuito euleriano; per assurdo, sia $v \in V(G) \mid \deg(v)$ non sia pari. Allora, percorrendo $G$ secondo il circuito euleriano, giungendo a $v$ non si potrebbe più lasciare tale vertice senza riattraversare uno degli archi gia visitati. Inoltre, se $G$ non fosse connesso, non sarebbe possibile avere un ciclo che attraversi tutti i verticidi $G$. \textit{Seconda implicazione.} TODO
+\end{proof}
 
 \end{document}
