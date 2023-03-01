@@ -18,6 +18,13 @@
 \usepackage[capitalize,nameinlink,italian]{cleveref}
 \usepackage{xcolor}
 \hypersetup{colorlinks,linkcolor={red!50!black},citecolor={blue!50!black},urlcolor={blue!80!black}}
+\usepackage{floatrow}
+\usepackage[linesnumbered,ruled,italiano,algosection]{algorithm2e}
+\SetKwInOut{Input}{Input}
+\SetKwInOut{Output}{Output}
+\DontPrintSemicolon
+\SetArgSty{textnormal}
+\SetKwProg{Fn}{Function}{}{end}
 
 % theorems
 \newtheorem{theorem}{Teorema}[section]
@@ -27,6 +34,7 @@
 \newtheorem{definition}{Definizione}[section]
 \theoremstyle{definition}
 \newtheorem{remark}{Osservazione}[section]
+\newtheorem{example}{Esempio}[section]
 
 \begin{document}
 
@@ -71,61 +79,65 @@
     Un grafo è detto \textit{indiretto} se gli archi non hanno direzione, o equivalentemente $$\forall v_1, v_2 \in V(G) \quad (v_1, v_2) = (v_2, v_1) \in E(G)$$
 \end{definition}
 
-\begin{figure}[!htbp]
-    \centering
-    \begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=3cm,thick,main node/.style={scale=0.6,circle,draw,font=\sffamily\normalsize}]
-        \node[main node] (1) {1};
-        \node[main node] (2) [below left of=1] {2};
-        \node[main node] (3) [below right of=2] {3};
-        \node[main node] (6) [right of=1] {6};
-        \node[main node] (5) [below right of=6] {5};
-        \node[main node] (4) [below left of=5] {4};
+\begin{example}[Grafo indiretto]
+    \begin{figure}[!htbp]
+        \centering
+        \begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=3cm,thick,main node/.style={scale=0.6,circle,draw,font=\sffamily\normalsize}]
+            \node[main node] (1) {1};
+            \node[main node] (2) [below left of=1] {2};
+            \node[main node] (3) [below right of=2] {3};
+            \node[main node] (6) [right of=1] {6};
+            \node[main node] (5) [below right of=6] {5};
+            \node[main node] (4) [below left of=5] {4};
 
-        \path[every node/.style={font=\sffamily\small}]
-            (1) edge (2)
-            (2) edge (3)
-            (2) edge (4)
-            (3) edge (4)
-            (4) edge (1)
-            (5) edge (1)
-            (6) edge (3)
-            (6) edge (5)
-            ;
-    \end{tikzpicture}
-    \caption{Un grafo indiretto.}
-\end{figure}
+            \path[every node/.style={font=\sffamily\small}]
+                (1) edge (2)
+                (2) edge (3)
+                (2) edge (4)
+                (3) edge (4)
+                (4) edge (1)
+                (5) edge (1)
+                (6) edge (3)
+                (6) edge (5)
+                ;
+        \end{tikzpicture}
+        \caption{Un grafo indiretto.}
+    \end{figure}
 
-In particolare, in questo esempio si ha che $V(G) = \{1, 2, 3, 4, 5, 6\}$ e $E(G) = \{(1, 2), (1, 4), (1, 5) (2, 3), (2, 4), (3, 4), (3, 6), (5, 6)\}$.
+    In questo grafo indiretto, si hanno $$V(G) = \{1, 2, 3, 4, 5, 6\}$$ $$E(G) = \{(1, 2), (1, 4), (1, 5) (2, 3), (2, 4), (3, 4), (3, 6), (5, 6)\}$$
+\end{example}
 
 \begin{definition}[Grafo diretto]
     Un grafo è detto \textit{diretto} se gli archi hanno direzione, o equivalentemente $$\forall v_1, v_2 \in V(G) \quad (v_1, v_2) \neq (v_2, v_1) \in E(G)$$
 \end{definition}
 
-\begin{figure}[!htbp]
-    \centering
-    \begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=3cm,thick,main node/.style={scale=0.6,circle,draw,font=\sffamily\normalsize}]
-        \node[main node] (1) {1};
-        \node[main node] (2) [below left of=1] {2};
-        \node[main node] (3) [below right of=2] {3};
-        \node[main node] (6) [right of=1] {6};
-        \node[main node] (5) [below right of=6] {5};
-        \node[main node] (4) [below left of=5] {4};
+\begin{example}[Grafo diretto]
+    \begin{figure}[!htbp]
+        \centering
+        \begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=3cm,thick,main node/.style={scale=0.6,circle,draw,font=\sffamily\normalsize}]
+            \node[main node] (1) {1};
+            \node[main node] (2) [below left of=1] {2};
+            \node[main node] (3) [below right of=2] {3};
+            \node[main node] (6) [right of=1] {6};
+            \node[main node] (5) [below right of=6] {5};
+            \node[main node] (4) [below left of=5] {4};
 
-        \path[every node/.style={font=\sffamily\small}]
-            (1) edge (2)
-            (2) edge (3)
-            (2) edge (4)
-            (3) edge (4)
-            (4) edge (1)
-            (5) edge (1)
-            (6) edge (3)
-            (6) edge (5)
-            ;
-    \end{tikzpicture}
-    \caption{Un grafo diretto.}
-\end{figure}
+            \path[every node/.style={font=\sffamily\small}]
+                (1) edge (2)
+                (2) edge (3)
+                (2) edge (4)
+                (3) edge (4)
+                (4) edge (1)
+                (5) edge (1)
+                (6) edge (3)
+                (6) edge (5)
+                ;
+        \end{tikzpicture}
+        \caption{Un grafo diretto.}
+    \end{figure}
 
-In particolare, in questo esempio si ha che $V(G) = \{1, 2, 3, 4, 5, 6\}$ e $E(G) = \{(1, 2), (2, 3), (2, 4), (3, 4), (4, 1), (5, 1), (6, 3), (6, 5)\}$.
+    In questo grafo diretto, si hanno $$V(G) = \{1, 2, 3, 4, 5, 6\}$$ $$E(G) = \{(1, 2), (2, 3), (2, 4), (3, 4), (4, 1), (5, 1), (6, 3), (6, 5)\}$$
+\end{example}
 
 \begin{definition}[Grado]
     Il \textit{grado} di un vertice $v \in V(G)$ è il numero di archi incidenti su $v$, indicato con $\deg(v)$.
@@ -144,22 +156,24 @@ In particolare, in questo esempio si ha che $V(G) = \{1, 2, 3, 4, 5, 6\}$ e $E(G
     Un arco con estremi coincidenti è detto \textit{cappio}.
 \end{definition}
 
-\begin{figure}[!htbp]
-    \centering
-    \begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=3cm,thick,main node/.style={scale=0.6,circle,draw,font=\sffamily\normalsize}]
-        \node[main node] (1) {1};
-        \node[main node] (2) [below left of=1] {2};
-        \node[main node] (3) [below right of=2] {3};
+\begin{example}[Grafo con cappio]
+    \begin{figure}
+        \centering
+        \begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=3cm,thick,main node/.style={scale=0.6,circle,draw,font=\sffamily\normalsize}]
+            \node[main node] (1) {1};
+            \node[main node] (2) [below left of=1] {2};
+            \node[main node] (3) [below right of=2] {3};
 
-        \path[every node/.style={font=\sffamily\small}]
-            (1) edge (2)
-            (2) edge (3)
-            (3) edge (1)
-            (3) edge [loop below] (3)
-            ;
-    \end{tikzpicture}
-    \caption{Un grafo diretto con cappio in 3.}
-\end{figure}
+            \path[every node/.style={font=\sffamily\small}]
+                (1) edge (2)
+                (2) edge (3)
+                (3) edge (1)
+                (3) edge [loop below] (3)
+                ;
+        \end{tikzpicture}
+        \caption{Un grafo diretto con cappio in 3.}
+    \end{figure}
+\end{example}
 
 \begin{definition}[Grafo semplice]
     Un grafo è detto \textit{semplice} se non contiene cappi, né lati multipli, ovvero più archi per due vertici.
@@ -183,30 +197,32 @@ In particolare, in questo esempio si ha che $V(G) = \{1, 2, 3, 4, 5, 6\}$ e $E(G
     Una \textit{traccia} è una passeggiata aperta, in cui non è possibile ripercorrere gli archi, ma è possibile ripercorrere i vertici.
 \end{definition}
 
-\begin{figure}[!htbp]
-    \centering
-    \begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=3cm,thick,main node/.style={scale=0.6,circle,draw,font=\sffamily\normalsize}]
-        \node[main node] (1) {1};
-        \node[main node] (2) [below left of=1] {2};
-        \node[main node] (3) [below right of=2] {3};
-        \node[main node] (4) [below right of=1] {4};
-        \node[main node] (5) [above right of=4] {5};
-        \node[main node] (6) [below right of=4] {6};
+\begin{example}[Traccia di un grafo]
+    \begin{figure}[!htbp]
+        \centering
+        \begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=3cm,thick,main node/.style={scale=0.6,circle,draw,font=\sffamily\normalsize}]
+            \node[main node] (1) {1};
+            \node[main node] (2) [below left of=1] {2};
+            \node[main node] (3) [below right of=2] {3};
+            \node[main node] (4) [below right of=1] {4};
+            \node[main node] (5) [above right of=4] {5};
+            \node[main node] (6) [below right of=4] {6};
 
-        \path[every node/.style={font=\sffamily\small}]
-            (2) edge (3)
-            (2) edge (4)
-            (3) edge (4)
-            (4) edge (1)
-            (4) edge (5)
-            (4) edge (6)
-            (5) edge (6)
-            ;
-    \end{tikzpicture}
-    \caption{Un grafo indiretto.}
-\end{figure}
+            \path[every node/.style={font=\sffamily\small}]
+                (2) edge (3)
+                (2) edge (4)
+                (3) edge (4)
+                (4) edge (1)
+                (4) edge (5)
+                (4) edge (6)
+                (5) edge (6)
+                ;
+        \end{tikzpicture}
+        \caption{Un grafo indiretto.}
+    \end{figure}
 
-Ad esempio, in questo grafo si ha la traccia $$\{5, (5,4), 4, (4,3), 3, (3, 2), 2, (2,4), 4, (4, 6), 6\}$$
+    Ad esempio, in questo grafo si ha la traccia $$\{5, (5,4), 4, (4,3), 3, (3, 2), 2, (2,4), 4, (4, 6), 6\}$$
+\end{example}
 
 \begin{definition}[Circuito]
     Un \textit{circuito} è una traccia chiusa.
@@ -224,55 +240,59 @@ Ad esempio, in questo grafo si ha la traccia $$\{5, (5,4), 4, (4,3), 3, (3, 2), 
     Un \textit{ciclo} è un cammino chiuso.
 \end{definition}
 
-\begin{figure}[!htbp]
-    \centering
-    \begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=3cm,thick,main node/.style={scale=0.6,circle,draw,font=\sffamily\normalsize}]
-        \node[main node] (1) {1};
-        \node[main node] (2) [below left of=1] {2};
-        \node[main node] (3) [below right of=2] {3};
-        \node[main node] (4) [below right of=1] {4};
+\begin{example}[Cicli di un grafo]
+    \begin{figure}[!htbp]
+        \centering
+        \begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=3cm,thick,main node/.style={scale=0.6,circle,draw,font=\sffamily\normalsize}]
+            \node[main node] (1) {1};
+            \node[main node] (2) [below left of=1] {2};
+            \node[main node] (3) [below right of=2] {3};
+            \node[main node] (4) [below right of=1] {4};
 
-        \path[every node/.style={font=\sffamily\small}]
-            (1) edge (2)
-            (2) edge (3)
-            (2) edge (4)
-            (3) edge (4)
-            (4) edge (1)
-            ;
-    \end{tikzpicture}
-    \caption{Un grafo indiretto.}
-\end{figure}
+            \path[every node/.style={font=\sffamily\small}]
+                (1) edge (2)
+                (2) edge (3)
+                (2) edge (4)
+                (3) edge (4)
+                (4) edge (1)
+                ;
+        \end{tikzpicture}
+        \caption{Un grafo indiretto.}
+    \end{figure}
 
-In particolare, in questo esempio si hanno tre cicli: $$\{2, (2, 4), 4, (4,3), 3, (3, 2), 2\}$$ $$\{2, (2, 4), 4, (4, 1), 1, (1, 2), 2\}$$ $$\{1, (1, 2), 2, (2, 3), 3, (3, 4), 4, (4, 1), 1\}$$
+    In questo grafo, si hanno tre cicli: $$\{2, (2, 4), 4, (4,3), 3, (3, 2), 2\}$$ $$\{2, (2, 4), 4, (4, 1), 1, (1, 2), 2\}$$ $$\{1, (1, 2), 2, (2, 3), 3, (3, 4), 4, (4, 1), 1\}$$
+\end{example}
 
 \begin{definition}[Grafo connesso]
     Un grafo è detto \textit{connesso} se per ogni $v_1, v_2 \in V(G)$ esiste una passeggiata che li collega.
 \end{definition}
 
-\begin{figure}[!htbp]
-    \centering
-    \begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=3cm,thick,main node/.style={scale=0.6,circle,draw,font=\sffamily\normalsize}]
-        \node[main node] (1) {1};
-        \node[main node] (2) [below left of=1] {2};
-        \node[main node] (3) [below right of=2] {3};
-        \node[main node] (4) [below right of=1] {4};
-        \node[main node] (5) [right of=4] {5};
-        \node[main node] (6) [above right of=5] {6};
-        \node[main node] (7) [below right of=5] {7};
+\begin{example}[Grafo non connesso]
+    \begin{figure}[!htbp]
+        \centering
+        \begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=3cm,thick,main node/.style={scale=0.6,circle,draw,font=\sffamily\normalsize}]
+            \node[main node] (1) {1};
+            \node[main node] (2) [below left of=1] {2};
+            \node[main node] (3) [below right of=2] {3};
+            \node[main node] (4) [below right of=1] {4};
+            \node[main node] (5) [right of=4] {5};
+            \node[main node] (6) [above right of=5] {6};
+            \node[main node] (7) [below right of=5] {7};
 
-        \path[every node/.style={font=\sffamily\small}]
-            (1) edge (2)
-            (2) edge (3)
-            (2) edge (4)
-            (3) edge (4)
-            (4) edge (1)
-            (5) edge (6)
-            (6) edge (7)
-            (7) edge (5)
-            ;
-    \end{tikzpicture}
-    \caption{Un grafo non connesso.}
-\end{figure}
+            \path[every node/.style={font=\sffamily\small}]
+                (1) edge (2)
+                (2) edge (3)
+                (2) edge (4)
+                (3) edge (4)
+                (4) edge (1)
+                (5) edge (6)
+                (6) edge (7)
+                (7) edge (5)
+                ;
+        \end{tikzpicture}
+        \caption{Un grafo non connesso.}
+    \end{figure}
+\end{example}
 
 In particolare, in questo esempio non esiste una passeggiata che possa collegare $4$ e $5$, dunque il grafo non è connesso.
 
@@ -284,22 +304,24 @@ In particolare, in questo esempio non esiste una passeggiata che possa collegare
     Una passeggiata euleriana è una traccia passante per ogni arco del grafo.
 \end{remark}
 
-\begin{figure}[!htbp]
-    \centering
-    \begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=3cm,thick,main node/.style={scale=0.6,circle,draw,font=\sffamily\normalsize}]
-        \node[main node] (1) {1};
-        \node[main node] (2) [below left of=1] {2};
-        \node[main node] (3) [below right of=2] {3};
+\begin{example}[Passeggiata euleriana]
+    \begin{figure}[!htbp]
+        \centering
+        \begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=3cm,thick,main node/.style={scale=0.6,circle,draw,font=\sffamily\normalsize}]
+            \node[main node] (1) {1};
+            \node[main node] (2) [below left of=1] {2};
+            \node[main node] (3) [below right of=2] {3};
 
-        \path[every node/.style={font=\sffamily\small}]
-            (1) edge (2)
-            (2) edge (3)
-            ;
-    \end{tikzpicture}
-    \caption{Un grafo indiretto.}
-\end{figure}
+            \path[every node/.style={font=\sffamily\small}]
+                (1) edge (2)
+                (2) edge (3)
+                ;
+        \end{tikzpicture}
+        \caption{Un grafo indiretto.}
+    \end{figure}
 
-In particolare, in questo esempio si ha la passeggiata euleriana: $$\{1, (1,2), 2, (2,3), 3\}$$
+    In questo grafo, l'unica passeggiata euleriana è $$\{1, (1,2), 2, (2,3), 3\}$$
+\end{example}
 
 \begin{theorem}
     Dato un grafo $G$, esiste un circuito euleriano su $G$ se e solo se $G$ è connesso, e per ogni $v$, $\deg(v)$ è pari.
@@ -324,7 +346,7 @@ In particolare, in questo esempio si ha la passeggiata euleriana: $$\{1, (1,2), 
 \end{remark}
 
 \begin{remark}[Aggiornamento di una matrice]
-    Per ogni grafo $G$, si ha che $M_G$ è simmetrica; di conseguenza, il costo per aggiornare una matrice di adiacenza è $2 O(1)$, poiché per $v_i, v_j \in V(G)$ non coincidenti, sarà necessario aggiornare $M_G[i, j]$ e $M_G[j, i]$.
+    Per ogni grafo $G$, si ha che $M_G$ è simmetrica; di conseguenza, il costo per aggiornare una matrice di adiacenza è $2 O(1)= O(2) = O(1)$, poiché per $v_i, v_j \in V(G)$ non coincidenti, sarà necessario aggiornare $M_G[i, j]$ e $M_G[j, i]$.
 \end{remark}
 
 \begin{remark}[Controllo di adiacenza]
@@ -336,47 +358,76 @@ In particolare, in questo esempio si ha la passeggiata euleriana: $$\{1, (1,2), 
 \end{definition}
 
 \begin{remark}[Spazio delle liste]
-    Dato un certo $v \in V(G)$, la lista di adiacenza corrispondente ha lunghezza$\deg(v)$; allora, il numero di elementi nelle liste di adiacenza è pari a $\displaystyle \sum_{v \in V(G)}{\deg(v)} = 2 |E(G)|$ per il \cref{Somma dei gradi}
+    Dato un certo $v \in V(G)$, la lista di adiacenza corrispondente ha lunghezza$\deg(v)$; allora, il numero di elementi nelle liste di adiacenza, per il \cref{Somma dei gradi}, è pari a $\displaystyle O \left(\sum_{v \in V(G)}{\deg(v)}\right) = O\left( 2 |E(G)| \right)=O(2m) = O(m)$. Si noti inoltre che, per un grafo con pochi archi, nonostante si abbiano le liste poco riempite, è comunque necessario salvare i puntatori a tali liste, e dunque è necessario introdurre un $O(n)$ nel costo totale dello spazio, ottenendo allora $O(n) + O(m) = O(n + m)$.
 \end{remark}
 
 \begin{remark}[Controllo di adiacenza]
     Nel caso peggiore, il grafo rappresentato da liste di adiacenza sarà composto da una sola lista per un certo $v \in V(G)$, contenente ogni altro vertice del grafo $\hat{v} \in V(G) - \{v\}$, e la lunghezza della lista di adiacenza di $v$ sarà $n - 1$. Di conseguenza, il costo per controllare se due vertici sono adiacenti, utilizzando tale rappresentazione, è $O(n)$.
 \end{remark}
 
-Ad esempio, avendo un grafo $G$ della forma
+\begin{example}[Rappresentazione di un grafo]
+    Dato un grafo $G$ della forma
 
-\begin{figure}[!htbp]
-    \centering
-    \begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=3cm,thick,main node/.style={scale=0.6,circle,draw,font=\sffamily\normalsize}]
-        \node[main node] (1) {1};
-        \node[main node] (2) [below left of=1] {2};
-        \node[main node] (3) [below right of=2] {3};
-        \node[main node] (4) [below right of=1] {4};
-        \node[main node] (5) [above right of=4] {5};
-        \node[main node] (6) [below right of=4] {6};
+    \begin{figure}[!htbp]
+        \centering
+        \begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=3cm,thick,main node/.style={scale=0.6,circle,draw,font=\sffamily\normalsize}]
+            \node[main node] (1) {1};
+            \node[main node] (2) [below left of=1] {2};
+            \node[main node] (3) [below right of=2] {3};
+            \node[main node] (4) [below right of=1] {4};
+            \node[main node] (5) [above right of=4] {5};
+            \node[main node] (6) [below right of=4] {6};
 
-        \path[every node/.style={font=\sffamily\small}]
-            (2) edge (3)
-            (2) edge (4)
-            (3) edge (4)
-            (4) edge (1)
-            (4) edge (5)
-            (4) edge (6)
-            (5) edge (6)
-            ;
-    \end{tikzpicture}
-\end{figure}
+            \path[every node/.style={font=\sffamily\small}]
+                (2) edge (3)
+                (2) edge (4)
+                (3) edge (4)
+                (4) edge (1)
+                (4) edge (5)
+                (4) edge (6)
+                (5) edge (6)
+                ;
+        \end{tikzpicture}
+        \caption{Un grafo indiretto.}
+    \end{figure}
 
-si avrebbe la corrispondente matrice di adiacenza
-$$M_G = \left( \begin{array}{llllll}
-    0 & 0 & 0 & 1 & 0 & 0 \\
-    0 & 0 & 1 & 1 & 0 & 0 \\
-    0 & 1 & 0 & 1 & 0 & 0 \\
-    1 & 1 & 1 & 0 & 1 & 1 \\
-    0 & 0 & 0 & 1 & 0 & 1 \\
-    0 & 0 & 0 & 1 & 1 & 0 \\
-\end{array} \right)$$
+    si avrebbe la corrispondente matrice di adiacenza
+    $$M_G = \left( \begin{array}{llllll}
+        0 & 0 & 0 & 1 & 0 & 0 \\
+        0 & 0 & 1 & 1 & 0 & 0 \\
+        0 & 1 & 0 & 1 & 0 & 0 \\
+        1 & 1 & 1 & 0 & 1 & 1 \\
+        0 & 0 & 0 & 1 & 0 & 1 \\
+        0 & 0 & 0 & 1 & 1 & 0 \\
+    \end{array} \right)$$
 
-e le corrispondenti liste di adiacenza $$\left \{ \begin{array}{l} 1: [4] \\ 2: [4, 3] \\ 3: [2, 4] \\ 4: [1, 3, 5, 6] \\ 5: [4, 6] \\ 6: [4, 5] \end{array} \right.$$
+    e le corrispondenti liste di adiacenza $$\left \{ \begin{array}{l} 1: [4] \\ 2: [4, 3] \\ 3: [2, 4] \\ 4: [1, 3, 5, 6] \\ 5: [4, 6] \\ 6: [4, 5] \end{array} \right.$$
+\end{example}
+
+\section{Algoritmi}
+
+\begin{algorithm}
+    \Input{$G$ grafo indiretto, tale che $\forall v \in V(G) \quad \deg(v) \ge 2$}
+    \Output{Un ciclo di $G$}
+
+    \SetKwFunction{findCycle}{findCycle}
+    
+    \Fn{\findCycle{$G$}}{
+        $v \in V(G)$ \tcp*{un vertice qualsiasi di $G$}
+        $\texttt{visited} := [v]$ \tcp*{conterrà i vertici visitati}
+        $v' \in V(G) : v \sim v'$\\
+        \While{$v' \notin \texttt{visited}$}{
+            $\texttt{visited.add}(v')$\\
+            $v' := v'' \in V(G) : \left \{ \begin{array}{l}v' \sim v'' \\ v'' \neq\texttt{visited}[\texttt{visited.length} - 2] \end{array} \right.$
+        }
+        \Return $\texttt{visited}[\texttt{visited.indexOf}(v') \texttt{:} \texttt{visited.length}]$
+    }
+
+    \caption{Dato un grafo indiretto $G$, con ogni vertice avente grado almeno pari a $2$, l'algoritmo restiuisce un ciclo di $G$.}
+\end{algorithm}
+
+\begin{remark}
+    TODO
+\end{remark}
 
 \end{document}
