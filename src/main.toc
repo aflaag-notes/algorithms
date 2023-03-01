@@ -2,3 +2,5 @@
 \babel@toc {italian}{}\relax 
 \contentsline {chapter}{\numberline {1}Grafi}{2}{chapter.1}%
 \contentsline {section}{\numberline {1.1}Grafi}{2}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Visite}{4}{section.1.2}%
+\contentsline {section}{\numberline {1.3}Rappresentazione}{6}{section.1.3}%

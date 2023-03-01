@@ -4,6 +4,7 @@
 
 % tools
 \usepackage{amsthm}
+\usepackage{amssymb}
 \usepackage{hyperref}
 \usepackage{mathtools}
 \usepackage{graphicx}
@@ -12,14 +13,14 @@
 
 % theorems
 \newtheorem{theorem}{Teorema}[section]
-\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{corollary}{Corollario}[theorem]
 \newtheorem{lemma}[theorem]{Lemma}
 
 \theoremstyle{definition}
 \newtheorem{definition}{Definizione}[section]
 
-\theoremstyle{remark}
-\newtheorem*{remark}{Remark}
+\theoremstyle{definition}
+\newtheorem{remark}{Osservazione}[section]
 
 % misc
 \usepackage[italian]{babel} % set the language to italian
@@ -54,18 +55,22 @@
 \section{Grafi}
 
 \begin{definition}[Grafo]
-    Un grafo è una struttura matematica descritta da vertici, collegati da archi. Un grafo viene descritto formalmente come $G=(V, E)$, dove i $v \in V$ sono i \textit{vertici} del grafo, mentre gli $e \in E$ sono gli \textit{archi} (dall'inglese \textit{edges}). In particolare, $V(G)$ è l'insieme dei vertici di $G$, comunemente indicato con $n$, mentre $E(G)$ è l'insieme degli archi di $G$, comunemente indicato con $m$. Presi due vertici $v_1,v_2 \in V(G)$, allora $(v_1, v_2) \in E(G)$ è l'arco che li collega. Si noti che $E(G) \subseteq V^2$.
+    Un grafo è una struttura matematica descritta da vertici, collegati da archi. Un grafo viene descritto formalmente come $G=(V, E)$, dove i $v \in V$ sono i \textit{vertici} del grafo, mentre gli $e \in E$ sono gli \textit{archi} (dall'inglese \textit{edges}). In particolare, $V(G)$ è l'insieme dei vertici di $G$, comunemente indicato con $n$, mentre $E(G)$ è l'insieme degli archi di $G$, comunemente indicato con $m$. Presi due vertici $v_1,v_2 \in V(G)$, allora $(v_1, v_2) \in E(G)$ è l'arco che li collega.
 \end{definition}
 
+\begin{remark}
+    $E(G) \subseteq V^2$.
+\end{remark}
+
 \begin{definition}[Vertici adiacenti]
-    $v_1, v_2 \in V(G)$ sono detti \textit{adiacenti} se $(v_1, v_2) \in E(G)$.
+    $v_1, v_2 \in V(G)$ sono detti \textit{adiacenti} se $(v_1, v_2) \in E(G)$; in tal caso, si usa la notazione $v_1 \sim v_2$.
 \end{definition}
 
 \begin{definition}[Grafo indiretto]
     Un grafo è detto \textit{indiretto} se gli archi non hanno direzione, o equivalentemente $$\forall v_1, v_2 \in V(G) \quad (v_1, v_2) = (v_2, v_1) \in E(G)$$
 \end{definition}
 
-\begin{figure}[h]
+\begin{figure}[!htbp]
     \centering
     \begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=3cm,thick,main node/.style={scale=0.6,circle,draw,font=\sffamily\normalsize}]
         \node[main node] (1) {1};
@@ -95,7 +100,7 @@ In particolare, in questo esempio si ha che $V(G) = \{1, 2, 3, 4, 5, 6\}$ e $E(G
     Un grafo è detto \textit{diretto} se gli archi hanno direzione, o equivalentemente $$\forall v_1, v_2 \in V(G) \quad (v_1, v_2) \neq (v_2, v_1) \in E(G)$$
 \end{definition}
 
-\begin{figure}[h]
+\begin{figure}[!htbp]
     \centering
     \begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=3cm,thick,main node/.style={scale=0.6,circle,draw,font=\sffamily\normalsize}]
         \node[main node] (1) {1};
@@ -137,7 +142,7 @@ In particolare, in questo esempio si ha che $V(G) = \{1, 2, 3, 4, 5, 6\}$ e $E(G
     Un arco con estremi coincidenti è detto \textit{cappio}.
 \end{definition}
 
-\begin{figure}[h]
+\begin{figure}[!htbp]
     \centering
     \begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=3cm,thick,main node/.style={scale=0.6,circle,draw,font=\sffamily\normalsize}]
         \node[main node] (1) {1};
@@ -158,15 +163,66 @@ In particolare, in questo esempio si ha che $V(G) = \{1, 2, 3, 4, 5, 6\}$ e $E(G
     Un grafo è detto \textit{semplice} se non contiene cappi, né lati multipli, ovvero più archi per due vertici.
 \end{definition}
 
-\begin{definition}[Cammino]
-    Un \textit{cammino} è una sequenza di vertici ed archi, della forma $v_0, e_1, v_1, e_2, \ldots , e_{n - 1}, v_{n - 1}, e_n, v_n$, dove $e_i=(v_{i - 1}, v_i)$.
+\section{Visite}
+
+\begin{definition}[Passeggiata]
+    Una \textit{passeggiata} è una sequenza di vertici ed archi, della forma $v_0, e_1, v_1, e_2, \ldots , e_{n - 1}, v_{n - 1}, e_n, v_n$, dove $e_i=(v_{i - 1}, v_i)$. È la visita di un grafo più generale, ed è possibile ripercorrere ogni arco ed ogni vertice.
 \end{definition}
+
+\begin{remark}
+    La lunghezza massima di una passeggiata su un grafo è infinita.
+\end{remark}
+
+\begin{definition}[Passeggiata chiusa]
+    Una passeggiata si dice \textit{chiusa} se è della forma $v_0, e_1, v_1, e_2, \ldots , e_{n - 1}, v_{n - 1}, e_n, v_0$, dunque il primo e l'ultimo vertice coincidono. 
+\end{definition}
+
+\begin{definition}[Traccia]
+    Una \textit{traccia} è una passeggiata aperta, in cui non è possibile ripercorrere gli archi, ma è possibile ripercorrere i vertici.
+\end{definition}
+
+\begin{figure}[!htbp]
+    \centering
+    \begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=3cm,thick,main node/.style={scale=0.6,circle,draw,font=\sffamily\normalsize}]
+        \node[main node] (1) {1};
+        \node[main node] (2) [below left of=1] {2};
+        \node[main node] (3) [below right of=2] {3};
+        \node[main node] (4) [below right of=1] {4};
+        \node[main node] (5) [above right of=4] {5};
+        \node[main node] (6) [below right of=4] {6};
+
+        \path[every node/.style={font=\sffamily\small}]
+            (2) edge (3)
+            (2) edge (4)
+            (3) edge (4)
+            (4) edge (1)
+            (4) edge (5)
+            (4) edge (6)
+            (5) edge (6)
+            ;
+    \end{tikzpicture}
+    \caption{Un grafo indiretto.}
+\end{figure}
+
+Ad esempio, in questo grafo si ha la traccia $$\{5, (5,4), 4, (4,3), 3, (3, 2), 2, (2,4), 4, (4, 6), 6\}$$
+
+\begin{definition}[Circuito]
+    Un \textit{circuito} è una traccia chiusa.
+\end{definition}
+
+\begin{definition}[Cammino]
+    Un \textit{cammino} è una traccia aperta, in cui non è possibile ripercurrere i vertici.
+\end{definition}
+
+\begin{remark}
+    In una passeggiata in cui non si ripercorrono i vertici, non è possibile ripercorrere gli archi
+\end{remark}
 
 \begin{definition}[Ciclo]
-    Un cammino è detto \textit{ciclo}, o \textit{circuito}, o \textit{cammino chiuso}, se è della forma $v_0, e_1, v_1, e_2, \ldots , e_{n - 1}, v_{n - 1}, e_n, v_0$, dunque il primo e l'ultimo vertice coincidono.
+    Un \textit{ciclo} è un cammino chiuso.
 \end{definition}
 
-\begin{figure}[h]
+\begin{figure}[!htbp]
     \centering
     \begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=3cm,thick,main node/.style={scale=0.6,circle,draw,font=\sffamily\normalsize}]
         \node[main node] (1) {1};
@@ -188,10 +244,10 @@ In particolare, in questo esempio si ha che $V(G) = \{1, 2, 3, 4, 5, 6\}$ e $E(G
 In particolare, in questo esempio si hanno tre cicli: $$\{2, (2, 4), 4, (4,3), 3, (3, 2), 2\}$$ $$\{2, (2, 4), 4, (4, 1), 1, (1, 2), 2\}$$ $$\{1, (1, 2), 2, (2, 3), 3, (3, 4), 4, (4, 1), 1\}$$
 
 \begin{definition}[Grafo connesso]
-    Un grafo è detto \textit{connesso} se per ogni $v_1, v_2 \in V(G)$ esiste un cammino che li collega.
+    Un grafo è detto \textit{connesso} se per ogni $v_1, v_2 \in V(G)$ esiste una passeggiata che li collega.
 \end{definition}
 
-\begin{figure}[h]
+\begin{figure}[!htbp]
     \centering
     \begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=3cm,thick,main node/.style={scale=0.6,circle,draw,font=\sffamily\normalsize}]
         \node[main node] (1) {1};
@@ -216,15 +272,17 @@ In particolare, in questo esempio si hanno tre cicli: $$\{2, (2, 4), 4, (4,3), 3
     \caption{Un grafo non connesso.}
 \end{figure}
 
-In particolare, in questo esempio non esiste un cammino che possa collegare $4$ e $5$, dunque il grafo non è connesso.
+In particolare, in questo esempio non esiste una passeggiata che possa collegare $4$ e $5$, dunque il grafo non è connesso.
 
-\begin{definition}[Cammino euleriano]
-    Un cammino si dice \textit{euleriano} se attraversa ogni vertice del grafo, senza ripetere nessun arco.
+\begin{definition}[Passeggiata euleriana]
+    Una passeggiata si dice \textit{euleriana} se attraversa ogni arco del grafo, senza ripercorrerne nessuno.
 \end{definition}
 
-\pagebreak
+\begin{remark}[Passeggiata euleriana]
+    Una passeggiata euleriana è una traccia passante per ogni arco del grafo.
+\end{remark}
 
-\begin{figure}[h]
+\begin{figure}[!htbp]
     \centering
     \begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=3cm,thick,main node/.style={scale=0.6,circle,draw,font=\sffamily\normalsize}]
         \node[main node] (1) {1};
@@ -239,14 +297,24 @@ In particolare, in questo esempio non esiste un cammino che possa collegare $4$ 
     \caption{Un grafo indiretto.}
 \end{figure}
 
-In particolare, in questo esempio si ha il cammino euleriano: $$\{1, (1,2), 2, (2,3), 3\}$$
+In particolare, in questo esempio si ha la passeggiata euleriana: $$\{1, (1,2), 2, (2,3), 3\}$$
 
 \begin{theorem}
     Dato un grafo $G$, esiste un circuito euleriano su $G$ se e solo se $G$ è connesso, e per ogni $v$, $\deg(v)$ è pari.
 \end{theorem}
 
 \begin{proof}
-    \textit{Prima implicazione.} Sia $G$ un grafo avente un circuito euleriano; per assurdo, sia $v \in V(G) \mid \deg(v)$ non sia pari. Allora, percorrendo $G$ secondo il circuito euleriano, giungendo a $v$ non si potrebbe più lasciare tale vertice senza riattraversare uno degli archi gia visitati. Inoltre, se $G$ non fosse connesso, non sarebbe possibile avere un ciclo che attraversi tutti i verticidi $G$. \textit{Seconda implicazione.} TODO
+    \textit{Prima implicazione.} Sia $G$ un grafo avente un circuito euleriano; per assurdo, sia $v \in V(G) \mid \deg(v)$ non sia pari. Allora, percorrendo $G$ secondo il circuito euleriano, giungendo a $v$ non si potrebbe più lasciare tale vertice senza riattraversare uno degli archi gia visitati. Inoltre, se $G$ non fosse connesso, il circuito non potrebbe essere euleriano poiché non potrebbe attraversare tutti gli archi di $G$. \textit{Seconda implicazione.} TODO
 \end{proof}
+
+\begin{definition}[Passeggiata hamiltoniana]
+    Una passeggiata si dice \textit{hamiltoniana} se TODO
+\end{definition}
+
+\section{Rappresentazione}
+
+\begin{definition}[Matrice di adiacenza]
+    Sia $G = (V, E)$ un grafo; allora, è possibile rappresentare $G$ attraverso una matrice $\mathcal{G} \in \textrm{Mat}_{n \times n}(\{0, 1\})$, dove $$\forall g_{i, j} \in \mathcal{G} \quad g_{i, j} = \left \{ \begin{array}{ll} 1 & i \sim j\\ 0 & i \nsim j \end{array} \right.$$
+\end{definition}
 
 \end{document}
