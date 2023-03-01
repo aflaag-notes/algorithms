@@ -32,7 +32,7 @@
     \centering
     \vspace*{1cm}
 
-    \textbf{\huge Algoritmi II}
+    \textbf{\huge Progettazione di Algoritmi}
 
     \vspace{1.5cm}
 
@@ -54,15 +54,20 @@
 \section{Grafi}
 
 \begin{definition}[Grafo]
-\
-    Un grafo è una struttura matematica descritta da vertici, collegati da archi. Un grafo viene descritto formalmente come $G=(V, E)$, dove $V$ sono i \textbf{vertici} del grafo, mentre $E$ sono gli \textbf{archi} (dall'inglese \textit{edges}). In particolare, $V(G)$ è l'insieme dei vertici di $G$, comunemente indicato con $n$, mentre $E(G)$ è l'insieme degli archi di $G$, comunemente indicato con $m$.
+    Un grafo è una struttura matematica descritta da vertici, collegati da archi. Un grafo viene descritto formalmente come $G=(V, E)$, dove $V$ sono i \textbf{vertici} del grafo, mentre $E$ sono gli \textbf{archi} (dall'inglese \textit{edges}). In particolare, $V(G)$ è l'insieme dei vertici di $G$, comunemente indicato con $n$, mentre $E(G)$ è l'insieme degli archi di $G$, comunemente indicato con $m$. Presi due vertici $v_1,v_2 \in V(G)$, allora $(v_1, v_2) \in E(G)$ è l'arco che li collega.
+\end{definition}
+
+\begin{definition}[Vertici adiacenti]
+    $v_1, v_2 \in V(G)$ sono detti \textit{adiacenti} se $(v_1, v_2) \in E(G)$.
+\end{definition}
+
+\begin{definition}[Grafo indiretto]
+    Un grafo è detto \textit{indiretto} se gli archi non hanno direzione, o equivalentemente $$\forall v_1, v_2 \in V(G) \quad (v_1, v_2) = (v_2, v_1) \in E(G)$$
 \end{definition}
 
 \begin{figure}[h]
     \centering
-    \begin{tikzpicture}
-        [-,>=stealth',shorten >=1pt,auto,node distance=3cm,thick,main node/.style={circle,draw,font=\sffamily\normalsize}]
-
+    \begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=3cm,thick,main node/.style={scale=0.6,circle,draw,font=\sffamily\normalsize}]
         \node[main node] (1) {1};
         \node[main node] (2) [below left of=1] {2};
         \node[main node] (3) [below right of=2] {3};
@@ -71,25 +76,59 @@
         \node[main node] (4) [below left of=5] {4};
 
         \path[every node/.style={font=\sffamily\small}]
-        (1) edge (2)
-        (2) edge (3)
-        (2) edge (4)
-        (3) edge (4)
-        (4) edge (1)
-        (5) edge (1)
-        (6) edge (3)
-        (6) edge (5)
-        ;
+            (1) edge (2)
+            (2) edge (3)
+            (2) edge (4)
+            (3) edge (4)
+            (4) edge (1)
+            (5) edge (1)
+            (6) edge (3)
+            (6) edge (5)
+            ;
     \end{tikzpicture}
-    \caption{Un grafo}
+    \caption{Un grafo indiretto.}
 \end{figure}
 
-\begin{lemma}[Cammini euleriani]
-    Cacca
-\end{lemma}
+In particolare, nell'esempio proposto si ha che $V(G) = \{1, 2, 3, 4, 5, 6\}$ e $E(G) = \{(1, 2), (1, 4), (1, 5) (2, 3), (2, 4), (3, 4), (3, 6), (5, 6)\}$
 
-\begin{proof}
-\end{proof}
+\begin{definition}[Grafo diretto]
+    Un grafo è detto \textit{diretto} se gli archi hanno direzione, o equivalentemente $$\forall v_1, v_2 \in V(G) \quad (v_1, v_2) \neq (v_2, v_1) \in E(G)$$
+\end{definition}
+
+\begin{figure}[h]
+    \centering
+    \begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=3cm,thick,main node/.style={scale=0.6,circle,draw,font=\sffamily\normalsize}]
+        \node[main node] (1) {1};
+        \node[main node] (2) [below left of=1] {2};
+        \node[main node] (3) [below right of=2] {3};
+        \node[main node] (6) [right of=1] {6};
+        \node[main node] (5) [below right of=6] {5};
+        \node[main node] (4) [below left of=5] {4};
+
+        \path[every node/.style={font=\sffamily\small}]
+            (1) edge (2)
+            (2) edge (3)
+            (2) edge (4)
+            (3) edge (4)
+            (4) edge (1)
+            (5) edge (1)
+            (6) edge (3)
+            (6) edge (5)
+            ;
+    \end{tikzpicture}
+    \caption{Un grafo diretto.}
+\end{figure}
+
+In particolare, nell'esempio proposto si ha che $V(G) = \{1, 2, 3, 4, 5, 6\}$ e $E(G) = \{(1, 2), (2, 3), (2, 4), (3, 4), (4, 1), (5, 1), (6, 3), (6, 5)\}$
+
+% \begin{definition}[Grado]
+
+% \begin{lemma}[Cammini euleriani]
+    % Cacca
+% \end{lemma}
+
+% \begin{proof}
+% \end{proof}
 
 \pagebreak
 
