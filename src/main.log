@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/Arch Linux) (preloaded format=pdflatex 2022.11.15)  1 MAR 2023 23:22
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/Arch Linux) (preloaded format=pdflatex 2022.11.15)  2 MAR 2023 10:44
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -511,115 +511,73 @@ Package cleveref Info: always capitalise cross-reference names on input line 785
 Package cleveref Info: include cross-reference names in hyperlinks on input line 7852.
 )
 Package hyperref Info: Option `colorlinks' set `true' on input line 20.
- (/usr/share/texmf-dist/tex/latex/floatrow/floatrow.sty
-Package: floatrow 2008/08/02 v0.3b floatrow: float package extension
- (/usr/share/texmf-dist/tex/latex/caption/caption3.sty
-Package: caption3 2022/03/17 v2.3b caption3 kernel (AR)
-\caption@tempdima=\dimen281
-\captionmargin=\dimen282
-\caption@leftmargin=\dimen283
-\caption@rightmargin=\dimen284
-\caption@width=\dimen285
-\caption@indent=\dimen286
-\caption@parindent=\dimen287
-\caption@hangindent=\dimen288
-Package caption Info: Standard document class detected.
-)
+ (/usr/share/texmf-dist/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \c@float@type=\count316
 \float@exts=\toks42
 \float@box=\box64
+\@float@everytoks=\toks43
 \@floatcapt=\box65
-Package floatrow Info: Modified float package code loaded on input line 455.
-Package floatrow Info: Modified rotfloat package code loaded on input line 473.
-\FR@everyfloat=\toks43
-\flrow@foot=\insert252
-\FB@wd=\dimen289
-\FBo@wd=\dimen290
-\FBc@wd=\dimen291
-\FBo@ht=\skip60
-\FBc@ht=\skip61
-\FBf@ht=\skip62
-\FBo@max=\skip63
-\FBc@max=\skip64
-\FBf@max=\skip65
-\c@FBl@b=\count317
-\floatbox@depth=\count318
-\c@FRobj=\count319
-\c@FRsobj=\count320
-\Xhsize=\skip66
-\sXhsize=\skip67
-\Zhsize=\skip68
-\sZhsize=\skip69
-\flrow@rowbox=\box66
-\FR@Zunitlength=\dimen292
-\c@FBcnt=\count321
-\FPOScnt=\count322
-\LTleft=\skip70
-\LTright=\skip71
-\LTleft=\skip72
-\LTright=\skip73
-\flrow@types=\toks44
 ) (/usr/share/texmf-dist/tex/latex/algorithm2e/algorithm2e.sty
 Package: algorithm2e 2017/07/18 v5.2 algorithms environments
-\c@AlgoLine=\count323
+\c@AlgoLine=\count317
  (/usr/share/texmf-dist/tex/latex/base/ifthen.sty
 Package: ifthen 2020/11/24 v1.1c Standard LaTeX ifthen package (DPC)
 )
-\algocf@hangindent=\skip74
+\algocf@hangindent=\skip60
  (/usr/share/texmf-dist/tex/latex/ifoddpage/ifoddpage.sty
 Package: ifoddpage 2016/04/23 v1.1 Conditionals for odd/even page detection
-\c@checkoddpage=\count324
+\c@checkoddpage=\count318
 ) (/usr/share/texmf-dist/tex/latex/tools/xspace.sty
 Package: xspace 2014/10/28 v1.13 Space after command names (DPC,MH)
 ) (/usr/share/texmf-dist/tex/latex/relsize/relsize.sty
 Package: relsize 2013/03/29 ver 4.1
 )
-\skiptotal=\skip75
-\skiplinenumber=\skip76
-\skiprule=\skip77
-\skiphlne=\skip78
-\skiptext=\skip79
-\skiplength=\skip80
-\algomargin=\skip81
-\skipalgocfslide=\skip82
-\algowidth=\dimen293
-\inoutsize=\dimen294
-\inoutindent=\dimen295
-\interspacetitleruled=\dimen296
-\interspacealgoruled=\dimen297
-\interspacetitleboxruled=\dimen298
-\algocf@ruledwidth=\skip83
-\algocf@inoutbox=\box67
-\algocf@inputbox=\box68
-\AlCapSkip=\skip84
-\AlCapHSkip=\skip85
-\algoskipindent=\skip86
-\algocf@nlbox=\box69
-\algocf@hangingbox=\box70
-\algocf@untilbox=\box71
-\algocf@skipuntil=\skip87
-\algocf@capbox=\box72
-\algocf@lcaptionbox=\skip88
-\algoheightruledefault=\skip89
-\algoheightrule=\skip90
-\algotitleheightruledefault=\skip91
-\algotitleheightrule=\skip92
-\c@algocfline=\count325
-\c@algocfproc=\count326
-\c@algocf=\count327
-\algocf@algoframe=\box73
-\algocf@algobox=\box74
+\skiptotal=\skip61
+\skiplinenumber=\skip62
+\skiprule=\skip63
+\skiphlne=\skip64
+\skiptext=\skip65
+\skiplength=\skip66
+\algomargin=\skip67
+\skipalgocfslide=\skip68
+\algowidth=\dimen281
+\inoutsize=\dimen282
+\inoutindent=\dimen283
+\interspacetitleruled=\dimen284
+\interspacealgoruled=\dimen285
+\interspacetitleboxruled=\dimen286
+\algocf@ruledwidth=\skip69
+\algocf@inoutbox=\box66
+\algocf@inputbox=\box67
+\AlCapSkip=\skip70
+\AlCapHSkip=\skip71
+\algoskipindent=\skip72
+\algocf@nlbox=\box68
+\algocf@hangingbox=\box69
+\algocf@untilbox=\box70
+\algocf@skipuntil=\skip73
+\algocf@capbox=\box71
+\algocf@lcaptionbox=\skip74
+\algoheightruledefault=\skip75
+\algoheightrule=\skip76
+\algotitleheightruledefault=\skip77
+\algotitleheightrule=\skip78
+\c@algocfline=\count319
+\c@algocfproc=\count320
+\c@algocf=\count321
+\algocf@algoframe=\box72
+\algocf@algobox=\box73
 )
-\c@theorem=\count328
-\c@corollary=\count329
-\c@definition=\count330
-\c@remark=\count331
-\c@example=\count332
-
-(/usr/share/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
+\c@theorem=\count322
+\c@corollary=\count323
+\c@definition=\count324
+\c@remark=\count325
+\c@example=\count326
+ (/usr/share/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2022-04-14 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count333
-\l__pdf_internal_box=\box75
+\l__color_backend_stack_int=\count327
+\l__pdf_internal_box=\box74
 ) (./main.aux)
 \openout1 = `main.aux'.
 
@@ -694,7 +652,7 @@ Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
 ) (/usr/share/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
-\c@section@level=\count334
+\c@section@level=\count328
 )
 LaTeX Info: Redefining \ref on input line 39.
 LaTeX Info: Redefining \pageref on input line 39.
@@ -705,26 +663,23 @@ LaTeX Info: Redefining \nameref on input line 39.
 
  (/usr/share/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count335
-\scratchdimen=\dimen299
-\scratchbox=\box76
-\nofMPsegments=\count336
-\nofMParguments=\count337
-\everyMPshowfont=\toks45
-\MPscratchCnt=\count338
-\MPscratchDim=\dimen300
-\MPnumerator=\count339
-\makeMPintoPDFobject=\count340
-\everyMPtoPDFconversion=\toks46
+\scratchcounter=\count329
+\scratchdimen=\dimen287
+\scratchbox=\box75
+\nofMPsegments=\count330
+\nofMParguments=\count331
+\everyMPshowfont=\toks44
+\MPscratchCnt=\count332
+\MPscratchDim=\dimen288
+\MPnumerator=\count333
+\makeMPintoPDFobject=\count334
+\everyMPtoPDFconversion=\toks45
 ) (/usr/share/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
  (/usr/share/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
-))
-Package caption Info: Begin \AtBeginDocument code.
-Package caption Info: End \AtBeginDocument code.
- [1
+)) [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] (./main.toc
 Package cleveref Info: loaded `italian' language definitions on input line 1.
@@ -751,26 +706,86 @@ l.59
 Capitolo 1.
 [2
 
-] [3] [4] [5] [6] [7] [8] (./main.aux
+] [3
+pdfTeX warning (ext4): destination with the same identifier (name{figure.1.1}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.181     \end{figure}
+                      
+pdfTeX warning (ext4): destination with the same identifier (name{figure.1.2}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.181     \end{figure}
+                      ] [4
+pdfTeX warning (ext4): destination with the same identifier (name{figure.1.3}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.231 
+      ] [5
+pdfTeX warning (ext4): destination with the same identifier (name{figure.1.4}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.307 
+      
+pdfTeX warning (ext4): destination with the same identifier (name{figure.1.5}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.307 
+      ] [6
+pdfTeX warning (ext4): destination with the same identifier (name{figure.1.6}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.362 
+      
+pdfTeX warning (ext4): destination with the same identifier (name{figure.1.7}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.362 
+      ] [7
+pdfTeX warning (ext4): destination with the same identifier (name{figure.1.8}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.392 \end{remark}
+                  ] [8] [9
+pdfTeX warning (ext4): destination with the same identifier (name{figure.1.9}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.476     L
+           'algoritmo inizia scegliendo un qualsiasi vertice di $G$, denotat...] [10
+pdfTeX warning (ext4): destination with the same identifier (name{algocf.1.3.1}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.481 \end{proof}
+                 ] [11
+pdfTeX warning (ext4): destination with the same identifier (name{figure.1.10}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.537 \end{document}
+                    ] [12
+pdfTeX warning (ext4): destination with the same identifier (name{algocf.1.3.2}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.537 \end{document}
+                    ] (./main.aux
 Package cleveref Info: loaded `italian' language definitions on input line 22.
 Package cleveref Info: loaded `italian' language definitions on input line 23.
 )
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: F5B6D5595D66CC8494865A0DE4C05C73;464.
+(rerunfilecheck)             Checksum: AB9A0B1DBEFA75292ADEDE2B270C8135;1018.
  ) 
 Here is how much of TeX's memory you used:
- 27270 strings out of 478238
- 512550 string characters out of 5850455
- 822967 words of memory out of 5000000
- 45036 multiletter control sequences out of 15000+600000
- 476096 words of font info for 54 fonts, out of 8000000 for 9000
+ 25998 strings out of 478238
+ 489032 string characters out of 5850455
+ 796018 words of memory out of 5000000
+ 43744 multiletter control sequences out of 15000+600000
+ 476403 words of font info for 55 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 84i,22n,89p,593b,1058s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 84i,22n,89p,1053b,1027s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on main.pdf (9 pages, 159246 bytes).
+Output written on main.pdf (13 pages, 169967 bytes).
 PDF statistics:
- 217 PDF objects out of 1000 (max. 8388607)
- 178 compressed objects within 2 object streams
- 73 named destinations out of 1000 (max. 500000)
- 53 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 276 PDF objects out of 1000 (max. 8388607)
+ 232 compressed objects within 3 object streams
+ 98 named destinations out of 1000 (max. 500000)
+ 85 words of extra memory for PDF output out of 10000 (max. 10000000)
 
