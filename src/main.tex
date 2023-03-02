@@ -19,6 +19,7 @@
 \usetikzlibrary{arrows}
 \usepackage[capitalize,nameinlink,italian]{cleveref}
 \usepackage{xcolor}
+\usepackage{enumerate}
 \hypersetup{colorlinks,linkcolor={red!50!black},citecolor={blue!50!black},urlcolor={blue!80!black}} % change the colors of cleveref
 \usepackage{float}
 \usepackage[linesnumbered,ruled,italiano]{algorithm2e}
@@ -78,6 +79,10 @@
 
 \begin{definition}[Vertici adiacenti]
     $v_1, v_2 \in V(G)$ sono detti \textit{adiacenti} se $(v_1, v_2) \in E(G)$; in tal caso, si usa la notazione $v_1 \sim v_2$.
+\end{definition}
+
+\begin{definition}[Sottografo]
+    Dato un grafo $G = (V, E)$, un sottografo $G'$ di $G$ è un grafo della forma $G' = (V', E'): \left \{ \begin{array}{l} V' \subseteq V \\ E' \subseteq E \end{array} \right.$. Si noti che $G$ è sottografo di sè stesso.
 \end{definition}
 
 \begin{definition}[Grafo indiretto]
@@ -152,10 +157,10 @@
     Il \textit{grado} di un vertice $v \in V(G)$ è il numero di archi incidenti su $v$, indicato con $\deg(v)$.
 \end{definition}
 
-\begin{theorem}[Somma dei gradi]
+\begin{lemma}[Somma dei gradi]
 \label{Somma dei gradi}
     Dato un grafo $G$, la somma dei gradi dei vertici è pari a $2 |E(G)|$.
-\end{theorem}
+\end{lemma}
 
 \begin{proof}
     Sia $G$ un grafo. Allora, ogni arco $e \in E(G)$ collega due vertici; allora necessariamente $\displaystyle \sum_{v \in V(G)}{\deg(v)} = 2 |E(G)|$.
@@ -369,11 +374,15 @@
 \end{example}
 
 \begin{theorem}
-    Dato un grafo $G$, esiste un circuito euleriano su $G$ se e solo se $G$ è connesso, e per ogni $v$, $\deg(v)$ è pari.
+    Dato un grafo $G$, esiste un circuito euleriano su $G$ se e solo se $G$ è connesso, ed ogni grado dei vertici di $G$ è pari.
 \end{theorem}
 
 \begin{proof}
-    \textit{Prima implicazione.} Sia $G$ un grafo avente un circuito euleriano; per assurdo, sia $v \in V(G) \mid \deg(v)$ non sia pari. Allora, percorrendo $G$ secondo il circuito euleriano, giungendo a $v$ non si potrebbe più lasciare tale vertice senza riattraversare uno degli archi gia visitati. Inoltre, se $G$ non fosse connesso, il circuito non potrebbe essere euleriano poiché non potrebbe attraversare tutti gli archi di $G$. \textit{Seconda implicazione.} TODO
+    \hspace{0.7cm}
+    \begin{itemize}
+        \item[] \textit{Prima implicazione.} Sia $G$ un grafo avente un circuito euleriano; per assurdo, sia $v \in V(G) : \deg(v)$ non sia pari. Allora, percorrendo $G$ secondo il circuito euleriano, giungendo a $v$ non si potrebbe più lasciare tale vertice senza riattraversare uno degli archi gia visitati. Inoltre, se $G$ non fosse connesso, il circuito non potrebbe essere euleriano poiché non potrebbe attraversare tutti gli archi di $G$.
+        \item[] \textit{Seconda implicazione.} TODO
+    \end{itemize}
 \end{proof}
 
 \begin{definition}[Passeggiata hamiltoniana]
@@ -506,7 +515,7 @@
                 (4) edge (1)
                 ;
         \end{tikzpicture}
-        \caption{Un grafo contenente un ciclo.}
+        \caption{Un grafo diretto contenente un ciclo.}
     \end{figure}
 
     in cui, ad esempio partendo da $v= 4$, l'unico ciclo è $$\{4, (4, 3), 3, (3, 2), 2, (2, 4), 4\}$$ nonostante al termine dell'algoritmo si avrebbe $\texttt{visited}=[1, 4, 3, 2, 4]$, che non costituisce un ciclo.
@@ -566,9 +575,18 @@
     Allora, il costo complessivo dell'algoritmo, indipendentemente dalla rappresentazione di $G$, è pari a $O(n) \cdot O(n) = O(n^2)$.
 \end{remark}
 
+\begin{remark}[Sottografo di un grafo indiretto]
+\label{Sottografo di un grafo indiretto}
+    Sia $G$ un grafo indiretto; considerando l'insieme di archi attraversati dall'algoritmo per trovare ogni vertice raggiungibile partendo da $v$, al termine della procedura si ottiene un sottografo indiretto di $G$ connesso ed aciclico: connesso, poiché l'algoritmo procede per adiacenza di vertici, ed aciclico, poiché l'algoritmo non visita lo stesso vertice più di una volta.
+\end{remark}
+
 \begin{remark}[Grafo diretto]
     Si noti che l'algoritmo è valido anche per grafi diretti.
 \end{remark}
+
+\begin{definition}[Arborescenza]
+    Sia $G$ un grafo diretto; considerando l'insieme di archi attraversati dall'algoritmo per trovare ogni vertice raggiungibile partendo da $v$, al termine della procedura si ottiene un sottografo diretto di $G$ connesso ed aciclico, per gli stessi motivi dell'\cref{Sottografo di un grafo indiretto}. Il grafo risultante prende il nome di \textit{arborescenza di $v$}, il quale prende il nome di \textit{radice}.
+\end{definition}
 
 \begin{algorithm}[H]
     \Input{$G$ grafo indiretto, rappresentato tramite liste di adiacenza}
@@ -615,5 +633,37 @@
 \begin{remark}[Grafo diretto]
     Per estendere questo algoritmo a grafi diretti, è necessario fornire in input un grafo rappresentato attraverso liste di adiacenza, le quali devono contenere esclusivamente i corrispondenti vertici entranti, per rimuovere i vertici adiacenti già attraversati.
 \end{remark}
+
+\begin{definition}[Tempo di visita e di chiusura]
+    All'interno degli algoritmi che visitano grafi secondo DFS, è possibile introdurre un \texttt{counter} inizializzato ad $1$, ed incrementato ogni volta che viene attraversato un \textit{nuovo} vertice.
+
+    Allora, per ogni vertice $v$ del grafo diretto in input, si definiscono $t(v)$, detto \textit{tempo di visita di $v$}, pari al valore del \texttt{counter} la prima volta che $v$ viene visitato, e $T(v)$, detto \textit{tempo di chiusura di $v$}, pari al valore del \texttt{counter} nel momento in cui $v$ viene rimosso dallo stack.
+
+    Inoltre, si definisce $\mathrm{Int}(v) := [t(v), T(v)]$.
+\end{definition}
+
+\begin{remark}[Intervalli delle foglie]
+    Si noti che per ogni foglia $v$ del grafo, ovvero i vertici per i quali non è più possibile scendere di profondità, si ha $t(v) = T(v)$, per definizione stessa dei tempi.
+\end{remark}
+
+\begin{lemma}[Proprietà degli intervalli]
+    Sia $G$ un grafo diretto, e $u, v \in V(G)$; allora solo una delle seguenti proposizioni è vera:
+    \begin{enumerate}[i)]
+        \item $\mathrm{Int}(u) \subseteq \mathrm{Int}(v)$
+        \item $\mathrm{Int}(v) \subseteq \mathrm{Int}(u)$
+        \item $\mathrm{Int}(u) \cap \mathrm{Int}(v) = \varnothing$
+    \end{enumerate}
+    
+    Dunque, gli intervalli o sono l'uno interamente contenuto nell'altro, o non si intersecano.
+\end{lemma}
+
+\begin{proof}
+    La tesi equivale a dimostrare che non può verificarsi il caso in cui c'è intersezione non vuota tra i due intervalli, ovvero $t(u) < t(v) < T(u) < T(v)$, allora:
+
+    \begin{itemize}
+        \item $t(u) < t(v) \implies u$ inserito nello stack prima di $v$
+        \item $t(v) < T(u) \implies$ TODO
+    \end{itemize}
+\end{proof}
 
 \end{document}
