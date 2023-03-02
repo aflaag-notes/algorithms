@@ -1,5 +1,7 @@
 % === BEGIN TEMPLATE ===
 
+% !!!THE ORDER MATTERS, DON'T CHANGE THE ORDER OF PACKAGES!!!
+
 \documentclass[14pt]{extreport}
 
 % misc
@@ -17,24 +19,25 @@
 \usetikzlibrary{arrows}
 \usepackage[capitalize,nameinlink,italian]{cleveref}
 \usepackage{xcolor}
-\hypersetup{colorlinks,linkcolor={red!50!black},citecolor={blue!50!black},urlcolor={blue!80!black}}
+\hypersetup{colorlinks,linkcolor={red!50!black},citecolor={blue!50!black},urlcolor={blue!80!black}} % change the colors of cleveref
 \usepackage{float}
-\usepackage[linesnumbered,ruled,italiano,algosection]{algorithm2e}
-\SetKwInOut{Input}{Input}
-\SetKwInOut{Output}{Output}
-\DontPrintSemicolon
-\SetArgSty{textnormal}
-\SetKwProg{Fn}{Function}{}{end}
+\usepackage[linesnumbered,ruled,italiano]{algorithm2e}
+\numberwithin{algocf}{subsection} % algorithms numbered within subsections
+\SetKwInOut{Input}{Input} % keyword for algorithms
+\SetKwInOut{Output}{Output} % keyword for algorithms
+\DontPrintSemicolon % don't print semicolon at the end of every line in algorithms
+\SetArgSty{textnormal} % don't use italics font inside conditions
+\SetKwProg{Fn}{Function}{}{end} % keyword for function definition in algorithms
 
 % theorems
-\newtheorem{theorem}{Teorema}[section]
-\newtheorem{corollary}{Corollario}[theorem]
-\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{theorem}{Teorema}[subsection]
+\newtheorem{corollary}{Corollario}[subsection]
+\newtheorem{lemma}{Lemma}[subsection]
 \theoremstyle{definition}
-\newtheorem{definition}{Definizione}[section]
+\newtheorem{definition}{Definizione}[subsection]
 \theoremstyle{definition}
-\newtheorem{remark}{Osservazione}[section]
-\newtheorem{example}{Esempio}[section]
+\newtheorem{remark}{Osservazione}[subsection]
+\newtheorem{example}{Esempio}[subsection]
 
 \begin{document}
 
@@ -62,6 +65,8 @@
 \chapter{Grafi}
 
 \section{Grafi}
+
+\subsection{Definizioni}
 
 \begin{definition}[Grafo]
     Un grafo è una struttura matematica descritta da vertici, collegati da archi. Un grafo viene descritto formalmente come $G=(V, E)$, dove i $v \in V$ sono i \textit{vertici} del grafo, mentre gli $e \in E$ sono gli \textit{archi} (dall'inglese \textit{edges}). In particolare, $V(G)$ è l'insieme dei vertici di $G$, comunemente indicato con $n$, mentre $E(G)$ è l'insieme degli archi di $G$, comunemente indicato con $m$. Presi due vertici $v_1,v_2 \in V(G)$, allora $(v_1, v_2) \in E(G)$ è l'arco che li collega.
@@ -512,26 +517,69 @@
     Allora, tramite matrice l'algoritmo ha costo $O(n) \cdot O(n) = O(n^2)$, mentre tramite liste si ha $O(1) \cdot O(n) = O(n)$.
 \end{remark}
 
-\subsection{DFS}
+\subsection{DFS (Depth-First Search)}
 
 \begin{algorithm}[H]
-    \Input{$G$ grafo indiretto, tale che $\forall v \in V(G) \quad \deg(v) \ge 2$}
-    \Output{Un ciclo di $G$}
+    \Input{$G$ grafo indiretto}
+    \Output{$v$ un vertice di $G$}
 
-    \SetKwFunction{findCycle}{findCycle}
+    \SetKwFunction{DFSFirst}{DFS$_1$}
     
-    \Fn{\findCycle{$G$}}{
-        $v \in V(G)$ \tcp*{un vertice qualsiasi di $G$}
-        $\texttt{visited} := [v]$ \tcp*{conterrà i vertici visitati}
-        $v' \in V(G) : v \sim v'$\\
-        \While{$v' \notin \texttt{visited}$}{
-            $\texttt{visited.add}(v')$\\
-            $v' := v'' \in V(G) : \left \{ \begin{array}{l}v' \sim v'' \\ v'' \neq\texttt{visited}[\texttt{visited.length} - 2] \end{array} \right.$
+    \Fn{\DFSFirst{$G$, v}}{
+        $\texttt{visited}:=[0] * n$ \tcp*{array di $n$ zeri}
+        $\texttt{visited}[v] = 1$\\
+        $\texttt{Stack S}=[v]$\\
+        \While{$!\texttt{S.isEmpty()}$}{
+            $v_{top}=\texttt{S.top()}$\\
+            \eIf{$\exists z \in V(G) : \left \{ \begin{array}{l}z \sim v_{top} \\ \texttt{visited}[z]=0 \end{array} \right.$}
+                {
+                    $\texttt{S.push(z)}$\\
+                    $\texttt{visited}[z] = 1$
+                }
+                {
+                    $\texttt{S.pop()}$\\
+                }
         }
-        \Return $\texttt{visited}[\texttt{visited.indexOf}(v') \texttt{:} \texttt{visited.length}]$
+        \Return \texttt{visited}
     }
 
-    \caption{Dato un grafo indiretto $G$, con ogni vertice avente grado almeno pari a $2$, l'algoritmo restiuisce un ciclo di $G$.}
+    \caption{Prima versione del DFS; dato un grafo indiretto $G$, e un vertice $v$ di esso, l'algoritmo restituisce tutti i vertici raggiungibili attraverso un cammino, partendo da $v$.}
+\end{algorithm}
+
+\begin{proof}
+    TODO
+\end{proof}
+
+\begin{remark}[Costo dell'algoritmo]
+    TODO
+\end{remark}
+
+\begin{algorithm}[H]
+    \Input{$G$ grafo indiretto}
+    \Output{$v$ un vertice di $G$}
+
+    \SetKwFunction{DFSSecond}{DFS$_2$}
+    
+    \Fn{\DFSSecond{$G$, v}}{
+        TODO
+        % $\texttt{visited}:=[0] * n$ \tcp*{array di $n$ zeri}
+        % $\texttt{visited}[v] = 1$\\
+        % $\texttt{Stack S}=[v]$\\
+        % \While{$!\texttt{S.isEmpty()}$}{
+        %     $v_{top}=\texttt{S.top()}$\\
+        %     \eIf{$\exists z \in V(G) : \left \{ \begin{array}{l}z \sim v_{top} \\ \texttt{visited}[z]=0 \end{array} \right.$}
+        %         {
+        %             $\texttt{S.push(z)}$\\
+        %             $\texttt{visited}[z] = 1$
+        %         }
+        %         {
+        %             $\texttt{S.pop()}$\\
+        %         }
+        % }
+        % \Return \texttt{visited}
+    }
+
+    \caption{Seconda versione del DFS; dato un grafo indiretto $G$, e un vertice $v$ di esso, l'algoritmo restituisce tutti i vertici raggiungibili attraverso un cammino, partendo da $v$.}
 \end{algorithm}
 
 \end{document}
