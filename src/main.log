@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/Arch Linux) (preloaded format=pdflatex 2022.11.15)  2 MAR 2023 11:32
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/Arch Linux) (preloaded format=pdflatex 2022.11.15)  2 MAR 2023 23:00
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -751,28 +751,28 @@ l.397 \end{remark}
 pdfTeX warning (ext4): destination with the same identifier (name{figure.1.9}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.481     L
+l.485     L
            'algoritmo inizia scegliendo un qualsiasi vertice di $G$, denotat...] [10
 pdfTeX warning (ext4): destination with the same identifier (name{algocf.1.3.1.1}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.486 \end{proof}
+l.490 \end{proof}
                  ] [11
 pdfTeX warning (ext4): destination with the same identifier (name{figure.1.10}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.550     T
-           ODO] [12
+l.528 \end{definition}
+                      ] [12
 pdfTeX warning (ext4): destination with the same identifier (name{algocf.1.3.2.1}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.585 \end{document}
-                    
+l.565 
+      ] [13
 pdfTeX warning (ext4): destination with the same identifier (name{algocf.1.3.2.2}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.585 \end{document}
-                    ] (./main.aux
+l.607 
+      ] [14] (./main.aux
 Package cleveref Info: loaded `italian' language definitions on input line 22.
 Package cleveref Info: loaded `italian' language definitions on input line 23.
 )
@@ -780,18 +780,18 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: 22574E16D999BF27960955806E6968A9;1252.
  ) 
 Here is how much of TeX's memory you used:
- 26019 strings out of 478238
- 489353 string characters out of 5850455
+ 26044 strings out of 478238
+ 489688 string characters out of 5850455
  796062 words of memory out of 5000000
  43753 multiletter control sequences out of 15000+600000
  476403 words of font info for 55 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 84i,22n,89p,1053b,1027s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 84i,23n,89p,1053b,1027s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on main.pdf (13 pages, 174096 bytes).
+Output written on main.pdf (15 pages, 182273 bytes).
 PDF statistics:
- 295 PDF objects out of 1000 (max. 8388607)
- 251 compressed objects within 3 object streams
- 110 named destinations out of 1000 (max. 500000)
+ 331 PDF objects out of 1000 (max. 8388607)
+ 285 compressed objects within 3 object streams
+ 135 named destinations out of 1000 (max. 500000)
  93 words of extra memory for PDF output out of 10000 (max. 10000000)
 

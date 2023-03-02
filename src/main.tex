@@ -393,7 +393,7 @@
 \end{remark}
 
 \begin{remark}[Aggiornamento di una matrice]
-    Per ogni grafo $G$, si ha che $M_G$ è simmetrica; di conseguenza, il costo per aggiornare una matrice di adiacenza è $2 O(1)= O(2) = O(1)$, poiché per $v_i, v_j \in V(G)$ non coincidenti, sarà necessario aggiornare $M_G[i, j]$ e $M_G[j, i]$.
+    Per ogni grafo $G$ indiretto, si ha che $M_G$ è simmetrica; di conseguenza, il costo per aggiornare la corrispondente matrice di adiacenza è $2 O(1)= O(2) = O(1)$, poiché per $v_i, v_j \in V(G)$ non coincidenti, sarà necessario aggiornare $M_G[i, j]$ e $M_G[j, i]$.
 \end{remark}
 
 \begin{remark}[Controllo di adiacenza]
@@ -407,11 +407,15 @@
 \end{definition}
 
 \begin{remark}[Spazio delle liste]
-    Dato un certo $v \in V(G)$, la lista di adiacenza corrispondente ha lunghezza$\deg(v)$; allora, il numero di elementi nelle liste di adiacenza, per il \cref{Somma dei gradi}, è pari a $\displaystyle O \left(\sum_{v \in V(G)}{\deg(v)}\right) = O\left( 2 |E(G)| \right)=O(2m) = O(m)$. Si noti inoltre che, per un grafo con pochi archi, nonostante si abbiano le liste poco riempite, è comunque necessario salvare i puntatori a tali liste, e dunque è necessario introdurre un $O(n)$ nel costo totale dello spazio, ottenendo allora $O(n) + O(m) = O(n + m)$.
+    Dato un certo $v \in V(G)$, la lista di adiacenza corrispondente ha lunghezza $\deg(v)$; allora, il numero di elementi nelle liste di adiacenza, per il \cref{Somma dei gradi}, è pari a $\displaystyle O \left(\sum_{v \in V(G)}{\deg(v)}\right) = O\left( 2 |E(G)| \right)=O(2m) = O(m)$. Si noti inoltre che, per un grafo con pochi archi, nonostante si abbiano le liste poco riempite, è comunque necessario salvare i puntatori a tali liste, e dunque è necessario introdurre un $O(n)$ nel costo totale dello spazio, ottenendo allora $O(n) + O(m) = O(n + m)$.
 \end{remark}
 
 \begin{remark}[Controllo di adiacenza]
     Nel caso peggiore, il grafo rappresentato da liste di adiacenza sarà composto da una sola lista per un certo $v \in V(G)$, contenente ogni altro vertice del grafo $\hat{v} \in V(G) - \{v\}$, e la lunghezza della lista di adiacenza di $v$ sarà $n - 1$. Di conseguenza, il costo per controllare se due vertici sono adiacenti, utilizzando tale rappresentazione, è $O(n)$.
+\end{remark}
+
+\begin{remark}[Grafo diretto]
+    Si noti che per grafi diretti è necessario effettuare una scelta di rappresentazione: all'interno delle liste è possibile salvare i vertici entranti, i vertici uscenti, o entrambi (assegnando due liste ad ogni vertice).
 \end{remark}
 
 \begin{example}[Rappresentazione di un grafo]
@@ -465,13 +469,13 @@
     
     \Fn{\findCycle{$G$}}{
         $v \in V(G)$ \tcp*{un vertice qualsiasi di $G$}
-        $\texttt{visited} := [v]$ \tcp*{conterrà i vertici visitati}
+        $\texttt{visited} := \texttt{[}v\texttt{]}$ \tcp*{conterrà i vertici visitati}
         $v' \in V(G) : v \sim v'$\\
         \While{$v' \notin \texttt{visited}$}{
-            $\texttt{visited.add}(v')$\\
-            $v' := v'' \in V(G) : \left \{ \begin{array}{l}v' \sim v'' \\ v'' \neq\texttt{visited}[\texttt{visited.length} - 2] \end{array} \right.$
+            $\texttt{visited.add(}v'\texttt{)}$\\
+            $v' := v'' \in V(G) : \left \{ \begin{array}{l}v' \sim v'' \\ v'' \neq \texttt{visited[visited.length()} - 2\texttt{]} \end{array} \right.$
         }
-        \Return $\texttt{visited}[\texttt{visited.indexOf}(v') \texttt{:} \texttt{visited.length}]$
+        \Return $\texttt{visited[visited.indexOf(}v'\texttt{)} \texttt{:} \texttt{visited.length()]}$
     }
 
     \caption{Dato un grafo indiretto $G$, con ogni vertice avente grado almeno pari a $2$, l'algoritmo restiuisce un ciclo di $G$.}
@@ -519,22 +523,26 @@
 
 \subsection{DFS (Depth-First Search)}
 
+\begin{definition}[DFS]
+    Con DFS si indica il criterio di visita di un grafo; in particolare, DFS sta per \textit{Depth-First Search}, dunque la visita del grafo avviene procendendo sempre più in profondità, retrocedendo esclusivamente se non è più possibile avanzare.
+\end{definition}
+
 \begin{algorithm}[H]
     \Input{$G$ grafo indiretto}
     \Output{$v$ un vertice di $G$}
 
-    \SetKwFunction{DFSFirst}{DFS$_1$}
+    \SetKwFunction{findReachableNodes}{findReachableNodes$_1$}
     
-    \Fn{\DFSFirst{$G$, v}}{
-        $\texttt{visited}:=[0] * n$ \tcp*{array di $n$ zeri}
-        $\texttt{visited}[v] = 1$\\
-        $\texttt{Stack S}=[v]$\\
+    \Fn{\findReachableNodes{$G$, v}}{
+        $\texttt{visited}:=\texttt{[}0\texttt{]} * n$ \tcp*{array di $n$ zeri}
+        $\texttt{visited[}v\texttt{]} = 1$\\
+        $\texttt{Stack S}:=\texttt{[}v\texttt{]}$\\
         \While{$!\texttt{S.isEmpty()}$}{
             $v_{top}=\texttt{S.top()}$\\
-            \eIf{$\exists z \in V(G) : \left \{ \begin{array}{l}z \sim v_{top} \\ \texttt{visited}[z]=0 \end{array} \right.$}
+            \eIf{$\exists z \in V(G) : \left \{ \begin{array}{l}z \sim v_{top} \\ \texttt{visited[}z\texttt{]}=0 \end{array} \right.$}
                 {
-                    $\texttt{S.push(z)}$\\
-                    $\texttt{visited}[z] = 1$
+                    $\texttt{S.push(}z\texttt{)}$\\
+                    $\texttt{visited[}z\texttt{]} = 1$
                 }
                 {
                     $\texttt{S.pop()}$\\
@@ -543,43 +551,69 @@
         \Return \texttt{visited}
     }
 
-    \caption{Prima versione del DFS; dato un grafo indiretto $G$, e un vertice $v$ di esso, l'algoritmo restituisce tutti i vertici raggiungibili attraverso un cammino, partendo da $v$.}
+    \caption{Prima versione dell'algoritmo; dato un grafo indiretto $G$, e un suo vertice $v$, l'algoritmo restituisce tutti i vertici, raggiungibili attraverso cammini, partendo da $v$.}
 \end{algorithm}
 
 \begin{proof}
-    TODO
+    Per assurdo, sia $\hat v \in V(G)$, raggiungibile da $v$ attraverso cammino, che non sia stato raggiunto dall'algoritmo; allora, per definizione esiste un cammino $v, e_1, v_1, \ldots, v_{n - 1}, v_n, \hat v$; TODO
 \end{proof}
 
 \begin{remark}[Costo dell'algoritmo]
-    TODO
+    Si consideri $G$ rappresentato attraverso matrice di adiacenza; allora, il costo della riga $7$, nel caso peggiore, è $O(n)$, poiché è necessario controllare tutta la riga/colonna di $v_{top}$ per trovare un vertice $z$ tale che $\texttt{visited}[z] = 0$, dunque non sia stato ancora visitato. Per ragione analoga, rappresentando $G$ attraverso liste di adiacenza, nel caso peggiore si ha una sola lista corrispondente ad un singolo vertice di $G$, e sarà dunque necessario effettuare $O(n - 1) = O(n)$ controlli.
+
+    Inoltre, si noti che il caso peggiore dell'algoritmo si ha quando $v$ può raggiungere ogni altro nodo di $G$, e dunque il ciclo \texttt{while} sarà ripetuto $O(2n - 1) = O(2n) = O(n)$ volte, poiché ogni vertice verrà inserito e rimosso dallo stack, eccetto il primo, inserito alla riga $4$.
+
+    Allora, il costo complessivo dell'algoritmo, indipendentemente dalla rappresentazione di $G$, è pari a $O(n) \cdot O(n) = O(n^2)$.
+\end{remark}
+
+\begin{remark}[Grafo diretto]
+    Si noti che l'algoritmo è valido anche per grafi diretti.
 \end{remark}
 
 \begin{algorithm}[H]
-    \Input{$G$ grafo indiretto}
+    \Input{$G$ grafo indiretto, rappresentato tramite liste di adiacenza}
     \Output{$v$ un vertice di $G$}
 
-    \SetKwFunction{DFSSecond}{DFS$_2$}
+    \SetKwFunction{findReachableNodes}{findReachableNodes$_2$}
     
-    \Fn{\DFSSecond{$G$, v}}{
-        TODO
-        % $\texttt{visited}:=[0] * n$ \tcp*{array di $n$ zeri}
-        % $\texttt{visited}[v] = 1$\\
-        % $\texttt{Stack S}=[v]$\\
-        % \While{$!\texttt{S.isEmpty()}$}{
-        %     $v_{top}=\texttt{S.top()}$\\
-        %     \eIf{$\exists z \in V(G) : \left \{ \begin{array}{l}z \sim v_{top} \\ \texttt{visited}[z]=0 \end{array} \right.$}
-        %         {
-        %             $\texttt{S.push(z)}$\\
-        %             $\texttt{visited}[z] = 1$
-        %         }
-        %         {
-        %             $\texttt{S.pop()}$\\
-        %         }
-        % }
-        % \Return \texttt{visited}
+    \Fn{\findReachableNodes{$G$, v}}{
+        $\texttt{visited} := \texttt{[}v\texttt{]}$\\
+        $\texttt{Stack S} := \texttt{[}v\texttt{]}$\\
+        \While{$!\texttt{S.isEmpty()}$}{
+            $v_{top}=\texttt{S.top()}$\\
+            \While{$!v_{top}\texttt{.adjacent().isEmpty()}$}{
+                $z := v_{top}\texttt{.adjacent()[}0\texttt{]}$\\
+                $v_{top}\texttt{.adjacent().remove(}0\texttt{)}$ \tcp*{fa la differenza}
+                \If{$z \notin \texttt{visited}$}
+                    {
+                        $\texttt{visited.add(}z\texttt{)}$\\
+                        $\texttt{S.push(}z\texttt{)}$\\
+                        \textbf{break}
+                    }
+            }
+            \If{$v_{top}\texttt{ == S.top()}$}
+                {
+                    \texttt{S.pop()}
+                }
+        }
+        \Return \texttt{visited}
     }
 
-    \caption{Seconda versione del DFS; dato un grafo indiretto $G$, e un vertice $v$ di esso, l'algoritmo restituisce tutti i vertici raggiungibili attraverso un cammino, partendo da $v$.}
+    \caption{Seconda versione dell'algoritmo; dato un grafo indiretto $G$, rappresentato tramite liste di adiacenza, e un suo vertice $v$, l'algoritmo restituisce tutti i vertici, raggiungibili attraverso cammini, partendo da $v$.}
 \end{algorithm}
+
+\begin{remark}(Differenze con la prima versione)
+    Questa seconda versione dell'algoritmo presenta una miglioria sostanziale alla riga $8$: infatti, attraverso questa riga si rimuovono di volta in volta i vertici adiacenti appena già visitati; di conseguenza, i vertici adiacenti da controllare saranno progressivamente sempre meno. Infatti, si noti che senza la riga $8$, l'algoritmo si comporterebbe come la prima versione.
+
+    Il \texttt{break} alla riga $12$ interrompe il ciclo \texttt{while} della riga $6$, facendo sì che $v_{top}$ della riga $5$, all'iterazione successiva del \texttt{while} della riga $4$, sia pari a $z$, dunque cambiando il vertice correntemente in esame. Di conseguenza, alla riga $15$ il controllo sarà valutato a \texttt{true} esclusivamente se non è mai stata eseguita la riga $11$ per tutta l'iterazione del ciclo \texttt{while} della riga $6$, ovvero quando tutti i vertici adiacenti a $v_{top}$ sono già stati visitati.
+\end{remark}
+
+\begin{remark}[Costo dell'algoritmo]
+    Si noti che, analogamente alla versione precedente, il ciclo \texttt{while} della riga $4$ ha costo $O(n)$, poiché nel caso peggiore è necessario inserire e rimuovere dallo stack $2n - 1$ volte i vertici di $G$. Ma, differentemente al primo algoritmo, il \texttt{while} della riga $6$ controllerà l'adiacenza di ogni vertice una sola volta, di conseguenza il costo complessivo dell'algoritmo dipende esclusivamente dalla dimensione delle liste di adiacenza, che per il \cref{Somma dei gradi} avrà dimensione $O(m)$. Allora, il costo complessivo equivale al maggiore tra $n$ ed $m$, e dunque è pari a $O(n) + O(m) = O(n + m)$.
+\end{remark}
+
+\begin{remark}[Grafo diretto]
+    Per estendere questo algoritmo a grafi diretti, è necessario fornire in input un grafo rappresentato attraverso liste di adiacenza, le quali devono contenere esclusivamente i corrispondenti vertici entranti, per rimuovere i vertici adiacenti già attraversati.
+\end{remark}
 
 \end{document}
