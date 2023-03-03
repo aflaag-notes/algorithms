@@ -320,6 +320,18 @@
     ad esempio, uno di questi è $\{2, 3, 1, 4, 5, 7, 6\}$.
 \end{example}
 
+\begin{theorem}[Ordinamento topologico]
+    Un grafo $G$ ha un ordinamento topologico se e solo se è diretto aciclico.
+\end{theorem}
+
+\begin{proof}
+    \hspace{0.7cm}
+    \begin{itemize}
+        \item[] \textit{Prima implicazione.} TODO
+        \item[] \textit{Seconda implicazione.} TODO
+    \end{itemize}
+\end{proof}
+
 \begin{definition}[Arborescenza]
     Sia $G$ un grafo diretto, e $v$ un suo vertice; l'insieme degli archi raggiungibili da $v$ formano l'\textit{arborescenza di $v$}, e $v$ prende il nome di \textit{radice}. Si noti che, spesso, il sottografo generato dall'arborescenza di $v$ si identifica con l'arborescenza stessa.
 \end{definition}
@@ -561,8 +573,8 @@
 \subsection{Trovare un ciclo}
 
 \begin{algorithm}[H]
-    \Input{$G$ grafo indiretto, tale che $\forall v \in V(G) \quad \deg(v) \ge 2$}
-    \Output{Un ciclo di $G$}
+    \Input{$G$ grafo indiretto, tale che $\forall v \in V(G) \quad \deg(v) \ge 2$.}
+    \Output{un ciclo di $G$.}
 
     \SetKwFunction{findCycle}{findCycle}
     
@@ -627,8 +639,8 @@
 \end{definition}
 
 \begin{algorithm}[H]
-    \Input{$G$ grafo indiretto}
-    \Output{$v$ un vertice di $G$}
+    \Input{$G$ grafo indiretto; $v$ un vertice di $G$.}
+    \Output{i vertici raggiungibili da $v$.}
 
     \SetKwFunction{findReachableNodes}{findReachableNodes$_1$}
     
@@ -679,8 +691,8 @@
 \end{remark}
 
 \begin{algorithm}[H]
-    \Input{$G$ grafo indiretto, rappresentato tramite liste di adiacenza}
-    \Output{$v$ un vertice di $G$}
+    \Input{$G$ grafo indiretto, rappresentato tramite liste di adiacenza; $v$ un vertice di $G$.}
+    \Output{i vertici raggiungibili da $v$.}
 
     \SetKwFunction{findReachableNodes}{findReachableNodes$_2$}
     
@@ -721,7 +733,33 @@
 \end{remark}
 
 \begin{remark}[Grafo diretto]
+    TODO
     Per estendere questo algoritmo a grafi diretti, è necessario fornire in input un grafo rappresentato attraverso liste di adiacenza, le quali devono contenere esclusivamente i corrispondenti vertici entranti, per rimuovere i vertici adiacenti già attraversati.
+\end{remark}
+
+\subsection{Trovare un ordinamento topologico}
+
+\begin{algorithm}[H]
+    \Input{$G$ grafo diretto aciclico.}
+    \Output{un ordinamento topologico di $G$.}
+
+    \SetKwFunction{findTopologicalOrder}{findTopologicalOrder}
+    
+    \Fn{\findTopologicalOrder{$G$, v}}{
+        $\texttt{order} := \texttt{[}v\texttt{]}$\\
+        \While{$V(G) \neq 0$}{
+            $v \in V(G) : v.\texttt{incoming\_adjacent().length()} = 0$\\
+            $\texttt{order.add(}v\texttt{)}$\\
+            $V(G)\texttt{.remove(}v\texttt{)}$
+        }
+        \Return \texttt{order}
+    }
+
+    \caption{Dato un grafo diretto aciclico $G$, l'algoritmo restituisce un suo ordinamento topologico.}
+\end{algorithm}
+
+\begin{remark}
+    TODO
 \end{remark}
 
 \subsection{TODO}
