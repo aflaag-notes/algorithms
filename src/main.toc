@@ -1,13 +1,13 @@
 \babel@toc {italian}{}\relax 
 \babel@toc {italian}{}\relax 
-\contentsline {chapter}{\numberline {1}Grafi}{2}{chapter.1}%
+\contentsline {chapter}{\numberline {1}Teoria dei Grafi}{2}{chapter.1}%
 \contentsline {section}{\numberline {1.1}Grafi}{2}{section.1.1}%
 \contentsline {subsection}{\numberline {1.1.1}Definizioni}{2}{subsection.1.1.1}%
 \contentsline {subsection}{\numberline {1.1.2}Visite}{4}{subsection.1.1.2}%
 \contentsline {section}{\numberline {1.2}Rappresentazione}{8}{section.1.2}%
 \contentsline {subsection}{\numberline {1.2.1}Matrici di adiacenza}{8}{subsection.1.2.1}%
-\contentsline {subsection}{\numberline {1.2.2}Liste di adiacenza}{8}{subsection.1.2.2}%
-\contentsline {section}{\numberline {1.3}Algoritmi}{10}{section.1.3}%
-\contentsline {subsection}{\numberline {1.3.1}Trovare un ciclo}{10}{subsection.1.3.1}%
-\contentsline {subsection}{\numberline {1.3.2}DFS (Depth-First Search)}{12}{subsection.1.3.2}%
+\contentsline {subsection}{\numberline {1.2.2}Liste di adiacenza}{9}{subsection.1.2.2}%
+\contentsline {section}{\numberline {1.3}Algoritmi}{11}{section.1.3}%
+\contentsline {subsection}{\numberline {1.3.1}Trovare un ciclo}{11}{subsection.1.3.1}%
+\contentsline {subsection}{\numberline {1.3.2}DFS (Depth-First Search)}{13}{subsection.1.3.2}%
 \contentsline {subsection}{\numberline {1.3.3}TODO}{16}{subsection.1.3.3}%

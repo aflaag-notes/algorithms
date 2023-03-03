@@ -65,7 +65,7 @@
 
 % === END TEMPLATE ===
 
-\chapter{Grafi}
+\chapter{Teoria dei Grafi}
 
 \section{Grafi}
 
@@ -290,7 +290,7 @@
 \end{definition}
 
 \begin{example}[Ordinamento topologico]
-    Ad esempio, in queto grafo sono presenti vari ordinamenti topologici:
+    Ad esempio, nel seguente grafo sono presenti vari ordinamenti topologici:
 
     \begin{figure}[H]
         \centering
@@ -318,6 +318,59 @@
     \end{figure}
 
     ad esempio, uno di questi è $\{2, 3, 1, 4, 5, 7, 6\}$.
+\end{example}
+
+\begin{definition}[Arborescenza]
+    Sia $G$ un grafo diretto, e $v$ un suo vertice; l'insieme degli archi raggiungibili da $v$ formano l'\textit{arborescenza di $v$}, e $v$ prende il nome di \textit{radice}. Si noti che, spesso, il sottografo generato dall'arborescenza di $v$ si identifica con l'arborescenza stessa.
+\end{definition}
+
+\begin{example}[Arborescenza]
+    Si consideri il seguente grafo diretto:
+
+    \begin{figure}[H]
+        \centering
+        \begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=3cm,thick,main node/.style={scale=0.6,circle,draw,font=\sffamily\normalsize}]
+            \node[main node] (2) {2};
+            \node[main node] (4) [below left of=2] {4};
+            \node[main node] (1) [above left of=4] {1};
+            \node[main node] (5) [below right of=2] {5};
+            \node[main node] (3) [above right of=5] {3};
+            \node[main node] (6) [below left of=4] {6};
+            \node[main node] (7) [below right of=4] {7};
+            \node[main node] (8) [below right of=5] {8};
+
+            \path[every node/.style={font=\sffamily\small}]
+                (1) edge (4)
+                (2) edge (4)
+                (2) edge (5)
+                (3) edge (5)
+                (3) edge (8)
+                (4) edge (6)
+                (4) edge (7)
+                (5) edge (7)
+                ;
+        \end{tikzpicture}
+        \caption{Un grafo diretto.}
+    \end{figure}
+
+    in esso, ad esempio il sottografo dell'arborescenza di $3$ è
+
+    \begin{figure}[H]
+        \centering
+        \begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=3cm,thick,main node/.style={scale=0.6,circle,draw,font=\sffamily\normalsize}]
+            \node[main node] (3) {3};
+            \node[main node] (5) [below left of=3] {5};
+            \node[main node] (7) [below left of=5] {7};
+            \node[main node] (8) [below right of=5] {8};
+
+            \path[every node/.style={font=\sffamily\small}]
+                (3) edge (5)
+                (3) edge (8)
+                (5) edge (7)
+                ;
+        \end{tikzpicture}
+        \caption{Arborescenza di $3$.}
+    \end{figure}
 \end{example}
 
 \begin{definition}[Grafo connesso]
@@ -621,58 +674,9 @@
     Si noti che l'algoritmo è valido anche per grafi diretti.
 \end{remark}
 
-\begin{definition}[Arborescenza]
-    Sia $G$ un grafo diretto; considerando l'insieme di archi attraversati dall'algoritmo per trovare ogni vertice raggiungibile partendo da $v$, al termine della procedura si ottiene un sottografo diretto di $G$ connesso ed aciclico, per gli stessi motivi dell'\cref{Sottografo di un grafo indiretto}. Allora, il sottografo risultante prende il nome di \textit{arborescenza di $v$}, e $v$ prende il nome di \textit{radice}.
-\end{definition}
-
-\begin{example}[Arborescenza]
-    Ad esmepio, si consideri il seguente grafo diretto:
-
-    \begin{figure}[H]
-        \centering
-        \begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=3cm,thick,main node/.style={scale=0.6,circle,draw,font=\sffamily\normalsize}]
-            \node[main node] (2) {2};
-            \node[main node] (4) [below left of=2] {4};
-            \node[main node] (1) [above left of=4] {1};
-            \node[main node] (5) [below right of=2] {5};
-            \node[main node] (3) [above right of=5] {3};
-            \node[main node] (6) [below left of=4] {6};
-            \node[main node] (7) [below right of=4] {7};
-            \node[main node] (8) [below right of=5] {8};
-
-            \path[every node/.style={font=\sffamily\small}]
-                (1) edge (4)
-                (2) edge (4)
-                (2) edge (5)
-                (3) edge (5)
-                (3) edge (8)
-                (4) edge (6)
-                (4) edge (7)
-                (5) edge (7)
-                ;
-        \end{tikzpicture}
-        \caption{Un grafo diretto.}
-    \end{figure}
-
-    in esso, ad esempio l'arborescenza di $3$ è
-
-    \begin{figure}[H]
-        \centering
-        \begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=3cm,thick,main node/.style={scale=0.6,circle,draw,font=\sffamily\normalsize}]
-            \node[main node] (3) {3};
-            \node[main node] (5) [below left of=3] {5};
-            \node[main node] (7) [below left of=5] {7};
-            \node[main node] (8) [below right of=5] {8};
-
-            \path[every node/.style={font=\sffamily\small}]
-                (3) edge (5)
-                (3) edge (8)
-                (5) edge (7)
-                ;
-        \end{tikzpicture}
-        \caption{Arborescenza di $3$.}
-    \end{figure}
-\end{example}
+\begin{remark}[Arborescenza]
+    Sia $G$ un grafo diretto; considerando l'insieme di archi attraversati dall'algoritmo per trovare ogni vertice raggiungibile partendo da $v$, al termine della procedura si ottiene un sottografo diretto di $G$ connesso ed aciclico, per gli stessi motivi dell'\cref{Sottografo di un grafo indiretto}; tale sottografo è un arborescenza di $v$.
+\end{remark}
 
 \begin{algorithm}[H]
     \Input{$G$ grafo indiretto, rappresentato tramite liste di adiacenza}
