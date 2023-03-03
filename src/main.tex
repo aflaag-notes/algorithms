@@ -20,6 +20,8 @@
 \usepackage[capitalize,nameinlink,italian]{cleveref}
 \usepackage{xcolor}
 \usepackage{enumerate}
+\usepackage{stmaryrd}
+\let\stmaryrdLightning\lightning
 \hypersetup{colorlinks,linkcolor={red!50!black},citecolor={blue!50!black},urlcolor={blue!80!black}} % change the colors of cleveref
 \usepackage{float}
 \usepackage[linesnumbered,ruled,italiano]{algorithm2e}
@@ -283,6 +285,41 @@
     in esso, si hanno tre cicli: $$\{2, (2, 4), 4, (4,3), 3, (3, 2), 2\}$$ $$\{2, (2, 4), 4, (4, 1), 1, (1, 2), 2\}$$ $$\{1, (1, 2), 2, (2, 3), 3, (3, 4), 4, (4, 1), 1\}$$
 \end{example}
 
+\begin{definition}[Ordinamento topologico]
+    I vertici di un grafo diretto si definiscono \textit{ordinati topologicamente}, se disposti in modo tale che ogni vertice viene prima di tutti i vertici collegati ai suoi archi uscenti.
+\end{definition}
+
+\begin{example}[Ordinamento topologico]
+    Ad esempio, in queto grafo sono presenti vari ordinamenti topologici:
+
+    \begin{figure}[H]
+        \centering
+        \begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=3cm,thick,main node/.style={scale=0.6,circle,draw,font=\sffamily\normalsize}]
+            \node[main node] (1) {1};
+            \node[main node] (2) [below left of=1] {2};
+            \node[main node] (3) [below right of=2] {3};
+            \node[main node] (4) [below right of=1] {4};
+            \node[main node] (5) [above right of=4] {5};
+            \node[main node] (6) [below right of=5] {6};
+            \node[main node] (7) [below left of=6] {7};
+
+            \path[every node/.style={font=\sffamily\small}]
+                (1) edge (4)
+                (2) edge (1)
+                (2) edge (3)
+                (2) edge (4)
+                (3) edge (4)
+                (4) edge (5)
+                (4) edge (7)
+                (7) edge (6)
+                ;
+        \end{tikzpicture}
+        \caption{Un grafo diretto con ordinamenti topologici.}
+    \end{figure}
+
+    ad esempio, uno di questi è $\{2, 3, 1, 4, 5, 7, 6\}$.
+\end{example}
+
 \begin{definition}[Grafo connesso]
     Un grafo è detto \textit{connesso} se per ogni $v_1, v_2 \in V(G)$ esiste una passeggiata che li collega.
 \end{definition}
@@ -380,7 +417,7 @@
 \begin{proof}
     \hspace{0.7cm}
     \begin{itemize}
-        \item[] \textit{Prima implicazione.} Sia $G$ un grafo avente un circuito euleriano; per assurdo, sia $v \in V(G) : \deg(v)$ non sia pari. Allora, percorrendo $G$ secondo il circuito euleriano, giungendo a $v$ non si potrebbe più lasciare tale vertice senza riattraversare uno degli archi gia visitati. Inoltre, se $G$ non fosse connesso, il circuito non potrebbe essere euleriano poiché non potrebbe attraversare tutti gli archi di $G$.
+        \item[] \textit{Prima implicazione.} Sia $G$ un grafo avente un circuito euleriano; per assurdo, sia $v \in V(G) : \deg(v)$ non sia pari. Allora, percorrendo $G$ secondo il circuito euleriano, giungendo a $v$ non si potrebbe più lasciare tale vertice senza riattraversare uno degli archi gia visitati $\lightning$. Inoltre, se $G$ non fosse connesso, il circuito non potrebbe essere euleriano poiché non potrebbe attraversare tutti gli archi di $G$.
         \item[] \textit{Seconda implicazione.} TODO
     \end{itemize}
 \end{proof}
@@ -585,8 +622,57 @@
 \end{remark}
 
 \begin{definition}[Arborescenza]
-    Sia $G$ un grafo diretto; considerando l'insieme di archi attraversati dall'algoritmo per trovare ogni vertice raggiungibile partendo da $v$, al termine della procedura si ottiene un sottografo diretto di $G$ connesso ed aciclico, per gli stessi motivi dell'\cref{Sottografo di un grafo indiretto}. Il grafo risultante prende il nome di \textit{arborescenza di $v$}, il quale prende il nome di \textit{radice}.
+    Sia $G$ un grafo diretto; considerando l'insieme di archi attraversati dall'algoritmo per trovare ogni vertice raggiungibile partendo da $v$, al termine della procedura si ottiene un sottografo diretto di $G$ connesso ed aciclico, per gli stessi motivi dell'\cref{Sottografo di un grafo indiretto}. Il grafo risultante prende il nome di \textit{arborescenza di $v$}, e $v$ prende il nome di \textit{radice}.
 \end{definition}
+
+\begin{example}[Arborescenza]
+    Ad esmepio, si consideri il seguente grafo diretto:
+
+    \begin{figure}[H]
+        \centering
+        \begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=3cm,thick,main node/.style={scale=0.6,circle,draw,font=\sffamily\normalsize}]
+            \node[main node] (2) {2};
+            \node[main node] (4) [below left of=2] {4};
+            \node[main node] (1) [above left of=4] {1};
+            \node[main node] (5) [below right of=2] {5};
+            \node[main node] (3) [above right of=5] {3};
+            \node[main node] (6) [below left of=4] {6};
+            \node[main node] (7) [below right of=4] {7};
+            \node[main node] (8) [below right of=5] {8};
+
+            \path[every node/.style={font=\sffamily\small}]
+                (1) edge (4)
+                (2) edge (4)
+                (2) edge (5)
+                (3) edge (5)
+                (3) edge (8)
+                (4) edge (6)
+                (4) edge (7)
+                (5) edge (7)
+                ;
+        \end{tikzpicture}
+        \caption{Un grafo diretto.}
+    \end{figure}
+
+    in esso, ad esempio l'arborescenza di $3$ è
+
+    \begin{figure}[H]
+        \centering
+        \begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=3cm,thick,main node/.style={scale=0.6,circle,draw,font=\sffamily\normalsize}]
+            \node[main node] (3) {3};
+            \node[main node] (5) [below left of=3] {5};
+            \node[main node] (7) [below left of=5] {7};
+            \node[main node] (8) [below right of=5] {8};
+
+            \path[every node/.style={font=\sffamily\small}]
+                (3) edge (5)
+                (3) edge (8)
+                (5) edge (7)
+                ;
+        \end{tikzpicture}
+        \caption{Arborescenza di $3$.}
+    \end{figure}
+\end{example}
 
 \begin{algorithm}[H]
     \Input{$G$ grafo indiretto, rappresentato tramite liste di adiacenza}
@@ -627,12 +713,14 @@
 \end{remark}
 
 \begin{remark}[Costo dell'algoritmo]
-    Si noti che, analogamente alla versione precedente, il ciclo \texttt{while} della riga $4$ ha costo $O(n)$, poiché nel caso peggiore è necessario inserire e rimuovere dallo stack $2n - 1$ volte i vertici di $G$. Ma, differentemente al primo algoritmo, il \texttt{while} della riga $6$ controllerà l'adiacenza di ogni vertice una sola volta, di conseguenza il costo complessivo dell'algoritmo dipende esclusivamente dalla dimensione delle liste di adiacenza, che per il \cref{Somma dei gradi} avrà dimensione $O(m)$. Allora, il costo complessivo equivale al maggiore tra $n$ ed $m$, e dunque è pari a $O(n) + O(m) = O(n + m)$.
+    Si noti che, analogamente alla versione precedente, il ciclo \texttt{while} della riga $4$ ha costo $O(n)$, poiché nel caso peggiore è necessario inserire e rimuovere dallo stack $2n - 1$ volte i vertici di $G$. Ma, a differenza del primo algoritmo, il \texttt{while} della riga $6$ controllerà l'adiacenza di ogni vertice una sola volta, di conseguenza il costo complessivo dell'algoritmo dipende esclusivamente dalla dimensione delle liste di adiacenza, che per il \cref{Somma dei gradi} avrà dimensione $O(m)$. Allora, il costo complessivo equivale al maggiore tra $n$ ed $m$, e dunque è pari a $O(n) + O(m) = O(n + m)$.
 \end{remark}
 
 \begin{remark}[Grafo diretto]
     Per estendere questo algoritmo a grafi diretti, è necessario fornire in input un grafo rappresentato attraverso liste di adiacenza, le quali devono contenere esclusivamente i corrispondenti vertici entranti, per rimuovere i vertici adiacenti già attraversati.
 \end{remark}
+
+\subsection{TODO}
 
 \begin{definition}[Tempo di visita e di chiusura]
     All'interno degli algoritmi che visitano grafi secondo DFS, è possibile introdurre un \texttt{counter} inizializzato ad $1$, ed incrementato ogni volta che viene attraversato un \textit{nuovo} vertice.
@@ -662,7 +750,7 @@
 
     \begin{itemize}
         \item $t(u) < t(v) \implies u$ inserito nello stack prima di $v$
-        \item $t(v) < T(u) \implies$ TODO
+        \item $t(v) < T(u) \implies u$ viene rimosso dallo stack dopo aver visitato $v$, ma poiché $u$ era sotto a $v$ all'interno dello stack, necessariamente $v$ deve essere stato rimosso dallo stack prima di $u$, e allora non è possibile che $T(u) < T(v) \ \lightning$.
     \end{itemize}
 \end{proof}
 

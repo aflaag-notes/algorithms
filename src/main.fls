@@ -790,6 +790,17 @@ INPUT /usr/share/texmf-dist/tex/latex/tools/enumerate.sty
 INPUT /usr/share/texmf-dist/tex/latex/tools/enumerate.sty
 INPUT /usr/share/texmf-dist/tex/latex/tools/enumerate.sty
 INPUT /usr/share/texmf-dist/tex/latex/tools/enumerate.sty
+INPUT /usr/share/texmf-dist/tex/latex/stmaryrd/stmaryrd.sty
+INPUT /usr/share/texmf-dist/tex/latex/stmaryrd/stmaryrd.sty
+INPUT /usr/share/texmf-dist/tex/latex/stmaryrd/stmaryrd.sty
+INPUT /usr/share/texmf-dist/tex/latex/stmaryrd/stmaryrd.sty
+INPUT /usr/share/texmf-dist/tex/latex/stmaryrd/stmaryrd.sty
+INPUT /usr/share/texmf-dist/tex/latex/stmaryrd/stmaryrd.sty
+INPUT /usr/share/texmf-dist/tex/latex/stmaryrd/stmaryrd.sty
+INPUT /usr/share/texmf-dist/tex/latex/stmaryrd/stmaryrd.sty
+INPUT /usr/share/texmf-dist/tex/latex/stmaryrd/stmaryrd.sty
+INPUT /usr/share/texmf-dist/tex/latex/stmaryrd/stmaryrd.sty
+INPUT /usr/share/texmf-dist/tex/latex/stmaryrd/stmaryrd.sty
 INPUT /usr/share/texmf-dist/tex/latex/float/float.sty
 INPUT /usr/share/texmf-dist/tex/latex/float/float.sty
 INPUT /usr/share/texmf-dist/tex/latex/float/float.sty
@@ -970,6 +981,13 @@ INPUT /usr/share/texmf-dist/tex/latex/amsfonts/umsb.fd
 INPUT /usr/share/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm10.tfm
 INPUT /usr/share/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm10.tfm
 INPUT /usr/share/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm7.tfm
+INPUT /usr/share/texmf-dist/tex/latex/stmaryrd/Ustmry.fd
+INPUT /usr/share/texmf-dist/tex/latex/stmaryrd/Ustmry.fd
+INPUT /usr/share/texmf-dist/tex/latex/stmaryrd/Ustmry.fd
+INPUT /usr/share/texmf-dist/tex/latex/stmaryrd/Ustmry.fd
+INPUT /usr/share/texmf-dist/fonts/tfm/public/stmaryrd/stmary10.tfm
+INPUT /usr/share/texmf-dist/fonts/tfm/public/stmaryrd/stmary10.tfm
+INPUT /usr/share/texmf-dist/fonts/tfm/public/stmaryrd/stmary7.tfm
 OUTPUT main.toc
 INPUT /usr/share/texmf-dist/fonts/tfm/public/cm/cmr17.tfm
 INPUT /usr/share/texmf-dist/fonts/tfm/public/cm/cmr17.tfm
@@ -999,3 +1017,4 @@ INPUT /usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb
 INPUT /usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb
 INPUT /usr/share/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb
 INPUT /usr/share/texmf-dist/fonts/type1/public/cm-super/sfrm1440.pfb
+INPUT /usr/share/texmf-dist/fonts/type1/public/stmaryrd/stmary10.pfb

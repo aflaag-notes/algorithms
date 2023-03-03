@@ -4,5 +4,6 @@ Questi sono i miei [appunti](https://raw.githubusercontent.com/ph04/algorithms/m
 
 ## TODO
 
-- nothing for now :)
+- finire lezione 02/03/2023
+- finire TODOs
 
