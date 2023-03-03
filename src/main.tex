@@ -200,7 +200,7 @@
 \subsection{Visite}
 
 \begin{definition}[Passeggiata]
-    Una \textit{passeggiata} è una sequenza di vertici ed archi, della forma $v_0, e_1, v_1, e_2, \ldots , e_{n - 1}, v_{n - 1}, e_n, v_n$, dove $e_i=(v_{i - 1}, v_i)$. È la visita di un grafo più generale, ed è possibile ripercorrere ogni arco ed ogni vertice.
+    Una \textit{passeggiata} è una sequenza di vertici ed archi, della forma $v_0, e_1, v_1, e_2, \ldots , e_{k - 1}, v_{k - 1}, e_k, v_k$, dove $e_i=(v_{i - 1}, v_i)$. È la visita di un grafo più generale, ed è possibile ripercorrere ogni arco ed ogni vertice.
 \end{definition}
 
 \begin{remark}
@@ -208,7 +208,7 @@
 \end{remark}
 
 \begin{definition}[Passeggiata chiusa]
-    Una passeggiata si dice \textit{chiusa} se è della forma $v_0, e_1, v_1, e_2, \ldots , e_{n - 1}, v_{n - 1}, e_n, v_0$, dunque il primo e l'ultimo vertice coincidono. 
+    Una passeggiata si dice \textit{chiusa} se è della forma $v_0, e_1, v_1, e_2, \ldots , e_{k - 1}, v_{k - 1}, e_k, v_0$, dunque il primo e l'ultimo vertice coincidono. 
 \end{definition}
 
 \begin{definition}[Traccia]
@@ -321,15 +321,24 @@
 \end{example}
 
 \begin{theorem}[Ordinamento topologico]
-    Un grafo $G$ ha un ordinamento topologico se e solo se è diretto aciclico.
+\label{Ordinamento topologico}
+    Un grafo diretto $G$ ha un ordinamento topologico se e solo se è aciclico.
 \end{theorem}
 
 \begin{proof}
     \hspace{0.7cm}
     \begin{itemize}
-        \item[] \textit{Prima implicazione.} TODO
-        \item[] \textit{Seconda implicazione.} TODO
+        \item[] \textit{Prima implicazione.} Per assurdo, sia $G$ un grafo diretto ciclico, avente dunque almeno un ciclo, con un ordinamento topologico, e siano $\{v_0, \ldots , v_{k - 1}, v_0\}$ i vertici che costituiscono uno dei cicli di $G$; allora, si ha che $v_0 \rightarrow v_1 \rightarrow \ldots \rightarrow v_{k - 1} \rightarrow v_0$, dunque all'interno dell'ordinamento topologico $v_0$ dovrebbe essere posto contemporaneamente prima e dopo $v_1, \ldots, v_{k - 1} \ \lightning$.
+        \item[] \textit{Seconda implicazione.} Sia $G$ un grafo aciclico; allora per definizione, all'interno di esso non esistono cicli, ed è dunque possibile enumerare in sequenza ogni vertice $G$, senza creare dipendenze circloari, per poter trovare un ordinamento topologico del grafo.
     \end{itemize}
+\end{proof}
+
+\begin{corollary}[Vertici particolari]
+    In un grafo diretto aciclico, esiste almeno un vertice senza archi entranti, ed almeno un vertice senza archi uscenti.
+\end{corollary}
+
+\begin{proof}
+    Per il teorema \cref{Ordinamento topologico}, è sufficiente considerare un ordinamento topologico del grafo, dove in esso il primo vertice non ha archi entranti, mentre l'ultimo non ha archi uscenti.
 \end{proof}
 
 \begin{definition}[Arborescenza]
@@ -733,8 +742,7 @@
 \end{remark}
 
 \begin{remark}[Grafo diretto]
-    TODO
-    Per estendere questo algoritmo a grafi diretti, è necessario fornire in input un grafo rappresentato attraverso liste di adiacenza, le quali devono contenere esclusivamente i corrispondenti vertici entranti, per rimuovere i vertici adiacenti già attraversati.
+    Per estendere questo algoritmo a grafi diretti, è necessario fornire in input un grafo rappresentato attraverso liste di adiacenza, le quali devono contenere esclusivamente i corrispondenti vertici uscenti, poichè sono gli unici archi percorribili.
 \end{remark}
 
 \subsection{Trovare un ordinamento topologico}
@@ -743,9 +751,9 @@
     \Input{$G$ grafo diretto aciclico.}
     \Output{un ordinamento topologico di $G$.}
 
-    \SetKwFunction{findTopologicalOrder}{findTopologicalOrder}
+    \SetKwFunction{findTopologicalSorting}{findTopologicalSorting}
     
-    \Fn{\findTopologicalOrder{$G$, v}}{
+    \Fn{\findTopologicalSorting{$G$, v}}{
         $\texttt{order} := \texttt{[}v\texttt{]}$\\
         \While{$V(G) \neq 0$}{
             $v \in V(G) : v.\texttt{incoming\_adjacent().length()} = 0$\\
@@ -758,7 +766,7 @@
     \caption{Dato un grafo diretto aciclico $G$, l'algoritmo restituisce un suo ordinamento topologico.}
 \end{algorithm}
 
-\begin{remark}
+\begin{remark}(Costo dell'algoritmo)
     TODO
 \end{remark}
 
