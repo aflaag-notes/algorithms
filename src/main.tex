@@ -72,7 +72,7 @@
 \subsection{Definizioni}
 
 \begin{definition}[Grafo]
-    Un grafo è una struttura matematica descritta da vertici, collegati da archi. Un grafo viene descritto formalmente come $G=(V, E)$, dove i $v \in V$ sono i \textit{vertici} del grafo, mentre gli $e \in E$ sono gli \textit{archi} (dall'inglese \textit{edges}). In particolare, $V(G)$ è l'insieme dei vertici di $G$, comunemente indicato con $n$, mentre $E(G)$ è l'insieme degli archi di $G$, comunemente indicato con $m$. Presi due vertici $v_1,v_2 \in V(G)$, allora $(v_1, v_2) \in E(G)$ è l'arco che li collega.
+    Un grafo è una struttura matematica descritta da vertici, collegati da archi. Un grafo viene descritto formalmente come $G=(V, E)$, dove i $v \in V$ sono i \textit{vertici} o \textit{nodi} del grafo, mentre gli $e \in E$ sono gli \textit{archi} (dall'inglese \textit{edges}). In particolare, $V(G)$ è l'insieme dei vertici di $G$, comunemente indicato con $n$, mentre $E(G)$ è l'insieme degli archi di $G$, comunemente indicato con $m$. Presi due vertici $v_1,v_2 \in V(G)$, allora $(v_1, v_2) \in E(G)$ è l'arco che li collega.
 \end{definition}
 
 \begin{remark}
@@ -497,8 +497,12 @@
 \end{proof}
 
 \begin{definition}[Passeggiata hamiltoniana]
-    Una passeggiata si dice \textit{hamiltoniana} se TODO
+    Una passeggiata si dice \textit{hamiltoniana} se attraversa ogni nodo del grafo, senza ripercorrerne nessuno.
 \end{definition}
+
+\begin{remark}
+    Una passeggiata hamiltoniana è un cammino.
+\end{remark}
 
 \section{Rappresentazione}
 
@@ -601,13 +605,13 @@
     \caption{Dato un grafo indiretto $G$, con ogni vertice avente grado almeno pari a $2$, l'algoritmo restiuisce un ciclo di $G$.}
 \end{algorithm}
 
-\begin{proof}
+\begin{remark}[Correttezza dell'algoritmo]
     L'algoritmo inizia scegliendo un qualsiasi vertice di $G$, denotato alla riga $2$ con $v$; successivamente, alla riga $3$ viene inizializzato un array \texttt{visited} che contterà tutti i vertici visitati attraverso l'algoritmo; inotre, alla riga $4$ viene scelto un altro vertice $v'$, che sia adiacente al $v$ di partenza.
 
     All'interno del ciclo \texttt{while}, alla riga $6$ l'algoritmo salva $v'$ all'interno dell'array di vertici visitati, mentre alla riga $7$ viene rimpiazzato $v'$, scegliendo un nuovo vertice, adiacente a $v'$, che sia diverso dal penultimo vertice inserito all'interno di \texttt{visited}. Il motivo per cui quest'ultimo controllo è necessario, è che il penultimo vertice inserito sarà il vertice dal quale $v'$ proveniva, di conseguenza si rischierebbe di ripercorrere uno stesso vertice più di una volta, e dunque non si formerebbe un ciclo. Si noti che è necessaria l'ipotesi per cui $G$ abbia ogni vertice di grado almeno pari a $2$, altrimenti non sarebbe possibile trovare un vertice differente dal penultimo di \texttt{visited}. Il ciclo termina nel momento in cui viene scelto un $v'$ già presente all'interno di \texttt{visited}, in quanto, poiché non è possibile ripercorrere i propri passi, l'unica possibilità in cui si è giunti ad un vertice già visitato è se si è concluso un ciclo.
     
     L'algoritmo termina restituendo uno slice dell'array, partendo dal primo indice di $v'$ disponibile (si noti che alla fine dell'algoritmo anche l'ultimo elemento di \texttt{visited} sarà $v'$), fino alla fine.
-\end{proof}
+\end{remark}
 
 \begin{remark}
     Si noti che \texttt{visited} contiene tutti i nodi visitati, dunque restituire interamente l'array potrebbe non fornire un ciclo, come nel seguente grafo
@@ -738,11 +742,12 @@
 \end{remark}
 
 \begin{remark}[Costo dell'algoritmo]
+\label{Algo remark 1}
     Si noti che, analogamente alla versione precedente, il ciclo \texttt{while} della riga $4$ ha costo $O(n)$, poiché nel caso peggiore è necessario inserire e rimuovere dallo stack $2n - 1$ volte i vertici di $G$. Ma, a differenza del primo algoritmo, il \texttt{while} della riga $6$ controllerà l'adiacenza di ogni vertice una sola volta, di conseguenza il costo complessivo dell'algoritmo dipende esclusivamente dalla dimensione delle liste di adiacenza, che per il \cref{Somma dei gradi} avrà dimensione $O(m)$. Allora, il costo complessivo equivale al maggiore tra $n$ ed $m$, e dunque è pari a $O(n) + O(m) = O(n + m)$.
 \end{remark}
 
 \begin{remark}[Grafo diretto]
-    Per estendere questo algoritmo a grafi diretti, è necessario fornire in input un grafo rappresentato attraverso liste di adiacenza, le quali devono contenere esclusivamente i corrispondenti vertici uscenti, poichè sono gli unici archi percorribili.
+    Per estendere questo algoritmo a grafi diretti, è necessario fornire in input un grafo rappresentato attraverso liste di adiacenza, le quali devono contenere esclusivamente i vertici uscenti, poichè sono gli unici archi percorribili.
 \end{remark}
 
 \subsection{Trovare un ordinamento topologico}
@@ -767,7 +772,10 @@
 \end{algorithm}
 
 \begin{remark}(Costo dell'algoritmo)
+    Il ciclo \texttt{while} della riga $3$, indipendentemente dalla struttura di rappresentazione del grafo $G$, deve essere eseguito $n$ volte, e dunque ha costo $O(n)$, poiché l'ordinamento topologico deve coinvolgere ogni nodo del grafo, e alla riga $6$ i nodi controllati vengono progressivamente rimossi.
     TODO
+
+    Differentemente, rappresentando $G$ attraverso liste di adiacenza, salvando solamente i vertici adiacenti entranti per ogni nodo, alla riga $4$ per trovare un nodo senza archi entranti è sufficiente controllare il numero di elementi della lista di ogni vertice, e dunque il costo è $O(n)$; inoltre, si noti che per effettuare la rimozione del vertice $v$, alla riga $6$, nel caso peggiore $v$ ha archi uscenti verso tutti gli altri nodi del grafo, e risulta dunque necessario rimuoverlo da ogni lista di adiacenza, e per ragionamento già discusso precedentemente nell'\cref{Algo remark 1}, il costo di tale operazione è $O(n + m)$. Allora, il costo complessivo dell'algoritmo è pari a $O(n) \cdot [O(n) + O(n + m)] = O(n) \cdot [O(2n + m)] = O(n) \cdot O(n + m) = O(n \cdot (n +m))$.
 \end{remark}
 
 \subsection{TODO}
@@ -803,5 +811,9 @@
         \item $t(v) < T(u) \implies u$ viene rimosso dallo stack dopo aver visitato $v$, ma poiché $u$ era sotto a $v$ all'interno dello stack, necessariamente $v$ deve essere stato rimosso dallo stack prima di $u$, e allora non è possibile che $T(u) < T(v) \ \lightning$.
     \end{itemize}
 \end{proof}
+
+\begin{remark}
+    TODO parte finale
+\end{remark}
 
 \end{document}
