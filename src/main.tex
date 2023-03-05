@@ -249,7 +249,7 @@
 \end{definition}
 
 \begin{definition}[Cammino]
-    Un \textit{cammino} è una traccia aperta, in cui non è possibile ripercurrere i vertici.
+    Un \textit{cammino} è una traccia aperta, in cui non è possibile ripercurrere i vertici. In simboli, $\forall v, v' \in V(G) \quad v \rightarrow v'$ indica che è possibile raggiungere $v'$ attraverso un cammino; inoltre, è possibile estendere tale sintassi anche agli archi.
 \end{definition}
 
 \begin{remark}
@@ -342,7 +342,7 @@
 \end{proof}
 
 \begin{definition}[Arborescenza]
-    Sia $G$ un grafo diretto, e $v$ un suo vertice; l'insieme degli archi raggiungibili da $v$ formano l'\textit{arborescenza di $v$}, e $v$ prende il nome di \textit{radice}. Si noti che, spesso, il sottografo generato dall'arborescenza di $v$ si identifica con l'arborescenza stessa.
+    Sia $G$ un grafo diretto, e $v$ un suo vertice; l'insieme degli archi raggiungibili da $v$ formano l'\textit{arborescenza di $v$}, e $v$ prende il nome di \textit{radice}. In simboli $$A_v := \{(v', v'') \in E(G) : v \rightarrow (v', v'')\} \subseteq E(G)$$ è l'arborescenza di $v$. Si noti che, spesso, il sottografo generato dall'arborescenza di $v$ viene identificato con l'arborescenza stessa.
 \end{definition}
 
 \begin{example}[Arborescenza]
@@ -492,7 +492,7 @@
     \hspace{0.7cm}
     \begin{itemize}
         \item[] \textit{Prima implicazione.} Sia $G$ un grafo avente un circuito euleriano; per assurdo, sia $v \in V(G) : \deg(v)$ non sia pari. Allora, percorrendo $G$ secondo il circuito euleriano, giungendo a $v$ non si potrebbe più lasciare tale vertice senza riattraversare uno degli archi gia visitati $\lightning$. Inoltre, se $G$ non fosse connesso, il circuito non potrebbe essere euleriano poiché non potrebbe attraversare tutti gli archi di $G$.
-        \item[] \textit{Seconda implicazione.} TODO
+        \item[] \textit{Seconda implicazione.} Omessa.
     \end{itemize}
 \end{proof}
 
@@ -544,7 +544,7 @@
 \end{remark}
 
 \begin{remark}[Eliminazione di un nodo]
-    Per effettuare la rimozione di un nodo da un grafo, nel caso peggiore $v$ ha archi uscenti verso tutti gli altri nodi del grafo, e risulta dunque necessario rimuoverlo da ogni lista di adiacenza; allora, il costo di tale operazione è dato dal maggiore tra $n$ ed $m$, e dunque $O(n) + O(m) = O(n + m)$.
+    Per effettuare la rimozione di un nodo da un grafo, è necessario rimuoverlo da ogni lista di adiacenza in cui compare, e nel caso peggiore esso ha archi verso tutti gli altri nodi; allora, il costo di tale operazione è dato dal maggiore tra $n$ ed $m$, e dunque $O(n) + O(m) = O(n + m)$.
 \end{remark}
 
 \begin{remark}[Grafo diretto]
@@ -688,7 +688,7 @@
 \end{algorithm}
 
 \begin{proof}
-    Per assurdo, sia $\hat v \in V(G)$, raggiungibile da $v$ attraverso cammino, che non sia stato raggiunto dall'algoritmo; allora, per definizione esiste un cammino $v, e_1, v_1, \ldots, v_{n - 1}, v_n, \hat v$; TODO
+    Per assurdo, sia $\hat v \in V(G)$, raggiungibile da $v$ attraverso un cammino, che non sia stato raggiunto dall'algoritmo; allora, per definizione esiste un cammino $v, e_1, v_1, \ldots, v_{n - 1}, v_n, \hat v$; inoltre, sia $v_i$ il vertice con indice maggiore all'interno del cammino, raggiunto dall'algoritmo, e dunque avendo che $\left \{ \begin{array}{l}v_i \sim v_{i + 1} \\ v_{i + 1} \notin \texttt{visited}  \end{array} \right.$. Allora, per costruzione dell'algoritmo, $v_i$ sarebbe stato rimosso dallo stack, alla riga $11$, prima che $v_{i + 1}$ potesse essere visitato; ma poiché $v_i \sim v_{i +1}$, allora l'algoritmo dovrebbe aver sbagliato esecuzione, poiché $v_{i +1}$ sarebbe stato raggiunto alla riga $7$ inevitabilmente $\lightning$.
 \end{proof}
 
 \begin{remark}[Costo dell'algoritmo]
@@ -751,7 +751,7 @@
 \end{remark}
 
 \begin{remark}[Costo dell'algoritmo]
-    Poiché i nodi visitati vengono eliminati, il costo del ciclo \texttt{while} dipende da operazioni eseguite in tempo costante $O(1)$, e da quanti nodi vengono controllati per ogni iterazione del ciclo, ma poiché non si possono ricontrollare più volte gli stessi nodi, allora la sommatoria di tutte le iterazioni del ciclo è pari alla dimensione delle liste di adiacenza, e dunque il costo del ciclo \texttt{while} è $\displaystyle O\left( \sum_{v \in V(G)}{O(1) + \deg(v)}\right)=O\left(\sum_{v \in V(G)}{O(1)}\right) + O\left(\sum_{v \in V(G)}{\deg(v)}\right) = O(n) + O(m) = O(n+ m)$, per il \cref{Somma dei gradi}.
+    Poiché i nodi visitati vengono eliminati, il costo del ciclo \texttt{while} dipende da operazioni eseguite in tempo costante $O(1)$, e da quanti nodi vengono controllati per ogni iterazione del ciclo, ma poiché non si possono ricontrollare più volte gli stessi nodi, allora il costo del ciclo dipende solamente dalla dimensione delle liste di adiacenza, e dunque si ha $\displaystyle O\left( \sum_{v \in V(G)}{O(1) + \deg(v)}\right)=O\left(\sum_{v \in V(G)}{O(1)}\right) + O\left(\sum_{v \in V(G)}{\deg(v)}\right) = O(n) + O(m) = O(n+ m)$, per il \cref{Somma dei gradi}.
 \end{remark}
 
 \begin{remark}[Grafo diretto]
@@ -781,9 +781,10 @@
 
 \begin{remark}(Costo dell'algoritmo)
     Il ciclo \texttt{while} della riga $3$, indipendentemente dalla struttura di rappresentazione del grafo $G$, deve essere eseguito $n$ volte, e dunque ha costo $O(n)$, poiché l'ordinamento topologico deve coinvolgere ogni nodo del grafo, e alla riga $6$ i nodi controllati vengono progressivamente rimossi.
-    TODO
 
-    Differentemente, rappresentando $G$ attraverso liste di adiacenza, salvando solamente i vertici adiacenti entranti per ogni nodo, alla riga $4$ per trovare un nodo senza archi entranti è sufficiente controllare il numero di elementi della lista di ogni vertice, e dunque il costo, nel caso peggiore, è $O(n - 1) = O(n)$; inoltre, per rimuovere $v$ alla riga $6$, il costo è pari a $O(n + m)$. Allora, il costo complessivo dell'algoritmo risulta essere $O(n) \cdot [O(n) + O(n + m)] = O(n) \cdot [O(2n + m)] = O(n) \cdot O(n + m) = O(n \cdot (n +m))$.
+    Rappresentando $G$ attraverso matrice di adiacenza, indicando con $1$ i vertici adiacenti entranti, il costo della riga $4$ è pari a $O(n^2)$, poiché per trovare un vertice $v$ che non abbia archi entranti, è necessario controllare tutta la sua riga/colonna, e dunque nel caso peggiore, per trovarlo sarà necessario controllare l'intera matrice; inoltre, per effettuare la rimozione di $v$ alla riga $6$, il costo è $O(n)$, Allora, il costo complessivo dell'algoritmo risulta essere $O(n) \cdot [O(n^2) + O(n)]= O(n) \cdot O(n^2) = O(n^3)$.
+
+    Differentemente, rappresentando $G$ attraverso liste di adiacenza, salvando solamente i vertici adiacenti entranti per ogni nodo, alla riga $4$ per trovare un nodo senza archi entranti è sufficiente controllare il numero di elementi della lista di ogni vertice, operazione a costo $O(1)$, e dunque il costo, nel caso peggiore, è $O(n - 1) = O(n)$; inoltre, per rimuovere $v$ alla riga $6$, il costo è pari a $O(n + m)$. Allora, il costo complessivo dell'algoritmo risulta essere $O(n) \cdot [O(n) + O(n + m)] = O(n) \cdot [O(2n + m)] = O(n) \cdot O(n + m) = O(n \cdot (n +m))$.
 \end{remark}
 
 \subsection{TODO}
@@ -821,7 +822,12 @@
 \end{proof}
 
 \begin{remark}
-    TODO parte finale
+    Sia $G= (V, E)$ un grafo diretto aciclico, $\hat v \in V(G)$, e sia $A_{\hat v}$ la sua arborescenza; allora, è possibile classifare ogni arco $(u, v) \in E(G) - A_{\hat v}$, mediante $\mathrm{Int}(u)$ e $\mathrm{Int}(v)$:
+    \begin{itemize}
+        \item $\mathrm{Int}(u) \subseteq \mathrm{Int}(v)$, allora l'arco $(u, v) \in E(G)$ è un \textit{forward edge}, ovvero in avanti: sono gli archi che congiungono due nodi dello stesso ramo di $A_{\hat v}$, nel caso in cui $v$ è più in profondità di $u$ nella visita DFS 
+        \item $\mathrm{Int}(v) \subseteq \mathrm{Int}(u)$, allora l'arco $(u, v) \in E(G)$ è un \textit{backward edge}, ovvero all'indietro: sono gli archi che congiungono due nodi dello stesso ramo di $A_{\hat v}$, nel caso in cui $u$ è più in profondità di $v$ nella visita DFS
+        \item $\mathrm{Int}(v) \cap \mathrm{Int}(u) = \varnothing$, allora l'arco $(u, v) \in E(G)$ è un \textit{cross edge}, detto \textit{arco di attraversamento}: sono gli archi che congiungono due nodi di rami differenti in $A_{\hat v}$
+    \end{itemize}
 \end{remark}
 
 \end{document}
