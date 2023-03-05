@@ -751,7 +751,7 @@
 \end{remark}
 
 \begin{remark}[Costo dell'algoritmo]
-    Poiché i nodi visitati vengono eliminati, il costo del ciclo \texttt{while} dipende da operazioni eseguite in tempo costante $O(1)$, e da quanti nodi vengono controllati per ogni iterazione del ciclo, ma poiché non si possono ricontrollare più volte gli stessi nodi, allora la sommatoria di tutte le iterazioni del ciclo è pari alla dimensione delle liste di adiacenza, e dunque il costo del ciclo \texttt{while} è $\displaystyle O\left( \sum_{v \in V(G)}{O(1) + \deg(v)}\right)=O\left(\sum_{v \in V(G)}{O(1)}\right) + O\left(\sum_{v \in V(G)}{\deg(v)}\right) = O(n) + O(m)$, per il \cref{Somma dei gradi}.
+    Poiché i nodi visitati vengono eliminati, il costo del ciclo \texttt{while} dipende da operazioni eseguite in tempo costante $O(1)$, e da quanti nodi vengono controllati per ogni iterazione del ciclo, ma poiché non si possono ricontrollare più volte gli stessi nodi, allora la sommatoria di tutte le iterazioni del ciclo è pari alla dimensione delle liste di adiacenza, e dunque il costo del ciclo \texttt{while} è $\displaystyle O\left( \sum_{v \in V(G)}{O(1) + \deg(v)}\right)=O\left(\sum_{v \in V(G)}{O(1)}\right) + O\left(\sum_{v \in V(G)}{\deg(v)}\right) = O(n) + O(m) = O(n+ m)$, per il \cref{Somma dei gradi}.
 \end{remark}
 
 \begin{remark}[Grafo diretto]
@@ -783,7 +783,7 @@
     Il ciclo \texttt{while} della riga $3$, indipendentemente dalla struttura di rappresentazione del grafo $G$, deve essere eseguito $n$ volte, e dunque ha costo $O(n)$, poiché l'ordinamento topologico deve coinvolgere ogni nodo del grafo, e alla riga $6$ i nodi controllati vengono progressivamente rimossi.
     TODO
 
-    Differentemente, rappresentando $G$ attraverso liste di adiacenza, salvando solamente i vertici adiacenti entranti per ogni nodo, alla riga $4$ per trovare un nodo senza archi entranti è sufficiente controllare il numero di elementi della lista di ogni vertice, e dunque il costo è $O(n)$; inoltre, per rimuovere $v$ alla riga $6$, il costo è pari a $O(n + m)$. Allora, il costo complessivo dell'algoritmo risulta essere $O(n) \cdot [O(n) + O(n + m)] = O(n) \cdot [O(2n + m)] = O(n) \cdot O(n + m) = O(n \cdot (n +m))$.
+    Differentemente, rappresentando $G$ attraverso liste di adiacenza, salvando solamente i vertici adiacenti entranti per ogni nodo, alla riga $4$ per trovare un nodo senza archi entranti è sufficiente controllare il numero di elementi della lista di ogni vertice, e dunque il costo, nel caso peggiore, è $O(n - 1) = O(n)$; inoltre, per rimuovere $v$ alla riga $6$, il costo è pari a $O(n + m)$. Allora, il costo complessivo dell'algoritmo risulta essere $O(n) \cdot [O(n) + O(n + m)] = O(n) \cdot [O(2n + m)] = O(n) \cdot O(n + m) = O(n \cdot (n +m))$.
 \end{remark}
 
 \subsection{TODO}
