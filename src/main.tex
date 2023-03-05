@@ -520,6 +520,10 @@
     Per ogni grafo $G$ indiretto, si ha che $M_G$ è simmetrica; di conseguenza, il costo per aggiornare la corrispondente matrice di adiacenza è $2 O(1)= O(2) = O(1)$, poiché per $v_i, v_j \in V(G)$ non coincidenti, sarà necessario aggiornare $M_G[i, j]$ e $M_G[j, i]$.
 \end{remark}
 
+\begin{remark}[Eliminazione di un nodo]
+    Per eliminare un nodo da un grafo indiretto, sarà necessario eliminare tutti i suoi collegamenti, e dunque il costo risulta essere $O(n)$, rimuovendo interamente la sua riga e la sua colonna.
+\end{remark}
+
 \begin{remark}[Controllo di adiacenza]
     Per controllare che $v_i, v_j \in V(G)$ non coincidenti siano adiacenti, sarà sufficiente controllare $M_G[i, j] = M_G[j, i]$, e dunque il costo di un controllo è $O(1)$.
 \end{remark}
@@ -535,7 +539,12 @@
 \end{remark}
 
 \begin{remark}[Controllo di adiacenza]
-    Nel caso peggiore, il grafo rappresentato da liste di adiacenza sarà composto da una sola lista per un certo $v \in V(G)$, contenente ogni altro vertice del grafo $\hat{v} \in V(G) - \{v\}$, e la lunghezza della lista di adiacenza di $v$ sarà $n - 1$. Di conseguenza, il costo per controllare se due vertici sono adiacenti, utilizzando tale rappresentazione, è $O(n)$.
+    Per controllare che due nodi $v, v' \in V(G)$ siano adiacenti, è necessario controllare, ad esempio, se $v'$ è contenuto nella lista di $v$, e dunque il costo per tale controllo è $O(\deg(v))$.
+    Si noti che, nel caso peggiore, il grafo rappresentato da liste di adiacenza sarà composto da una sola lista per un certo $v \in V(G)$, contenente ogni altro vertice del grafo $\hat{v} \in V(G) - \{v\}$, e la lunghezza della lista di adiacenza di $v$ sarà $n - 1$. Di conseguenza, nel caso peggiore, il costo per controllare se due vertici sono adiacenti è $O(n)$.
+\end{remark}
+
+\begin{remark}[Eliminazione di un nodo]
+    Per effettuare la rimozione di un nodo da un grafo, nel caso peggiore $v$ ha archi uscenti verso tutti gli altri nodi del grafo, e risulta dunque necessario rimuoverlo da ogni lista di adiacenza; allora, il costo di tale operazione è dato dal maggiore tra $n$ ed $m$, e dunque $O(n) + O(m) = O(n + m)$.
 \end{remark}
 
 \begin{remark}[Grafo diretto]
@@ -683,7 +692,7 @@
 \end{proof}
 
 \begin{remark}[Costo dell'algoritmo]
-    Si consideri $G$ rappresentato attraverso matrice di adiacenza; allora, il costo della riga $7$, nel caso peggiore, è $O(n)$, poiché è necessario controllare tutta la riga/colonna di $v_{top}$ per trovare un vertice $z$ tale che $\texttt{visited}[z] = 0$, dunque non sia stato ancora visitato. Per ragione analoga, rappresentando $G$ attraverso liste di adiacenza, nel caso peggiore si ha una sola lista corrispondente ad un singolo vertice di $G$, e sarà dunque necessario effettuare $O(n - 1) = O(n)$ controlli.
+    Si consideri $G$ rappresentato attraverso matrice di adiacenza; allora, il costo della riga $7$, nel caso peggiore, è $O(n)$, poiché è necessario controllare tutta la riga/colonna di $v_{top}$ per trovare un vertice $z$ tale che $\texttt{visited[}z\texttt{]} = 0$, dunque non sia stato ancora visitato. Per ragione analoga, rappresentando $G$ attraverso liste di adiacenza, nel caso peggiore si ha una sola lista corrispondente ad un singolo vertice di $G$, e sarà dunque necessario effettuare $O(n - 1) = O(n)$ controlli.
 
     Inoltre, si noti che il caso peggiore dell'algoritmo si ha quando $v$ può raggiungere ogni altro nodo di $G$, e dunque il ciclo \texttt{while} sarà ripetuto $O(2n - 1) = O(2n) = O(n)$ volte, poiché ogni vertice verrà inserito e rimosso dallo stack, eccetto il primo, inserito alla riga $4$.
 
@@ -742,8 +751,7 @@
 \end{remark}
 
 \begin{remark}[Costo dell'algoritmo]
-\label{Algo remark 1}
-    Si noti che, analogamente alla versione precedente, il ciclo \texttt{while} della riga $4$ ha costo $O(n)$, poiché nel caso peggiore è necessario inserire e rimuovere dallo stack $2n - 1$ volte i vertici di $G$. Ma, a differenza del primo algoritmo, il \texttt{while} della riga $6$ controllerà l'adiacenza di ogni vertice una sola volta, di conseguenza il costo complessivo dell'algoritmo dipende esclusivamente dalla dimensione delle liste di adiacenza, che per il \cref{Somma dei gradi} avrà dimensione $O(m)$. Allora, il costo complessivo equivale al maggiore tra $n$ ed $m$, e dunque è pari a $O(n) + O(m) = O(n + m)$.
+    Poiché i nodi visitati vengono eliminati, il costo del ciclo \texttt{while} dipende da operazioni eseguite in tempo costante $O(1)$, e da quanti nodi vengono controllati per ogni iterazione del ciclo, ma poiché non si possono ricontrollare più volte gli stessi nodi, allora la sommatoria di tutte le iterazioni del ciclo è pari alla dimensione delle liste di adiacenza, e dunque il costo del ciclo \texttt{while} è $\displaystyle O\left( \sum_{v \in V(G)}{O(1) + \deg(v)}\right)=O\left(\sum_{v \in V(G)}{O(1)}\right) + O\left(\sum_{v \in V(G)}{\deg(v)}\right) = O(n) + O(m)$, per il \cref{Somma dei gradi}.
 \end{remark}
 
 \begin{remark}[Grafo diretto]
@@ -775,7 +783,7 @@
     Il ciclo \texttt{while} della riga $3$, indipendentemente dalla struttura di rappresentazione del grafo $G$, deve essere eseguito $n$ volte, e dunque ha costo $O(n)$, poiché l'ordinamento topologico deve coinvolgere ogni nodo del grafo, e alla riga $6$ i nodi controllati vengono progressivamente rimossi.
     TODO
 
-    Differentemente, rappresentando $G$ attraverso liste di adiacenza, salvando solamente i vertici adiacenti entranti per ogni nodo, alla riga $4$ per trovare un nodo senza archi entranti è sufficiente controllare il numero di elementi della lista di ogni vertice, e dunque il costo è $O(n)$; inoltre, si noti che per effettuare la rimozione del vertice $v$, alla riga $6$, nel caso peggiore $v$ ha archi uscenti verso tutti gli altri nodi del grafo, e risulta dunque necessario rimuoverlo da ogni lista di adiacenza, e per ragionamento già discusso precedentemente nell'\cref{Algo remark 1}, il costo di tale operazione è $O(n + m)$. Allora, il costo complessivo dell'algoritmo è pari a $O(n) \cdot [O(n) + O(n + m)] = O(n) \cdot [O(2n + m)] = O(n) \cdot O(n + m) = O(n \cdot (n +m))$.
+    Differentemente, rappresentando $G$ attraverso liste di adiacenza, salvando solamente i vertici adiacenti entranti per ogni nodo, alla riga $4$ per trovare un nodo senza archi entranti è sufficiente controllare il numero di elementi della lista di ogni vertice, e dunque il costo è $O(n)$; inoltre, per rimuovere $v$ alla riga $6$, il costo è pari a $O(n + m)$. Allora, il costo complessivo dell'algoritmo risulta essere $O(n) \cdot [O(n) + O(n + m)] = O(n) \cdot [O(2n + m)] = O(n) \cdot O(n + m) = O(n \cdot (n +m))$.
 \end{remark}
 
 \subsection{TODO}
