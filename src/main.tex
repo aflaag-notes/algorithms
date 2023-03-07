@@ -200,7 +200,7 @@
 \subsection{Visite}
 
 \begin{definition}[Passeggiata]
-    Una \textit{passeggiata} è una sequenza di vertici ed archi, della forma $v_0, e_1, v_1, e_2, \ldots , e_{k - 1}, v_{k - 1}, e_k, v_k$, dove $e_i=(v_{i - 1}, v_i)$. È la visita di un grafo più generale, ed è possibile ripercorrere ogni arco ed ogni vertice.
+    Una \textit{passeggiata} è una sequenza di vertici ed archi, della forma $\{v_0, e_1, v_1, e_2, \ldots , e_{k - 1}, v_{k - 1}, e_k, v_k\}$, dove $e_i=(v_{i - 1}, v_i)$. È la visita di un grafo più generale, ed è possibile ripercorrere ogni arco ed ogni vertice.
 \end{definition}
 
 \begin{remark}
@@ -208,7 +208,7 @@
 \end{remark}
 
 \begin{definition}[Passeggiata chiusa]
-    Una passeggiata si dice \textit{chiusa} se è della forma $v_0, e_1, v_1, e_2, \ldots , e_{k - 1}, v_{k - 1}, e_k, v_0$, dunque il primo e l'ultimo vertice coincidono. 
+    Una passeggiata si dice \textit{chiusa} se è della forma $\{v_0, e_1, v_1, e_2, \ldots , e_{k - 1}, v_{k - 1}, e_k, v_0\}$, dunque il primo e l'ultimo vertice coincidono. 
 \end{definition}
 
 \begin{definition}[Traccia]
@@ -342,7 +342,7 @@
 \end{proof}
 
 \begin{definition}[Arborescenza]
-    Sia $G$ un grafo diretto, e $v$ un suo vertice; l'insieme degli archi raggiungibili da $v$ formano l'\textit{arborescenza di $v$}, e $v$ prende il nome di \textit{radice}. In simboli $$A_v := \{(v', v'') \in E(G) : v \rightarrow (v', v'')\} \subseteq E(G)$$ è l'arborescenza di $v$. Si noti che, spesso, il sottografo generato dall'arborescenza di $v$ viene identificato con l'arborescenza stessa.
+    Sia $G$ un grafo diretto, e $v$ un suo vertice; l'insieme degli archi raggiungibili da $v$ formano l'\textit{arborescenza di $v$}, e $v$ prende il nome di \textit{radice}. In simboli $$A_v := \{(v', v'') \in E(G) : v \rightarrow (v', v'')\} \subseteq E(G)$$ è l'arborescenza di $v$. Si noti che, spesso, il sottografo generato dall'arborescenza di $v$ viene identificato con l'arborescenza stessa. Inoltre, in un grafo indiretto l'arborescenza è spesso definita come \textit{albero}.
 \end{definition}
 
 \begin{example}[Arborescenza]
@@ -787,7 +787,7 @@
     Differentemente, rappresentando $G$ attraverso liste di adiacenza, salvando solamente i vertici adiacenti entranti per ogni nodo, alla riga $4$ per trovare un nodo senza archi entranti è sufficiente controllare il numero di elementi della lista di ogni vertice, operazione a costo $O(1)$, e dunque il costo, nel caso peggiore, è $O(n - 1) = O(n)$; inoltre, per rimuovere $v$ alla riga $6$, il costo è pari a $O(n + m)$. Allora, il costo complessivo dell'algoritmo risulta essere $O(n) \cdot [O(n) + O(n + m)] = O(n) \cdot [O(2n + m)] = O(n) \cdot O(n + m) = O(n \cdot (n +m))$.
 \end{remark}
 
-\subsection{TODO}
+\subsection{Tempi di visita e di chiusura}
 
 \begin{definition}[Tempo di visita e di chiusura]
     All'interno degli algoritmi che visitano grafi secondo DFS, è possibile introdurre un \texttt{counter} inizializzato ad $1$, ed incrementato ogni volta che viene attraversato un \textit{nuovo} vertice.
@@ -802,7 +802,7 @@
 \end{remark}
 
 \begin{lemma}[Proprietà degli intervalli]
-    Sia $G$ un grafo diretto, e $u, v \in V(G)$; allora solo una delle seguenti proposizioni è vera:
+    Sia $G$ un grafo diretto, e $u, v \in V(G)$ adiacenti; allora solo una delle seguenti proposizioni è vera:
     \begin{enumerate}[i)]
         \item $\mathrm{Int}(u) \subseteq \mathrm{Int}(v)$
         \item $\mathrm{Int}(v) \subseteq \mathrm{Int}(u)$
@@ -813,7 +813,7 @@
 \end{lemma}
 
 \begin{proof}
-    La tesi equivale a dimostrare che non può verificarsi il caso in cui c'è intersezione non vuota tra i due intervalli, ovvero $t(u) < t(v) < T(u) < T(v)$, allora:
+    La tesi equivale a dimostrare che non può verificarsi il caso in cui c'è intersezione non vuota tra i due intervalli, e dunque non è possibile che $\mathrm{Int}(u) \cap \mathrm{Int}(v) \neq \varnothing$, ovvero $t(u) < t(v) < T(u) < T(v)$, allora:
 
     \begin{itemize}
         \item $t(u) < t(v) \implies u$ inserito nello stack prima di $v$
@@ -821,13 +821,49 @@
     \end{itemize}
 \end{proof}
 
-\begin{remark}
-    Sia $G= (V, E)$ un grafo diretto aciclico, $\hat v \in V(G)$, e sia $A_{\hat v}$ la sua arborescenza; allora, è possibile classifare ogni arco $(u, v) \in E(G) - A_{\hat v}$, mediante $\mathrm{Int}(u)$ e $\mathrm{Int}(v)$:
+\begin{remark}[Categorie di archi]
+    Sia $G= (V, E)$ un grafo diretto, $\hat v \in V(G)$, e sia $A_{\hat v}$ la sua arborescenza; allora, è possibile classificare ogni arco $(u, v) \in E(G) - E(A_{\hat v})$, mediante $\mathrm{Int}(u)$ e $\mathrm{Int}(v)$:
     \begin{itemize}
-        \item $\mathrm{Int}(u) \subseteq \mathrm{Int}(v)$, allora l'arco $(u, v) \in E(G)$ è un \textit{forward edge}, ovvero in avanti: sono gli archi che congiungono due nodi dello stesso ramo di $A_{\hat v}$, nel caso in cui $v$ è più in profondità di $u$ nella visita DFS 
-        \item $\mathrm{Int}(v) \subseteq \mathrm{Int}(u)$, allora l'arco $(u, v) \in E(G)$ è un \textit{backward edge}, ovvero all'indietro: sono gli archi che congiungono due nodi dello stesso ramo di $A_{\hat v}$, nel caso in cui $u$ è più in profondità di $v$ nella visita DFS
-        \item $\mathrm{Int}(v) \cap \mathrm{Int}(u) = \varnothing$, allora l'arco $(u, v) \in E(G)$ è un \textit{cross edge}, detto \textit{arco di attraversamento}: sono gli archi che congiungono due nodi di rami differenti in $A_{\hat v}$
+        \item $\mathrm{Int}(u) \subseteq \mathrm{Int}(v)$, allora l'arco $(u, v)$ è un \textit{forward edge}, ovvero in avanti: sono gli archi che congiungono due nodi dello stesso ramo di $A_{\hat v}$, nel caso in cui $v$ è più in profondità di $u$ nella visita DFS 
+        \item $\mathrm{Int}(v) \subseteq \mathrm{Int}(u)$, allora l'arco $(u, v)$ è un \textit{backward edge}, ovvero all'indietro: sono gli archi che congiungono due nodi dello stesso ramo di $A_{\hat v}$, nel caso in cui $u$ è più in profondità di $v$ nella visita DFS
+        \item $\mathrm{Int}(v) \cap \mathrm{Int}(u) = \varnothing$, allora l'arco $(u, v)$ è un \textit{cross edge}, detto \textit{arco di attraversamento}: sono gli archi che congiungono due nodi di rami differenti in $A_{\hat v}$
     \end{itemize}
 \end{remark}
+
+\begin{lemma}[Proprietà degli intervalli]
+    Sia $G$ un grafo indiretto, e $u, v \in V(G)$ adiacenti; allora si verifica una sola tipologia di inclusione, in cui $\mathrm{Int}(u) \subseteq \mathrm{Int}(v)$, oppure $\mathrm{Int}(v) \subseteq \mathrm{Int}(u)$, e poiché gli archi non sono orientati perde di significato la distinzione tra i due casi.
+\end{lemma}
+
+\begin{proof}
+    La tesi equivale a dimostrare che non può verificarsi il caso in cui c'è intersezione vuota tra i due intervalli, e dunque non è possibile che $\mathrm{Int}(u) \cap \mathrm{Int}(v) = \varnothing$, ovvero $t(u) \le T(u) < t(v) \le T(v)$, poiché $T(u) < t(v)$ implicherebbe che $u$ verrebbe tolto dallo stack prima che $v$ possa essere inserito, e questo non è possibile per costruzione della visita DFS, poiché $u \sim v$.
+\end{proof}
+
+\begin{remark}[Categorie di archi]
+    Sia $G=(V, E)$ un grafo indiretto, $\hat v \in V(G)$, e sia $T_{\hat v}$ il suo albero; allora, ogni arco $(u, v) \in E(G) - E(T_{\hat v})$ viene classificato come \textit{backward edge}.
+\end{remark}
+
+\begin{theorem}[Presenza di cicli]
+    Sia $G$ un grafo indiretto connesso; allora $G$ ha un ciclo se e solo se in esso esiste un backward edge considerando qualsiasi albero.
+\end{theorem}
+
+\begin{proof}
+    \hspace{0.7cm}
+    \begin{itemize}
+        \item[] \textit{Prima implicazione.} Per assurdo, sia $G$ un grafo indiretto, in cui è presente almeno un ciclo, e non sono presenti backward edge; inoltre, sia $\hat v \in V(G)$, e sia $T_{\hat v}$ il suo albero. Allora, poiché $G$ non ha backward edge, necessariamente gli unici suoi archi sono quelli che compongono $T_{\hat v}$, e dunque $E(G) = E(T_{\hat v}) \implies G = T_{\hat v} \implies G$ è un albero, e dunque $G$ non ha cicli $\ \lightning$.
+        \item[] \textit{Seconda implicazione.} Sia $G$ un grafo indiretto connesso, sia $\hat v \in V(G)$, $T_{\hat v}$ il suo albero, e sia $(u, v) \in E(G) - E(T_{\hat v})$ un backward edge. Allora, poiché $u, v \in V(T_{\hat v})$, è sufficiente considerare il cammino tale che $u \rightarrow v$, che esiste poiché $T_{\hat v}$ è un albero, e dunque $\{u \rightarrow v\} \cup (u, v)$ è un ciclo di $G$.
+    \end{itemize}
+\end{proof}
+
+\begin{theorem}[Presenza di cicli]
+    Sia $G$ un grafo diretto connesso; allora $G$ ha un ciclo se e solo se in esso esiste un backward edge considerando qualsiasi arborescenza.
+\end{theorem}
+
+\begin{proof}
+    \hspace{0.7cm}
+    \begin{itemize}
+        \item[] \textit{Prima implicazione.} TODO
+        \item[] \textit{Seconda implicazione.} Sia $G$ un grafo diretto connesso, sia $\hat v \in V(G)$, $A_{\hat v}$ la sua arborescenza, e sia $(u, v) \in E(G) - E(A_{\hat v})$ un backward edge. Allora, poiché $u, v \in V(T_{\hat v})$, e $(u, v)$ è un backward edge, è sufficiente considerare il cammino tale che $u \rightarrow v$, che esiste poiché $A_{\hat v}$ è un arborescenza, e dunque $\{u \rightarrow v\} \cup (u, v)$ è un ciclo di $G$.
+    \end{itemize}
+\end{proof}
 
 \end{document}
