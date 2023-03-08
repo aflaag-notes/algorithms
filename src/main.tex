@@ -395,7 +395,7 @@
 \end{example}
 
 \begin{definition}[Grafo connesso]
-    Un grafo è detto \textit{connesso} se per ogni $v_1, v_2 \in V(G)$ esiste una passeggiata che li collega.
+    Un grafo è detto \textit{connesso} se per ogni $v_1, v_2 \in V(G)$ esiste un cammino che li collega. Nel caso dei grafi diretti, è sufficiente avere $v_1 \rightarrow v_2$, oppure $v_2 \rightarrow v_1$.
 \end{definition}
 
 \begin{example}[Grafo non connesso]
@@ -426,11 +426,11 @@
         \caption{Un grafo non connesso.}
     \end{figure}
 
-    Poiché non esiste una passeggiata che possa collegare $4$ e $5$, il grafo non è connesso.
+    Poiché non esiste cammino che possa collegare $4$ e $5$, il grafo non è connesso.
 \end{example}
 
 \begin{definition}[Grafo fortemente connesso]
-    Un grafo diretto è detto \textit{fortemente connesso} se per ogni $v_1, v_2 \in V(G)$ esistono due cammini diretti, che li collegano in entrambe i versi.
+    Un grafo diretto è detto \textit{fortemente connesso} se per ogni $v_1, v_2 \in V(G)$ esistono due cammini diretti, che li collegano in entrambe i versi; allora, è necessario avere $v_1 \rightarrow v_2$ e $v_2 \rightarrow v_1$.
 \end{definition}
 
 \begin{example}[Grafo fortemente connesso]
@@ -843,7 +843,7 @@
 \end{remark}
 
 \begin{theorem}[Presenza di cicli]
-    Sia $G$ un grafo indiretto connesso; allora $G$ ha un ciclo se e solo se in esso esiste un backward edge considerando qualsiasi albero.
+    Sia $G$ un grafo indiretto connesso; allora $G$ ha un ciclo se e solo se in esso esiste un backward edge in almeno un albero.
 \end{theorem}
 
 \begin{proof}
@@ -855,7 +855,7 @@
 \end{proof}
 
 \begin{theorem}[Presenza di cicli]
-    Sia $G$ un grafo diretto connesso; allora $G$ ha un ciclo se e solo se in esso esiste un backward edge considerando qualsiasi arborescenza.
+    Sia $G$ un grafo diretto connesso; allora $G$ ha un ciclo se e solo se in esso esiste un backward edge in almeno un'arborescenza.
 \end{theorem}
 
 \begin{proof}
