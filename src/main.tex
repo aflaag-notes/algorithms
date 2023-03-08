@@ -24,9 +24,21 @@
 \let\stmaryrdLightning\lightning
 \hypersetup{colorlinks,linkcolor={red!50!black},citecolor={blue!50!black},urlcolor={blue!80!black}} % change the colors of cleveref
 \usepackage{float}
-\usepackage{algorithm, algpseudocode}
+\usepackage[Algoritmo]{algorithm}
+\usepackage{algpseudocode}
 \counterwithin{algorithm}{subsection}
-\SetAlgoLined\SetArgSty{}
+\newenvironment{nocaptionalg} % environment for algorithms without caption
+{
+    \par\addvspace{\topsep}
+    \centering
+    \begin{minipage}{\linewidth}
+    \hrule\kern2pt
+}
+{
+    \par\kern2pt\hrule
+    \end{minipage}
+    \par\addvspace{\topsep}
+}
 
 % theorems
 \newtheorem{theorem}{Teorema}[subsection]
@@ -337,6 +349,41 @@
     Per il teorema \cref{Ordinamento topologico}, è sufficiente considerare un ordinamento topologico del grafo, dove in esso il primo vertice non ha archi entranti, mentre l'ultimo non ha archi uscenti.
 \end{proof}
 
+\begin{definition}[Pozzo universale]
+    Sia $G$ un grafo diretto; $v \in V(G)$ è detto \textit{pozzo universale} se ha $n - 1$ archi entranti, e nessun arco uscente.
+\end{definition}
+
+\begin{example}[Pozzo universale]
+    Ad esempio, il seguente grafo diretto presenta un pozzo universale in $3$:
+
+    \begin{figure}[H]
+        \centering
+        \begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=3cm,thick,main node/.style={scale=0.6,circle,draw,font=\sffamily\normalsize}]
+            \node[main node] (1) {1};
+            \node[main node] (2) [below left of=1] {2};
+            \node[main node] (3) [below right of=2] {3};
+            \node[main node] (4) [above right of=3] {4};
+
+            \path[every node/.style={font=\sffamily\small}]
+                (1) edge (2)
+                (2) edge (3)
+                (4) edge (3)
+                (4) edge (1)
+                (1) edge (3)
+                ;
+        \end{tikzpicture}
+        \caption{Un grafo con pozzo universale in $3$.}
+    \end{figure}
+\end{example}
+
+\begin{theorem}[Unicità del pozzo universale]
+    Sia $G$ un grafo diretto, e $p \in V(G)$ un suo pozzo universale; allora $p$ è unico in $G$.
+\end{theorem}
+
+\begin{proof}
+    Per assurdo, sia $p' \in V(G)$ un secondo pozzo universale in $G$; allora, per definizione, sia $p$ che $p'$ avrebbero $n - 1$ archi entranti, e nessun arco uscente, ma questo non è possibile poiché l'unico modo per avere entrambe le condizioni verificate sarebbe attraverso un arco bidirezionale tra $p$ e $p' \ \lightning$.
+\end{proof}
+
 \begin{definition}[Arborescenza]
     Sia $G$ un grafo diretto, e $v$ un suo vertice; l'insieme degli archi raggiungibili da $v$ formano l'\textit{arborescenza di $v$}, e $v$ prende il nome di \textit{radice}. In simboli $$A_v := \{(v', v'') \in E(G) : v \rightarrow (v', v'')\} \subseteq E(G)$$ è l'arborescenza di $v$. Si noti che, spesso, il sottografo generato dall'arborescenza di $v$ viene identificato con l'arborescenza stessa.
 \end{definition}
@@ -625,18 +672,17 @@
     }
 
     \begin{algorithmic}[1]
-    \Function{findCycle}{$G$}
-        \State $v \in V(G)$ \Comment{un vertice qualsiasi di $G$}
-        \State $\texttt{visited} := \texttt{[}v\texttt{]}$ \Comment{conterrà i vertici visitati}
-        \State $v' \in V(G) : v \sim v'$
-        \While{$v' \notin \texttt{visited}$}
-            \State $\texttt{visited.add(}v'\texttt{)}$
-            \State $v' := v'' \in V(G) : \left \{ \begin{array}{l}v' \sim v'' \\ v'' \neq \texttt{visited[visited.length()} - 2\texttt{]} \end{array} \right.$
-        \EndWhile\\
-        \Return $\texttt{visited[visited.indexOf(}v'\texttt{)} \texttt{:} \texttt{visited.length()]}$
-    \EndFunction
+        \Function{findCycle}{$G$}
+            \State $v \in V(G)$ \Comment{un vertice qualsiasi di $G$}
+            \State $\texttt{visited} := \texttt{[}v\texttt{]}$ \Comment{conterrà i vertici visitati}
+            \State $v' \in V(G) : v \sim v'$
+            \While{$v' \notin \texttt{visited}$}
+                \State $\texttt{visited.add(}v'\texttt{)}$
+                \State $v' := v'' \in V(G) : \left \{ \begin{array}{l}v' \sim v'' \\ v'' \neq \texttt{visited[visited.length()} - 2\texttt{]} \end{array} \right.$
+            \EndWhile
+            \State \textbf{return} $\texttt{visited[visited.indexOf(}v'\texttt{)} \texttt{:} \texttt{visited.length()]}$
+        \EndFunction
     \end{algorithmic}
-
 \end{algorithm}
 
 \begin{remark}[Correttezza dell'algoritmo]
@@ -685,32 +731,31 @@
     Con DFS si indica il criterio di visita di un grafo; in particolare, DFS sta per \textit{Depth-First Search}, dunque la visita del grafo avviene procendendo sempre più in profondità, retrocedendo esclusivamente se non è più possibile avanzare.
 \end{definition}
 
-% \begin{algorithm}[H]
-%     \Input{$G$ grafo indiretto; $v$ un vertice di $G$.}
-%     \Output{i vertici raggiungibili da $v$.}
-%
-%     \SetKwFunction{findReachableNodes}{findReachableNodes$_1$}
-%     
-%     \Fn{\findReachableNodes{$G$, v}}{
-%         $\texttt{visited}:=\texttt{[}0\texttt{]} * n$ \tcp*{array di $n$ zeri}
-%         $\texttt{visited[}v\texttt{]} = 1$\\
-%         $\texttt{Stack S}:=\texttt{[}v\texttt{]}$\\
-%         \While{$!\texttt{S.isEmpty()}$}{
-%             $v_{top}=\texttt{S.top()}$\\
-%             \eIf{$\exists z \in V(G) : \left \{ \begin{array}{l}z \sim v_{top} \\ \texttt{visited[}z\texttt{]}=0 \end{array} \right.$}
-%                 {
-%                     $\texttt{S.push(}z\texttt{)}$\\
-%                     $\texttt{visited[}z\texttt{]} = 1$
-%                 }
-%                 {
-%                     $\texttt{S.pop()}$\\
-%                 }
-%         }
-%         \Return \texttt{visited}
-%     }
-%
-%     \caption{Prima versione dell'algoritmo; dato un grafo indiretto $G$, e un suo vertice $v$, l'algoritmo restituisce tutti i vertici, raggiungibili attraverso cammini, partendo da $v$.}
-% \end{algorithm}
+\begin{algorithm}[H]
+    \caption{
+        Prima versione dell'algoritmo; dato un grafo indiretto $G$, e un suo vertice $v$, l'algoritmo restituisce tutti i vertici, raggiungibili attraverso cammini, partendo da $v$.\\
+        \textbf{Input}: $G$ grafo indiretto; $v$ un vertice di $G$.\\
+        \textbf{Output}: i vertici raggiungibili da $v$.
+    }
+
+    \begin{algorithmic}[1]
+        \Function{findReachableNodes$_1$}{$G$, $v$}
+            \State $\texttt{visited}:=\texttt{[}0\texttt{]} * n$ \Comment{array di $n$ zeri}
+            \State $\texttt{visited[}v\texttt{]} = 1$
+            \State $\texttt{Stack S}:=\texttt{[}v\texttt{]}$
+            \While{$!\texttt{S.isEmpty()}$}
+                \State $v_{top}=\texttt{S.top()}$
+                \If{$\exists z \in V(G) : \left \{ \begin{array}{l}z \sim v_{top} \\ \texttt{visited[}z\texttt{]}=0 \end{array} \right.$}
+                    \State $\texttt{S.push(}z\texttt{)}$
+                    \State $\texttt{visited[}z\texttt{]} = 1$
+                \Else
+                    \State $\texttt{S.pop()}$
+                \EndIf
+            \EndWhile
+            \State \textbf{return} \texttt{visited}
+        \EndFunction
+    \end{algorithmic}
+\end{algorithm}
 
 \begin{proof}
     Per assurdo, sia $\hat v \in V(G)$, raggiungibile da $v$ attraverso un cammino, che non sia stato raggiunto dall'algoritmo; allora, per definizione esiste un cammino $v, e_1, v_1, \ldots, v_{n - 1}, v_n, \hat v$; inoltre, sia $v_i$ il vertice con indice maggiore all'interno del cammino, raggiunto dall'algoritmo, e dunque avendo che $\left \{ \begin{array}{l}v_i \sim v_{i + 1} \\ v_{i + 1} \notin \texttt{visited}  \end{array} \right.$. Allora, per costruzione dell'algoritmo, $v_i$ sarebbe stato rimosso dallo stack, alla riga $11$, prima che $v_{i + 1}$ potesse essere visitato; ma poiché $v_i \sim v_{i +1}$, allora l'algoritmo dovrebbe aver sbagliato esecuzione, poiché $v_{i +1}$ sarebbe stato raggiunto alla riga $7$ inevitabilmente $\lightning$.
@@ -737,37 +782,36 @@
     Sia $G$ un grafo diretto; considerando l'insieme di archi attraversati dall'algoritmo per trovare ogni vertice raggiungibile partendo da $v$, al termine della procedura si ottiene un sottografo diretto di $G$ connesso ed aciclico, per gli stessi motivi dell'\cref{Sottografo di un grafo indiretto}; tale sottografo è un arborescenza di $v$.
 \end{remark}
 
-% \begin{algorithm}[H]
-%     \Input{$G$ grafo indiretto, rappresentato attraverso liste di adiacenza; $v$ un vertice di $G$.}
-%     \Output{i vertici raggiungibili da $v$.}
-%
-%     \SetKwFunction{findReachableNodes}{findReachableNodes$_2$}
-%     
-%     \Fn{\findReachableNodes{$G$, v}}{
-%         $\texttt{visited} := \texttt{[}v\texttt{]}$\\
-%         $\texttt{Stack S} := \texttt{[}v\texttt{]}$\\
-%         \While{$!\texttt{S.isEmpty()}$}{
-%             $v_{top}=\texttt{S.top()}$\\
-%             \While{$!v_{top}\texttt{.adjacent().isEmpty()}$}{
-%                 $z := v_{top}\texttt{.adjacent()[}0\texttt{]}$\\
-%                 $v_{top}\texttt{.adjacent().remove(}0\texttt{)}$ \tcp*{fa la differenza}
-%                 \If{$z \notin \texttt{visited}$}
-%                     {
-%                         $\texttt{visited.add(}z\texttt{)}$\\
-%                         $\texttt{S.push(}z\texttt{)}$\\
-%                         \textbf{break}
-%                     }
-%             }
-%             \If{$v_{top}\texttt{ == S.top()}$}
-%                 {
-%                     \texttt{S.pop()}
-%                 }
-%         }
-%         \Return \texttt{visited}
-%     }
-%
-%     \caption{Seconda versione dell'algoritmo; dato un grafo indiretto $G$, rappresentato attraverso liste di adiacenza, e un suo vertice $v$, l'algoritmo restituisce tutti i vertici, raggiungibili attraverso cammini, partendo da $v$.}
-% \end{algorithm}
+\begin{algorithm}[H]
+    \caption{
+        Seconda versione dell'algoritmo; dato un grafo indiretto $G$, rappresentato attraverso liste di adiacenza, e un suo vertice $v$, l'algoritmo restituisce tutti i vertici, raggiungibili attraverso cammini, partendo da $v$.\\
+        \textbf{Input}: $G$ grafo indiretto, rappresentato attraverso liste di adiacenza; $v$ un vertice di $G$.\\
+        \textbf{Output}: i vertici raggiungibili da $v$.
+    }
+
+    \begin{algorithmic}[1]
+        \Function{findReachableNodes$_2$}{$G$, $v$}
+            \State $\texttt{visited} := \texttt{[}v\texttt{]}$
+            \State $\texttt{Stack S} := \texttt{[}v\texttt{]}$
+            \While{$!\texttt{S.isEmpty()}$}
+                \State $v_{top}=\texttt{S.top()}$
+                \While{$!v_{top}\texttt{.adjacent().isEmpty()}$}
+                    \State $z := v_{top}\texttt{.adjacent()[}0\texttt{]}$
+                    \State $v_{top}\texttt{.adjacent().remove(}0\texttt{)}$ \Comment{fa la differenza}
+                    \If{$z \notin \texttt{visited}$}
+                        \State $\texttt{visited.add(}z\texttt{)}$
+                        \State $\texttt{S.push(}z\texttt{)}$
+                        \State \textbf{break}
+                    \EndIf
+                \EndWhile
+                \If{$v_{top}\texttt{ == S.top()}$}
+                    \State \texttt{S.pop()}
+                \EndIf
+            \EndWhile
+            \State \textbf{return} \texttt{visited}
+        \EndFunction
+    \end{algorithmic}
+\end{algorithm}
 
 \begin{remark}(Differenze con la prima versione)
     Questa seconda versione dell'algoritmo presenta una miglioria sostanziale alla riga $8$: infatti, attraverso questa riga si rimuovono di volta in volta i vertici adiacenti appena già visitati; di conseguenza, i vertici adiacenti da controllare saranno progressivamente sempre meno. Infatti, si noti che senza la riga $8$, l'algoritmo si comporterebbe come la prima versione.
@@ -785,24 +829,25 @@
 
 \subsection{Trovare un ordinamento topologico}
 
-% \begin{algorithm}[H]
-%     \Input{$G$ grafo diretto aciclico.}
-%     \Output{un ordinamento topologico di $G$.}
-%
-%     \SetKwFunction{findTopologicalSorting}{findTopologicalSorting}
-%     
-%     \Fn{\findTopologicalSorting{$G$, v}}{
-%         $\texttt{order} := \texttt{[}v\texttt{]}$\\
-%         \While{$V(G) \neq 0$}{
-%             $v \in V(G) : v.\texttt{incoming\_adjacent().length()} = 0$\\
-%             $\texttt{order.add(}v\texttt{)}$\\
-%             $V(G)\texttt{.remove(}v\texttt{)}$
-%         }
-%         \Return \texttt{order}
-%     }
-%
-%     \caption{Dato un grafo diretto aciclico $G$, l'algoritmo restituisce un suo ordinamento topologico.}
-% \end{algorithm}
+\begin{algorithm}[H]
+    \caption{
+        Dato un grafo diretto aciclico $G$, l'algoritmo restituisce un suo ordinamento topologico.\\
+        \textbf{Input}: $G$ grafo diretto aciclico.\\
+        \textbf{Output}: un ordinamento topologico di $G$.
+    }
+
+    \begin{algorithmic}[1]
+        \Function{findTopologicalSorting}{$G$}
+            \State $\texttt{order} := \texttt{[}\texttt{]}$
+            \While{$V(G) \neq 0$}
+                \State $v \in V(G) : v.\texttt{incoming\_adjacent().length()} = 0$
+                \State $\texttt{order.add(}v\texttt{)}$
+                \State $V(G)\texttt{.remove(}v\texttt{)}$
+            \EndWhile
+            \State \textbf{return} \texttt{order}
+        \EndFunction
+    \end{algorithmic}
+\end{algorithm}
 
 \begin{remark}(Costo dell'algoritmo)
     Il ciclo \texttt{while} della riga $3$, indipendentemente dalla struttura di rappresentazione del grafo $G$, deve essere eseguito $n$ volte, e dunque ha costo $O(n)$, poiché l'ordinamento topologico deve coinvolgere ogni nodo del grafo, e alla riga $6$ i nodi controllati vengono progressivamente rimossi.
@@ -891,47 +936,93 @@
     \end{itemize}
 \end{proof}
 
-% \begin{algorithm}[H]
-%     \Input{$G$ grafo diretto, rappresentato attraverso liste di adiacenza; $v$ un vertice di $G$}
-%     \Output{archi non dell'arborescenza, categorizzati per intervalli.}
-%
-%     \SetKwFunction{categorizeEdges}{categorizeEdges}
-%     
-%     \Fn{\categorizeEdges{$G$, v}}{
-%         $\texttt{visited} := \texttt{[}0\texttt{]} * n$\\
-%         $\texttt{visited[}v\texttt{]}=1$\\
-%         $\texttt{Stack S}:=\texttt{[}v\texttt{]}$\\
-%         $\texttt{c}:=1$\\
-%         $\texttt{t} := \texttt{[}0\texttt{]} * n$ \tcp*{tempi di visita}
-%         $\texttt{T} := \texttt{[}0\texttt{]} * n$ \tcp*{tempi di chiusura}
-%         $\texttt{t[}v\texttt{]}=\texttt{c}$\\
-%         $\texttt{parents} := \texttt{[}0\texttt{]} * n$\\
-%         $\texttt{parents[}v\texttt{]}=v$ \tcp*{per riconoscere la radice}
-%         \While{$!\texttt{S.isEmpty()}$}{
-%             $v_{top} := \texttt{S.top()}$\\
-%             \While{$!v_{top}\texttt{.outgoing\_adjacent().isEmpty()}$}{
-%                 $z:=v_{top}\texttt{.outgoing\_adjacent()[}0\texttt{]}$\\
-%                 $v_{top}\texttt{.outgoing\_adjacent().remove(}0\texttt{)}$\\
-%                 \If{$z \notin \texttt{visited}$}
-%                     {
-%                         $\texttt{visited[}z\texttt{]}=1$\\
-%                         $\texttt{S.push(}z\texttt{)}$\\
-%                         $\texttt{parents[}z\texttt{]}=v_{top}$\\
-%                         $\texttt{c +=}1$\\
-%                         $\texttt{t[}z\texttt{]}=\texttt{c}$\\
-%                         \textbf{break}
-%                     }
-%             \If{$v_{top}\texttt{ == S.top()}$}
-%                 {
-%                     \texttt{S.pop()}\\
-%                     $\texttt{T[}v_{top}\texttt{]}=\texttt{c}$\\
-%                 }
-%             }
-%         }
-%         \Return \texttt{order}
-%     }
-%
-%     \caption{Dato un grafo diretto $G$, rappresentato attraverso liste di adiacenza(per ogni vertice sono salvate due liste, dei vertici entranti e dei vertici uscenti), e un suo vertice $v$, l'algoritmo restituisce gli archi non facenti parti dell'arborescenza di $v$, categorizzati in base ai loro intervalli di apertura e chiusura.}
-% \end{algorithm}
+\begin{algorithm}[H]
+    \caption{
+        Dato un grafo diretto $G$, rappresentato attraverso liste di adiacenza (per ogni vertice sono salvate due liste, dei vertici entranti e dei vertici uscenti), e un suo vertice $v$, l'algoritmo restituisce gli archi non facenti parti dell'arborescenza di $v$, categorizzati in base ai loro intervalli di apertura e chiusura.\\
+        \textbf{Input}: $G$ grafo diretto, rappresentato attraverso liste di adiacenza; $v$ un vertice di $G$.\\
+        \textbf{Output}: archi non dell'arborescenza, categorizzati per intervalli.
+    }
+
+    \begin{algorithmic}[1]
+        \Function{categorizeEdges}{$G$, $v$}
+            \State $\texttt{visited} := \texttt{[}0\texttt{]} * n$
+            \State $\texttt{visited[}v\texttt{]}=1$
+            \State $\texttt{Stack S}:=\texttt{[}v\texttt{]}$
+            \State $\texttt{c}:=1$
+            \State $\texttt{t} := \texttt{[}0\texttt{]} * n$ \Comment{tempi di visita}
+            \State $\texttt{T} := \texttt{[}0\texttt{]} * n$ \Comment{tempi di chiusura}
+            \State $\texttt{t[}v\texttt{]}=\texttt{c}$
+            \State $\texttt{parents} := \texttt{[}0\texttt{]} * n$
+            \State $\texttt{parents[}v\texttt{]}=v$ \Comment{per riconoscere la radice}
+            \While{$!\texttt{S.isEmpty()}$}
+                \State $v_{top} := \texttt{S.top()}$
+                \While{$!v_{top}\texttt{.outgoing\_adjacent().isEmpty()}$}
+                    \State $z:=v_{top}\texttt{.outgoing\_adjacent()[}0\texttt{]}$
+                    \State $v_{top}\texttt{.outgoing\_adjacent().remove(}0\texttt{)}$
+                    \If{$z \notin \texttt{visited}$}
+                        \State $\texttt{visited[}z\texttt{]}=1$
+                        \State $\texttt{S.push(}z\texttt{)}$
+                        \State $\texttt{parents[}z\texttt{]}=v_{top}$
+                        \State $\texttt{c +=}1$
+                        \State $\texttt{t[}z\texttt{]}=\texttt{c}$
+                        \State \textbf{break}
+                    \EndIf
+                \EndWhile
+                \If{$v_{top}\texttt{ == S.top()}$}
+                    \State \texttt{S.pop()}
+                    \State $\texttt{T[}v_{top}\texttt{]}=\texttt{c}$
+                \EndIf
+            \EndWhile
+            \algstore{bkbreak}
+    \end{algorithmic}
+\end{algorithm}
+
+\begin{nocaptionalg}
+    \begin{algorithmic}[1]
+            \algrestore{bkbreak}
+            \State $\texttt{forward} := \texttt{[]}$
+            \State $\texttt{backward} := \texttt{[]}$
+            \State $\texttt{cross} := \texttt{[]}$
+
+            \For{$v \in V(G)$}
+                \For{$u \in v\texttt{.incoming\_adjacent()}$}
+                    \If{$\texttt{parents[}v\texttt{]}==u$}
+                        \State \textbf{continue} \Comment{faceva parte dell'arborescenza di $v$}
+                    \ElsIf{$\texttt{T[}u\texttt{]} < \texttt{t[}v\texttt{]} \ \texttt{or} \ \texttt{T[}v\texttt{]} < \texttt{t[}u\texttt{]}$}
+                        \State $\texttt{cross.add(}(u, v)\texttt{)}$
+                    \ElsIf{$\texttt{T[}u\texttt{]} \le \texttt{T[}v\texttt{]}$}
+                        \State $\texttt{backward.add(}(u, v)\texttt{)}$
+                    \Else
+                        \State $\texttt{forward.add(}(u, v)\texttt{)}$
+                    \EndIf
+                \EndFor
+            \EndFor
+
+            \State \textbf{return} \texttt{forward}, \texttt{backward}, \texttt{cross}
+        \EndFunction
+    \end{algorithmic}
+\end{nocaptionalg}
+
+\begin{remark}[Costo dell'algoritmo]
+    TODO O(n +m)
+\end{remark}
+
+\begin{algorithm}[H]
+    \caption{
+        Dato un grafo diretto $G$, rappresentato attraverso matrice di adiacenza, l'algoritmo restituisce, se presente, il pozzo universale di $G$.\\
+        \textbf{Input}: $G$ grafo diretto, rappresentato attraverso matrice di adiacenza.\\
+        \textbf{Output}: il pozzo universale di $G$, se presente.
+    }
+
+    \begin{algorithmic}[1]
+        \Function{categorizeEdges}{$G$, $v$}
+            \State TODO
+        \EndFunction
+    \end{algorithmic}
+\end{algorithm}
+
+\begin{remark}[Costo dell'algoritmo]
+    TODO O(n)
+\end{remark}
 
 \end{document}
