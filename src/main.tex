@@ -342,7 +342,7 @@
 \end{proof}
 
 \begin{definition}[Arborescenza]
-    Sia $G$ un grafo diretto, e $v$ un suo vertice; l'insieme degli archi raggiungibili da $v$ formano l'\textit{arborescenza di $v$}, e $v$ prende il nome di \textit{radice}. In simboli $$A_v := \{(v', v'') \in E(G) : v \rightarrow (v', v'')\} \subseteq E(G)$$ è l'arborescenza di $v$. Si noti che, spesso, il sottografo generato dall'arborescenza di $v$ viene identificato con l'arborescenza stessa. Inoltre, in un grafo indiretto l'arborescenza è spesso definita come \textit{albero}.
+    Sia $G$ un grafo diretto, e $v$ un suo vertice; l'insieme degli archi raggiungibili da $v$ formano l'\textit{arborescenza di $v$}, e $v$ prende il nome di \textit{radice}. In simboli $$A_v := \{(v', v'') \in E(G) : v \rightarrow (v', v'')\} \subseteq E(G)$$ è l'arborescenza di $v$. Si noti che, spesso, il sottografo generato dall'arborescenza di $v$ viene identificato con l'arborescenza stessa.
 \end{definition}
 
 \begin{example}[Arborescenza]
@@ -427,6 +427,33 @@
     \end{figure}
 
     Poiché non esiste cammino che possa collegare $4$ e $5$, il grafo non è connesso.
+\end{example}
+
+\begin{definition}[Albero]
+    Un grafo indiretto è detto \textit{albero} se è connesso ed aciclico.
+\end{definition}
+
+\begin{example}[Albero]
+    Un esempio di albero è il seguente:
+
+    \begin{figure}[H]
+        \centering
+        \begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=3cm,thick,main node/.style={scale=0.6,circle,draw,font=\sffamily\normalsize}]
+            \node[main node] (1) {1};
+            \node[main node] (2) [below left of=1] {2};
+            \node[main node] (3) [below right of=2] {3};
+            \node[main node] (4) [below right of=1] {4};
+            \node[main node] (5) [below right of=4] {5};
+
+            \path[every node/.style={font=\sffamily\small}]
+                (1) edge (2)
+                (3) edge (4)
+                (4) edge (1)
+                (4) edge (5)
+                ;
+        \end{tikzpicture}
+        \caption{Un albero.}
+    \end{figure}
 \end{example}
 
 \begin{definition}[Grafo fortemente connesso]
@@ -699,9 +726,9 @@
     Allora, il costo complessivo dell'algoritmo, indipendentemente dalla rappresentazione di $G$, è pari a $O(n) \cdot O(n) = O(n^2)$.
 \end{remark}
 
-\begin{remark}[Sottografo di un grafo indiretto]
+\begin{remark}[Albero]
 \label{Sottografo di un grafo indiretto}
-    Sia $G$ un grafo indiretto; considerando l'insieme di archi attraversati dall'algoritmo per trovare ogni vertice raggiungibile partendo da $v$, al termine della procedura si ottiene un sottografo indiretto di $G$ connesso ed aciclico: connesso, poiché l'algoritmo procede per adiacenza di vertici, ed aciclico, poiché l'algoritmo non visita lo stesso vertice più di una volta.
+    Sia $G$ un grafo indiretto; considerando l'insieme di archi attraversati dall'algoritmo per trovare ogni vertice raggiungibile partendo da $v$, al termine della procedura si ottiene un sottografo indiretto di $G$ connesso ed aciclico: connesso, poiché l'algoritmo procede per adiacenza di vertici, ed aciclico, poiché l'algoritmo non visita lo stesso vertice più di una volta. Allora, per definizione, tale sottografo è un albero.
 \end{remark}
 
 \begin{remark}[Grafo diretto]
@@ -713,7 +740,7 @@
 \end{remark}
 
 \begin{algorithm}[H]
-    \Input{$G$ grafo indiretto, rappresentato tramite liste di adiacenza; $v$ un vertice di $G$.}
+    \Input{$G$ grafo indiretto, rappresentato attraverso liste di adiacenza; $v$ un vertice di $G$.}
     \Output{i vertici raggiungibili da $v$.}
 
     \SetKwFunction{findReachableNodes}{findReachableNodes$_2$}
@@ -741,7 +768,7 @@
         \Return \texttt{visited}
     }
 
-    \caption{Seconda versione dell'algoritmo; dato un grafo indiretto $G$, rappresentato tramite liste di adiacenza, e un suo vertice $v$, l'algoritmo restituisce tutti i vertici, raggiungibili attraverso cammini, partendo da $v$.}
+    \caption{Seconda versione dell'algoritmo; dato un grafo indiretto $G$, rappresentato attraverso liste di adiacenza, e un suo vertice $v$, l'algoritmo restituisce tutti i vertici, raggiungibili attraverso cammini, partendo da $v$.}
 \end{algorithm}
 
 \begin{remark}(Differenze con la prima versione)
@@ -849,21 +876,64 @@
 \begin{proof}
     \hspace{0.7cm}
     \begin{itemize}
-        \item[] \textit{Prima implicazione.} Per assurdo, sia $G$ un grafo indiretto, in cui è presente almeno un ciclo, e non sono presenti backward edge; inoltre, sia $\hat v \in V(G)$, e sia $T_{\hat v}$ il suo albero. Allora, poiché $G$ non ha backward edge, necessariamente gli unici suoi archi sono quelli che compongono $T_{\hat v}$, e dunque $E(G) = E(T_{\hat v}) \implies G = T_{\hat v} \implies G$ è un albero, e dunque $G$ non ha cicli $\ \lightning$.
+        \item[] \textit{Prima implicazione.} Per assurdo, sia $G$ un grafo indiretto, in cui è presente almeno un ciclo, e non sono presenti backward edge; inoltre, sia $\hat v \in V(G)$, e sia $T_{\hat v}$ il suo albero. Allora, poiché $G$ non ha backward edge, necessariamente gli unici suoi archi sono quelli che compongono $T_{\hat v}$, e dunque $E(G) = E(T_{\hat v}) \implies G = T_{\hat v} \implies G$ è un albero, e dunque $G$ non ha cicli $\lightning$.
         \item[] \textit{Seconda implicazione.} Sia $G$ un grafo indiretto connesso, sia $\hat v \in V(G)$, $T_{\hat v}$ il suo albero, e sia $(u, v) \in E(G) - E(T_{\hat v})$ un backward edge. Allora, poiché $u, v \in V(T_{\hat v})$, è sufficiente considerare il cammino tale che $u \rightarrow v$, che esiste poiché $T_{\hat v}$ è un albero, e dunque $\{u \rightarrow v\} \cup (u, v)$ è un ciclo di $G$.
     \end{itemize}
 \end{proof}
 
 \begin{theorem}[Presenza di cicli]
-    Sia $G$ un grafo diretto connesso; allora $G$ ha un ciclo se e solo se in esso esiste un backward edge in almeno un'arborescenza.
+    Sia $G$ un grafo diretto fortemente connesso; allora $G$ ha un ciclo se e solo se in esso esiste un backward edge in ogni arborescenza.
 \end{theorem}
 
 \begin{proof}
     \hspace{0.7cm}
     \begin{itemize}
         \item[] \textit{Prima implicazione.} TODO
-        \item[] \textit{Seconda implicazione.} Sia $G$ un grafo diretto connesso, sia $\hat v \in V(G)$, $A_{\hat v}$ la sua arborescenza, e sia $(u, v) \in E(G) - E(A_{\hat v})$ un backward edge. Allora, poiché $u, v \in V(T_{\hat v})$, e $(u, v)$ è un backward edge, è sufficiente considerare il cammino tale che $u \rightarrow v$, che esiste poiché $A_{\hat v}$ è un arborescenza, e dunque $\{u \rightarrow v\} \cup (u, v)$ è un ciclo di $G$.
+        \item[] \textit{Seconda implicazione.} Sia $G$ un grafo diretto fortemente connesso, sia $\hat v \in V(G)$, $A_{\hat v}$ la sua arborescenza, e sia $(u, v) \in E(G) - E(A_{\hat v})$ un backward edge. Allora, poiché $u, v \in V(T_{\hat v})$, e $(u, v)$ è un backward edge, è sufficiente considerare il cammino tale che $u \rightarrow v$, che esiste poiché $A_{\hat v}$ è un arborescenza, e dunque $\{u \rightarrow v\} \cup (u, v)$ è un ciclo di $G$. Si noti che il fatto che $G$ sia fortemente connesso garantisce di poter considerare un $\hat v \in V(G)$ qualsiasi.
     \end{itemize}
 \end{proof}
+
+\begin{algorithm}[H]
+    \Input{$G$ grafo diretto, rappresentato attraverso liste di adiacenza; $v$ un vertice di $G$}
+    \Output{archi non dell'arborescenza, categorizzati per intervalli.}
+
+    \SetKwFunction{categorizeEdges}{categorizeEdges}
+    
+    \Fn{\categorizeEdges{$G$, v}}{
+        $\texttt{visited} := \texttt{[}0\texttt{]} * n$\\
+        $\texttt{visited[}v\texttt{]}=1$\\
+        $\texttt{Stack S}:=\texttt{[}v\texttt{]}$\\
+        $\texttt{c}:=1$\\
+        $\texttt{t} := \texttt{[}0\texttt{]} * n$ \tcp*{tempi di visita}
+        $\texttt{T} := \texttt{[}0\texttt{]} * n$ \tcp*{tempi di chiusura}
+        $\texttt{t[}v\texttt{]}=\texttt{c}$\\
+        $\texttt{parents} := \texttt{[}0\texttt{]} * n$\\
+        $\texttt{parents[}v\texttt{]}=v$ \tcp*{per riconoscere la radice}
+        \While{$!\texttt{S.isEmpty()}$}{
+            $v_{top} := \texttt{S.top()}$\\
+            \While{$!v_{top}\texttt{.outgoing\_adjacent().isEmpty()}$}{
+                $z:=v_{top}\texttt{.outgoing\_adjacent()[}0\texttt{]}$\\
+                $v_{top}\texttt{.outgoing\_adjacent().remove(}0\texttt{)}$\\
+                \If{$z \notin \texttt{visited}$}
+                    {
+                        $\texttt{visited[}z\texttt{]}=1$\\
+                        $\texttt{S.push(}z\texttt{)}$\\
+                        $\texttt{parents[}z\texttt{]}=v_{top}$\\
+                        $\texttt{c +=}1$\\
+                        $\texttt{t[}z\texttt{]}=\texttt{c}$\\
+                        \textbf{break}
+                    }
+            \If{$v_{top}\texttt{ == S.top()}$}
+                {
+                    \texttt{S.pop()}\\
+                    $\texttt{T[}v_{top}\texttt{]}=\texttt{c}$\\
+                }
+            }
+        }
+        \Return \texttt{order}
+    }
+
+    \caption{Dato un grafo diretto $G$, rappresentato attraverso liste di adiacenza(per ogni vertice sono salvate due liste, dei vertici entranti e dei vertici uscenti), e un suo vertice $v$, l'algoritmo restituisce gli archi non facenti parti dell'arborescenza di $v$, categorizzati in base ai loro intervalli di apertura e chiusura.}
+\end{algorithm}
 
 \end{document}
