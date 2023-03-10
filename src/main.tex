@@ -674,9 +674,9 @@
     \begin{algorithmic}[1]
         \Function{findCycle}{$G$}
             \State $v \in V(G)$ \Comment{un vertice qualsiasi di $G$}
-            \State $\texttt{visited} := \texttt{[}v\texttt{]}$ \Comment{conterrà i vertici visitati}
+            \State $\texttt{visited} := \verb|{|v\verb|}|$ \Comment{conterrà i vertici visitati}
             \State $v' \in V(G) : v \sim v'$
-            \While{$v' \notin \texttt{visited}$}
+            \While{$v' \notin \texttt{visited}$} \Comment{tempo costante perché \texttt{visited} è un set}
                 \State $\texttt{visited.add(}v'\texttt{)}$
                 \State $v' := v'' \in V(G) : \left \{ \begin{array}{l}v' \sim v'' \\ v'' \neq \texttt{visited[visited.length()} - 2\texttt{]} \end{array} \right.$
             \EndWhile
@@ -791,7 +791,7 @@
 
     \begin{algorithmic}[1]
         \Function{findReachableNodes$_2$}{$G$, $v$}
-            \State $\texttt{visited} := \texttt{[}v\texttt{]}$
+            \State $\texttt{visited} := \verb|{|v\verb|}|$
             \State $\texttt{Stack S} := \texttt{[}v\texttt{]}$
             \While{$!\texttt{S.isEmpty()}$}
                 \State $v_{top}=\texttt{S.top()}$
@@ -841,7 +841,7 @@
             \State $\texttt{order} := \texttt{[}\texttt{]}$
             \While{$V(G) \neq 0$}
                 \State $v \in V(G) : v.\texttt{incoming\_adjacent().length()} = 0$
-                \State $\texttt{order.add(}v\texttt{)}$
+                \State $\texttt{order.append(}v\texttt{)}$
                 \State $V(G)\texttt{.remove(}v\texttt{)}$
             \EndWhile
             \State \textbf{return} \texttt{order}
