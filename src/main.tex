@@ -168,7 +168,7 @@
 \end{definition}
 
 \begin{lemma}[Somma dei gradi]
-\label{Somma dei gradi}
+    \label{Somma dei gradi}
     Dato un grafo $G$, la somma dei gradi dei vertici è pari a $2 |E(G)|$.
 \end{lemma}
 
@@ -329,7 +329,7 @@
 \end{example}
 
 \begin{theorem}[Ordinamento topologico]
-\label{Ordinamento topologico}
+    \label{Ordinamento topologico}
     Un grafo diretto $G$ ha un ordinamento topologico se e solo se è aciclico.
 \end{theorem}
 
@@ -770,7 +770,7 @@
 \end{remark}
 
 \begin{remark}[Albero]
-\label{Sottografo di un grafo indiretto}
+    \label{Sottografo di un grafo indiretto}
     Sia $G$ un grafo indiretto; considerando l'insieme di archi attraversati dall'algoritmo per trovare ogni vertice raggiungibile partendo da $v$, al termine della procedura si ottiene un sottografo indiretto di $G$ connesso ed aciclico: connesso, poiché l'algoritmo procede per adiacenza di vertici, ed aciclico, poiché l'algoritmo non visita lo stesso vertice più di una volta. Allora, per definizione, tale sottografo è un albero.
 \end{remark}
 
@@ -872,6 +872,7 @@
 \end{remark}
 
 \begin{lemma}[Proprietà degli intervalli]
+    \label{Intervalli diretto}
     Sia $G$ un grafo diretto, e $u, v \in V(G)$ adiacenti; allora solo una delle seguenti proposizioni è vera:
     \begin{enumerate}[i)]
         \item $\mathrm{Int}(u) \subseteq \mathrm{Int}(v)$
@@ -894,8 +895,8 @@
 \begin{remark}[Categorie di archi]
     Sia $G= (V, E)$ un grafo diretto, $\hat v \in V(G)$, e sia $A_{\hat v}$ la sua arborescenza; allora, è possibile classificare ogni arco $(u, v) \in E(G) - E(A_{\hat v})$, mediante $\mathrm{Int}(u)$ e $\mathrm{Int}(v)$:
     \begin{itemize}
-        \item $\mathrm{Int}(u) \subseteq \mathrm{Int}(v)$, allora l'arco $(u, v)$ è un \textit{forward edge}, ovvero in avanti: sono gli archi che congiungono due nodi dello stesso ramo di $A_{\hat v}$, nel caso in cui $v$ è più in profondità di $u$ nella visita DFS 
-        \item $\mathrm{Int}(v) \subseteq \mathrm{Int}(u)$, allora l'arco $(u, v)$ è un \textit{backward edge}, ovvero all'indietro: sono gli archi che congiungono due nodi dello stesso ramo di $A_{\hat v}$, nel caso in cui $u$ è più in profondità di $v$ nella visita DFS
+        \item $\mathrm{Int}(u) \subseteq \mathrm{Int}(v)$, allora l'arco $(u, v)$ è un \textit{backward edge}, ovvero in avanti: sono gli archi che congiungono due nodi dello stesso ramo di $A_{\hat v}$, nel caso in cui $v$ è più in profondità di $u$ nella visita DFS 
+        \item $\mathrm{Int}(v) \subseteq \mathrm{Int}(u)$, allora l'arco $(u, v)$ è un \textit{forward edge}, ovvero all'indietro: sono gli archi che congiungono due nodi dello stesso ramo di $A_{\hat v}$, nel caso in cui $u$ è più in profondità di $v$ nella visita DFS
         \item $\mathrm{Int}(v) \cap \mathrm{Int}(u) = \varnothing$, allora l'arco $(u, v)$ è un \textit{cross edge}, detto \textit{arco di attraversamento}: sono gli archi che congiungono due nodi di rami differenti in $A_{\hat v}$
     \end{itemize}
 \end{remark}
@@ -905,7 +906,7 @@
 \end{lemma}
 
 \begin{proof}
-    La tesi equivale a dimostrare che non può verificarsi il caso in cui c'è intersezione vuota tra i due intervalli, e dunque non è possibile che $\mathrm{Int}(u) \cap \mathrm{Int}(v) = \varnothing$, ovvero $t(u) \le T(u) < t(v) \le T(v)$, poiché $T(u) < t(v)$ implicherebbe che $u$ verrebbe tolto dallo stack prima che $v$ possa essere inserito, e questo non è possibile per costruzione della visita DFS, poiché $u \sim v$.
+    La tesi equivale a dimostrare che non può verificarsi il caso in cui c'è intersezione vuota tra i due intervalli, e dunque non è possibile che $\mathrm{Int}(u) \cap \mathrm{Int}(v) = \varnothing$, ovvero $t(u) \le T(u) < t(v) \le T(v)$, poiché $T(u) < t(v)$ implicherebbe che $u$ verrebbe rimosso dallo stack prima che $v$ possa essere inserito, e questo non è possibile per costruzione della visita DFS, poiché $u \sim v$.
 \end{proof}
 
 \begin{remark}[Categorie di archi]
@@ -925,14 +926,38 @@
 \end{proof}
 
 \begin{theorem}[Presenza di cicli]
-    Sia $G$ un grafo diretto fortemente connesso; allora $G$ ha un ciclo se e solo se in esso esiste un backward edge in ogni arborescenza.
+    Sia $G$ un grafo diretto connesso; allora $G$ ha un ciclo se e solo se in esso esiste un backward edge in almeno un'arborescenza.
 \end{theorem}
 
 \begin{proof}
     \hspace{0.7cm}
     \begin{itemize}
         \item[] \textit{Prima implicazione.} TODO
-        \item[] \textit{Seconda implicazione.} Sia $G$ un grafo diretto fortemente connesso, sia $\hat v \in V(G)$, $A_{\hat v}$ la sua arborescenza, e sia $(u, v) \in E(G) - E(A_{\hat v})$ un backward edge. Allora, poiché $u, v \in V(T_{\hat v})$, e $(u, v)$ è un backward edge, è sufficiente considerare il cammino tale che $u \rightarrow v$, che esiste poiché $A_{\hat v}$ è un arborescenza, e dunque $\{u \rightarrow v\} \cup (u, v)$ è un ciclo di $G$. Si noti che il fatto che $G$ sia fortemente connesso garantisce di poter considerare un $\hat v \in V(G)$ qualsiasi.
+        \item[] \textit{Seconda implicazione.} Sia $G$ un grafo diretto fortemente connesso, e sia $\hat v \in V(G)$ tale che la sua arborescenza $A_{\hat v}$ contenga un backward edge $(u, v) \in E(G) - E(A_{\hat v})$. Allora, poiché $u, v \in V(T_{\hat v})$, e $(u, v)$ è un backward edge, è sufficiente considerare il cammino tale che $u \rightarrow v$, che esiste poiché $A_{\hat v}$ è un arborescenza, e dunque $\{u \rightarrow v\} \cup (u, v)$ è un ciclo di $G$. Si noti che il fatto che $G$ sia fortemente connesso garantisce di poter considerare un $\hat v \in V(G)$ qualsiasi.
+    \end{itemize}
+\end{proof}
+
+\begin{corollary}
+    Sia $G$ un grafo diretto aciclico, sia $\hat v \in V(G)$ un suo vertice, sia $A_{\hat v}$ la relativa arborescenza, e sia $(u, v) \in E(G)$ un arco; allora $t(v) \le T(u)$.
+\end{corollary}
+
+\begin{proof}
+    Si noti che ogni arco $(u, v) \in A_{\hat v}$ è un forward edge per costruzione della visita DFS; allora si consideri il caso in cui $(u, v) \in E(G) - A_{\hat v}$. Allora il teorema precedente, $(u, v)$ non è un backward edge, e dunque per il \cref{Intervalli diretto} si può verificare solo una delle seguenti:
+    \begin{itemize}
+        \item $\mathrm{Int}(v) \subseteq \mathrm{Int}(u) \implies t(u) < t(v) \le T(v) < T(u)$, e in particolare $t(v) \le T(u)$
+        \item $\mathrm{Int}(u) \cap \mathrm{Int}(v) = \varnothing \implies t(u) < T(u) \le t(v):
+\end{proof}
+
+\begin{corollary}
+    Sia $G$ un grafo diretto aciclico, sia $\hat v \in V(G)$ un suo vertice, sia $A_{\hat v}$ la relativa arborescenza, e sia $(u, v) \in E(G) - A_{\hat v}$ un arco non appartenente a $A_{\hat v}$; allora $(u, v)$ è un forward edge, o è un cross edge.
+\end{corollary}
+
+\begin{proof}
+    Per il lemma precedente, necessariamente $t(v) \le T(u)$; allora le uniche possibilità sono:
+    \begin{itemize}
+        \item $t(u) < t(v) \le T(v) < T(u) \implies \mathrm{Int}(v) \subseteq \mathrm{Int}(u) \implies (u, v)$ è un forward edge
+        \item $t(u) < t(v) \le T(v) < T(u) \implies \mathrm{Int}(v) \subseteq \mathrm{Int}(u) \implies (u, v)$ è un forward edge
+        \item $t(u) < t(v) \le T(u) < T(v)$, che è impossibile per il \cref{Intervalli diretto}
     \end{itemize}
 \end{proof}
 
@@ -1015,7 +1040,7 @@
     }
 
     \begin{algorithmic}[1]
-        \Function{categorizeEdges}{$G$, $v$}
+        \Function{findUniversalSink}{$G$, $v$}
             \State TODO
         \EndFunction
     \end{algorithmic}
