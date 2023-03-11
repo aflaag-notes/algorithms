@@ -525,6 +525,41 @@
     \end{figure}
 \end{example}
 
+\begin{definition}[Ponte]
+    Sia $G$ un grafo, e siano $u, v \in V(G)$ due suoi vertici; allora $(u, v)$ è detto \textit{ponte} se non è contenuto in nessun ciclo di $G$.
+\end{definition}
+
+\begin{example}[Ponte]
+    Un esempio di grafo che presenta un ponte è il seguente:
+
+    \begin{figure}[H]
+        \centering
+        \begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=3cm,thick,main node/.style={scale=0.6,circle,draw,font=\sffamily\normalsize}]
+            \node[main node] (1) {1};
+            \node[main node] (2) [below left of=1] {2};
+            \node[main node] (3) [below right of=2] {3};
+            \node[main node] (4) [below right of=1] {4};
+            \node[main node] (5) [right of=4] {5};
+            \node[main node] (6) [above right of=5] {6};
+            \node[main node] (7) [below right of=5] {7};
+
+            \path[every node/.style={font=\sffamily\small}]
+                (1) edge (2)
+                (2) edge (3)
+                (3) edge (4)
+                (4) edge (1)
+                (4) edge (5)
+                (5) edge (6)
+                (6) edge (7)
+                (7) edge (5)
+                ;
+        \end{tikzpicture}
+        \caption{Un grafo con un ponte.}
+    \end{figure}
+
+    Infatti, $(4, 5)$ è un ponte poiché gli unici due cicli di $G$ sono $$\{1, (1, 2), 2, (2, 3), 3, (3, 4), 4, (4, 1), 1\}$$ $$\{5, (5, 6), 6, (6, 7), 7, (7, 5), 5\}$$
+\end{example}
+
 \begin{definition}[Passeggiata euleriana]
     Una passeggiata si dice \textit{euleriana} se attraversa ogni arco del grafo, senza ripercorrerne nessuno.
 \end{definition}
@@ -890,6 +925,8 @@
         \item $t(u) < t(v) \implies u$ inserito nello stack prima di $v$
         \item $t(v) < T(u) \implies u$ viene rimosso dallo stack dopo aver visitato $v$, ma poiché $u$ era sotto a $v$ all'interno dello stack, necessariamente $v$ deve essere stato rimosso dallo stack prima di $u$, e allora non è possibile che $T(u) < T(v) \ \lightning$.
     \end{itemize}
+    
+    Si noti che, avendo ad esempio $(u, v) \in E(G)$, e dunque $u$ incidente a $v$, allora necessariamente $\mathrm{Int}(u) \cap \mathrm{Int}(v) \implies t(v) < T(v) < t(u) \le T(u)$.
 \end{proof}
 
 \begin{remark}[Categorie di archi]
@@ -926,6 +963,7 @@
 \end{proof}
 
 \begin{theorem}[Presenza di cicli]
+    \label{Cicli diretto}
     Sia $G$ un grafo diretto connesso; allora $G$ ha un ciclo se e solo se in esso esiste un backward edge in almeno un'arborescenza.
 \end{theorem}
 
@@ -938,28 +976,78 @@
 \end{proof}
 
 \begin{corollary}
-    Sia $G$ un grafo diretto aciclico, sia $\hat v \in V(G)$ un suo vertice, sia $A_{\hat v}$ la relativa arborescenza, e sia $(u, v) \in E(G)$ un arco; allora $t(v) \le T(u)$.
+    Sia $G$ un grafo diretto aciclico connesso, sia $\hat v \in V(G)$ un suo vertice, sia $A_{\hat v}$ la relativa arborescenza, e sia $(u, v) \in E(G)$ un arco; allora $t(v) \le T(u)$.
 \end{corollary}
 
 \begin{proof}
-    Si noti che ogni arco $(u, v) \in A_{\hat v}$ è un forward edge per costruzione della visita DFS; allora si consideri il caso in cui $(u, v) \in E(G) - A_{\hat v}$. Allora il teorema precedente, $(u, v)$ non è un backward edge, e dunque per il \cref{Intervalli diretto} si può verificare solo una delle seguenti:
+    Si noti che ogni arco $(u, v) \in A_{\hat v}$ è un forward edge per costruzione della visita DFS; allora si consideri il caso in cui $(u, v) \in E(G) - A_{\hat v}$. Allora per il teorema precedente, $(u, v)$ non è un backward edge, e dunque per il \cref{Intervalli diretto} si può verificare solo una delle seguenti:
     \begin{itemize}
         \item $\mathrm{Int}(v) \subseteq \mathrm{Int}(u) \implies t(u) < t(v) \le T(v) < T(u)$, e in particolare $t(v) \le T(u)$
-        \item $\mathrm{Int}(u) \cap \mathrm{Int}(v) = \varnothing \implies t(u) < T(u) \le t(v):
+        \item $\mathrm{Int}(u) \cap \mathrm{Int}(v) = \varnothing \implies t(v) < T(v) < t(u) < T(u)$, e in particolare $t(v) \le T(u)$.
+    \end{itemize}
 \end{proof}
 
 \begin{corollary}
-    Sia $G$ un grafo diretto aciclico, sia $\hat v \in V(G)$ un suo vertice, sia $A_{\hat v}$ la relativa arborescenza, e sia $(u, v) \in E(G) - A_{\hat v}$ un arco non appartenente a $A_{\hat v}$; allora $(u, v)$ è un forward edge, o è un cross edge.
+    Sia $G$ un grafo diretto aciclico connesso, sia $\hat v \in V(G)$ un suo vertice, sia $A_{\hat v}$ la relativa arborescenza, e sia $(u, v) \in E(G)$ un arco; allora $T(v) \le T(u)$.
 \end{corollary}
 
 \begin{proof}
-    Per il lemma precedente, necessariamente $t(v) \le T(u)$; allora le uniche possibilità sono:
+    Per il corollario precedente, per ogni arco di un grafo indiretto aciclico connesso $t(v) \le T(u)$, allora:
     \begin{itemize}
-        \item $t(u) < t(v) \le T(v) < T(u) \implies \mathrm{Int}(v) \subseteq \mathrm{Int}(u) \implies (u, v)$ è un forward edge
-        \item $t(u) < t(v) \le T(v) < T(u) \implies \mathrm{Int}(v) \subseteq \mathrm{Int}(u) \implies (u, v)$ è un forward edge
-        \item $t(u) < t(v) \le T(u) < T(v)$, che è impossibile per il \cref{Intervalli diretto}
+        \item $t(v) < t(u)$: se $T(u) \le T(v)$, allora $(u, v)$ sarebbe un backward edge, che non è possibile avere per il \cref{Cicli diretto}; allora necessariamente $T(v) < T(u)$; ma se $t(u) < T(v)$ allora si avrebbe intersezione non vuota tra gli intervalli, impossibile per il \cref{Intervalli diretto}; allora necessariamente $t(v) < T(v) < t(u) < T(u)$, e dunque $(u, v)$ è un cross edge
+        \item $t(u) < t(v)$: se $T(u) < T(v)$, allora gli intervalli avrebbero intersezione non vuota, e ciò non si può verificare per il \cref{Intervalli diretto}; allora necessariamente $t(u) < t(v) \le T(v) \le T(u)$, e dunque $(u, v)$ è un forward edge.
     \end{itemize}
+
+    In particolare, si ha che $T(v) \le T(u)$ in entrambe i casi.
 \end{proof}
+
+\begin{theorem}[Ordinamento topologico attraverso i tempi]
+    Sia $G$ un grafo diretto aciclico connesso, sia $\hat v \in V(G)$ un suo vertice, e sia $A_{\hat v}$ la sua arborescenza; allora, ordinando i vertici attraverso i loro tempi di chiusura $T$ in ordine decrescente, si ottiene un ordinamento topologico del grafo.
+\end{theorem}
+
+\begin{proof}
+    Per definizione, un'ordinamento è detto topologico se ogni vertice è posto prima dei suoi archi uscenti; inoltre, per il corollario precedente, per ogni $(u, v) \in E(G)$ si ha $T(v) \le T(u)$, e dunque se si ordinassero i vertici di $G$ utilizzando i tempi di chiusura $T$, in ordine crescente, come criterio, allora $v$ verrebbe prima di $u$, e $(u, v)$ è un arco diretto in cui $u$ è incidente a $v$; allora, segue che ordinando i vertici in ordine decrescente di $T$, si ha un ordinamento topologico di $G$.
+\end{proof}
+
+\begin{algorithm}[H]
+    \caption{
+        Dato un grafo diretto aciclico connesso $G$, rappresentato attraverso liste di adiacenza in cui vengono salvati gli archi adiacenti uscenti, l'algoritmo restituisce un ordinamento topologico di $G$.\\
+        \textbf{Input}: $G$ grafo diretto, rappresentato attraverso liste di adiacenza.\\
+        \textbf{Output}: un ordinamento topologico di $G$.
+    }
+
+    \begin{algorithmic}[1]
+        \Function{DFS}{$G$, $v$, \texttt{visited}, \texttt{order}}
+            \State $\texttt{visited.add(}v\texttt{)}$
+            \For{$u \in V(G) : (v, u) \in E(G)$} \Comment{$u$ deve essere uscente da $v$}
+                \If{$u \notin \texttt{visited}$}
+                    \State $\texttt{DFS(}G, u, \texttt{visited},\texttt{order)}$
+                \EndIf
+            \EndFor
+            \State $\texttt{order.append(}v\texttt{)}$ \Comment{l'ordinamento risulterà invertito}
+        \EndFunction
+        \\
+        \Function{findTopologicalSortingDFS}{$G$}
+            \State $\texttt{order} := \texttt{[]}$
+            \State $\texttt{visited} := \texttt{[]}$
+            \For{$v \in V(G)$}
+                \If{$v \notin \texttt{visited}$}
+                    \State $\texttt{DFS(}G, v, \texttt{visited},\texttt{order)}$
+                \EndIf
+            \EndFor
+            \State $\texttt{order.reverse()}$ \Comment{viene invertita la lista}
+            \State \textbf{return} \texttt{order}
+        \EndFunction
+    \end{algorithmic}
+\end{algorithm}
+
+\begin{remark}[Ordinamento topologico]
+    Si noti che l'algoritmo non salva i tempi di chiusura dei vari vertici per ordinarli, ma non è necessario grazie alla ricorsione: infatti, inserendo il vertice alla riga $8$, dunque dopo il loop \texttt{for}, l'inserimento avviene in post-order rispetto alla visita del grafo, e dunque è equivalente a rispettare l'ordinamento crescente dei tempi di chiusura di ogni nodo. Dunque, è sufficiente invertire la lista ottenuta, alla riga $19$, per ottenere un ordinamento topologico.
+\end{remark}
+
+\begin{remark}[Costo dell'algoritmo]
+    Si noti che l'algoritmo ha costo $O(n + m)$, poiché attua una sola visita in DFS del grafo, rappresentato attraverso liste di adiacenza, ricorsivamente.
+\end{remark}
 
 \begin{algorithm}[H]
     \caption{
