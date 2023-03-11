@@ -848,10 +848,10 @@
     \end{algorithmic}
 \end{algorithm}
 
-\begin{remark}(Differenze con la prima versione)
+\begin{remark}[Correttezza dell'algoritmo]
     Questa seconda versione dell'algoritmo presenta una miglioria sostanziale alla riga $8$: infatti, attraverso questa riga si rimuovono di volta in volta i vertici adiacenti appena già visitati; di conseguenza, i vertici adiacenti da controllare saranno progressivamente sempre meno. Infatti, si noti che senza la riga $8$, l'algoritmo si comporterebbe come la prima versione.
 
-    Il \texttt{break} alla riga $12$ interrompe il ciclo \texttt{while} della riga $6$, facendo sì che $v_{top}$ della riga $5$, all'iterazione successiva del \texttt{while} della riga $4$, sia pari a $z$, dunque cambiando il vertice correntemente in esame. Di conseguenza, alla riga $15$ il controllo sarà valutato a \texttt{true} esclusivamente se non è mai stata eseguita la riga $11$ per tutta l'iterazione del ciclo \texttt{while} della riga $6$, ovvero quando tutti i vertici adiacenti a $v_{top}$ sono già stati visitati.
+    Il \texttt{break} alla riga $12$ interrompe il ciclo \texttt{while} della riga $6$, facendo sì che $v_{top}$ della riga $5$, all'iterazione successiva del \texttt{while} della riga $4$, sia pari a $z$, dunque cambiando il vertice correntemente in esame. Di conseguenza, alla riga $15$ il controllo sarà valutato a \texttt{True} esclusivamente se non è mai stata eseguita la riga $11$ per tutta l'iterazione del ciclo \texttt{while} della riga $6$, ovvero quando tutti i vertici adiacenti a $v_{top}$ sono già stati visitati.
 \end{remark}
 
 \begin{remark}[Costo dell'algoritmo]
@@ -884,7 +884,11 @@
     \end{algorithmic}
 \end{algorithm}
 
-\begin{remark}(Costo dell'algoritmo)
+\begin{remark}[Correttezza dell'algoritmo]
+    TODO
+\end{remark}
+
+\begin{remark}[Costo dell'algoritmo]
     Il ciclo \texttt{while} della riga $3$, indipendentemente dalla struttura di rappresentazione del grafo $G$, deve essere eseguito $n$ volte, e dunque ha costo $O(n)$, poiché l'ordinamento topologico deve coinvolgere ogni nodo del grafo, e alla riga $6$ i nodi controllati vengono progressivamente rimossi.
 
     Rappresentando $G$ attraverso matrice di adiacenza, indicando con $1$ i vertici adiacenti entranti, il costo della riga $4$ è pari a $O(n^2)$, poiché per trovare un vertice $v$ che non abbia archi entranti, è necessario controllare tutta la sua riga/colonna, e dunque nel caso peggiore, per trovarlo sarà necessario controllare l'intera matrice; inoltre, per effettuare la rimozione di $v$ alla riga $6$, il costo è $O(n)$, Allora, il costo complessivo dell'algoritmo risulta essere $O(n) \cdot [O(n^2) + O(n)]= O(n) \cdot O(n^2) = O(n^3)$.
@@ -926,7 +930,7 @@
         \item $t(v) < T(u) \implies u$ viene rimosso dallo stack dopo aver visitato $v$, ma poiché $u$ era sotto a $v$ all'interno dello stack, necessariamente $v$ deve essere stato rimosso dallo stack prima di $u$, e allora non è possibile che $T(u) < T(v) \ \lightning$.
     \end{itemize}
     
-    Si noti che, avendo ad esempio $(u, v) \in E(G)$, e dunque $u$ incidente a $v$, allora necessariamente $\mathrm{Int}(u) \cap \mathrm{Int}(v) \implies t(v) < T(v) < t(u) \le T(u)$.
+    Si noti che, avendo ad esempio $(u, v) \in E(G)$, e dunque $u$ incidente su $v$, allora necessariamente $\mathrm{Int}(u) \cap \mathrm{Int}(v) \implies t(v) < T(v) < t(u) \le T(u)$.
 \end{proof}
 
 \begin{remark}[Categorie di archi]
@@ -1006,7 +1010,7 @@
 \end{theorem}
 
 \begin{proof}
-    Per definizione, un'ordinamento è detto topologico se ogni vertice è posto prima dei suoi archi uscenti; inoltre, per il corollario precedente, per ogni $(u, v) \in E(G)$ si ha $T(v) \le T(u)$, e dunque se si ordinassero i vertici di $G$ utilizzando i tempi di chiusura $T$, in ordine crescente, come criterio, allora $v$ verrebbe prima di $u$, e $(u, v)$ è un arco diretto in cui $u$ è incidente a $v$; allora, segue che ordinando i vertici in ordine decrescente di $T$, si ha un ordinamento topologico di $G$.
+    Per definizione, un'ordinamento è detto topologico se ogni vertice è posto prima dei suoi archi uscenti; inoltre, per il corollario precedente, per ogni $(u, v) \in E(G)$ si ha $T(v) \le T(u)$, e dunque se si ordinassero i vertici di $G$ utilizzando i tempi di chiusura $T$, in ordine crescente, come criterio, allora $v$ verrebbe prima di $u$, e $(u, v)$ è un arco diretto in cui $u$ è incidente su $v$; allora, segue che ordinando i vertici in ordine decrescente di $T$, si ha un ordinamento topologico di $G$.
 \end{proof}
 
 \begin{algorithm}[H]
@@ -1041,7 +1045,7 @@
     \end{algorithmic}
 \end{algorithm}
 
-\begin{remark}[Ordinamento topologico]
+\begin{remark}[Correttezza dell'algoritmo]
     Si noti che l'algoritmo non salva i tempi di chiusura dei vari vertici per ordinarli, ma non è necessario grazie alla ricorsione: infatti, inserendo il vertice alla riga $8$, dunque dopo il loop \texttt{for}, l'inserimento avviene in post-order rispetto alla visita del grafo, e dunque è equivalente a rispettare l'ordinamento crescente dei tempi di chiusura di ogni nodo. Dunque, è sufficiente invertire la lista ottenuta, alla riga $19$, per ottenere un ordinamento topologico.
 \end{remark}
 
@@ -1116,6 +1120,10 @@
     \end{algorithmic}
 \end{nocaptionalg}
 
+\begin{remark}[Correttezza dell'algoritmo]
+    TODO O(n +m)
+\end{remark}
+
 \begin{remark}[Costo dell'algoritmo]
     TODO O(n +m)
 \end{remark}
@@ -1128,14 +1136,52 @@
     }
 
     \begin{algorithmic}[1]
-        \Function{findUniversalSink}{$G$, $v$}
-            \State TODO
+        \Function{findUniversalSink}{$M_G$}
+            \State $p \in V(G)$ \Comment{un vertice qualsiasi, possibile pozzo universale}
+            \For{$v \in V(G)$}
+                \If{$M_G[p, v] = = 1$}
+                    \State $p = v$
+                \EndIf
+            \EndFor
+            \For{$v \in V(G) - \{p\}$}
+                \If{$M_G[p, v] = = 1$}
+                    \State \textbf{return} \texttt{None}
+                \EndIf
+                \If{$M_G[v, p] = = 0$}
+                    \State \textbf{return} \texttt{None}
+                \EndIf
+            \EndFor
+            \State \textbf{return} $p$
         \EndFunction
     \end{algorithmic}
 \end{algorithm}
 
+\begin{remark}[Correttezza dell'algoritmo]
+    Per definizione stessa di pozzo universale, indipendentemente dalla scelta del vertice di partenza del grafo in input, percorrendo una qualsiasi sequenza di archi, inevitabilmente, si deve giungere al pozzo universale, poiché esso ha esattamente $n - 1$ archi entranti. Allora, alla riga $2$ viene arbitrariamente scelto un possibile pozzo universale, e il ciclo \texttt{for} della riga $3$ percorre la catena di archi possibili, e ha costo $O(n)$. Si noti però che il vertice a cui si è giunti potrebbe non essere un pozzo universale, ad esempio si consideri questo grafo:
+
+    \begin{figure}[H]
+        \centering
+        \begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=3cm,thick,main node/.style={scale=0.6,circle,draw,font=\sffamily\normalsize}]
+            \node[main node] (1) {1};
+            \node[main node] (2) [below left of=1] {2};
+            \node[main node] (3) [below right of=2] {3};
+            \node[main node] (4) [below right of=1] {4};
+
+            \path[every node/.style={font=\sffamily\small}]
+                (1) edge (4)
+                (2) edge (1)
+                (2) edge (4)
+                (3) edge (2)
+                ;
+        \end{tikzpicture}
+        \caption{Un grafo che contiene un possibile pozzo universale.}
+    \end{figure}
+
+    si noti che ndipendentemente dalla scelta iniziale di $p \in V(G)$, al termine del ciclo \texttt{for} si avrà $p = 4$, pur non essendo $4$ un pozzo universale, poiché $(3, 4) \notin E(G)$. Risulta dunque necessario accertarsi che $p$ sia realmente un pozzo universale, andando dunque a controllare, all'interno del ciclo \texttt{for} della riga $8$, se $p$ non ha archi uscenti, ed ogni altro arco è incidente su $p$. Tali controlli vengono effettuati rispettivamente alla riga $9$, in cui il ciclo termina restituendo \texttt{None} se esiste un vertice uscente da $p$, e alla riga $12$, in cui il ciclo termina analogamente se esiste un vertice non adiacente entrante a $p$.
+\end{remark}
+
 \begin{remark}[Costo dell'algoritmo]
-    TODO O(n)
+    Poiché i due cicli \texttt{for} percorrono ogni vertice di $G$, una ed una sola volta, il costo dell'algoritmo è pari a $O(n) + O(n) = O(n)$.
 \end{remark}
 
 \end{document}
