@@ -1015,6 +1015,46 @@
 
 \begin{algorithm}[H]
     \caption{
+        Dato un grafo $G$, rappresentato tramite liste di adiacenza (nel caso di $G$ diretto, l'adiacenza è dei nodi uscenti), e un suo vertice $r$, l'algoritmo restituisce i tempi di visita e di chiusura dei nodi di $G$, relativi alla visita dell'albero, o dell'arborescenza, di $r$.\\
+        \textbf{Input}: $G$ grafo, rappresentato tramite liste di adiacenza; $r$ un vertice di $G$.\\
+        \textbf{Output}: tempi di visita e di chiusura dei $v \in V(G)$, relativi all'albero, o all'arborescenza, di $r$.
+    }
+
+    \begin{algorithmic}[1]
+        \Function{DFS}{$G$, $v$, \texttt{visited}, \texttt{c}, \texttt{t}, \texttt{T}}
+            \For{$u \in V(G) : (v, u) \in E(G)$} \Comment{$u$ deve essere uscente da $v$}
+                \If{$u \notin \texttt{visited}$}
+                    \State $\texttt{c += } 1$ \Comment{\texttt{c} viene \underline{trattato come oggetto}}
+                    \State $\texttt{t[}u\texttt{]}=\texttt{c}$
+                    \State $\texttt{visited.add(}u\texttt{)}$
+                    \State $\texttt{DFS(}G, u, \texttt{visited}, \texttt{c}, \texttt{t}, \texttt{T)}$
+                \EndIf
+            \EndFor
+            \State $\texttt{T[}v\texttt{]} = \texttt{c}$
+        \EndFunction
+        \\
+        \Function{findTimes}{$G$, $r$}
+            \State $\texttt{visited} := \verb|{|r\verb|}|$
+            \State $\texttt{t} := \texttt{[}-1\texttt{]} * n$ \Comment{tempi inizializzati con valore sentinella $-1$}
+            \State $\texttt{T} := \texttt{[}-1\texttt{]} * n$
+            \State $\texttt{t[}r\texttt{]}=1$
+            \State $\texttt{c} := 1$ \Comment{è un \underline{oggetto}}
+            \State $\texttt{DFS(}G, r, \texttt{visited}, \texttt{c}, \texttt{t}, \texttt{T)}$
+            \State \textbf{return} \texttt{t}, \texttt{T}
+        \EndFunction
+    \end{algorithmic}
+\end{algorithm}
+
+\begin{remark}[Correttezza dell'algoritmo]
+    TODO
+\end{remark}
+
+\begin{remark}[Costo dell'algoritmo]
+    TODO
+\end{remark}
+
+\begin{algorithm}[H]
+    \caption{
         Dato un grafo diretto aciclico connesso $G$, rappresentato attraverso liste di adiacenza in cui vengono salvati gli archi adiacenti uscenti, l'algoritmo restituisce un ordinamento topologico di $G$.\\
         \textbf{Input}: $G$ grafo diretto, rappresentato attraverso liste di adiacenza.\\
         \textbf{Output}: un ordinamento topologico di $G$.
@@ -1033,7 +1073,7 @@
         \\
         \Function{findTopologicalSortingDFS}{$G$}
             \State $\texttt{order} := \texttt{[]}$
-            \State $\texttt{visited} := \texttt{[]}$
+            \State $\texttt{visited} := \verb|{|\verb|}|$
             \For{$v \in V(G)$}
                 \If{$v \notin \texttt{visited}$}
                     \State $\texttt{DFS(}G, v, \texttt{visited},\texttt{order)}$
@@ -1076,11 +1116,11 @@
                 \While{$!v_{top}\texttt{.outgoing\_adjacent().isEmpty()}$}
                     \State $z:=v_{top}\texttt{.outgoing\_adjacent()[}0\texttt{]}$
                     \State $v_{top}\texttt{.outgoing\_adjacent().remove(}0\texttt{)}$
-                    \If{$z \notin \texttt{visited}$}
+                    \If{$\texttt{visited[}z\texttt{]}==0$}
                         \State $\texttt{visited[}z\texttt{]}=1$
                         \State $\texttt{S.push(}z\texttt{)}$
                         \State $\texttt{parents[}z\texttt{]}=v_{top}$
-                        \State $\texttt{c +=}1$
+                        \State $\texttt{c += } 1$
                         \State $\texttt{t[}z\texttt{]}=\texttt{c}$
                         \State \textbf{break}
                     \EndIf
@@ -1106,11 +1146,11 @@
                     \If{$\texttt{parents[}v\texttt{]}==u$}
                         \State \textbf{continue} \Comment{faceva parte dell'arborescenza di $v$}
                     \ElsIf{$\texttt{T[}u\texttt{]} < \texttt{t[}v\texttt{]} \ \texttt{or} \ \texttt{T[}v\texttt{]} < \texttt{t[}u\texttt{]}$}
-                        \State $\texttt{cross.add(}(u, v)\texttt{)}$
+                        \State $\texttt{cross.append(}(u, v)\texttt{)}$
                     \ElsIf{$\texttt{T[}u\texttt{]} \le \texttt{T[}v\texttt{]}$}
-                        \State $\texttt{backward.add(}(u, v)\texttt{)}$
+                        \State $\texttt{backward.append(}(u, v)\texttt{)}$
                     \Else
-                        \State $\texttt{forward.add(}(u, v)\texttt{)}$
+                        \State $\texttt{forward.append(}(u, v)\texttt{)}$
                     \EndIf
                 \EndFor
             \EndFor
