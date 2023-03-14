@@ -7,8 +7,13 @@
 \contentsline {section}{\numberline {1.2}Rappresentazione}{11}{section.1.2}%
 \contentsline {subsection}{\numberline {1.2.1}Matrici di adiacenza}{11}{subsection.1.2.1}%
 \contentsline {subsection}{\numberline {1.2.2}Liste di adiacenza}{11}{subsection.1.2.2}%
-\contentsline {section}{\numberline {1.3}Algoritmi}{13}{section.1.3}%
+\contentsline {section}{\numberline {1.3}DFS (Depth-first Search)}{13}{section.1.3}%
 \contentsline {subsection}{\numberline {1.3.1}Trovare un ciclo}{13}{subsection.1.3.1}%
-\contentsline {subsection}{\numberline {1.3.2}DFS (Depth-First Search)}{15}{subsection.1.3.2}%
+\contentsline {subsection}{\numberline {1.3.2}Visita in DFS}{15}{subsection.1.3.2}%
 \contentsline {subsection}{\numberline {1.3.3}Trovare un ordinamento topologico}{19}{subsection.1.3.3}%
-\contentsline {subsection}{\numberline {1.3.4}Tempi di visita e di chiusura}{20}{subsection.1.3.4}%
+\contentsline {section}{\numberline {1.4}Tempi di visita e di chiusura}{20}{section.1.4}%
+\contentsline {subsection}{\numberline {1.4.1}Definizioni}{20}{subsection.1.4.1}%
+\contentsline {subsection}{\numberline {1.4.2}Categorie di archi}{21}{subsection.1.4.2}%
+\contentsline {subsection}{\numberline {1.4.3}Trovare un ordinamento topologico}{25}{subsection.1.4.3}%
+\contentsline {subsection}{\numberline {1.4.4}Trovare un pozzo universale}{28}{subsection.1.4.4}%
+\contentsline {subsection}{\numberline {1.4.5}Trovare i ponti}{29}{subsection.1.4.5}%

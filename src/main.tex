@@ -695,7 +695,7 @@
     mentre le corrispondenti liste di adiacenza sono $$\left \{ \begin{array}{l} 1: [4] \\ 2: [4, 3] \\ 3: [2, 4] \\ 4: [1, 3, 5, 6] \\ 5: [4, 6] \\ 6: [4, 5] \end{array} \right.$$
 \end{example}
 
-\section{Algoritmi}
+\section{DFS (Depth-first Search)}
 
 \subsection{Trovare un ciclo}
 
@@ -757,13 +757,13 @@
 
     Infine, si noti che il ciclo \texttt{while} ha costo $O(n)$, poiché nel caso peggiore si ha un ciclo che percorre tutto il grafo.
 
-    Allora, tramite matrice l'algoritmo ha costo $O(n) \cdot O(n) = O(n^2)$, mentre tramite liste si ha $O(1) \cdot O(n) = O(n)$.
+    Allora, attraverso una rappresentazione matriciale, l'algoritmo ha costo $O(n) \cdot O(n) = O(n^2)$, mentre attraverso la rappresentazione con liste di adiacenza, si ha $O(1) \cdot O(n) = O(n)$.
 \end{remark}
 
-\subsection{DFS (Depth-First Search)}
+\subsection{Visita in DFS}
 
 \begin{definition}[DFS]
-    Con DFS si indica il criterio di visita di un grafo; in particolare, DFS sta per \textit{Depth-First Search}, dunque la visita del grafo avviene procendendo sempre più in profondità, retrocedendo esclusivamente se non è più possibile avanzare.
+    Con DFS si indica il criterio di visita di un grafo; in particolare, DFS sta per \textit{Depth-first Search}, dunque la visita del grafo avviene procendendo sempre più in profondità, retrocedendo esclusivamente se non è più possibile avanzare.
 \end{definition}
 
 \begin{algorithm}[H]
@@ -896,7 +896,9 @@
     Differentemente, rappresentando $G$ attraverso liste di adiacenza, salvando solamente i vertici adiacenti entranti per ogni nodo, alla riga $4$ per trovare un nodo senza archi entranti è sufficiente controllare il numero di elementi della lista di ogni vertice, operazione a costo $O(1)$, e dunque il costo, nel caso peggiore, è $O(n - 1) = O(n)$; inoltre, per rimuovere $v$ alla riga $6$, il costo è pari a $O(n + m)$. Allora, il costo complessivo dell'algoritmo risulta essere $O(n) \cdot [O(n) + O(n + m)] = O(n) \cdot [O(2n + m)] = O(n) \cdot O(n + m) = O(n \cdot (n +m))$.
 \end{remark}
 
-\subsection{Tempi di visita e di chiusura}
+\section{Tempi di visita e di chiusura}
+
+\subsection{Definizioni}
 
 \begin{definition}[Tempo di visita e di chiusura]
     All'interno degli algoritmi che visitano grafi secondo DFS, è possibile introdurre un \texttt{counter} inizializzato ad $1$, ed incrementato ogni volta che viene attraversato un \textit{nuovo} vertice.
@@ -933,6 +935,16 @@
     Si noti che, avendo ad esempio $(u, v) \in E(G)$, e dunque $u$ incidente su $v$, allora necessariamente $\mathrm{Int}(u) \cap \mathrm{Int}(v) \implies t(v) < T(v) < t(u) \le T(u)$.
 \end{proof}
 
+\begin{lemma}[Proprietà degli intervalli]
+    Sia $G$ un grafo indiretto, e $u, v \in V(G)$ adiacenti; allora si verifica una sola tipologia di inclusione, in cui $\mathrm{Int}(u) \subseteq \mathrm{Int}(v)$, oppure $\mathrm{Int}(v) \subseteq \mathrm{Int}(u)$, e poiché gli archi non sono orientati perde di significato la distinzione tra i due casi.
+\end{lemma}
+
+\begin{proof}
+    La tesi equivale a dimostrare che non può verificarsi il caso in cui c'è intersezione vuota tra i due intervalli, e dunque non è possibile che $\mathrm{Int}(u) \cap \mathrm{Int}(v) = \varnothing$, ovvero $t(u) \le T(u) < t(v) \le T(v)$, poiché $T(u) < t(v)$ implicherebbe che $u$ verrebbe rimosso dallo stack prima che $v$ possa essere inserito, e questo non è possibile per costruzione della visita DFS, poiché $u \sim v$.
+\end{proof}
+
+\subsection{Categorie di archi}
+
 \begin{remark}[Categorie di archi]
     Sia $G= (V, E)$ un grafo diretto, $\hat v \in V(G)$, e sia $A_{\hat v}$ la sua arborescenza; allora, è possibile classificare ogni arco $(u, v) \in E(G) - E(A_{\hat v})$, mediante $\mathrm{Int}(u)$ e $\mathrm{Int}(v)$:
     \begin{itemize}
@@ -942,17 +954,13 @@
     \end{itemize}
 \end{remark}
 
-\begin{lemma}[Proprietà degli intervalli]
-    Sia $G$ un grafo indiretto, e $u, v \in V(G)$ adiacenti; allora si verifica una sola tipologia di inclusione, in cui $\mathrm{Int}(u) \subseteq \mathrm{Int}(v)$, oppure $\mathrm{Int}(v) \subseteq \mathrm{Int}(u)$, e poiché gli archi non sono orientati perde di significato la distinzione tra i due casi.
-\end{lemma}
-
-\begin{proof}
-    La tesi equivale a dimostrare che non può verificarsi il caso in cui c'è intersezione vuota tra i due intervalli, e dunque non è possibile che $\mathrm{Int}(u) \cap \mathrm{Int}(v) = \varnothing$, ovvero $t(u) \le T(u) < t(v) \le T(v)$, poiché $T(u) < t(v)$ implicherebbe che $u$ verrebbe rimosso dallo stack prima che $v$ possa essere inserito, e questo non è possibile per costruzione della visita DFS, poiché $u \sim v$.
-\end{proof}
-
 \begin{remark}[Categorie di archi]
     Sia $G=(V, E)$ un grafo indiretto, $\hat v \in V(G)$, e sia $T_{\hat v}$ il suo albero; allora, ogni arco $(u, v) \in E(G) - E(T_{\hat v})$ viene classificato come \textit{backward edge}.
 \end{remark}
+
+\begin{example}
+    TODO
+\end{example}
 
 \begin{theorem}[Presenza di cicli]
     Sia $G$ un grafo indiretto connesso; allora $G$ ha un ciclo se e solo se in esso esiste un backward edge in ogni albero.
@@ -966,57 +974,10 @@
     \end{itemize}
 \end{proof}
 
-\begin{theorem}[Presenza di cicli]
-    \label{Cicli diretto}
-    Sia $G$ un grafo diretto connesso; allora $G$ ha un ciclo se e solo se in esso esiste un backward edge in almeno un'arborescenza.
-\end{theorem}
-
-\begin{proof}
-    \hspace{0.7cm}
-    \begin{itemize}
-        \item[] \textit{Prima implicazione.} TODO
-        \item[] \textit{Seconda implicazione.} Sia $G$ un grafo diretto fortemente connesso, e sia $\hat v \in V(G)$ tale che la sua arborescenza $A_{\hat v}$ contenga un backward edge $(u, v) \in E(G) - E(A_{\hat v})$. Allora, poiché $u, v \in V(T_{\hat v})$, e $(u, v)$ è un backward edge, è sufficiente considerare il cammino tale che $u \rightarrow v$, che esiste poiché $A_{\hat v}$ è un arborescenza, e dunque $\{u \rightarrow v\} \cup (u, v)$ è un ciclo di $G$. Si noti che il fatto che $G$ sia fortemente connesso garantisce di poter considerare un $\hat v \in V(G)$ qualsiasi.
-    \end{itemize}
-\end{proof}
-
-\begin{corollary}
-    Sia $G$ un grafo diretto aciclico connesso, sia $\hat v \in V(G)$ un suo vertice, sia $A_{\hat v}$ la relativa arborescenza, e sia $(u, v) \in E(G)$ un arco; allora $t(v) \le T(u)$.
-\end{corollary}
-
-\begin{proof}
-    Si noti che ogni arco $(u, v) \in A_{\hat v}$ è un forward edge per costruzione della visita DFS; allora si consideri il caso in cui $(u, v) \in E(G) - A_{\hat v}$. Allora per il teorema precedente, $(u, v)$ non è un backward edge, e dunque per il \cref{Intervalli diretto} si può verificare solo una delle seguenti:
-    \begin{itemize}
-        \item $\mathrm{Int}(v) \subseteq \mathrm{Int}(u) \implies t(u) < t(v) \le T(v) < T(u)$, e in particolare $t(v) \le T(u)$
-        \item $\mathrm{Int}(u) \cap \mathrm{Int}(v) = \varnothing \implies t(v) < T(v) < t(u) < T(u)$, e in particolare $t(v) \le T(u)$.
-    \end{itemize}
-\end{proof}
-
-\begin{corollary}
-    Sia $G$ un grafo diretto aciclico connesso, sia $\hat v \in V(G)$ un suo vertice, sia $A_{\hat v}$ la relativa arborescenza, e sia $(u, v) \in E(G)$ un arco; allora $T(v) \le T(u)$.
-\end{corollary}
-
-\begin{proof}
-    Per il corollario precedente, per ogni arco di un grafo indiretto aciclico connesso $t(v) \le T(u)$, allora:
-    \begin{itemize}
-        \item $t(v) < t(u)$: se $T(u) \le T(v)$, allora $(u, v)$ sarebbe un backward edge, che non è possibile avere per il \cref{Cicli diretto}; allora necessariamente $T(v) < T(u)$; ma se $t(u) < T(v)$ allora si avrebbe intersezione non vuota tra gli intervalli, impossibile per il \cref{Intervalli diretto}; allora necessariamente $t(v) < T(v) < t(u) < T(u)$, e dunque $(u, v)$ è un cross edge
-        \item $t(u) < t(v)$: se $T(u) < T(v)$, allora gli intervalli avrebbero intersezione non vuota, e ciò non si può verificare per il \cref{Intervalli diretto}; allora necessariamente $t(u) < t(v) \le T(v) \le T(u)$, e dunque $(u, v)$ è un forward edge.
-    \end{itemize}
-
-    In particolare, si ha che $T(v) \le T(u)$ in entrambe i casi.
-\end{proof}
-
-\begin{theorem}[Ordinamento topologico attraverso i tempi]
-    Sia $G$ un grafo diretto aciclico connesso, sia $\hat v \in V(G)$ un suo vertice, e sia $A_{\hat v}$ la sua arborescenza; allora, ordinando i vertici attraverso i loro tempi di chiusura $T$ in ordine decrescente, si ottiene un ordinamento topologico del grafo.
-\end{theorem}
-
-\begin{proof}
-    Per definizione, un'ordinamento è detto topologico se ogni vertice è posto prima dei suoi archi uscenti; inoltre, per il corollario precedente, per ogni $(u, v) \in E(G)$ si ha $T(v) \le T(u)$, e dunque se si ordinassero i vertici di $G$ utilizzando i tempi di chiusura $T$, in ordine crescente, come criterio, allora $v$ verrebbe prima di $u$, e $(u, v)$ è un arco diretto in cui $u$ è incidente su $v$; allora, segue che ordinando i vertici in ordine decrescente di $T$, si ha un ordinamento topologico di $G$.
-\end{proof}
-
 \begin{algorithm}[H]
     \caption{
-        Dato un grafo $G$, rappresentato tramite liste di adiacenza (nel caso di $G$ diretto, l'adiacenza è dei nodi uscenti), e un suo vertice $r$, l'algoritmo restituisce i tempi di visita e di chiusura dei nodi di $G$, relativi alla visita dell'albero, o dell'arborescenza, di $r$.\\
-        \textbf{Input}: $G$ grafo, rappresentato tramite liste di adiacenza; $r$ un vertice di $G$.\\
+        Dato un grafo $G$, rappresentato attraverso liste di adiacenza (nel caso di $G$ diretto, l'adiacenza è dei nodi uscenti), e un suo vertice $r$, l'algoritmo restituisce i tempi di visita e di chiusura dei nodi di $G$, relativi alla visita dell'albero, o dell'arborescenza, di $r$.\\
+        \textbf{Input}: $G$ grafo, rappresentato attraverso liste di adiacenza; $r$ un vertice di $G$.\\
         \textbf{Output}: tempi di visita e di chiusura dei $v \in V(G)$, relativi all'albero, o all'arborescenza, di $r$.
     }
 
@@ -1035,8 +996,8 @@
         \\
         \Function{findTimes}{$G$, $r$}
             \State $\texttt{visited} := \verb|{|r\verb|}|$
-            \State $\texttt{t} := \texttt{[}-1\texttt{]} * n$ \Comment{tempi inizializzati con valore sentinella $-1$}
-            \State $\texttt{T} := \texttt{[}-1\texttt{]} * n$
+            \State $\texttt{t} := \texttt{[}0\texttt{]} * n$
+            \State $\texttt{T} := \texttt{[}0\texttt{]} * n$
             \State $\texttt{t[}r\texttt{]}=1$
             \State $\texttt{c} := 1$ \Comment{è un \underline{oggetto}}
             \State $\texttt{DFS(}G, r, \texttt{visited}, \texttt{c}, \texttt{t}, \texttt{T)}$
@@ -1051,46 +1012,6 @@
 
 \begin{remark}[Costo dell'algoritmo]
     TODO
-\end{remark}
-
-\begin{algorithm}[H]
-    \caption{
-        Dato un grafo diretto aciclico connesso $G$, rappresentato attraverso liste di adiacenza in cui vengono salvati gli archi adiacenti uscenti, l'algoritmo restituisce un ordinamento topologico di $G$.\\
-        \textbf{Input}: $G$ grafo diretto, rappresentato attraverso liste di adiacenza.\\
-        \textbf{Output}: un ordinamento topologico di $G$.
-    }
-
-    \begin{algorithmic}[1]
-        \Function{DFS}{$G$, $v$, \texttt{visited}, \texttt{order}}
-            \State $\texttt{visited.add(}v\texttt{)}$
-            \For{$u \in V(G) : (v, u) \in E(G)$} \Comment{$u$ deve essere uscente da $v$}
-                \If{$u \notin \texttt{visited}$}
-                    \State $\texttt{DFS(}G, u, \texttt{visited},\texttt{order)}$
-                \EndIf
-            \EndFor
-            \State $\texttt{order.append(}v\texttt{)}$ \Comment{l'ordinamento risulterà invertito}
-        \EndFunction
-        \\
-        \Function{findTopologicalSortingDFS}{$G$}
-            \State $\texttt{order} := \texttt{[]}$
-            \State $\texttt{visited} := \verb|{|\verb|}|$
-            \For{$v \in V(G)$}
-                \If{$v \notin \texttt{visited}$}
-                    \State $\texttt{DFS(}G, v, \texttt{visited},\texttt{order)}$
-                \EndIf
-            \EndFor
-            \State $\texttt{order.reverse()}$ \Comment{viene invertita la lista}
-            \State \textbf{return} \texttt{order}
-        \EndFunction
-    \end{algorithmic}
-\end{algorithm}
-
-\begin{remark}[Correttezza dell'algoritmo]
-    Si noti che l'algoritmo non salva i tempi di chiusura dei vari vertici per ordinarli, ma non è necessario grazie alla ricorsione: infatti, inserendo il vertice alla riga $8$, dunque dopo il loop \texttt{for}, l'inserimento avviene in post-order rispetto alla visita del grafo, e dunque è equivalente a rispettare l'ordinamento crescente dei tempi di chiusura di ogni nodo. Dunque, è sufficiente invertire la lista ottenuta, alla riga $19$, per ottenere un ordinamento topologico.
-\end{remark}
-
-\begin{remark}[Costo dell'algoritmo]
-    Si noti che l'algoritmo ha costo $O(n + m)$, poiché attua una sola visita in DFS del grafo, rappresentato attraverso liste di adiacenza, ricorsivamente.
 \end{remark}
 
 \begin{algorithm}[H]
@@ -1168,6 +1089,97 @@
     TODO O(n +m)
 \end{remark}
 
+\subsection{Trovare un ordinamento topologico}
+
+\begin{theorem}[Presenza di cicli]
+    \label{Cicli diretto}
+    Sia $G$ un grafo diretto connesso; allora $G$ ha un ciclo se e solo se in esso esiste un backward edge in almeno un'arborescenza.
+\end{theorem}
+
+\begin{proof}
+    \hspace{0.7cm}
+    \begin{itemize}
+        \item[] \textit{Prima implicazione.} TODO
+        \item[] \textit{Seconda implicazione.} Sia $G$ un grafo diretto fortemente connesso, e sia $\hat v \in V(G)$ tale che la sua arborescenza $A_{\hat v}$ contenga un backward edge $(u, v) \in E(G) - E(A_{\hat v})$. Allora, poiché $u, v \in V(T_{\hat v})$, e $(u, v)$ è un backward edge, è sufficiente considerare il cammino tale che $u \rightarrow v$, che esiste poiché $A_{\hat v}$ è un arborescenza, e dunque $\{u \rightarrow v\} \cup (u, v)$ è un ciclo di $G$. Si noti che il fatto che $G$ sia fortemente connesso garantisce di poter considerare un $\hat v \in V(G)$ qualsiasi.
+    \end{itemize}
+\end{proof}
+
+\begin{corollary}
+    Sia $G$ un grafo diretto aciclico connesso, sia $\hat v \in V(G)$ un suo vertice, sia $A_{\hat v}$ la relativa arborescenza, e sia $(u, v) \in E(G)$ un arco; allora $t(v) \le T(u)$.
+\end{corollary}
+
+\begin{proof}
+    Si noti che ogni arco $(u, v) \in A_{\hat v}$ è un forward edge per costruzione della visita DFS; allora si consideri il caso in cui $(u, v) \in E(G) - A_{\hat v}$. Allora per il teorema precedente, $(u, v)$ non è un backward edge, e dunque per il \cref{Intervalli diretto} si può verificare solo una delle seguenti:
+    \begin{itemize}
+        \item $\mathrm{Int}(v) \subseteq \mathrm{Int}(u) \implies t(u) < t(v) \le T(v) < T(u)$, e in particolare $t(v) \le T(u)$
+        \item $\mathrm{Int}(u) \cap \mathrm{Int}(v) = \varnothing \implies t(v) < T(v) < t(u) < T(u)$, e in particolare $t(v) \le T(u)$.
+    \end{itemize}
+\end{proof}
+
+\begin{corollary}
+    Sia $G$ un grafo diretto aciclico connesso, sia $\hat v \in V(G)$ un suo vertice, sia $A_{\hat v}$ la relativa arborescenza, e sia $(u, v) \in E(G)$ un arco; allora $T(v) \le T(u)$.
+\end{corollary}
+
+\begin{proof}
+    Per il corollario precedente, per ogni arco di un grafo indiretto aciclico connesso $t(v) \le T(u)$, allora:
+    \begin{itemize}
+        \item $t(v) < t(u)$: se $T(u) \le T(v)$, allora $(u, v)$ sarebbe un backward edge, che non è possibile avere per il \cref{Cicli diretto}; allora necessariamente $T(v) < T(u)$; ma se $t(u) < T(v)$ allora si avrebbe intersezione non vuota tra gli intervalli, impossibile per il \cref{Intervalli diretto}; allora necessariamente $t(v) < T(v) < t(u) < T(u)$, e dunque $(u, v)$ è un cross edge
+        \item $t(u) < t(v)$: se $T(u) < T(v)$, allora gli intervalli avrebbero intersezione non vuota, e ciò non si può verificare per il \cref{Intervalli diretto}; allora necessariamente $t(u) < t(v) \le T(v) \le T(u)$, e dunque $(u, v)$ è un forward edge.
+    \end{itemize}
+
+    In particolare, si ha che $T(v) \le T(u)$ in entrambe i casi.
+\end{proof}
+
+\begin{theorem}[Ordinamento topologico attraverso i tempi]
+    Sia $G$ un grafo diretto aciclico connesso, sia $\hat v \in V(G)$ un suo vertice, e sia $A_{\hat v}$ la sua arborescenza; allora, ordinando i vertici attraverso i loro tempi di chiusura $T$ in ordine decrescente, si ottiene un ordinamento topologico del grafo.
+\end{theorem}
+
+\begin{proof}
+    Per definizione, un'ordinamento è detto topologico se ogni vertice è posto prima dei suoi archi uscenti; inoltre, per il corollario precedente, per ogni $(u, v) \in E(G)$ si ha $T(v) \le T(u)$, e dunque se si ordinassero i vertici di $G$ utilizzando i tempi di chiusura $T$, in ordine crescente, come criterio, allora $v$ verrebbe prima di $u$, e $(u, v)$ è un arco diretto in cui $u$ è incidente su $v$; allora, segue che ordinando i vertici in ordine decrescente di $T$, si ha un ordinamento topologico di $G$.
+\end{proof}
+
+\begin{algorithm}[H]
+    \caption{
+        Dato un grafo diretto aciclico connesso $G$, rappresentato attraverso liste di adiacenza in cui vengono salvati gli archi adiacenti uscenti, l'algoritmo restituisce un ordinamento topologico di $G$.\\
+        \textbf{Input}: $G$ grafo diretto, rappresentato attraverso liste di adiacenza.\\
+        \textbf{Output}: un ordinamento topologico di $G$.
+    }
+
+    \begin{algorithmic}[1]
+        \Function{DFS}{$G$, $v$, \texttt{visited}, \texttt{order}}
+            \State $\texttt{visited.add(}v\texttt{)}$
+            \For{$u \in V(G) : (v, u) \in E(G)$} \Comment{$u$ deve essere uscente da $v$}
+                \If{$u \notin \texttt{visited}$}
+                    \State $\texttt{DFS(}G, u, \texttt{visited},\texttt{order)}$
+                \EndIf
+            \EndFor
+            \State $\texttt{order.append(}v\texttt{)}$ \Comment{l'ordinamento risulterà invertito}
+        \EndFunction
+        \\
+        \Function{findTopologicalSortingDFS}{$G$}
+            \State $\texttt{order} := \texttt{[]}$
+            \State $\texttt{visited} := \verb|{|\verb|}|$
+            \For{$v \in V(G)$}
+                \If{$v \notin \texttt{visited}$}
+                    \State $\texttt{DFS(}G, v, \texttt{visited},\texttt{order)}$
+                \EndIf
+            \EndFor
+            \State $\texttt{order.reverse()}$ \Comment{viene invertita la lista}
+            \State \textbf{return} \texttt{order}
+        \EndFunction
+    \end{algorithmic}
+\end{algorithm}
+
+\begin{remark}[Correttezza dell'algoritmo]
+    Si noti che l'algoritmo non salva i tempi di chiusura dei vari vertici per ordinarli, ma non è necessario grazie alla ricorsione: infatti, inserendo il vertice alla riga $8$, dunque dopo il loop \texttt{for}, l'inserimento avviene in post-order rispetto alla visita del grafo, e dunque è equivalente a rispettare l'ordinamento crescente dei tempi di chiusura di ogni nodo. Dunque, è sufficiente invertire la lista ottenuta, alla riga $19$, per ottenere un ordinamento topologico.
+\end{remark}
+
+\begin{remark}[Costo dell'algoritmo]
+    Si noti che l'algoritmo ha costo $O(n + m)$, poiché attua una sola visita in DFS del grafo, rappresentato attraverso liste di adiacenza, ricorsivamente.
+\end{remark}
+
+\subsection{Trovare un pozzo universale}
+
 \begin{algorithm}[H]
     \caption{
         Dato un grafo diretto $G$, rappresentato attraverso matrice di adiacenza, l'algoritmo restituisce, se presente, il pozzo universale di $G$.\\
@@ -1222,6 +1234,72 @@
 
 \begin{remark}[Costo dell'algoritmo]
     Poiché i due cicli \texttt{for} percorrono ogni vertice di $G$, una ed una sola volta, il costo dell'algoritmo è pari a $O(n) + O(n) = O(n)$.
+\end{remark}
+
+\subsection{Trovare i ponti}
+
+\begin{lemma}
+    Sia $G$ un grafo indiretto connesso, $x \in V(G)$, e sia $T_x$ l'albero di visita in DFS di $x$ in $G$; sia $y \in T_x$, e sia $T_y \subseteq T_x$ il suo sottoalbero in $T_x$; se esiste un arco $(u, v) \in E(G)$, tale che $u \in T_y$ e $v \in T_x - T_y$, allora esiste un ciclo in $G$, contenente $(x, y)$.
+\end{lemma}
+
+\begin{proof}
+    Si noti che, poiché $G$ è indiretto e connesso, per qualsiasi $x \in V(G)$, $V(T_x) = V(G)$, dunque la visita in DFS è sempre in grado di raggiungere ogni nodo del grafo $G$.
+    Per definizione, $T_x$ è connesso ed aciclico; poiché $T_x$ è radicato in $x$, allora il cammino $u \rightarrow v$ all'interno di $T_x$, che esiste poiché $T_x$ è connesso, deve necessariamente passare per $(x, y)$, poiché $T_x$ è aciclico, e $v \in T_y$; allora, $\{u \rightarrow v\} \cup (u, v)$ è necessariamente un ciclo.
+\end{proof}
+
+\begin{lemma}[Presenza di ponti]
+    Sia $G$ un grafo indiretto connesso, $x \in V(G)$, e sia $T_x$ l'albero di visita in DFS di $x$ in $G$; sia $y \in T_x$, e sia $T_y \subseteq T_x$ il suo sottoalbero in $T_x$; se non esistono archi $(u, v) \in E(G)$, tali che $u \in T_y$ e $v \in T_x - T_y$, allora $(x, y)$ è un ponte.
+\end{lemma}
+
+\begin{proof}
+    Per assurdo, $(x, y)$ non è un ponte; allora, per definizione, $(x, y)$ è incluso in almeno un ciclo di $G$, e dunque esiste necessariamente un cammino $x \rightarrow y$ non passante per $(x, y)$; allora, tale cammino deve necessariamente contenere un arco $(u, v)$, in cui $u \in T_y$, e $v \in T_x - T_y \ \lightning$.
+\end{proof}
+
+\begin{algorithm}[H]
+    \caption{
+        Dato un grafo indiretto $G$, rappresentato attraverso liste di adiacenza, l'algoritmo restituisce i ponti di $G$.\\
+        \textbf{Input}: $G$ grafo indiretto, rappresentato attraverso liste di adiacenza.\\
+        \textbf{Output}: i ponti di $G$.
+    }
+
+    \begin{algorithmic}[1]
+        \Function{DFS}{$G$, $y$, \texttt{c}, \texttt{back}, \texttt{t}, \texttt{parents}}
+            \State $\texttt{c += }1$
+            \State $\texttt{t[}y\texttt{]}= \texttt{c}$
+            \State $\texttt{back[}y\texttt{]}= \texttt{t[}y\texttt{]}$
+            \For{$z \in V(G) : z \sim y$}
+                \If{$TODO$}
+                    \State $\texttt{DFS(}G, u, \texttt{visited},\texttt{order)}$
+                \EndIf
+            \EndFor
+            \State $\texttt{order.append(}v\texttt{)}$ \Comment{l'ordinamento risulterà invertito}
+        \EndFunction
+        \\
+        \Function{findBridges}{$G$}
+            \State $v \in V(G)$ \Comment{un vertice qualsiasi di $G$}
+            \State $\texttt{t} := \texttt{[}0\texttt{]} * n$
+            \State $\texttt{parents} := \texttt{[}0\texttt{]} * n$
+            \State $\texttt{parents[}v\texttt{]}=v$
+            \State $\texttt{back} := \texttt{[}0\texttt{]} * n$
+            \State $\texttt{c} := 0$
+            \State $\texttt{DFS(}G, v, \texttt{c}, \texttt{back}, \texttt{t}, \texttt{parents)}$
+            \State $\texttt{bridges} := \verb|{|\verb|}|$
+            \For{$u \in V(G)$}
+                \If{$\left \{ \begin{array}{l}\texttt{back[}u\texttt{]}= \texttt{t[}u\texttt{]} \\ u \neq \texttt{parents[}u\texttt{]} \end{array} \right.$}
+                    \State $\texttt{bridges.add(}(u, \texttt{parents[}u\texttt{]})\texttt{)}$
+                \EndIf
+            \EndFor
+            \State \textbf{return} \texttt{bridges}
+        \EndFunction
+    \end{algorithmic}
+\end{algorithm}
+
+\begin{remark}[Correttezza dell'algoritmo]
+    TODO
+\end{remark}
+
+\begin{remark}[Costo dell'algoritmo]
+    Il costo dell'algoritmo è $O(n + m)$, poiché è costituito semplicemente da una visita in DFS ricorsiva del grafo in input, e da un ciclo \texttt{for}, alla riga $TODO$, su tutti i nodi del grafo, e dunque si ha $O(n + m) + O(n) = O(n + m)$.
 \end{remark}
 
 \end{document}
