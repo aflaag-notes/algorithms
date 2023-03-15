@@ -257,12 +257,25 @@
 \end{definition}
 
 \begin{definition}[Cammino]
-    Un \textit{cammino} è una traccia aperta, in cui non è possibile ripercurrere i vertici. In simboli, $\forall v, v' \in V(G) \quad v \rightarrow v'$ indica che è possibile raggiungere $v'$ attraverso un cammino; inoltre, è possibile estendere tale sintassi anche agli archi.
+    Un \textit{cammino} è una traccia aperta, in cui non è possibile ripercorrere i vertici. In simboli, dati $v, v' \in V(G)$, con $v \rightarrow v'$ si indica che è possibile raggiungere $v'$, partendo da $v$, attraverso un cammino; inoltre, è possibile estendere tale sintassi anche agli archi.
 \end{definition}
 
 \begin{remark}
-    In una passeggiata in cui non si ripercorrono i vertici, non è possibile ripercorrere gli archi
+    In una passeggiata in cui non si ripercorrono i vertici, non è possibile ripercorrere gli archi.
 \end{remark}
+
+\begin{theorem}[Cammini e passeggiate]
+    \label{cammini e passeggiate}
+    Sia $G$ un grafo, e $u, v \in V(G)$ due suoi vertici; allora, in $G$ esiste una passeggiata $u \rightarrow v$, se e solo se esiste un cammino $u \rightarrow v$.
+\end{theorem}
+
+\begin{proof}
+    \hspace{0.7cm}
+    \begin{itemize}
+        \item[] \textit{Prima implicazione.} Sia $u \rightarrow v$ una passeggiata da $u$ a $v$; allora, per trovare il cammino $u \rightarrow v$, è sufficiente considerare il sottoinsieme minore, di vertici ed archi, della passeggiata, tale che $u$ e $v$ siano connessi.
+        \item[] \textit{Seconda implicazione.} Per definizione, una passeggiata è un qualsiasi percorso tra due vertici di un grafo, e in particolare un cammino è una passeggiata, e dunque il cammino $u \rightarrow v$ è anche un passeggiata.
+    \end{itemize}
+\end{proof}
 
 \begin{definition}[Ciclo]
     Un \textit{ciclo} è un cammino chiuso.
@@ -347,41 +360,6 @@
 
 \begin{proof}
     Per il teorema \cref{Ordinamento topologico}, è sufficiente considerare un ordinamento topologico del grafo, dove in esso il primo vertice non ha archi entranti, mentre l'ultimo non ha archi uscenti.
-\end{proof}
-
-\begin{definition}[Pozzo universale]
-    Sia $G$ un grafo diretto; $v \in V(G)$ è detto \textit{pozzo universale} se ha $n - 1$ archi entranti, e nessun arco uscente.
-\end{definition}
-
-\begin{example}[Pozzo universale]
-    Ad esempio, il seguente grafo diretto presenta un pozzo universale in $3$:
-
-    \begin{figure}[H]
-        \centering
-        \begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=3cm,thick,main node/.style={scale=0.6,circle,draw,font=\sffamily\normalsize}]
-            \node[main node] (1) {1};
-            \node[main node] (2) [below left of=1] {2};
-            \node[main node] (3) [below right of=2] {3};
-            \node[main node] (4) [above right of=3] {4};
-
-            \path[every node/.style={font=\sffamily\small}]
-                (1) edge (2)
-                (2) edge (3)
-                (4) edge (3)
-                (4) edge (1)
-                (1) edge (3)
-                ;
-        \end{tikzpicture}
-        \caption{Un grafo con pozzo universale in $3$.}
-    \end{figure}
-\end{example}
-
-\begin{theorem}[Unicità del pozzo universale]
-    Sia $G$ un grafo diretto, e $p \in V(G)$ un suo pozzo universale; allora $p$ è unico in $G$.
-\end{theorem}
-
-\begin{proof}
-    Per assurdo, sia $p' \in V(G)$ un secondo pozzo universale in $G$; allora, per definizione, sia $p$ che $p'$ avrebbero $n - 1$ archi entranti, e nessun arco uscente, ma questo non è possibile poiché l'unico modo per avere entrambe le condizioni verificate sarebbe attraverso un arco bidirezionale tra $p$ e $p' \ \lightning$.
 \end{proof}
 
 \begin{definition}[Arborescenza]
@@ -525,40 +503,17 @@
     \end{figure}
 \end{example}
 
-\begin{definition}[Ponte]
-    Sia $G$ un grafo, e siano $u, v \in V(G)$ due suoi vertici; allora $(u, v)$ è detto \textit{ponte} se non è contenuto in nessun ciclo di $G$.
-\end{definition}
+\begin{lemma}[Grafi fortemente connessi]
+    Sia $G$ un grafo diretto, e $u \in V(G)$ un suo vertice; allora, $G$ è fortemente connesso, se e solo se $\forall v \in V(G) \quad v \rightarrow u$ e $u \rightarrow v$.
+\end{lemma}
 
-\begin{example}[Ponte]
-    Un esempio di grafo che presenta un ponte è il seguente:
-
-    \begin{figure}[H]
-        \centering
-        \begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=3cm,thick,main node/.style={scale=0.6,circle,draw,font=\sffamily\normalsize}]
-            \node[main node] (1) {1};
-            \node[main node] (2) [below left of=1] {2};
-            \node[main node] (3) [below right of=2] {3};
-            \node[main node] (4) [below right of=1] {4};
-            \node[main node] (5) [right of=4] {5};
-            \node[main node] (6) [above right of=5] {6};
-            \node[main node] (7) [below right of=5] {7};
-
-            \path[every node/.style={font=\sffamily\small}]
-                (1) edge (2)
-                (2) edge (3)
-                (3) edge (4)
-                (4) edge (1)
-                (4) edge (5)
-                (5) edge (6)
-                (6) edge (7)
-                (7) edge (5)
-                ;
-        \end{tikzpicture}
-        \caption{Un grafo con un ponte.}
-    \end{figure}
-
-    Infatti, $(4, 5)$ è un ponte poiché gli unici due cicli di $G$ sono $$\{1, (1, 2), 2, (2, 3), 3, (3, 4), 4, (4, 1), 1\}$$ $$\{5, (5, 6), 6, (6, 7), 7, (7, 5), 5\}$$
-\end{example}
+\begin{proof}
+    \hspace{0.7cm}
+    \begin{itemize}
+        \item[] \textit{Prima implicazione.} L'implicazione è vera per definizione di grafo diretto fortemente connesso.
+        \item[] \textit{Seconda implicazione.} Siano $x, y \in V(G)$; allora, per ipotesi, esistono cammini $x \rightarrow u$, $u \rightarrow x$, $y \rightarrow u$ e $u \rightarrow y$; inoltre, per definizione, tali cammini sono anche passeggiate. In particolare, poiché le passeggiate non hanno vincoli di attraversamento di vertici ed archi, allora è possibile utilizzare la proprietà transitiva, e dunque esistono passeggiate $x \rightarrow u \rightarrow y \implies x \rightarrow y$, e $y \rightarrow u \rightarrow x \implies y \rightarrow x$; allora, per il \cref{cammini e passeggiate}, esistono anche dei cammini $x \rightarrow y$ e $y \rightarrow x$. Allora, per definizione, per ogni coppia di vertici esistono due cammini in entrambe le direzioni, e dunque $G$ è fortemente connesso.
+    \end{itemize}
+\end{proof}
 
 \begin{definition}[Passeggiata euleriana]
     Una passeggiata si dice \textit{euleriana} se attraversa ogni arco del grafo, senza ripercorrerne nessuno.
@@ -721,15 +676,17 @@
 \end{algorithm}
 
 \begin{remark}[Correttezza dell'algoritmo]
-    L'algoritmo inizia scegliendo un qualsiasi vertice di $G$, denotato alla riga $2$ con $v$; successivamente, alla riga $3$ viene inizializzato un array \texttt{visited} che contterà tutti i vertici visitati attraverso l'algoritmo; inotre, alla riga $4$ viene scelto un altro vertice $v'$, che sia adiacente al $v$ di partenza.
+    L'algoritmo inizia scegliendo un qualsiasi vertice di $G$, denotato alla riga $2$ con $v$; successivamente, alla riga $3$ viene inizializzato un insieme \texttt{visited} che contterà tutti i vertici visitati attraverso l'algoritmo; inotre, alla riga $4$ viene scelto un altro vertice $v'$, che sia adiacente al $v$ di partenza.
 
-    All'interno del ciclo \texttt{while}, alla riga $6$ l'algoritmo salva $v'$ all'interno dell'array di vertici visitati, mentre alla riga $7$ viene rimpiazzato $v'$, scegliendo un nuovo vertice, adiacente a $v'$, che sia diverso dal penultimo vertice inserito all'interno di \texttt{visited}. Il motivo per cui quest'ultimo controllo è necessario, è che il penultimo vertice inserito sarà il vertice dal quale $v'$ proveniva, di conseguenza si rischierebbe di ripercorrere uno stesso vertice più di una volta, e dunque non si formerebbe un ciclo. Si noti che è necessaria l'ipotesi per cui $G$ abbia ogni vertice di grado almeno pari a $2$, altrimenti non sarebbe possibile trovare un vertice differente dal penultimo di \texttt{visited}. Il ciclo termina nel momento in cui viene scelto un $v'$ già presente all'interno di \texttt{visited}, in quanto, poiché non è possibile ripercorrere i propri passi, l'unica possibilità in cui si è giunti ad un vertice già visitato è se si è concluso un ciclo.
+    All'interno del ciclo \texttt{while}, alla riga $6$ l'algoritmo salva $v'$ all'interno dell'insieme di vertici visitati, mentre alla riga $7$ viene rimpiazzato $v'$, scegliendo un nuovo vertice, adiacente a $v'$, che sia diverso dal penultimo vertice inserito all'interno di \texttt{visited}. Il motivo per cui quest'ultimo controllo è necessario, è che il penultimo vertice inserito sarà il vertice dal quale $v'$ proveniva, di conseguenza si rischierebbe di ripercorrere uno stesso vertice più di una volta, e dunque non si formerebbe un ciclo. Si noti che è necessaria l'ipotesi per cui $G$ abbia ogni vertice di grado almeno pari a $2$, altrimenti non sarebbe possibile trovare un vertice differente dal penultimo di \texttt{visited}. Il ciclo termina nel momento in cui viene scelto un $v'$ già presente all'interno di \texttt{visited}, in quanto, poiché non è possibile ripercorrere i propri passi, l'unica possibilità in cui si è giunti ad un vertice già visitato è se si è concluso un ciclo.
     
-    L'algoritmo termina restituendo uno slice dell'array, partendo dal primo indice di $v'$ disponibile (si noti che alla fine dell'algoritmo anche l'ultimo elemento di \texttt{visited} sarà $v'$), fino alla fine.
+    L'algoritmo termina restituendo uno slice dell'insieme, partendo dal primo indice di $v'$ disponibile (si noti che alla fine dell'algoritmo anche l'ultimo elemento di \texttt{visited} sarà $v'$), fino alla fine.
+
+    Si noti che, nella maggior parte dei linguaggi di programmazione, gli insiemi non hanno ordine, dunque non sarebbe possibile restituire uno slice di \texttt{visited}; allora, per semplicità, all'interno dello pseudocodice presentato, si assume si stia utilizzando una struttura dotata di hashing per l'univocità degli elementi, e di ordine per restituirne uno slice, ad esempio un \texttt{IndexSet}).
 \end{remark}
 
 \begin{remark}
-    Si noti che \texttt{visited} contiene tutti i nodi visitati, dunque restituire interamente l'array potrebbe non fornire un ciclo, come nel seguente grafo
+    Si noti che \texttt{visited} contiene tutti i nodi visitati, dunque restituire interamente l'insieme potrebbe non fornire un ciclo, come nel seguente grafo
     \begin{figure}[H]
         \centering
         \begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=3cm,thick,main node/.style={scale=0.6,circle,draw,font=\sffamily\normalsize}]
@@ -825,6 +782,7 @@
     }
 
     \begin{algorithmic}[1]
+        \label{findReachableNodes2}
         \Function{findReachableNodes$_2$}{$G$, $v$}
             \State $\texttt{visited} := \verb|{|v\verb|}|$
             \State $\texttt{Stack S} := \texttt{[}v\texttt{]}$
@@ -855,6 +813,7 @@
 \end{remark}
 
 \begin{remark}[Costo dell'algoritmo]
+    \label{costo findReachableNodes2}
     Poiché i nodi visitati vengono eliminati, il costo del ciclo \texttt{while} dipende da operazioni eseguite in tempo costante $O(1)$, e da quanti nodi vengono controllati per ogni iterazione del ciclo, ma poiché non si possono ricontrollare più volte gli stessi nodi, allora il costo del ciclo dipende solamente dalla dimensione delle liste di adiacenza, e dunque si ha $\displaystyle O\left( \sum_{v \in V(G)}{O(1) + \deg(v)}\right)=O\left(\sum_{v \in V(G)}{O(1)}\right) + O\left(\sum_{v \in V(G)}{\deg(v)}\right) = O(n) + O(m) = O(n+ m)$, per il \cref{Somma dei gradi}.
 \end{remark}
 
@@ -1007,11 +966,17 @@
 \end{algorithm}
 
 \begin{remark}[Correttezza dell'algoritmo]
-    TODO
+    L'algoritmo inizia salvando la radice $r$ all'interno di un insieme \texttt{visited}, ed inizializzando gli array \texttt{t} e \texttt{T} con $0$; inoltre, il tempo di visita di $r$ viene inizializzato a $1$, alla riga $17$; infine, viene istanziato un contatore, partendo da $1$ (poiché la radice è già stata inizializzata).
+
+    All'interno della funzione ricorsiva, per ogni livello della ricorsione, viene esplorato ogni vertice adiacente a $v$ in ingresso; in particolare, se gia non visitato, viene scelto un $u$ tale che $u \sim v$. Successivamente, viene aggiornato il contatore, e viene salvato il tempo di visita di $u$; infine, viene aggiunto il vertice a \texttt{visited}. Alla riga $7$, la funzione ricorsiva viene eseguita nuovamente, utilizzando come nuovo nodo di partenza $u$. Infine, per ogni livello di ricorsione, dopo aver terminato i vertici adiacenti, il ciclo \texttt{for} della riga $2$ termina, e alla riga $10$ viene aggiornato il tempo di chiusura del vertice $v$.
+
+    Allora, il codice è in grado di visitare il grafo intermaente, senza ripercorrere vertici già visitati, utilizzando una visita in DFS, poiché vengono esplorati tutti i vertici adiacenti ricorsivamente, prima di tornare al vertice precedente.
+
+    Si noti che l'algoritmo funziona correttamente, solamente se \texttt{c} viene trattato come un oggetto; infatti, il contatore si deve comportare come se fosse globale per ogni livello di ricorsione, altrimenti i tempi sarebbero tutti errati; in particolare, senza trattare il contatore come oggetto, il contatore, ritornando indietro con i livelli ricorsivi, decrementerebbe.
 \end{remark}
 
 \begin{remark}[Costo dell'algoritmo]
-    TODO
+    Si noti che l'algoritmo controlla ogni singolo vertice una ed una sola volta, e la vista avviene in DFS; inoltre, poiché si ha un ciclo \texttt{for} all'interno di ogni livello della ricorsione, per costruzione stessa, l'algoritmo si comporta esattamente come l'\cref{findReachableNodes2}. Allora, poiché il grafo è rappresentato tramite liste di adiacenza, per ragionamento analogo all'\cref{costo findReachableNodes2}, il costo dell'algoritmo è pari a $O(n + m)$.
 \end{remark}
 
 \begin{algorithm}[H]
@@ -1180,6 +1145,41 @@
 
 \subsection{Trovare un pozzo universale}
 
+\begin{definition}[Pozzo universale]
+    Sia $G$ un grafo diretto; $v \in V(G)$ è detto \textit{pozzo universale} se ha $n - 1$ archi entranti, e nessun arco uscente.
+\end{definition}
+
+\begin{example}[Pozzo universale]
+    Ad esempio, il seguente grafo diretto presenta un pozzo universale in $3$:
+
+    \begin{figure}[H]
+        \centering
+        \begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=3cm,thick,main node/.style={scale=0.6,circle,draw,font=\sffamily\normalsize}]
+            \node[main node] (1) {1};
+            \node[main node] (2) [below left of=1] {2};
+            \node[main node] (3) [below right of=2] {3};
+            \node[main node] (4) [above right of=3] {4};
+
+            \path[every node/.style={font=\sffamily\small}]
+                (1) edge (2)
+                (2) edge (3)
+                (4) edge (3)
+                (4) edge (1)
+                (1) edge (3)
+                ;
+        \end{tikzpicture}
+        \caption{Un grafo con pozzo universale in $3$.}
+    \end{figure}
+\end{example}
+
+\begin{theorem}[Unicità del pozzo universale]
+    Sia $G$ un grafo diretto, e $p \in V(G)$ un suo pozzo universale; allora $p$ è unico in $G$.
+\end{theorem}
+
+\begin{proof}
+    Per assurdo, sia $p' \in V(G)$ un secondo pozzo universale in $G$; allora, per definizione, sia $p$ che $p'$ avrebbero $n - 1$ archi entranti, e nessun arco uscente, ma questo non è possibile poiché l'unico modo per avere entrambe le condizioni verificate sarebbe attraverso un arco bidirezionale tra $p$ e $p' \ \lightning$.
+\end{proof}
+
 \begin{algorithm}[H]
     \caption{
         Dato un grafo diretto $G$, rappresentato attraverso matrice di adiacenza, l'algoritmo restituisce, se presente, il pozzo universale di $G$.\\
@@ -1238,6 +1238,41 @@
 
 \subsection{Trovare i ponti}
 
+\begin{definition}[Ponte]
+    Sia $G$ un grafo, e siano $u, v \in V(G)$ due suoi vertici; allora $(u, v)$ è detto \textit{ponte} se e solo se non è contenuto in nessun ciclo di $G$.
+\end{definition}
+
+\begin{example}[Ponte]
+    Un esempio di grafo che presenta un ponte è il seguente:
+
+    \begin{figure}[H]
+        \centering
+        \begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=3cm,thick,main node/.style={scale=0.6,circle,draw,font=\sffamily\normalsize}]
+            \node[main node] (1) {1};
+            \node[main node] (2) [below left of=1] {2};
+            \node[main node] (3) [below right of=2] {3};
+            \node[main node] (4) [below right of=1] {4};
+            \node[main node] (5) [right of=4] {5};
+            \node[main node] (6) [above right of=5] {6};
+            \node[main node] (7) [below right of=5] {7};
+
+            \path[every node/.style={font=\sffamily\small}]
+                (1) edge (2)
+                (2) edge (3)
+                (3) edge (4)
+                (4) edge (1)
+                (4) edge (5)
+                (5) edge (6)
+                (6) edge (7)
+                (7) edge (5)
+                ;
+        \end{tikzpicture}
+        \caption{Un grafo con un ponte.}
+    \end{figure}
+
+    Infatti, $(4, 5)$ è un ponte poiché gli unici due cicli di $G$ sono $$\{1, (1, 2), 2, (2, 3), 3, (3, 4), 4, (4, 1), 1\}$$ $$\{5, (5, 6), 6, (6, 7), 7, (7, 5), 5\}$$
+\end{example}
+
 \begin{lemma}
     Sia $G$ un grafo indiretto connesso, $x \in V(G)$, e sia $T_x$ l'albero di visita in DFS di $x$ in $G$; sia $y \in T_x$, e sia $T_y \subseteq T_x$ il suo sottoalbero in $T_x$; se esiste un arco $(u, v) \in E(G)$, tale che $u \in T_y$ e $v \in T_x - T_y$, allora esiste un ciclo in $G$, contenente $(x, y)$.
 \end{lemma}
@@ -1252,7 +1287,7 @@
 \end{lemma}
 
 \begin{proof}
-    Per assurdo, $(x, y)$ non è un ponte; allora, per definizione, $(x, y)$ è incluso in almeno un ciclo di $G$, e dunque esiste necessariamente un cammino $x \rightarrow y$ non passante per $(x, y)$; allora, tale cammino deve necessariamente contenere un arco $(u, v)$, in cui $u \in T_y$, e $v \in T_x - T_y \ \lightning$.
+    Per assurdo, si assuma $(x, y)$ non sia un ponte; allora, per definizione, $(x, y)$ è incluso in almeno un ciclo di $G$, e dunque esiste necessariamente un cammino $x \rightarrow y$ non passante per $(x, y)$; allora, tale cammino deve necessariamente contenere un arco $(u, v)$, in cui $u \in T_y$, e $v \in T_x - T_y \ \lightning$.
 \end{proof}
 
 \begin{algorithm}[H]
@@ -1265,6 +1300,7 @@
     \begin{algorithmic}[1]
         \Function{DFS}{$G$, $y$, \texttt{c}, \texttt{back}, \texttt{t}, \texttt{parents}}
             \State $\texttt{c += }1$
+            \State TODO, NOT FINISHED
             \State $\texttt{t[}y\texttt{]}= \texttt{c}$
             \State $\texttt{back[}y\texttt{]}= \texttt{t[}y\texttt{]}$
             \For{$z \in V(G) : z \sim y$}
@@ -1301,5 +1337,79 @@
 \begin{remark}[Costo dell'algoritmo]
     Il costo dell'algoritmo è $O(n + m)$, poiché è costituito semplicemente da una visita in DFS ricorsiva del grafo in input, e da un ciclo \texttt{for}, alla riga $TODO$, su tutti i nodi del grafo, e dunque si ha $O(n + m) + O(n) = O(n + m)$.
 \end{remark}
+
+\subsection{Trovare le componenti}
+
+\begin{definition}[Componenti indirette]
+    Sia $G$ un grafo indiretto, non necessariamente connesso; allora, si definisce \textit{componente} un sottografo di $G$, connesso, non ulteriormente estendibile. Più rigorosamente, sia $H \subseteq G$ un sottografo di $G$; esso è una componente di $G$, se e solo se non esiste $H' \subseteq G$, sottografo connesso di $G$, tale che $H \subsetneq H'$. Le componenti sono anche definite come sottografi \textit{massimalmente connessi}.
+\end{definition}
+
+\begin{example}[Componenti indirette]
+    Ad esempio, si consideri questo grafo:
+
+    \begin{figure}[H]
+        \centering
+        \begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=3cm,thick,main node/.style={scale=0.6,circle,draw,font=\sffamily\normalsize}]
+            \node[main node] (1) {1};
+            \node[main node] (2) [below left of=1] {2};
+            \node[main node] (3) [below right of=2] {3};
+            \node[main node] (4) [below right of=1] {4};
+            \node[main node] (5) [right of=4] {5};
+            \node[main node] (6) [above right of=5] {6};
+            \node[main node] (7) [below right of=5] {7};
+
+            \path[every node/.style={font=\sffamily\small}]
+                (1) edge (2)
+                (2) edge (3)
+                (3) edge (4)
+                (4) edge (1)
+                (5) edge (6)
+                (6) edge (7)
+                (7) edge (5)
+                ;
+        \end{tikzpicture}
+        \caption{Un grafo indiretto.}
+    \end{figure}
+
+    esso, presenta $2$ componenti: $$H_1 := (\{1, 2, 3, 4\}, \{(1, 2), (2, 3), (3, 4), (4, 1)\})$$ $$H_2 := (\{5, 6, 7\}, \{(5, 6), (6, 7), (7, 5)\})$$
+\end{example}
+
+\begin{definition}[Componenti dirette]
+    Sia $G$ un grafo diretto, non necessariamente connesso; allora, si definisce \textit{componente} un sottografo di $G$, fortemente e massimalmente connesso.
+\end{definition}
+
+\begin{example}[Componenti indirette]
+    Ad esempio, si consideri questo grafo:
+
+    \begin{figure}[H]
+        \centering
+        \begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=3cm,thick,main node/.style={scale=0.6,circle,draw,font=\sffamily\normalsize}]
+            \node[main node] (1) {1};
+            \node[main node] (2) [below left of=1] {2};
+            \node[main node] (3) [below right of=2] {3};
+            \node[main node] (4) [below right of=1] {4};
+            \node[main node] (5) [above right of=4] {5};
+            \node[main node] (6) [below right of=5] {6};
+            \node[main node] (7) [above right of=6] {7};
+
+            \path[every node/.style={font=\sffamily\small}]
+                (1) edge (3)
+                (1) edge (5)
+                (2) edge (1)
+                (3) edge (2)
+                (3) edge (4)
+                (4) edge (5)
+                (4) edge (6)
+                (5) edge (7)
+                (6) edge (3)
+                (6) edge (5)
+                (6) edge (7)
+                ;
+        \end{tikzpicture}
+        \caption{Un grafo diretto.}
+    \end{figure}
+
+    esso, presenta $3$ componenti: $$H_1 := (\{1, 2, 3, 4, 6\}, \{(1, 3), (3, 4), (4, 6), (6, 3), (3, 2), (2, 1)\})$$ $$H_2 := (\{5\}, \varnothing)$$ $$H_3 := (\{7\}, \varnothing)$$
+\end{example}
 
 \end{document}
