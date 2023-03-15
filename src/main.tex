@@ -1048,14 +1048,15 @@
 \end{nocaptionalg}
 
 \begin{remark}[Correttezza dell'algoritmo]
-    TODO O(n +m)
+    TODO
 \end{remark}
 
 \begin{remark}[Costo dell'algoritmo]
-    TODO O(n +m)
-    Si noti che il ciclo \texttt{while} che inizia alla riga $11$, e termina alla riga $29$, ha lo stesso costo computazionale dell'\cref{findReachableNodes2}, e dunque il suo costo computazionale è pari a $O(n + m)$.
+    Si noti che il ciclo \texttt{while} che inizia alla riga $11$, e termina alla riga $29$, ha lo stesso costo computazionale dell'\cref{findReachableNodes2}, e dunque il suo costo è pari a $O(n + m)$.
 
-    Si noti inoltre che TODO
+    Si noti inoltre che, il ciclo \texttt{for} della riga $33$, effettua un'iterazione per ogni singolo vertice del grafo, ma all'interno di esso è presente un ulteriore ciclo \texttt{for}, alla riga $34$, che itera sui rispettivi vertici adiacenti entranti; allora, il costo di questi due cicli equivale al solo spazio di rappresentazione delle liste di adiacenza di $G$, ovvero $O(n + m)$, poiché al loro interno vengono eseguite esclusivamente operazioni in tempo costante.
+
+    In conclusione, il costo computazionale è pari a $O(n + m) + O(n + m) = O(n + m)$.
 \end{remark}
 
 \subsection{Trovare un ordinamento topologico}
