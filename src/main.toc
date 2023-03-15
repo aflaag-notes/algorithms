@@ -13,8 +13,8 @@
 \contentsline {subsection}{\numberline {1.3.3}Trovare un ordinamento topologico}{19}{subsection.1.3.3}%
 \contentsline {section}{\numberline {1.4}Tempi di visita e di chiusura}{20}{section.1.4}%
 \contentsline {subsection}{\numberline {1.4.1}Definizioni}{20}{subsection.1.4.1}%
-\contentsline {subsection}{\numberline {1.4.2}Categorie di archi}{21}{subsection.1.4.2}%
+\contentsline {subsection}{\numberline {1.4.2}Categorie di archi}{22}{subsection.1.4.2}%
 \contentsline {subsection}{\numberline {1.4.3}Trovare un ordinamento topologico}{26}{subsection.1.4.3}%
-\contentsline {subsection}{\numberline {1.4.4}Trovare un pozzo universale}{29}{subsection.1.4.4}%
-\contentsline {subsection}{\numberline {1.4.5}Trovare i ponti}{31}{subsection.1.4.5}%
-\contentsline {subsection}{\numberline {1.4.6}Trovare le componenti}{34}{subsection.1.4.6}%
+\contentsline {subsection}{\numberline {1.4.4}Trovare un pozzo universale}{30}{subsection.1.4.4}%
+\contentsline {subsection}{\numberline {1.4.5}Trovare i ponti}{32}{subsection.1.4.5}%
+\contentsline {subsection}{\numberline {1.4.6}Trovare le componenti}{35}{subsection.1.4.6}%

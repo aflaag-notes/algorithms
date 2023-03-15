@@ -355,11 +355,12 @@
 \end{proof}
 
 \begin{corollary}[Vertici particolari]
+    \label{vertici particolari}
     In un grafo diretto aciclico, esiste almeno un vertice senza archi entranti, ed almeno un vertice senza archi uscenti.
 \end{corollary}
 
 \begin{proof}
-    Per il teorema \cref{Ordinamento topologico}, è sufficiente considerare un ordinamento topologico del grafo, dove in esso il primo vertice non ha archi entranti, mentre l'ultimo non ha archi uscenti.
+    Per il teorema precedente, è sufficiente considerare un ordinamento topologico del grafo, dove in esso il primo vertice non ha archi entranti, mentre l'ultimo non ha archi uscenti.
 \end{proof}
 
 \begin{definition}[Arborescenza]
@@ -844,7 +845,7 @@
 \end{algorithm}
 
 \begin{remark}[Correttezza dell'algoritmo]
-    TODO
+    L'algoritmo inizia definendo una lista vuota \texttt{order}, all'interno della quale verrà salvato l'ordinamento topologico; successivamente, alla riga $3$, viene inizializzato un ciclo \texttt{while} che, in ogni iterazione, trova un vertice $v$ il cui numero di vertici adiacenti entranti è $0$, e lo inserisce in \texttt{order}; questo garantisce che ogni vertice inserito venga necessariamente inserito prima di ogni suo arco uscente, e ne esiste sempre almeno uno grazie al \cref{vertici particolari}. Si noti inoltre che, poiché $G$ è aciclico, è garantito che rimuovendo un vertice senza archi entranti, il grafo risultante sarà ancora aciclico, ed è possibile dunque ripetere il ragionamento induttivamente per poter dimostrare la correttezza dell'algoritmo.
 \end{remark}
 
 \begin{remark}[Costo dell'algoritmo]
@@ -1052,6 +1053,9 @@
 
 \begin{remark}[Costo dell'algoritmo]
     TODO O(n +m)
+    Si noti che il ciclo \texttt{while} che inizia alla riga $11$, e termina alla riga $29$, ha lo stesso costo computazionale dell'\cref{findReachableNodes2}, e dunque il suo costo computazionale è pari a $O(n + m)$.
+
+    Si noti inoltre che TODO
 \end{remark}
 
 \subsection{Trovare un ordinamento topologico}
