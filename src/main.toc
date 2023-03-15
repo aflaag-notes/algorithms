@@ -6,15 +6,15 @@
 \contentsline {subsection}{\numberline {1.1.2}Visite}{4}{subsection.1.1.2}%
 \contentsline {section}{\numberline {1.2}Rappresentazione}{11}{section.1.2}%
 \contentsline {subsection}{\numberline {1.2.1}Matrici di adiacenza}{11}{subsection.1.2.1}%
-\contentsline {subsection}{\numberline {1.2.2}Liste di adiacenza}{11}{subsection.1.2.2}%
-\contentsline {section}{\numberline {1.3}DFS (Depth-first Search)}{13}{section.1.3}%
-\contentsline {subsection}{\numberline {1.3.1}Trovare un ciclo}{13}{subsection.1.3.1}%
-\contentsline {subsection}{\numberline {1.3.2}Visita in DFS}{15}{subsection.1.3.2}%
+\contentsline {subsection}{\numberline {1.2.2}Liste di adiacenza}{12}{subsection.1.2.2}%
+\contentsline {section}{\numberline {1.3}DFS (Depth-first Search)}{14}{section.1.3}%
+\contentsline {subsection}{\numberline {1.3.1}Trovare un ciclo}{14}{subsection.1.3.1}%
+\contentsline {subsection}{\numberline {1.3.2}Visita in DFS}{16}{subsection.1.3.2}%
 \contentsline {subsection}{\numberline {1.3.3}Trovare un ordinamento topologico}{19}{subsection.1.3.3}%
 \contentsline {section}{\numberline {1.4}Tempi di visita e di chiusura}{20}{section.1.4}%
 \contentsline {subsection}{\numberline {1.4.1}Definizioni}{20}{subsection.1.4.1}%
 \contentsline {subsection}{\numberline {1.4.2}Categorie di archi}{22}{subsection.1.4.2}%
-\contentsline {subsection}{\numberline {1.4.3}Trovare un ordinamento topologico}{26}{subsection.1.4.3}%
-\contentsline {subsection}{\numberline {1.4.4}Trovare un pozzo universale}{30}{subsection.1.4.4}%
-\contentsline {subsection}{\numberline {1.4.5}Trovare i ponti}{32}{subsection.1.4.5}%
-\contentsline {subsection}{\numberline {1.4.6}Trovare le componenti}{35}{subsection.1.4.6}%
+\contentsline {subsection}{\numberline {1.4.3}Trovare un ordinamento topologico}{27}{subsection.1.4.3}%
+\contentsline {subsection}{\numberline {1.4.4}Trovare un pozzo universale}{31}{subsection.1.4.4}%
+\contentsline {subsection}{\numberline {1.4.5}Trovare i ponti}{33}{subsection.1.4.5}%
+\contentsline {subsection}{\numberline {1.4.6}Trovare le componenti (?) TODO}{36}{subsection.1.4.6}%

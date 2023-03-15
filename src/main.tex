@@ -364,8 +364,12 @@
 \end{proof}
 
 \begin{definition}[Arborescenza]
-    Sia $G$ un grafo diretto, e $v$ un suo vertice; l'insieme degli archi raggiungibili da $v$ formano l'\textit{arborescenza di $v$}, e $v$ prende il nome di \textit{radice}. In simboli $$A_v := \{(v', v'') \in E(G) : v \rightarrow (v', v'')\} \subseteq E(G)$$ è l'arborescenza di $v$. Si noti che, spesso, il sottografo generato dall'arborescenza di $v$ viene identificato con l'arborescenza stessa.
+    Sia $G$ un grafo diretto, e $r$ un suo vertice; $G$ è detto \textit{arborescenza} se e solo se, per ogni vertice $v \in V(G) - \{r\}$, esiste uno ed un solo cammino diretto $r \rightarrow v$; in tal caso, $r$ prende il nome di \textit{radice}.
 \end{definition}
+
+\begin{remark}[Arborescenza]
+    Sia $G$ un grafo diretto, e $v$ un suo vertice; allora, l'insieme degli archi raggiungibili da $v$ formano l'\textit{arborescenza di $v$} in $G$, e $v$ prende il nome di \textit{radice}. In simboli $$A_v := \{(v', v'') \in E(G) : v \rightarrow (v', v'')\} \subseteq E(G)$$ è l'arborescenza di $v$ in $G$. Si noti che, spesso, il sottografo generato dall'arborescenza di $v$ viene identificato con l'arborescenza stessa.
+\end{remark}
 
 \begin{example}[Arborescenza]
     Si consideri il seguente grafo diretto:
@@ -1059,6 +1063,43 @@
     In conclusione, il costo computazionale è pari a $O(n + m) + O(n + m) = O(n + m)$.
 \end{remark}
 
+\begin{algorithm}[H]
+    \caption{
+        Dato un'array di padri \texttt{parents}, che rappresenta un'arborescenza di visita in DFS di un grafo diretto, e un arco $(x, y)$ del grafo, l'algoritmo restituisce il tipo di arco.\\
+        \textbf{Input}: \texttt{parents} array di padri di un'arborescenza di visita in DFS di un grafo diretto; $(x, y)$ un arco del grafo.\\
+        \textbf{Output}: la categoria di $(x, y)$.
+    }
+
+    \begin{algorithmic}[1]
+        \Function{categorizeEdge}{\texttt{parents}, $(x, y)$}
+            \If{$\texttt{parents[}y\texttt{]}==x$}
+                \State \textbf{return} \texttt{NodeType::Arborescence}
+            \EndIf
+            \State $z := y$
+            \While{$\texttt{parents[}z\texttt{]} \neq z$}
+                \State $z = \texttt{parents[}z\texttt{]}$
+                \If{$z == x$}
+                    \State \textbf{return} \texttt{NodeType::Forward}
+                \EndIf
+            \EndWhile
+            \While{$\texttt{parents[}z\texttt{]} \neq z$}
+                \State $z = \texttt{parents[}z\texttt{]}$
+                \If{$z == y$}
+                    \State \textbf{return} \texttt{NodeType::Backward}
+                \EndIf
+            \EndWhile
+            \State \textbf{return} \texttt{NodeType::Cross}
+        \EndFunction
+    \end{algorithmic}
+\end{algorithm}
+
+\begin{remark}[Correttezza dell'algoritmo]
+\end{remark}
+
+\begin{remark}[Costo dell'algoritmo]
+    TODO O(n)
+\end{remark}
+
 \subsection{Trovare un ordinamento topologico}
 
 \begin{theorem}[Presenza di cicli]
@@ -1201,10 +1242,10 @@
                 \EndIf
             \EndFor
             \For{$v \in V(G) - \{p\}$}
-                \If{$M_G[p, v] = = 1$}
+                \If{$M_G[p, v] == 1$}
                     \State \textbf{return} \texttt{None}
                 \EndIf
-                \If{$M_G[v, p] = = 0$}
+                \If{$M_G[v, p] == 0$}
                     \State \textbf{return} \texttt{None}
                 \EndIf
             \EndFor
@@ -1295,6 +1336,14 @@
     Per assurdo, si assuma $(x, y)$ non sia un ponte; allora, per definizione, $(x, y)$ è incluso in almeno un ciclo di $G$, e dunque esiste necessariamente un cammino $x \rightarrow y$ non passante per $(x, y)$; allora, tale cammino deve necessariamente contenere un arco $(u, v)$, in cui $u \in T_y$, e $v \in T_x - T_y \ \lightning$.
 \end{proof}
 
+\begin{lemma}[Alberi con ponti]
+    Sia $G$ un grafo indiretto, e $(u, v)$ un suo ponte; allora, per ogni possibile $T_u$, albero di visita di $G$ in DFS, radicato in $u$, si ha che $(u, v) \in E(T_u)$.
+\end{lemma}
+
+\begin{proof}
+    Poiché $(u, v)$ è un ponte, per definizione non appartiente a nessun ciclo di $G$, allora preso un qualsiasi $T_u$, albero di visita di $G$ in DFS, radicato in $u$, l'unico modo per raggiungere $v$ è attraverso $(u, v)$ stesso, in quanto $G$ è indiretto, e dunque necessariamente $(u, v) \in E(T_u)$
+\end{proof}
+
 \begin{algorithm}[H]
     \caption{
         Dato un grafo indiretto $G$, rappresentato attraverso liste di adiacenza, l'algoritmo restituisce i ponti di $G$.\\
@@ -1343,7 +1392,7 @@
     Il costo dell'algoritmo è $O(n + m)$, poiché è costituito semplicemente da una visita in DFS ricorsiva del grafo in input, e da un ciclo \texttt{for}, alla riga $TODO$, su tutti i nodi del grafo, e dunque si ha $O(n + m) + O(n) = O(n + m)$.
 \end{remark}
 
-\subsection{Trovare le componenti}
+\subsection{Trovare le componenti (?) TODO}
 
 \begin{definition}[Componenti indirette]
     Sia $G$ un grafo indiretto, non necessariamente connesso; allora, si definisce \textit{componente} un sottografo di $G$, connesso, non ulteriormente estendibile. Più rigorosamente, sia $H \subseteq G$ un sottografo di $G$; esso è una componente di $G$, se e solo se non esiste $H' \subseteq G$, sottografo connesso di $G$, tale che $H \subsetneq H'$. Le componenti sono anche definite come sottografi \textit{massimalmente connessi}.
