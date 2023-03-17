@@ -17,4 +17,4 @@
 \contentsline {subsection}{\numberline {1.4.3}Trovare un ordinamento topologico}{27}{subsection.1.4.3}%
 \contentsline {subsection}{\numberline {1.4.4}Trovare un pozzo universale}{31}{subsection.1.4.4}%
 \contentsline {subsection}{\numberline {1.4.5}Trovare i ponti}{33}{subsection.1.4.5}%
-\contentsline {subsection}{\numberline {1.4.6}Trovare le componenti (?) TODO}{36}{subsection.1.4.6}%
+\contentsline {subsection}{\numberline {1.4.6}Trovare le componenti}{36}{subsection.1.4.6}%

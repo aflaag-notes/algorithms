@@ -203,6 +203,8 @@
 
 \begin{definition}[Grafo semplice]
     Un grafo è detto \textit{semplice} se non contiene cappi, né lati multipli, ovvero più archi per due vertici.
+
+    Si noti che, all'interno di questi appunti, a meno di esplicita specifica, si assume che ogni grafo trattato sia semplice.
 \end{definition}
 
 \subsection{Visite}
@@ -1392,10 +1394,12 @@
     Il costo dell'algoritmo è $O(n + m)$, poiché è costituito semplicemente da una visita in DFS ricorsiva del grafo in input, e da un ciclo \texttt{for}, alla riga $TODO$, su tutti i nodi del grafo, e dunque si ha $O(n + m) + O(n) = O(n + m)$.
 \end{remark}
 
-\subsection{Trovare le componenti (?) TODO}
+\subsection{Trovare le componenti}
 
 \begin{definition}[Componenti indirette]
-    Sia $G$ un grafo indiretto, non necessariamente connesso; allora, si definisce \textit{componente} un sottografo di $G$, connesso, non ulteriormente estendibile. Più rigorosamente, sia $H \subseteq G$ un sottografo di $G$; esso è una componente di $G$, se e solo se non esiste $H' \subseteq G$, sottografo connesso di $G$, tale che $H \subsetneq H'$. Le componenti sono anche definite come sottografi \textit{massimalmente connessi}.
+    Sia $G$ un grafo indiretto, non necessariamente connesso; si definisce \textit{componente} un sottografo di $G$, connesso, non ulteriormente estendibile. Più rigorosamente, sia $H \subseteq G$ un sottografo di $G$; esso è una componente di $G$, se e solo se non esiste $H' \subseteq G$, sottografo connesso di $G$, tale che $H \subsetneq H'$. Le componenti sono anche definite come sottografi \textit{massimalmente connessi}.
+
+    In simboli, dato un vertice $v \in V(G)$, $\mathrm{comp}(v)$ è la componente contenente $v$.
 \end{definition}
 
 \begin{example}[Componenti indirette]
@@ -1432,7 +1436,7 @@
     Sia $G$ un grafo diretto, non necessariamente connesso; allora, si definisce \textit{componente} un sottografo di $G$, fortemente e massimalmente connesso.
 \end{definition}
 
-\begin{example}[Componenti indirette]
+\begin{example}[Componenti dirette]
     Ad esempio, si consideri questo grafo:
 
     \begin{figure}[H]
@@ -1465,5 +1469,149 @@
 
     esso, presenta $3$ componenti: $$H_1 := (\{1, 2, 3, 4, 6\}, \{(1, 3), (3, 4), (4, 6), (6, 3), (3, 2), (2, 1)\})$$ $$H_2 := (\{5\}, \varnothing)$$ $$H_3 := (\{7\}, \varnothing)$$
 \end{example}
+
+\begin{lemma}[Digiunzione delle componenti]
+    Sia $G$ un grafo; allora, le sue componenti sono disgiunte.
+\end{lemma}
+
+\begin{proof}
+    Per assurdo, sia $G$ un grafo, diretto o indiretto, e $H_1, H_2 \subseteq G$ due sue componenti tali che $H_1 \cap H_2 \neq \varnothing$; se tali componenti esistessero, allora esisterebbe almeno un vertice nella loro intersezione, raggiungibile da entrambe le componenti (nel caso di $G$ diretto, i cammini sarebbero in entrambe le direzioni, poiché tale vertice sarebbe parte sia di $H_1$ che di $H_2$, entrambe fortemente connesse per definizione); allora, $H_1$ e $H_2$ non sarebbero massimalmente connesse $\lightning$.
+\end{proof}
+
+\begin{definition}[Contrazione]
+    Sia $G$ un grafo, e $H \subseteq G$ una sua componente; si definisce \textit{contrazione di $H$ in $G$}, l'operazione che rimuove vertici (ed archi) di $H$ da $G$, e al suo posto inserisce un vertice, generalmente denotato con $v_H$, che viene connesso con $G - H$ dagli archi che precedentemente connettevano $H$ con $G$. In simboli, il grafo $G$, contratto su $H$, verrà indicato con $\mathrm{contr}(G, H)$.
+\end{definition}
+
+\begin{example}[Contrazione di un grafo diretto]
+    Si consideri il seguente grafo diretto:
+
+    \begin{figure}[H]
+        \centering
+        \begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=3cm,thick,main node/.style={scale=0.6,circle,draw,font=\sffamily\normalsize}]
+            \node[main node] (1) {1};
+            \node[main node] (2) [below left of=1] {2};
+            \node[main node] (3) [below right of=2] {3};
+            \node[main node] (4) [right of=3] {4};
+            \node[main node] (6) [right of=1] {6};
+            \node[main node] (5) [below right of=6] {5};
+            \node[main node] (7) [right of=5] {7};
+            \node[main node] (8) [below right of=7] {8};
+            \node[main node] (9) [above right of=7] {9};
+
+            \path[every node/.style={font=\sffamily\small}]
+                (1) edge (3)
+                (1) edge (6)
+                (2) edge (1)
+                (3) edge (2)
+                (3) edge (4)
+                (5) edge (4)
+                (4) edge (6)
+                (6) edge (5)
+                (5) edge (7)
+                (7) edge (9)
+                (8) edge (7)
+                (9) edge (8)
+                ;
+        \end{tikzpicture}
+    \end{figure}
+        
+    contraendo la componente $H_1 = (\{1, 2, 3\}, \{(1, 3), (3, 2), (2, 1)\})$ in $v_{H_1}$, si ottiene:
+
+    \begin{figure}[H]
+        \centering
+        \begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=3cm,thick,main node/.style={scale=0.8,circle,draw,font=\sffamily\normalsize}]
+            \node[main node] (6) {6};
+            \node[main node] (1) [below left of=6] {$v_{H_1}$};
+            \node[main node] (4) [below right of=1] {4};
+            \node[main node] (5) [below right of=6] {5};
+            \node[main node] (7) [right of=5] {7};
+            \node[main node] (8) [below right of=7] {8};
+            \node[main node] (9) [above right of=7] {9};
+
+            \path[every node/.style={font=\sffamily\small}]
+                (1) edge (6)
+                (1) edge (4)
+                (5) edge (4)
+                (4) edge (6)
+                (6) edge (5)
+                (5) edge (7)
+                (7) edge (9)
+                (8) edge (7)
+                (9) edge (8)
+                ;
+        \end{tikzpicture}
+    \end{figure}
+
+    contraendo la componente $H_2 = (\{4, 5, 6\}, \{(4, 6), (6, 5), (5, 4)\})$ in $v_{H_2}$, si ottiene:
+
+    \begin{figure}[H]
+        \centering
+        \begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=3cm,thick,main node/.style={scale=0.8,circle,draw,font=\sffamily\normalsize}]
+            \node[main node] (1) {$v_{H_1}$};
+            \node[main node] (5) [right of=1] {$v_{H_2}$};
+            \node[main node] (7) [right of=5] {7};
+            \node[main node] (8) [below right of=7] {8};
+            \node[main node] (9) [above right of=7] {9};
+
+            \path[every node/.style={font=\sffamily\small}]
+                (1) edge (5)
+                (5) edge (7)
+                (7) edge (9)
+                (8) edge (7)
+                (9) edge (8)
+                ;
+        \end{tikzpicture}
+    \end{figure}
+
+    infine, contraendo la componente $H_3 = (\{7, 8, 9\}, \{(7, 9), (9, 8), (8, 7)\})$ in $v_{H_3}$, si ottiene il seguente grafo massimalmente contratto:
+
+    \begin{figure}[H]
+        \centering
+        \begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=3cm,thick,main node/.style={scale=0.8,circle,draw,font=\sffamily\normalsize}]
+            \node[main node] (1) {$v_{H_1}$};
+            \node[main node] (5) [right of=1] {$v_{H_2}$};
+            \node[main node] (7) [right of=5] {$v_{H_3}$};
+
+            \path[every node/.style={font=\sffamily\small}]
+                (1) edge (5)
+                (5) edge (7)
+                ;
+        \end{tikzpicture}
+        \caption{Il grafo iniziale massimalmente contratto.}
+    \end{figure}
+\end{example}
+
+\begin{theorem}[Contrazioni fortemente connesse]
+    Sia $G$ un grafo diretto, fortemente connesso
+    TODO CHIEDI SU QUESTA PROPOSIZIONE
+\end{theorem}
+
+\begin{proof}
+    TODO
+\end{proof}
+
+\begin{algorithm}[H]
+    \caption{
+        Dato un grafo diretto $G$, rappresentato attraverso liste di adiacenza, con liste di archi sia entranti che uscenti per ogni vertice, l'algoritmo restiuisce le componenti di $G$.\\
+        \textbf{Input}: $G$ grafo diretto, rappresentato attraverso liste di adiacenza, con liste di archi sia entranti che uscenti per ogni vertice.\\
+        \textbf{Output}: le componenti di $G$.
+    }
+
+    \begin{algorithmic}[1]
+        \Function{findCycle}{G}
+            \State TODO deve funzionare in O(n + m)
+        \EndFunction
+
+        \Function{findComponents$_1$}{$G$}
+            \State $C := \texttt{findCycle}(G)$
+            \If{$C == \texttt{None}$}
+                \State \textbf{return} $\{\{v\} : v \in V(G)\}$ \Comment{le componenti sono i singoli vertici}
+            \Else
+                \State TODO
+            \EndIf
+            \State \textbf{return} \texttt{components}
+        \EndFunction
+    \end{algorithmic}
+\end{algorithm}
 
 \end{document}

@@ -1,5 +1,5 @@
 # Fdb version 3
-["pdflatex"] 1678906235 "main.tex" "main.pdf" "main" 1678906237
+["pdflatex"] 1679055789 "main.tex" "main.pdf" "main" 1679055791
   "/usr/share/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1650183167 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/share/texmf-dist/fonts/map/fontname/texfonts.map" 1650183167 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texmf-dist/fonts/tfm/jknappen/ec/tcrm1440.tfm" 1650183167 1536 3290a75021d32d016616fe527bc9884c ""
@@ -30,6 +30,7 @@
   "/usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb" 1650183167 35752 024fb6c41858982481f6968b5fc26508 ""
   "/usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb" 1650183167 32722 d7379af29a190c3f453aba36302ff5a9 ""
   "/usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb" 1650183167 32362 179c33bbf43f19adbb3825bb4e36e57a ""
+  "/usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb" 1650183167 32762 224316ccc9ad3ca0423a14971cfa7fc1 ""
   "/usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb" 1650183167 24393 3b7eb51a67a0a62aec5849271bdb9c2e ""
   "/usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb" 1650183167 32569 5e5ddc8df908dea60932f3c484a54c0d ""
   "/usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb" 1650183167 36118 fad905eba93cff5bce1e185fe980a177 ""
@@ -179,10 +180,10 @@
   "/usr/share/texmf-dist/web2c/texmf.cnf" 1650183167 39911 2da6c67557ec033436fe5418a70a8a61 ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1678523160 4278762 af3ac1370db81a450c1118eabf1fe718 ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1678523155 2927658 8bc8632b55dffb9667729406897198b1 ""
-  "main.aux" 1678906236 12023 4905adb41d6824c25df609798da30a03 "pdflatex"
-  "main.out" 1678906236 2880 84b99314a8b644050f5c09e429a12340 "pdflatex"
-  "main.tex" 1678906234 81277 84f8af78d211184cbfeba75787a43879 ""
-  "main.toc" 1678906236 1621 3e5eb0784d457de911517e3fb18d0951 "pdflatex"
+  "main.aux" 1679055790 12673 a829638cc19e6194af4c75a93f929683 "pdflatex"
+  "main.out" 1679055790 2823 3bf9be65949821d9854e5fbf7ff72b8f "pdflatex"
+  "main.tex" 1679055788 87716 c24fa09efdd0b164526c3ca9329791f3 ""
+  "main.toc" 1679055790 1612 244f657f2e1c2dc21ec28bd0eb02727e "pdflatex"
   (generated)
   "main.aux"
   "main.log"
