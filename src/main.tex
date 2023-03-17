@@ -1113,7 +1113,7 @@
     \hspace{0.7cm}
     \begin{itemize}
         \item[] \textit{Prima implicazione.} TODO
-        \item[] \textit{Seconda implicazione.} Sia $G$ un grafo diretto fortemente connesso, e sia $\hat v \in V(G)$ tale che la sua arborescenza $A_{\hat v}$ contenga un backward edge $(u, v) \in E(G) - E(A_{\hat v})$. Allora, poiché $u, v \in V(T_{\hat v})$, e $(u, v)$ è un backward edge, è sufficiente considerare il cammino tale che $u \rightarrow v$, che esiste poiché $A_{\hat v}$ è un arborescenza, e dunque $\{u \rightarrow v\} \cup (u, v)$ è un ciclo di $G$. Si noti che il fatto che $G$ sia fortemente connesso garantisce di poter considerare un $\hat v \in V(G)$ qualsiasi.
+        \item[] \textit{Seconda implicazione.} Sia $G$ un grafo diretto fortemente connesso, e sia $\hat v \in V(G)$ tale che la sua arborescenza $A_{\hat v}$ contenga un backward edge $(u, v) \in E(G) - E(A_{\hat v})$. Allora, poiché $u, v \in V(A_{\hat v})$, e $(u, v)$ è un backward edge, è sufficiente considerare il cammino tale che $u \rightarrow v$, che esiste poiché $A_{\hat v}$ è un arborescenza, e dunque $\{u \rightarrow v\} \cup (u, v)$ è un ciclo di $G$. Si noti che il fatto che $G$ sia fortemente connesso garantisce di poter considerare un $\hat v \in V(G)$ qualsiasi.
     \end{itemize}
 \end{proof}
 
@@ -1321,25 +1321,22 @@
     Infatti, $(4, 5)$ è un ponte poiché gli unici due cicli di $G$ sono $$\{1, (1, 2), 2, (2, 3), 3, (3, 4), 4, (4, 1), 1\}$$ $$\{5, (5, 6), 6, (6, 7), 7, (7, 5), 5\}$$
 \end{example}
 
-\begin{lemma}
-    Sia $G$ un grafo indiretto connesso, $x \in V(G)$, e sia $T_x$ l'albero di visita in DFS di $x$ in $G$; sia $y \in T_x$, e sia $T_y \subseteq T_x$ il suo sottoalbero in $T_x$; se esiste un arco $(u, v) \in E(G)$, tale che $u \in T_y$ e $v \in T_x - T_y$, allora esiste un ciclo in $G$, contenente $(x, y)$.
-\end{lemma}
+\begin{theorem}
+    Sia $G$ un grafo indiretto connesso, $r \in V(G)$, e sia $T_r$ l'albero di visita in DFS di $r$ in $G$; sia $x \in V(T_r)$, e sia $T_x \subseteq T_r$ il suo sottoalbero in $T_r$; sia inoltre $y \in V(T_x)$ tale che $(x, y) \in E(G)$, e sia $T_y \subseteq T_x$ il suo sottoalbero in $T_x$; allora, esiste un arco $(u, v) \in E(G)$, tale che $u \in V(T_y)$ e $v \in V(T - T_x)$, se e solo se esiste un ciclo in $G$ contenente $(x, y)$.
+\end{theorem}
 
 \begin{proof}
-    Si noti che, poiché $G$ è indiretto e connesso, per qualsiasi $x \in V(G)$, $V(T_x) = V(G)$, dunque la visita in DFS è sempre in grado di raggiungere ogni nodo del grafo $G$.
-    Per definizione, $T_x$ è connesso ed aciclico; poiché $T_x$ è radicato in $x$, allora il cammino $u \rightarrow v$ all'interno di $T_x$, che esiste poiché $T_x$ è connesso, deve necessariamente passare per $(x, y)$, poiché $T_x$ è aciclico, e $v \in T_y$; allora, $\{u \rightarrow v\} \cup (u, v)$ è necessariamente un ciclo.
-\end{proof}
+    \hspace{0.7cm}
+    \begin{itemize}
+        \item[] \textit{Prima implicazione.} Si noti che, poiché $G$ è indiretto e connesso, per qualsiasi $r \in V(G)$, $V(T_r) = V(G)$, dunque la visita in DFS è sempre in grado di raggiungere ogni nodo del grafo $G$.
+            Per definizione $T_y$ è connesso ed aciclico, e dunque esiste uno ed un solo cammino $y \rightarrow u$; inoltre, per ragionamento analogo, esiste uno ed un solo cammino $v \rightarrow x$. Allora, se esiste un arco $(u, v) \in E(G)$, viene creato un ciclo in $G$ della forma $v \rightarrow x \rightarrow y \rightarrow u \rightarrow v$, poiché esiste l'arco $(x, y) \in E(G)$ in ipotesi, che sarà dunque necessariamente contenuto in tale ciclo.
+        \item[] \textit{Seconda implicazione.}  Se $(x, y)$ è incluso in almeno un ciclo di $G$, deve necessariamente esistere un cammino $x \rightarrow y$ non passante per $(x, y)$, il quale deve contenere un arco $(u, v)$, in cui $u \in V(T_y)$, e $v \in V(T - T_x)$, poiché $(x, y) \in E(G)$ è un arco.
 
-\begin{lemma}[Presenza di ponti]
-    Sia $G$ un grafo indiretto connesso, $x \in V(G)$, e sia $T_x$ l'albero di visita in DFS di $x$ in $G$; sia $y \in T_x$, e sia $T_y \subseteq T_x$ il suo sottoalbero in $T_x$; se non esistono archi $(u, v) \in E(G)$, tali che $u \in T_y$ e $v \in T_x - T_y$, allora $(x, y)$ è un ponte.
-\end{lemma}
-
-\begin{proof}
-    Per assurdo, si assuma $(x, y)$ non sia un ponte; allora, per definizione, $(x, y)$ è incluso in almeno un ciclo di $G$, e dunque esiste necessariamente un cammino $x \rightarrow y$ non passante per $(x, y)$; allora, tale cammino deve necessariamente contenere un arco $(u, v)$, in cui $u \in T_y$, e $v \in T_x - T_y \ \lightning$.
+    \end{itemize}
 \end{proof}
 
 \begin{lemma}[Alberi con ponti]
-    Sia $G$ un grafo indiretto, e $(u, v)$ un suo ponte; allora, per ogni possibile $T_u$, albero di visita di $G$ in DFS, radicato in $u$, si ha che $(u, v) \in E(T_u)$.
+    Sia $G$ un grafo indiretto, e $(u, v) \in E(G)$ un suo ponte; allora, per ogni possibile $T_u$, albero di visita di $G$ in DFS, radicato in $u$, si ha che $(u, v) \in E(T_u)$.
 \end{lemma}
 
 \begin{proof}
@@ -1582,12 +1579,21 @@
 \end{example}
 
 \begin{theorem}[Contrazioni fortemente connesse]
-    Sia $G$ un grafo diretto, fortemente connesso
-    TODO CHIEDI SU QUESTA PROPOSIZIONE
+    \label{contrazioni fortemente connesse}
+    Sia $G$ un grafo diretto fortemente connesso, e $H \subseteq G$ un suo sottografo fortemente connesso; allora, $\mathrm{contr}(G, H)$ è ancora fortemente connesso.
 \end{theorem}
 
 \begin{proof}
-    TODO
+    Sia $v_H$ il vertice del grafo contratto $\mathrm{contr}(G, H)$, e $y \in V(G - H)$; poiché $G$ è fortemente connesso, devono necessariamente esistere due vertici $v', v'' \in V(H)$ tali che $y \rightarrow v'$ e $v'' \rightarrow y$; siano i vertici $v'$ e $v''$ per i quali tali cammini siano di minor lunghezza possibile. Allora, effettuando la contrazione di $H$, in $\mathrm{contr}(G, H)$ sarà necessario rimpiazzare gli archi che permettevano tali cammini, e dunque verranno inseriti due nuovi archi, uno entrante uno uscente, verso $v_H$. Allora, necessariamente $\mathrm{contr}(G, H)$ è ancora fortemente connesso.
+\end{proof}
+
+\begin{theorem}[Presenza di cicli]
+    \label{presenza di cicli fort conn}
+    Sia $G$ un grafo diretto fortemente connesso, non composto da un singolo vertice; allora, esso presenta almeno un ciclo.
+\end{theorem}
+
+\begin{proof}
+    Per definizione $\forall u, v \in V(G) \quad u \rightarrow v$ e $v \rightarrow u$; allora, presi due vertici $u, v \in V(G)$, in $G$ deve necessariamente esistere un ciclo della forma $u \rightarrow v \rightarrow u$.
 \end{proof}
 
 \begin{algorithm}[H]
@@ -1601,20 +1607,20 @@
         \Function{findCycle}{G}
             \State TODO deve funzionare in O(n + m)
         \EndFunction
-
+        \\
         \Function{findComponents$_1$}{$G$}
             \State $C := \texttt{findCycle}(G)$
             \If{$C == \texttt{None}$}
-                \State \textbf{return} $\{\{v\} : v \in V(G)\}$ \Comment{le componenti sono i singoli vertici}
+                \State \textbf{return} $\verb|{|\{v\} : v \in V(G)\verb|}|$ \Comment{le componenti sono i singoli vertici}
             \Else
-                \State $G = \mathrm{contr}(G, C)$ \Comment{sia $v_C$ il vertice della contrazione}
+                \State $v_C, G = \mathrm{contr}(G, C)$ \Comment{$v_C$ è il vertice della contrazione}
                 \State $\verb|{|H_1, \ldots, H_k\verb|}| = \texttt{findComponents}(G)$
                 \State $\texttt{new\_components} := \verb|{|\verb|}|$ \Comment{conterrà le nuove componenti}
                 \For{$i \in [1, k]$}
                     \If{$v_C \notin H_i$}
                         \State $\texttt{new\_components.add(}H_i\texttt{)}$
                     \Else
-                    \State $\texttt{new\_components.add(}(H_i - \{v_C\}) \cup V(G)\texttt{)}$
+                    \State $\texttt{new\_components.add(}(H_i - \{v_C\}) \cup V(C)\texttt{)}$
                     \EndIf
                 \EndFor
             \EndIf
@@ -1622,5 +1628,100 @@
         \EndFunction
     \end{algorithmic}
 \end{algorithm}
+
+\begin{remark}[Correttezza dell'algoritmo]
+    Sia $G$ un grafo diretto, e $H \subseteq G$ una sua componente; allora, se $H$ non è composto da un singolo vertice, poiché è fortemente connesso per definizione, per il \cref{presenza di cicli fort conn}, in $H$ è presente un ciclo $C$; allora, contraendo tale ciclo, si otterrà un sottografo $\mathrm{contr}(H, C)$, ancora fortemente connesso, per il \cref{contrazioni fortemente connesse}. Allora, questo garantisce di poter trovare tutte le componenti di un grafo, contraendone ricorsivamente i cicli.
+
+    L'algoritmo inizia cercando un ciclo $C$ all'interno del grafo $G$; se non ne viene trovato alcuno, viene raggiunto il caso base della ricorsione, e l'algoritmo restituisce un insieme di insiemi dei singoli vertici di $G$; si noti che tale caso si presenta esclusivamente quando il grafo è massimalmente contratto.
+
+    Differentemente, se è presente un ciclo $C$ all'interno del grafo, l'algoritmo procede contraendo $C$ in $v_C$, e rimpiazzando $G$, alla riga $10$; successivamente, viene effettuata una chiamata ricorsiva sul grafo contratto, al termine della quale viene restituito l'insieme di componenti di $G$ corrente.
+
+    Dopo aver contratto ricorsivamente ogni possibile ciclo, l'algoritmo istanzia un loop \texttt{for} alla riga $13$, all'interno del quale viene trovata la componente $H_i$ in cui $v_C$ faceva parte: le componenti che non contengono $v_C$ vengono inserite all'interno dell'insieme \texttt{new\_components}, senza subire modifiche; al contrario, dall'unica componente $H_i$ che contiene $v_C$, viene rimosso $v_C$ stesso, e ad essa verrà aggiunto tutto il ciclo $C$ che era stato contratto, ripristinando dunque il grafo di partenza di ricorsione in ricorsione.
+\end{remark}
+
+\begin{remark}[Costo dell'algoritmo]
+    TODO O(n(n + m))
+\end{remark}
+
+\begin{definition}[C-radici]
+    Sia $G$ un grafo diretto, sia $\hat v \in V(G)$ un suo vertice, e sia $A_{\hat v}$ l'arborescenza di $\hat v$ in $G$; $v \in A_{\hat v}$ è detto \textit{c-radice} di $A_{\hat v}$, se e solo se è il primo vertice visitato in $\mathrm{comp}(v)$.
+\end{definition}
+
+\begin{example}[C-radici]
+    Si consideri il seguente $G$ grafo diretto:
+
+    \begin{figure}[H]
+        \centering
+        \begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=3cm,thick,main node/.style={scale=0.6,circle,draw,font=\sffamily\normalsize}]
+            \node[main node] (1) {1};
+            \node[main node] (2) [below left of=1] {2};
+            \node[main node] (3) [below right of=2] {3};
+            \node[main node] (4) [below right of=1] {4};
+            \node[main node] (5) [below right of=4] {5};
+            \node[main node] (7) [above right of=4] {7};
+            \node[main node] (6) [below right of=7] {6};
+
+            \path[every node/.style={font=\sffamily\small}]
+                (1) edge (3)
+                (1) edge (4)
+                (2) edge (1)
+                (3) edge (2)
+                (3) edge (4)
+                (4) edge (7)
+                (5) edge (4)
+                (5) edge (6)
+                (7) edge (5)
+                (7) edge (6)
+                ;
+        \end{tikzpicture}
+        \caption{Un grafo diretto.}
+    \end{figure}
+
+    esso presenta $3$ componenti: $$H_1 = (\{1, 2, 3\}, \{(1, 3), (3, 2), (2, 1)\})$$ $$H_2 = (\{4, 5, 7\}, \{(4, 7), (7, 5), (5, 4)\})$$ $$H_3=(\{6\}, \varnothing)$$
+
+    sia $\hat v = 2$, dunque la sua arborescenza $A_{\hat v}$ è la seguente:
+
+    \begin{figure}[H]
+        \centering
+        \begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=3cm,thick,main node/.style={scale=0.6,circle,draw,font=\sffamily\normalsize}]
+            \node[main node] (1) {1};
+            \node[main node] (2) [below left of=1] {2};
+            \node[main node] (3) [below right of=2] {3};
+            \node[main node] (4) [below right of=1] {4};
+            \node[main node] (5) [below right of=4] {5};
+            \node[main node] (7) [above right of=4] {7};
+            \node[main node] (6) [below right of=7] {6};
+
+            \path[every node/.style={font=\sffamily\small}]
+                (1) edge (3)
+                (1) edge (4)
+                (2) edge (1)
+                (4) edge (7)
+                (5) edge (6)
+                (7) edge (5)
+                ;
+        \end{tikzpicture}
+        \caption{Arborescenza di $2$.}
+    \end{figure}
+
+    allora, in $H_1$ il primo vertice visitato da $A_{\hat v}$ è $2$, in $H_2$ è $4$, e in $H_3$ è $6$; allora le c-radici di $A_{\hat v}$ sono $\{2, 4, 6\}$.
+\end{example}
+
+\begin{theorem}[C-radici]
+    Sia $G$ un grafo diretto, sia $\hat v \in V(G)$ un suo vertice, e sia $A_{\hat v}$ l'arborescenza di $\hat v$ in $G$; sia $u$ una c-radice di $A_{\hat v}$; allora si verificano le seguenti proposizioni:
+
+    \begin{enumerate}[i)]
+        \item $\mathrm{comp}(u) \subseteq A_u$, dove $A_u$ è l'arborescenza radicata in $u$
+        \item siano $u_1, \ldots, u_k$ le c-radici di $A_{\hat v}$ in $A_u$; allora $$V(T_u) = V(\mathrm{comp}(u))) \cup \displaystyle \bigcup_{i = 1}^k {V(\mathrm{comp}(u_i))}$$
+    \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+    \hspace{0.7cm}
+    \begin{enumerate}[\itshape i)]
+        \item TODO
+        \item TODO
+    \end{enumerate}
+\end{proof}
 
 \end{document}
