@@ -1479,7 +1479,7 @@
 \end{proof}
 
 \begin{definition}[Contrazione]
-    Sia $G$ un grafo, e $H \subseteq G$ una sua componente; si definisce \textit{contrazione di $H$ in $G$}, l'operazione che rimuove vertici (ed archi) di $H$ da $G$, e al suo posto inserisce un vertice, generalmente denotato con $v_H$, che viene connesso con $G - H$ dagli archi che precedentemente connettevano $H$ con $G$. In simboli, il grafo $G$, contratto su $H$, verrà indicato con $\mathrm{contr}(G, H)$.
+    Sia $G$ un grafo, e $H \subseteq G$ un suo sottografo; si definisce \textit{contrazione di $H$ in $G$}, l'operazione che rimuove vertici (ed archi) di $H$ da $G$, e al suo posto inserisce un vertice, generalmente denotato con $v_H$, che viene connesso con $G - H$ dagli archi che precedentemente connettevano $H$ con $G$. In simboli, il grafo $G$, contratto su $H$, verrà indicato con $\mathrm{contr}(G, H)$.
 \end{definition}
 
 \begin{example}[Contrazione di un grafo diretto]
@@ -1607,9 +1607,18 @@
             \If{$C == \texttt{None}$}
                 \State \textbf{return} $\{\{v\} : v \in V(G)\}$ \Comment{le componenti sono i singoli vertici}
             \Else
-                \State TODO
+                \State $G = \mathrm{contr}(G, C)$ \Comment{sia $v_C$ il vertice della contrazione}
+                \State $\verb|{|H_1, \ldots, H_k\verb|}| = \texttt{findComponents}(G)$
+                \State $\texttt{new\_components} := \verb|{|\verb|}|$ \Comment{conterrà le nuove componenti}
+                \For{$i \in [1, k]$}
+                    \If{$v_C \notin H_i$}
+                        \State $\texttt{new\_components.add(}H_i\texttt{)}$
+                    \Else
+                    \State $\texttt{new\_components.add(}(H_i - \{v_C\}) \cup V(G)\texttt{)}$
+                    \EndIf
+                \EndFor
             \EndIf
-            \State \textbf{return} \texttt{components}
+            \State \textbf{return} \texttt{new\_components}
         \EndFunction
     \end{algorithmic}
 \end{algorithm}
