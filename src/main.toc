@@ -14,7 +14,7 @@
 \contentsline {section}{\numberline {1.4}Tempi di visita e di chiusura}{20}{section.1.4}%
 \contentsline {subsection}{\numberline {1.4.1}Definizioni}{20}{subsection.1.4.1}%
 \contentsline {subsection}{\numberline {1.4.2}Categorie di archi}{22}{subsection.1.4.2}%
-\contentsline {subsection}{\numberline {1.4.3}Trovare un ordinamento topologico}{27}{subsection.1.4.3}%
-\contentsline {subsection}{\numberline {1.4.4}Trovare un pozzo universale}{31}{subsection.1.4.4}%
-\contentsline {subsection}{\numberline {1.4.5}Trovare i ponti}{33}{subsection.1.4.5}%
-\contentsline {subsection}{\numberline {1.4.6}Trovare le componenti}{38}{subsection.1.4.6}%
+\contentsline {subsection}{\numberline {1.4.3}Trovare un ordinamento topologico}{28}{subsection.1.4.3}%
+\contentsline {subsection}{\numberline {1.4.4}Trovare un pozzo universale}{32}{subsection.1.4.4}%
+\contentsline {subsection}{\numberline {1.4.5}Trovare i ponti}{34}{subsection.1.4.5}%
+\contentsline {subsection}{\numberline {1.4.6}Trovare le componenti}{39}{subsection.1.4.6}%

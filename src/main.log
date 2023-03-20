@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/Arch Linux) (preloaded format=pdflatex 2023.3.11)  20 MAR 2023 22:38
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/Arch Linux) (preloaded format=pdflatex 2023.3.11)  20 MAR 2023 22:57
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -764,55 +764,55 @@ pdfTeX warning (ext4): destination with the same identifier (name{figure.1.14}) 
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
 l.725 \end{remark}
-                  ] [16] [17] [18] [19] [20] [21] [22] [23] [24] [25] [26] [27] [28] [29] [30] [31
+                  ] [16] [17] [18] [19] [20] [21] [22] [23] [24] [25] [26] [27] [28] [29] [30] [31] [32
 pdfTeX warning (ext4): destination with the same identifier (name{figure.1.15}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.1259 
-       ] [32] [33
+l.1261 
+       ] [33] [34
 pdfTeX warning (ext4): destination with the same identifier (name{figure.1.16}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.1322 ...\{5, (5, 6), 6, (6, 7), 7, (7, 5), 5\}$$
+l.1324 ...\{5, (5, 6), 6, (6, 7), 7, (7, 5), 5\}$$
                                                   
 pdfTeX warning (ext4): destination with the same identifier (name{figure.1.17}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.1322 ...\{5, (5, 6), 6, (6, 7), 7, (7, 5), 5\}$$
-                                                  ] [34]
+l.1324 ...\{5, (5, 6), 6, (6, 7), 7, (7, 5), 5\}$$
+                                                  ] [35]
 Overfull \vbox (10.11046pt too high) has occurred while \output is active []
 
- [35] [36] [37
+ [36] [37] [38
 pdfTeX warning (ext4): destination with the same identifier (name{figure.1.18}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.1446 
-       ] [38
+l.1448 
+       ] [39
 pdfTeX warning (ext4): destination with the same identifier (name{figure.1.19}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.1515 ...4), (4, 6), (6, 3), (3, 2), (2, 1)\})$$ 
+l.1517 ...4), (4, 6), (6, 3), (3, 2), (2, 1)\})$$ 
                                                   $$H_2 := (\{5\}, \varnothi...
 pdfTeX warning (ext4): destination with the same identifier (name{figure.1.20}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.1515 ...4), (4, 6), (6, 3), (3, 2), (2, 1)\})$$ 
-                                                  $$H_2 := (\{5\}, \varnothi...] [39] [40
+l.1517 ...4), (4, 6), (6, 3), (3, 2), (2, 1)\})$$ 
+                                                  $$H_2 := (\{5\}, \varnothi...] [40] [41
 pdfTeX warning (ext4): destination with the same identifier (name{figure.1.21}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.1642 \end{theorem}
-                    ] [41] [42
+l.1644 \end{theorem}
+                    ] [42] [43
 pdfTeX warning (ext4): destination with the same identifier (name{figure.1.22}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.1731 ..., 5, 7\}, \{(4, 7), (7, 5), (5, 4)\})$$ 
-                                                  $$H_3=(\{6\}, \varnothing)$$] [43
+l.1733 ..., 5, 7\}, \{(4, 7), (7, 5), (5, 4)\})$$ 
+                                                  $$H_3=(\{6\}, \varnothing)$$] [44
 pdfTeX warning (ext4): destination with the same identifier (name{figure.1.23}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.1775 ...$$V(\mathrm{comp}(u)) \subseteq V(A_u)$$
-                                                  ] [44] [45] (./main.aux
+l.1777 ...$$V(\mathrm{comp}(u)) \subseteq V(A_u)$$
+                                                  ] [45] [46] (./main.aux
 Package cleveref Info: loaded `italian' language definitions on input line 21.
 Package cleveref Info: loaded `italian' language definitions on input line 22.
 )
@@ -820,18 +820,18 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: F6620F78615010D18E1BB434E06E0A6B;2889.
  ) 
 Here is how much of TeX's memory you used:
- 25928 strings out of 478238
- 485714 string characters out of 5850456
+ 25930 strings out of 478238
+ 485735 string characters out of 5850456
  796851 words of memory out of 5000000
  43542 multiletter control sequences out of 15000+600000
  477349 words of font info for 59 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  84i,14n,89p,1055b,1027s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}</usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfrm1440.pfb></usr/share/texmf-dist/fonts/type1/public/stmaryrd/stmary10.pfb>
-Output written on main.pdf (46 pages, 310407 bytes).
+Output written on main.pdf (47 pages, 311559 bytes).
 PDF statistics:
- 604 PDF objects out of 1000 (max. 8388607)
- 516 compressed objects within 6 object streams
- 219 named destinations out of 1000 (max. 500000)
+ 609 PDF objects out of 1000 (max. 8388607)
+ 520 compressed objects within 6 object streams
+ 221 named destinations out of 1000 (max. 500000)
  157 words of extra memory for PDF output out of 10000 (max. 10000000)
 

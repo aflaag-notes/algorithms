@@ -895,11 +895,13 @@
 
     \begin{itemize}
         \item $t(u) < t(v) \implies u$ inserito nello stack prima di $v$
-        \item $t(v) < T(u) \implies u$ viene rimosso dallo stack dopo aver visitato $v$, ma poiché $u$ era sotto a $v$ all'interno dello stack, necessariamente $v$ deve essere stato rimosso dallo stack prima di $u$, e allora non è possibile che $T(u) < T(v) \ \lightning$.
+        \item $t(v) < T(u) \implies u$ viene rimosso dallo stack dopo aver visitato $v$, ma poiché $u$ era sotto a $v$ all'interno dello stack, necessariamente $v$ deve essere stato rimosso dallo stack prima di $u$, e allora non è possibile che $T(u) < T(v) \ \lightning$
     \end{itemize}
-    
-    Si noti che, avendo ad esempio $(u, v) \in E(G)$, e dunque $u$ incidente su $v$, allora necessariamente $\mathrm{Int}(u) \cap \mathrm{Int}(v) \implies t(v) < T(v) < t(u) \le T(u)$.
 \end{proof}
+
+\begin{remark}[Intervalli disgiunti]
+    Si noti che, avendo un $G$ grafo diretto, e un arco $(u, v) \in E(G)$, dunque con $u$ incidente su $v$, si ha che $$\mathrm{Int}(u) \cap \mathrm{Int}(v) = \varnothing \implies t(v) < T(v) < t(u) \le T(u)$$ e non $t(u) \le T(u) < t(v) < T(v)$, poiché $T(u) < t(v)$ implicherebbe che la visita in DFS avrebbe sbagliato a rimuovere $u$ dallo stack prima che $v$ potesse essere visitato.
+\end{remark}
 
 \begin{lemma}[Proprietà degli intervalli]
     Sia $G$ un grafo indiretto, e $u, v \in V(G)$ adiacenti; allora si verifica una sola tipologia di inclusione, in cui $\mathrm{Int}(u) \subseteq \mathrm{Int}(v)$, oppure $\mathrm{Int}(v) \subseteq \mathrm{Int}(u)$, e poiché gli archi non sono orientati perde di significato la distinzione tra i due casi.
