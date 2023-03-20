@@ -654,7 +654,7 @@
         0 & 0 & 0 & 1 & 1 & 0 \\
     \end{array} \right)$$
 
-    mentre le corrispondenti liste di adiacenza sono $$\left \{ \begin{array}{l} 1: [4] \\ 2: [4, 3] \\ 3: [2, 4] \\ 4: [1, 3, 5, 6] \\ 5: [4, 6] \\ 6: [4, 5] \end{array} \right.$$
+    mentre le corrispondenti liste di adiacenza sono $$\left \{ \begin{array}{l} 1: \texttt{[}4\texttt{]} \\ 2: \texttt{[}4, 3\texttt{]} \\ 3: \texttt{[}2, 4\texttt{]} \\ 4: \texttt{[}1, 3, 5, 6\texttt{]} \\ 5: \texttt{[}4, 6\texttt{]} \\ 6: \texttt{[}4, 5\texttt{]} \end{array} \right.$$
 \end{example}
 
 \section{DFS (Depth-first Search)}
@@ -1390,23 +1390,21 @@
 \end{algorithm}
 
 \begin{remark}[Correttezza dell'algoritmo]
-    TODO da finire
+    L'algoritmo inizia scegliendo un vertice $v$ casuale del grafo $G$ in input; successivamente, vengono definiti gli array \texttt{t}, all'interno del quale verranno salvati i tempi di visita dei vertici, \texttt{parents}, utilizzato per salvare i nodi padri di ogni vertice visitato, e \texttt{back}.
 
-    L'algoritmo inizia scegliendo un vertice $v$ casuale, del grafo $G$ in input; successivamente, vengono definiti gli array \texttt{t}, all'interno del quale verranno salvati i tempi di visita dei vertici, \texttt{parents}, utilizzato per salvare i nodi padri di ogni vertice visitato, e \texttt{back}
+    Sia $T$ l'albero di visita in DFS della visita correntemente in esecuzione dall'algoritmo; allora, per un certo vertice $y \in V(T)$, all'interno di $\texttt{back[}y\texttt{]}$, verrà salvato il tempo di visita del vertice $v \in V(T - T_y)$ più lontano, raggiungibile da un discendente $z$ di $y$ (incluso $y$ stesso), attraverso un cammino passante per un arco $(z, v) \notin E(T)$. L'array \texttt{back} verrà sfruttato congiuntamente al \cref{teorema dei ponti}, in quanto l'arco $(\texttt{parents[}y\texttt{]}, y)$ è un ponte, se e solo se non esiste un tale arco $(z, v)$.
 
-    Sia $T$ l'albero di visita in DFS della visita correntemente in esecuzione dall'algoritmo; allora, per un certo vertice $y \in V(T)$, all'interno di \texttt{back[}y\texttt{]}, verrà salvato il tempo di visita del vertice $v \in V(T - T_y)$ più lontano, raggiungibile da un discendente $z$ di $y$ (incluso $y$ stesso), attraverso un cammino passante per un arco $(z, v) \notin E(T)$. L'array \texttt{back} verrà sfruttato congiuntamente al \cref{teorema dei ponti}, in quanto l'arco $(\texttt{parents[}y\texttt{]}, y)$ è un ponte, se e solo se non esiste un tale arco $(z, v)$. TODO FORSE È DA CORREGGERE LA DEF
-
-    Infine, prima di iniziare una visita in DFS ricorsiva dell'albero, viene istanziato un oggetto contatore \texttt{c}, utilizzato per salvare i tempi di visita in \texttt{c}.
+    Infine, prima di iniziare una visita in DFS ricorsiva dell'albero, viene istanziato un oggetto contatore \texttt{c}, utilizzato per salvare i tempi di visita in \texttt{t}.
 
     L'esecuzione procede all'interno della funzione ricorsiva \texttt{DFS}, che ha lo scopo di popolare i valori degli array precedentemente definiti. La funzione inizia aggiornando il contatore, e inserendo il relativo valore del tempo di visita del vertice corrente; inoltre, di quest'ultimo viene inizializzato il valore corrisopndente in \texttt{back}, pari al suo stesso tempo di visita. Tale valore servirà come \textit{sentinel value}, e verrà utilizzato successivamente dall'algoritmo per stabilire quali archi del grafo sono ponti.
 
-    Successivamente, viene istanziato un ciclo \texttt{for}, alla riga $5$, per ogni vertice $z$, adiacente al vertice $y$ corrente
+    Successivamente, viene istanziato un ciclo \texttt{for}, alla riga $5$, in cui per ogni vertice $z$, adiacente al vertice $y$ corrente:
     \begin{itemize}
-        \item se tale vertice ha tempo di visita pari a $0$, e dunque non è ancora stato visitato, viene inizialmente aggiornato il valore del padre, alla riga $7$, che sarà proprio $y$, e viene poi effettuata una chiamata ricorsiva, radicata in $z$; al termine di quest'ultima, viene aggiornato il valore di $\texttt{back[}y\texttt{]} = \min(\texttt{back[}y\texttt{]}, \texttt{back[}z\texttt{]})$, e dunque sarà sempre il minore tra i suoi discendenti;
+        \item se tale vertice $z$ ha tempo di visita pari a $0$, e dunque non è ancora stato visitato, ne viene inizialmente aggiornato il valore del padre, alla riga $7$, che sarà proprio $y$, e viene poi effettuata una chiamata ricorsiva, radicata in $z$; al termine di quest'ultima, viene aggiornato il valore di $\texttt{back[}y\texttt{]} = \min(\texttt{back[}y\texttt{]}, \texttt{back[}z\texttt{]})$, e dunque sarà sempre il minore tra i suoi discendenti;
         \item se invece è già stato visitato, va aggiornato il valore di $\texttt{back[}y\texttt{]} = \min(\texttt{t[}z\texttt{]}, \texttt{back[}y\texttt{]})$, esclusivamente se $z$ non è il padre di $y$.
     \end{itemize}
 
-    Al termine della visita in DFS ricorsiva, l'algoritmo conclude cercando tutti i ponti del grafo, a partire dalle informazioni all'interno di \texttt{back}: infatti, alla riga $27$, per ogni vertice $u \in V(G)$ del grafo, viene inserito l'arco tra $u$ e il suo vertice padre, se e solo se $u \neq \texttt{parents[}u\texttt{]}$ (ovvero, $u$ non è la radice), e $\texttt{back[}u\texttt{]} = \texttt{t[}u\texttt{]}$, e dunque il valore di $\texttt{back[}y\texttt{]}$ è rimasto invariato dalla riga $4$.
+    Al termine della visita in DFS ricorsiva, l'algoritmo conclude cercando tutti i ponti del grafo, a partire dalle informazioni all'interno di \texttt{back}: infatti, alla riga $27$, per ogni vertice $u \in V(G)$ del grafo, viene inserito all'interno dell'insieme \texttt{bridges} l'arco tra $u$ e il suo vertice padre, se e solo se $u \neq \texttt{parents[}u\texttt{]}$ (ovvero, $u$ non è la radice), e $\texttt{back[}u\texttt{]} = \texttt{t[}u\texttt{]}$, dunque il valore di $\texttt{back[}u\texttt{]}$ è rimasto invariato dalla riga $4$. L'algoritmo termina restituendo \texttt{bridges}, che conterrà l'insieme dei ponti di $G$.
 
     Ad esempio, si consideri il seguente grafo:
 
@@ -1432,9 +1430,9 @@
         \caption{Un grafo indiretto.}
     \end{figure}
 
-    inoltre, sia $$T_6 = (\{6, 5, 1, 2, 3, 4\}, \{(6, 5), (5, 1), (1, 2), (1, 3), (1, 5)\})$$ l'albero di visita in DFS del grafo, partendo dal vertice $6$; allora, si avranno $$\texttt{t} = \texttt{[}3, 4, 5, 6, 2, 1\texttt{]}$$ $$\texttt{back} = \texttt{[}6, 2, 3, 6, 6, 6\texttt{]}$$
+    inoltre, sia $$T_6 = (\{6, 5, 1, 2, 3, 4\}, \{(6, 5), (5, 1), (1, 2), (1, 3), (1, 4)\})$$ l'albero di visita in DFS del grafo, partendo dal vertice $6$; allora, si avranno $$\texttt{t} = \texttt{[}3, 4, 5, 6, 2, 1\texttt{]}$$ $$\texttt{parents} = \texttt{[}5, 1, 1, 1, 6, 6\texttt{]}$$ $$\texttt{back} = \texttt{[}1, 4, 5, 1, 1, 1\texttt{]}$$
 
-    Allora, si consideri $T_1 \subseteq T_6$ il sottoalbero di $T_6$, radicato in $1$, il cui vertice padre è $5$; poiché TODO da finire
+    allora, al termine del ciclo \texttt{for} della riga $27$, si avrà $$\texttt{bridges} = \verb|{| (2, \texttt{parents[}2\texttt{]}), (3, \texttt{parents[}3\texttt{]})\verb|}|$$ ovvero $$\texttt{bridges} = \verb|{| (2, 1), (3, 1)\verb|}|$$ poiché $\texttt{back[}2\texttt{]} = \texttt{t[}2\texttt{]} = 4$ e $\texttt{back[}3\texttt{]} = \texttt{t[}3\texttt{]} = 5$; infine, si noti che $\texttt{back[}6\texttt{]} = \texttt{back[}6\texttt{]} = 1$, ma $6 \notin \texttt{bridges}$ poiché $\texttt{parents[}6\texttt{]} = 6$, e infatti $T_6$ è proprio radicato in $6$.
 \end{remark}
 
 \begin{remark}[Costo dell'algoritmo]
