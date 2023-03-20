@@ -951,7 +951,7 @@
         \Function{DFS}{$G$, $v$, \texttt{visited}, \texttt{c}, \texttt{t}, \texttt{T}}
             \For{$u \in V(G) : (v, u) \in E(G)$} \Comment{$u$ deve essere uscente da $v$}
                 \If{$u \notin \texttt{visited}$}
-                    \State $\texttt{c += } 1$ \Comment{\texttt{c} viene \underline{trattato come oggetto}}
+                    \State $\texttt{c.increment()}$
                     \State $\texttt{t[}u\texttt{]}=\texttt{c}$
                     \State $\texttt{visited.add(}u\texttt{)}$
                     \State $\texttt{DFS(}G, u, \texttt{visited}, \texttt{c}, \texttt{t}, \texttt{T)}$
@@ -965,7 +965,7 @@
             \State $\texttt{t} := \texttt{[}0\texttt{]} * n$
             \State $\texttt{T} := \texttt{[}0\texttt{]} * n$
             \State $\texttt{t[}r\texttt{]}=1$
-            \State $\texttt{c} := 1$ \Comment{è un \underline{oggetto}}
+            \State $\texttt{Counter c} := 1$ \Comment{questo contatore \underline{deve essere un oggetto}}
             \State $\texttt{DFS(}G, r, \texttt{visited}, \texttt{c}, \texttt{t}, \texttt{T)}$
             \State \textbf{return} \texttt{t}, \texttt{T}
         \EndFunction
@@ -979,7 +979,7 @@
 
     Allora, il codice è in grado di visitare il grafo intermaente, senza ripercorrere vertici già visitati, utilizzando una visita in DFS, poiché vengono esplorati tutti i vertici adiacenti ricorsivamente, prima di tornare al vertice precedente.
 
-    Si noti che l'algoritmo funziona correttamente, solamente se \texttt{c} viene trattato come un oggetto; infatti, il contatore si deve comportare come se fosse globale per ogni livello di ricorsione, altrimenti i tempi sarebbero tutti errati; in particolare, senza trattare il contatore come oggetto, il contatore, ritornando indietro con i livelli ricorsivi, decrementerebbe.
+    Si noti che l'algoritmo funziona correttamente, solamente se \texttt{c} è un oggetto e non una variabile; infatti, il contatore si deve comportare come se fosse globale per ogni livello di ricorsione, altrimenti i tempi sarebbero tutti errati; in particolare, senza trattare il contatore come oggetto, il contatore, ritornando indietro con i livelli ricorsivi, decrementerebbe.
 \end{remark}
 
 \begin{remark}[Costo dell'algoritmo]
@@ -1096,6 +1096,7 @@
 \end{algorithm}
 
 \begin{remark}[Correttezza dell'algoritmo]
+    TODO
 \end{remark}
 
 \begin{remark}[Costo dell'algoritmo]
@@ -1221,7 +1222,7 @@
 \end{example}
 
 \begin{theorem}[Unicità del pozzo universale]
-    Sia $G$ un grafo diretto, e $p \in V(G)$ un suo pozzo universale; allora $p$ è unico in $G$.
+    Sia $G$ un grafo diretto, e $p \in V(G)$ un suo pozzo universale; allora, tale pozzo universale $p$ è unico in $G$.
 \end{theorem}
 
 \begin{proof}
@@ -1321,7 +1322,8 @@
     Infatti, $(4, 5)$ è un ponte poiché gli unici due cicli di $G$ sono $$\{1, (1, 2), 2, (2, 3), 3, (3, 4), 4, (4, 1), 1\}$$ $$\{5, (5, 6), 6, (6, 7), 7, (7, 5), 5\}$$
 \end{example}
 
-\begin{theorem}
+\begin{theorem}[Presenza di ponti]
+    \label{teorema dei ponti}
     Sia $G$ un grafo indiretto connesso, $r \in V(G)$, e sia $T_r$ l'albero di visita in DFS di $r$ in $G$; sia $x \in V(T_r)$, e sia $T_x \subseteq T_r$ il suo sottoalbero in $T_r$; sia inoltre $y \in V(T_x)$ tale che $(x, y) \in E(G)$, e sia $T_y \subseteq T_x$ il suo sottoalbero in $T_x$; allora, esiste un arco $(u, v) \in E(G)$, tale che $u \in V(T_y)$ e $v \in V(T - T_x)$, se e solo se esiste un ciclo in $G$ contenente $(x, y)$.
 \end{theorem}
 
@@ -1352,16 +1354,20 @@
 
     \begin{algorithmic}[1]
         \Function{DFS}{$G$, $y$, \texttt{c}, \texttt{back}, \texttt{t}, \texttt{parents}}
-            \State $\texttt{c += }1$
-            \State TODO, NOT FINISHED
+            \State $\texttt{c.increment()}$
             \State $\texttt{t[}y\texttt{]}= \texttt{c}$
             \State $\texttt{back[}y\texttt{]}= \texttt{t[}y\texttt{]}$
             \For{$z \in V(G) : z \sim y$}
-                \If{$TODO$}
-                    \State $\texttt{DFS(}G, u, \texttt{visited},\texttt{order)}$
+                \If{$\texttt{t[}z\texttt{]}==0$} \Comment{$z$ non deve essere già stato visitato}
+                    \State $\texttt{parents[}z\texttt{]}=y$
+                    \State $\texttt{DFS(}G, z, \texttt{c}, \texttt{back}, \texttt{t}, \texttt{parents)}$
+                    \If{$\texttt{back[}z\texttt{]} < \texttt{back[}y\texttt{]}$}
+                        \State $\texttt{back[}y\texttt{]} = \texttt{back[}z\texttt{]}$
+                    \EndIf
+                \ElsIf{$\left \{ \begin{array}{l} z \neq \texttt{parents[}y\texttt{]} \\ \texttt{t[}z\texttt{]} < \texttt{back[}y\texttt{]} \end{array}\right.$}
+                    \State $\texttt{back[}y\texttt{]} = \texttt{back[}z\texttt{]}$
                 \EndIf
             \EndFor
-            \State $\texttt{order.append(}v\texttt{)}$ \Comment{l'ordinamento risulterà invertito}
         \EndFunction
         \\
         \Function{findBridges}{$G$}
@@ -1370,12 +1376,12 @@
             \State $\texttt{parents} := \texttt{[}0\texttt{]} * n$
             \State $\texttt{parents[}v\texttt{]}=v$
             \State $\texttt{back} := \texttt{[}0\texttt{]} * n$
-            \State $\texttt{c} := 0$
+            \State $\texttt{Counter c} := 0$ \Comment{è un oggetto}
             \State $\texttt{DFS(}G, v, \texttt{c}, \texttt{back}, \texttt{t}, \texttt{parents)}$
             \State $\texttt{bridges} := \verb|{|\verb|}|$
             \For{$u \in V(G)$}
                 \If{$\left \{ \begin{array}{l}\texttt{back[}u\texttt{]}= \texttt{t[}u\texttt{]} \\ u \neq \texttt{parents[}u\texttt{]} \end{array} \right.$}
-                    \State $\texttt{bridges.add(}(u, \texttt{parents[}u\texttt{]})\texttt{)}$
+                    \State $\texttt{bridges.add(}(\texttt{parents[}u\texttt{]}, u)\texttt{)}$
                 \EndIf
             \EndFor
             \State \textbf{return} \texttt{bridges}
@@ -1384,11 +1390,55 @@
 \end{algorithm}
 
 \begin{remark}[Correttezza dell'algoritmo]
-    TODO
+    TODO da finire
+
+    L'algoritmo inizia scegliendo un vertice $v$ casuale, del grafo $G$ in input; successivamente, vengono definiti gli array \texttt{t}, all'interno del quale verranno salvati i tempi di visita dei vertici, \texttt{parents}, utilizzato per salvare i nodi padri di ogni vertice visitato, e \texttt{back}
+
+    Sia $T$ l'albero di visita in DFS della visita correntemente in esecuzione dall'algoritmo; allora, per un certo vertice $y \in V(T)$, all'interno di \texttt{back[}y\texttt{]}, verrà salvato il tempo di visita del vertice $v \in V(T - T_y)$ più lontano, raggiungibile da un discendente $z$ di $y$ (incluso $y$ stesso), attraverso un cammino passante per un arco $(z, v) \notin E(T)$. L'array \texttt{back} verrà sfruttato congiuntamente al \cref{teorema dei ponti}, in quanto l'arco $(\texttt{parents[}y\texttt{]}, y)$ è un ponte, se e solo se non esiste un tale arco $(z, v)$. TODO FORSE È DA CORREGGERE LA DEF
+
+    Infine, prima di iniziare una visita in DFS ricorsiva dell'albero, viene istanziato un oggetto contatore \texttt{c}, utilizzato per salvare i tempi di visita in \texttt{c}.
+
+    L'esecuzione procede all'interno della funzione ricorsiva \texttt{DFS}, che ha lo scopo di popolare i valori degli array precedentemente definiti. La funzione inizia aggiornando il contatore, e inserendo il relativo valore del tempo di visita del vertice corrente; inoltre, di quest'ultimo viene inizializzato il valore corrisopndente in \texttt{back}, pari al suo stesso tempo di visita. Tale valore servirà come \textit{sentinel value}, e verrà utilizzato successivamente dall'algoritmo per stabilire quali archi del grafo sono ponti.
+
+    Successivamente, viene istanziato un ciclo \texttt{for}, alla riga $5$, per ogni vertice $z$, adiacente al vertice $y$ corrente
+    \begin{itemize}
+        \item se tale vertice ha tempo di visita pari a $0$, e dunque non è ancora stato visitato, viene inizialmente aggiornato il valore del padre, alla riga $7$, che sarà proprio $y$, e viene poi effettuata una chiamata ricorsiva, radicata in $z$; al termine di quest'ultima, viene aggiornato il valore di $\texttt{back[}y\texttt{]} = \min(\texttt{back[}y\texttt{]}, \texttt{back[}z\texttt{]})$, e dunque sarà sempre il minore tra i suoi discendenti;
+        \item se invece è già stato visitato, va aggiornato il valore di $\texttt{back[}y\texttt{]} = \min(\texttt{t[}z\texttt{]}, \texttt{back[}y\texttt{]})$, esclusivamente se $z$ non è il padre di $y$.
+    \end{itemize}
+
+    Al termine della visita in DFS ricorsiva, l'algoritmo conclude cercando tutti i ponti del grafo, a partire dalle informazioni all'interno di \texttt{back}: infatti, alla riga $27$, per ogni vertice $u \in V(G)$ del grafo, viene inserito l'arco tra $u$ e il suo vertice padre, se e solo se $u \neq \texttt{parents[}u\texttt{]}$ (ovvero, $u$ non è la radice), e $\texttt{back[}u\texttt{]} = \texttt{t[}u\texttt{]}$, e dunque il valore di $\texttt{back[}y\texttt{]}$ è rimasto invariato dalla riga $4$.
+
+    Ad esempio, si consideri il seguente grafo:
+
+    \begin{figure}[H]
+        \centering
+        \begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=3cm,thick,main node/.style={scale=0.6,circle,draw,font=\sffamily\normalsize}]
+            \node[main node] (1) {1};
+            \node[main node] (2) [above right of=1] {2};
+            \node[main node] (3) [right of=1] {3};
+            \node[main node] (4) [below right of=1] {4};
+            \node[main node] (5) [left of=1] {5};
+            \node[main node] (6) [left of=5] {6};
+
+            \path[every node/.style={font=\sffamily\small}]
+                (1) edge (2)
+                (1) edge (3)
+                (1) edge (4)
+                (1) edge (5)
+                (4) edge[bend left] (6)
+                (5) edge (6)
+                ;
+        \end{tikzpicture}
+        \caption{Un grafo indiretto.}
+    \end{figure}
+
+    inoltre, sia $$T_6 = (\{6, 5, 1, 2, 3, 4\}, \{(6, 5), (5, 1), (1, 2), (1, 3), (1, 5)\})$$ l'albero di visita in DFS del grafo, partendo dal vertice $6$; allora, si avranno $$\texttt{t} = \texttt{[}3, 4, 5, 6, 2, 1\texttt{]}$$ $$\texttt{back} = \texttt{[}6, 2, 3, 6, 6, 6\texttt{]}$$
+
+    Allora, si consideri $T_1 \subseteq T_6$ il sottoalbero di $T_6$, radicato in $1$, il cui vertice padre è $5$; poiché TODO da finire
 \end{remark}
 
 \begin{remark}[Costo dell'algoritmo]
-    Il costo dell'algoritmo è $O(n + m)$, poiché è costituito semplicemente da una visita in DFS ricorsiva del grafo in input, e da un ciclo \texttt{for}, alla riga $TODO$, su tutti i nodi del grafo, e dunque si ha $O(n + m) + O(n) = O(n + m)$.
+    Il costo dell'algoritmo è $O(n + m)$, poiché è costituito semplicemente da una visita in DFS ricorsiva del grafo in input, e da un ciclo \texttt{for}, alla riga $27$, su tutti i nodi del grafo, e dunque si ha $O(n + m) + O(n) = O(n + m)$.
 \end{remark}
 
 \subsection{Trovare le componenti}
