@@ -73,7 +73,7 @@
 
 % === END TEMPLATE ===
 
-\chapter{Teoria dei Grafi}
+\chapter{Elementi di teoria dei grafi}
 
 \section{Grafi}
 
@@ -204,7 +204,7 @@
 \begin{definition}[Grafo semplice]
     Un grafo è detto \textit{semplice} se non contiene cappi, né lati multipli, ovvero più archi per due vertici.
 
-    Si noti che, all'interno di questi appunti, a meno di esplicita specifica, si assume che ogni grafo trattato sia semplice.
+    All'interno di questi appunti, a meno di esplicita specifica, si assume che ogni grafo trattato sia semplice.
 \end{definition}
 
 \subsection{Visite}
@@ -1468,6 +1468,7 @@
 \end{example}
 
 \begin{lemma}[Digiunzione delle componenti]
+    \label{disjoint comps}
     Sia $G$ un grafo; allora, le sue componenti sono disgiunte.
 \end{lemma}
 
@@ -1632,6 +1633,8 @@
 \begin{remark}[Correttezza dell'algoritmo]
     Sia $G$ un grafo diretto, e $H \subseteq G$ una sua componente; allora, se $H$ non è composto da un singolo vertice, poiché è fortemente connesso per definizione, per il \cref{presenza di cicli fort conn}, in $H$ è presente un ciclo $C$; allora, contraendo tale ciclo, si otterrà un sottografo $\mathrm{contr}(H, C)$, ancora fortemente connesso, per il \cref{contrazioni fortemente connesse}. Allora, questo garantisce di poter trovare tutte le componenti di un grafo, contraendone ricorsivamente i cicli.
 
+    TODO parla della funzione che trova i cicli in O(n + m)
+
     L'algoritmo inizia cercando un ciclo $C$ all'interno del grafo $G$; se non ne viene trovato alcuno, viene raggiunto il caso base della ricorsione, e l'algoritmo restituisce un insieme di insiemi dei singoli vertici di $G$; si noti che tale caso si presenta esclusivamente quando il grafo è massimalmente contratto.
 
     Differentemente, se è presente un ciclo $C$ all'interno del grafo, l'algoritmo procede contraendo $C$ in $v_C$, e rimpiazzando $G$, alla riga $10$; successivamente, viene effettuata una chiamata ricorsiva sul grafo contratto, al termine della quale viene restituito l'insieme di componenti di $G$ corrente.
@@ -1644,7 +1647,7 @@
 \end{remark}
 
 \begin{definition}[C-radici]
-    Sia $G$ un grafo diretto, sia $\hat v \in V(G)$ un suo vertice, e sia $A_{\hat v}$ l'arborescenza di $\hat v$ in $G$; $v \in A_{\hat v}$ è detto \textit{c-radice} di $A_{\hat v}$, se e solo se è il primo vertice visitato in $\mathrm{comp}(v)$.
+    Sia $G$ un grafo diretto, sia $\hat v \in V(G)$ un suo vertice, e sia $A_{\hat v}$ l'arborescenza di $\hat v$ in $G$; $v \in A_{\hat v}$ è detto \textit{c-radice} di $\mathrm{comp}(v)$ in $A_{\hat v}$, se e solo se è il primo vertice visitato in $\mathrm{comp}(v)$.
 \end{definition}
 
 \begin{example}[C-radici]
@@ -1708,19 +1711,34 @@
 \end{example}
 
 \begin{theorem}[C-radici]
-    Sia $G$ un grafo diretto, sia $\hat v \in V(G)$ un suo vertice, e sia $A_{\hat v}$ l'arborescenza di $\hat v$ in $G$; sia $u$ una c-radice di $A_{\hat v}$; allora si verificano le seguenti proposizioni:
+    Sia $G$ un grafo diretto, sia $\hat v \in V(G)$ un suo vertice, e sia $A_{\hat v}$ l'arborescenza di $\hat v$ in $G$; sia $u$ la c-radice di $\mathrm{comp}(u)$ in $A_{\hat v}$; allora si verificano le seguenti proposizioni:
 
     \begin{enumerate}[i)]
-        \item $\mathrm{comp}(u) \subseteq A_u$, dove $A_u$ è l'arborescenza radicata in $u$
-        \item siano $u_1, \ldots, u_k$ le c-radici di $A_{\hat v}$ in $A_u$; allora $$V(T_u) = V(\mathrm{comp}(u))) \cup \displaystyle \bigcup_{i = 1}^k {V(\mathrm{comp}(u_i))}$$
+        \item sia $A_u \subseteq A_{\hat v}$ è l'arborescenza radicata in $u$; allora $$V(\mathrm{comp}(u)) \subseteq V(A_u)$$
+        \item siano $u_1, \ldots, u_k$ le c-radici di $\mathrm{comp}(u_1), \ldots, \mathrm{comp}(u_k)$ in $A_u \subseteq A_{\hat v}$; allora $$V(\mathrm{comp}(u)) \cup \displaystyle \bigcup_{i = 1}^k {V(\mathrm{comp}(u_i))} = V(A_u)$$
     \end{enumerate}
 \end{theorem}
 
 \begin{proof}
     \hspace{0.7cm}
     \begin{enumerate}[\itshape i)]
-        \item TODO
-        \item TODO
+        \item Per definizione, $\mathrm{comp}(u)$ è fortemente connesso, e dunque per ogni $v \in \mathrm{comp}(u)$ esistono due cammini $u \rightarrow v$ e $v \rightarrow u$; allora, partendo da $u$, necessariamente $v \in V(A_{\hat v})$, poiché la visita in DFS di $\hat v$ deve aver raggiunto $v$. Infine, $v$ non potrebbe essere stato visitato prima di $u$, poiché $u$ è stato scelto come c-radice di $\mathrm{comp}(u)$; allora necessariamente $v \in V(A_u)$, e dunque $V(\mathrm{comp}(u)) \subseteq V(A_u)$.
+        \item Si noti che $u_1, \ldots, u_k \in V(A_u)$, e dunque per definizione $$\forall i \in [1, k] \quad V(A_{u_i}) \subseteq V(A_u)$$
+            Inoltre, per la proposizione precedente, si ha che $$\forall i \in [1, k] \quad V(\mathrm{comp}(u_i)) \subseteq V(A_{u_i})$$ e anche che $$V(\mathrm{comp}(u)) \subseteq V(A_u)$$
+            Allora, necessariamente $$V(\mathrm{comp}(u)) \cup \displaystyle \bigcup_{i = 1}^k {V(\mathrm{comp}(u_i))} \subseteq V(A_u)$$
+            Sia $w \in V(A_u)$, e dunque esiste un cammino $u \rightarrow w$:
+            
+            \begin{itemize}
+                \item se esiste un cammino $w \rightarrow u$, poiché $\mathrm{comp}(u)$ è massimalmente fortemente connesso per definizione, necessariamente $w \in \mathrm{comp}(u)$; allora $V(A_u) \subseteq \mathrm{comp}(u)$, e dunque segue la tesi;
+                \item allora, si supponga non esista un tale cammino $w \rightarrow u$, e dunque $\mathrm{comp}(u) \neq \mathrm{comp}(w)$, per il \cref{disjoint comps}; allora, sia $z \in V(\mathrm{comp}(w))$ la c-radice di $\mathrm{comp}(w) = \mathrm{comp}(z)$; si noti che $z \in \mathrm{comp}(w)$, implica che è presente in $G$ un cammino $w \rightarrow z$, e dunque si ha un cammino $u \rightarrow w \rightarrow z$ in $G$; allora, la visita in DFS di $\hat v$ deve aver necessariamente raggiunto $z$, e dunque $z \in V(A_{\hat v})$;
+                \item per assurdo, sia $z \notin V(A_u)$; poiché in $G$ si ha un cammino $u \rightarrow w \rightarrow z$ per osservazione precedente, allora segue che $t(z) < t(u)$, e dunque $z$ deve essere stato visitato prima di $u$, altrimenti sarebbe stato raggiunto a partire da $u$; allora:
+                \begin{itemize}
+                    \item sia $\mathrm{Int}(z) \cap \mathrm{Int}(u) = \varnothing$: si noti che $z \in \mathrm{comp}(w)$ è c-radice di $\mathrm{comp}(w)$, e dunque si ha il cammino $z \rightarrow w$; allora, poiché $\mathrm{Int}(w) \subseteq \mathrm{Int}(u)$, la visita in DFS avrebbe sbagliato a non controllare $w$ prima di rimuovere $z$ dallo stack $\lightning$
+                    \item sia $\mathrm{Int}(z) \supset \mathrm{Int}(u) \supseteq \mathrm{Int}(w)$: allora si avrebbe che $A_u \subset A_z$, e dunque esiste un cammino $z \rightarrow u$, ma per il cammino $u \rightarrow w \rightarrow z$, allora si avrebbe $\mathrm{comp}(z) = \mathrm{comp}(u)$, contraddicendo l'ipotesi per cui $\mathrm{comp}(u) \neq \mathrm{comp}(w) = \mathrm{comp}(z) \ \lightning$
+                \end{itemize}
+            \item allora necessariamente $z \in V(A_u)$, e poiché è stato scelto come c-radice di una delle componenti di $G$ in $A_u$, allora deve verificarsi che $z \in \{u_1, \ldots, u_k\}$;
+            \item dunque $\exists i \in [1, k] \mid z= u_i$, e poiché $\forall i \in [1, k] \quad u_i \in V(\mathrm{comp}(u_i))$, allora $$z \in V(A_u) \implies \exists i \in [1, k] \mid z = u_i \in V(\mathrm{comp}(u_i))$$ dunque $V(A_u) \subseteq V(\mathrm{comp}(u_i))$ per qualche $i \in [1, k]$, e quindi segue la tesi.
+            \end{itemize}
     \end{enumerate}
 \end{proof}
 

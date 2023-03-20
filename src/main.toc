@@ -1,6 +1,6 @@
 \babel@toc {italian}{}\relax 
 \babel@toc {italian}{}\relax 
-\contentsline {chapter}{\numberline {1}Teoria dei Grafi}{2}{chapter.1}%
+\contentsline {chapter}{\numberline {1}Elementi di teoria dei grafi}{2}{chapter.1}%
 \contentsline {section}{\numberline {1.1}Grafi}{2}{section.1.1}%
 \contentsline {subsection}{\numberline {1.1.1}Definizioni}{2}{subsection.1.1.1}%
 \contentsline {subsection}{\numberline {1.1.2}Visite}{4}{subsection.1.1.2}%
