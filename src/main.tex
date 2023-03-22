@@ -1854,23 +1854,58 @@
     }
 
     \begin{algorithmic}[1]
-        \Function{DFS}{$G, u, \texttt{components}, \texttt{S}, \texttt{c}, \texttt{cc}$}
-            TODO
+        \Function{DFS}{$G, u, \texttt{parents}, \texttt{visited}$}
+            \State $\texttt{visited[}u\texttt{]} = 1$
+            \For{$v \in V(G): v \sim u$}
+                \If{$\texttt{visited[}v\texttt{]} == 0$}
+                    \State $\texttt{visited[}v\texttt{]} = 1$
+                    \State $\texttt{parents[}v\texttt{]} = u$
+                    \State $\texttt{output} = \texttt{DFS(}G, v, \texttt{parents}, \texttt{visited)}$
+                    \If{$\texttt{output} \neq \texttt{None}$}
+                        \State \textbf{return} \texttt{output}
+                    \EndIf
+                    \ElsIf{$\left \{ \begin{array}{l} \texttt{parents[}u\texttt{]} \neq v \\ \texttt{parents[}v\texttt{]} \neq u \end{array} \right.$} \Comment{l'array \texttt{parents} è \textit{diretto}}
+                    \State $\texttt{output} := \verb|{| \verb|}|$
+                    \While{$u \neq v$}
+                        \State $\texttt{output.add(}u\texttt{)}$
+                        \State $u = \texttt{parents[}u\texttt{]}$
+                    \EndWhile
+                    \State \textbf{return} \texttt{output}
+                \EndIf
+            \EndFor
+            \State \textbf{return} \texttt{None}
         \EndFunction
         \\
         \Function{findCycle}{$G$}
             \State $\texttt{visited} := \texttt{[}0\texttt{]} * n$
-            \State $\texttt{output} = \texttt{None}$
             \For{$v \in V(G)$}
                 \If{$\texttt{visited[}v\texttt{]} = = 0$}
-                    PRECOMPILATO
-                    \State $\texttt{output}$
+                \State $\texttt{output} = \texttt{DFS(}G, v, \texttt{parents}, \texttt{visited)}$
+                    \If{$\texttt{output} \neq \texttt{None}$}
+                        \State \textbf{return} \texttt{output}
+                    \EndIf
                 \EndIf
             \EndFor
             \State \textbf{return} \texttt{None}
         \EndFunction
     \end{algorithmic}
 \end{algorithm}
+
+\begin{remark}[Correttezza dell'algoritmo]
+    TODO DA RILEGGERE
+
+    L'algoritmo inizia effettuando un ciclo \texttt{for}, alla riga $25$, su ogni vertice $v \in V(G)$; in particolar, se $v$ non è stato ancora visitato (riga $26$), viene effettuata una visita ricorsiva in DFS di $G$, partendo da $v$.
+
+    La funzione che effettua la visita ricorsiva in DFS, inizia con un ciclo \texttt{for}, alla riga $3$, il quale, per ogni vertice $v \in V(G)$ adiacente a $u$ in input, se non visitato, viene marcato come visitato (riga $5$), ne viene aggiornato il nodo padre (riga $6$), e viene effettuata una chiamata ricorsiva radicata su esso, per far si che la visita sia in DFS.
+
+    Al termine della chiamata ricorsiva, viene esaminato il valore ritornato da \texttt{DFS}, che può essere un ciclo di $G$, oppure \texttt{None}; se si è giunti al primo caso, e dunque si è trovato l'output richiesto dall'algoritmo, sarà sufficiente riportare il risultato di ricorsione in ricorsione a ritroso, ritornanto \texttt{output} stesso, alla riga $9$.
+
+    Se invece il vertice $v$, in \texttt{DFS}
+\end{remark}
+
+\begin{remark}[Costo dell'algoritmo]
+    Poiché l'algoritmo effettua una visita ricorsiva in DFS del grafo $G$ in input, il costo dovrebbe essere $O(n + m)$, ma l'unico caso in cui viene effettuata una visita completa del grafo è nel caso peggiore, ovvero quando il grafo è aciclico. Si noti però che, se $G$ è aciclico, si verifica che $m := |E(G)| = n - 1$, e dunque $O(n + m) = O(n + n + 1) = O(2n + 1) = O(n)$. Allora, il costo dell'algoritmo è $O(n)$.
+\end{remark}
 
 \section{BFS (Breadth-first Search)}
 
