@@ -18,3 +18,6 @@
 \contentsline {subsection}{\numberline {1.4.4}Trovare un pozzo universale}{32}{subsection.1.4.4}%
 \contentsline {subsection}{\numberline {1.4.5}Trovare i ponti}{34}{subsection.1.4.5}%
 \contentsline {subsection}{\numberline {1.4.6}Trovare le componenti}{39}{subsection.1.4.6}%
+\contentsline {section}{\numberline {1.5}BFS (Breadth-first Search)}{48}{section.1.5}%
+\contentsline {subsection}{\numberline {1.5.1}Distanza}{48}{subsection.1.5.1}%
+\contentsline {subsection}{\numberline {1.5.2}Visita in BFS}{49}{subsection.1.5.2}%

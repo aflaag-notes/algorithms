@@ -39,6 +39,7 @@
     \end{minipage}
     \par\addvspace{\topsep}
 }
+\algdef{SE}[DOWHILE]{Do}{doWhile}{\algorithmicdo}[1]{\algorithmicwhile\ #1}%
 
 % theorems
 \newtheorem{theorem}{Teorema}[subsection]
@@ -1791,5 +1792,113 @@
             \end{itemize}
     \end{enumerate}
 \end{proof}
+
+\begin{algorithm}[H]
+    \caption{
+        Dato un grafo diretto $G$, rappresentato attraverso liste di adiacenza, l'algoritmo restiuisce le componenti di $G$.\\
+        \textbf{Input}: $G$ grafo diretto, rappresentato attraverso liste di adiacenza.\\
+        \textbf{Output}: le componenti di $G$.
+    }
+
+    \begin{algorithmic}[1]
+        \Function{DFS}{$G, u, \texttt{components}, \texttt{S}, \texttt{c}, \texttt{cc}$}
+            \State $\texttt{c.increment()}$
+            \State $\texttt{components} = - \texttt{c}$ \Comment{i valori negativi indicano i tempi di visita}
+            \State $\texttt{S.push(}u\texttt{)}$
+            \State $b := \texttt{c}$
+            \For{$v \in V(G) : v \sim u$}
+                \If{$\texttt{components[}v\texttt{]}= = 0$}
+                    \State $b' := \texttt{DFS(}G, u, \texttt{components}, \texttt{S}, \texttt{c}, \texttt{cc)}$
+                    \State $b = \min(b, b')$
+                \ElsIf{$\texttt{components[}v\texttt{]} < 0$}
+                    \State $b = \min(b, - \texttt{components[}v\texttt{]})$
+                \EndIf
+            \EndFor
+            \If{$b < - \texttt{components[}u\texttt{]}$} \Comment{$u$ è c-radice}
+                \State $\texttt{cc.increment()}$
+                \Do
+                    \State $w := \texttt{S.pop()}$
+                    \State $\texttt{components[}w\texttt{]} = \texttt{cc}$
+                \doWhile{$u \neq w$}
+            \EndIf
+        \EndFunction
+        \\
+        \Function{findComponents$_2$}{$G$}
+            \State $\texttt{components} := \texttt{[}0\texttt{]} * n$
+            \State $\texttt{Counter cc} := 0$
+            \State $\texttt{Counter c} := 0$
+            \State $\texttt{Stack s} := \texttt{[}\texttt{]}$
+            \For{$u \in V(G)$}
+                \If{$\texttt{components[}u\texttt{]}==0$}
+                    \State $\texttt{DFS(}G, u, \texttt{components}, \texttt{S}, \texttt{c}, \texttt{cc)}$
+                \EndIf
+            \EndFor
+            \State \textbf{return} \texttt{components}
+        \EndFunction
+    \end{algorithmic}
+\end{algorithm}
+
+\begin{remark}[Correttezza dell'algoritmo]
+    Sia $G$ un grafo diretto, sia $\hat v \in V(G)$ un suo vertice, e sia $A_{\hat v}$ l'arborescenza di $\hat v$ in $G$; allora, un vertice $u \in V(G)$ è una c-radice in $A_{\hat v}$, se e solo se TODO
+\end{remark}
+
+\begin{remark}[Costo dell'algoritmo]
+    TODO
+\end{remark}
+
+\begin{algorithm}[H]
+    \caption{
+        Dato un grafo indiretto $G$, rappresentato attraverso liste di adiacenza, l'algoritmo restituisce un suo ciclo, se presente.\\
+        \textbf{Input}: $G$ grafo indiretto, rappresentato attraverso liste di adiacenza.\\
+        \textbf{Output}: un ciclo di $G$, se presente.
+    }
+
+    \begin{algorithmic}[1]
+        \Function{DFS}{$G, u, \texttt{components}, \texttt{S}, \texttt{c}, \texttt{cc}$}
+            TODO
+        \EndFunction
+        \\
+        \Function{findCycle}{$G$}
+            \State $\texttt{visited} := \texttt{[}0\texttt{]} * n$
+            \State $\texttt{output} = \texttt{None}$
+            \For{$v \in V(G)$}
+                \If{$\texttt{visited[}v\texttt{]} = = 0$}
+                    PRECOMPILATO
+                    \State $\texttt{output}$
+                \EndIf
+            \EndFor
+            \State \textbf{return} \texttt{None}
+        \EndFunction
+    \end{algorithmic}
+\end{algorithm}
+
+\section{BFS (Breadth-first Search)}
+
+\subsection{Distanza}
+
+\begin{definition}
+    Sia $G$ un grafo, e siano $x, y \in V(G)$ due suoi vertici; è detta \textit{distanza tra $x$ e $y$}, il numero minimo di archi che costituiscono un cammino $x \rightarrow y$. In simboli, sia $\mathcal{C}$ l'insieme dei cammini $x \rightarrow y$ in $G$; allora $$\mathrm{dist}(x, y) := \min_{c \in \mathcal{C}}(E(c))$$
+\end{definition}
+
+\begin{algorithm}[H]
+    \caption{
+        Dato un grafo diretto $G$, rappresentato attraverso liste di adiacenza, l'algoritmo restiuisce le componenti di $G$.\\
+        \textbf{Input}: $G$ grafo diretto, rappresentato attraverso liste di adiacenza.\\
+        \textbf{Output}: le componenti di $G$.
+    }
+
+    \begin{algorithmic}[1]
+        \Function{DFS}{$G, u, \texttt{components}, \texttt{S}, \texttt{c}, \texttt{cc}$}
+            TODO
+        \EndFunction
+        \\
+        \Function{findComponents$_2$}{$G$}
+            TODO
+            \State \textbf{return} \texttt{components}
+        \EndFunction
+    \end{algorithmic}
+\end{algorithm}
+
+\subsection{Visita in BFS}
 
 \end{document}
