@@ -20,4 +20,5 @@
 \contentsline {subsection}{\numberline {1.4.6}Trovare le componenti}{39}{subsection.1.4.6}%
 \contentsline {section}{\numberline {1.5}BFS (Breadth-first Search)}{50}{section.1.5}%
 \contentsline {subsection}{\numberline {1.5.1}Distanza}{50}{subsection.1.5.1}%
-\contentsline {subsection}{\numberline {1.5.2}Visita in BFS}{50}{subsection.1.5.2}%
+\contentsline {subsection}{\numberline {1.5.2}Visita in BFS}{51}{subsection.1.5.2}%
+\contentsline {subsection}{\numberline {1.5.3}Trovare il numero di cammini minimi}{54}{subsection.1.5.3}%

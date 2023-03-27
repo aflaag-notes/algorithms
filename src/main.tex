@@ -728,7 +728,7 @@
 \subsection{Visita in DFS}
 
 \begin{definition}[DFS]
-    Con DFS si indica il criterio di visita di un grafo; in particolare, DFS sta per \textit{Depth-first Search}, dunque la visita del grafo avviene procendendo sempre più in profondità, retrocedendo esclusivamente se non è più possibile avanzare.
+    Con DFS si indica un criterio di visita di un grafo; in particolare, DFS sta per \textit{Depth-first Search}, dunque la visita del grafo avviene procendendo sempre più in profondità, retrocedendo esclusivamente se non è più possibile avanzare.
 \end{definition}
 
 \begin{algorithm}[H]
@@ -1900,7 +1900,7 @@
 
     Al termine della chiamata ricorsiva, viene esaminato il valore ritornato da \texttt{DFS}, che può essere un ciclo di $G$, oppure \texttt{None}; se si è giunti al primo caso, e dunque si è trovato l'output richiesto dall'algoritmo, sarà sufficiente riportare il risultato di ricorsione in ricorsione a ritroso, ritornanto \texttt{output} stesso, alla riga $9$.
 
-    Se invece il vertice $v$, in \texttt{DFS}
+    Se invece il vertice $v$, in \texttt{DFS} TODO
 \end{remark}
 
 \begin{remark}[Costo dell'algoritmo]
@@ -1917,6 +1917,7 @@
 
 \begin{algorithm}[H]
     \caption{
+        TODO ALGORITMO "NOSTRO"
         Dato un grafo diretto $G$, rappresentato attraverso liste di adiacenza, l'algoritmo restiuisce le componenti di $G$.\\
         \textbf{Input}: $G$ grafo diretto, rappresentato attraverso liste di adiacenza.\\
         \textbf{Output}: le componenti di $G$.
@@ -1935,5 +1936,130 @@
 \end{algorithm}
 
 \subsection{Visita in BFS}
+
+\begin{definition}[BFS]
+    Con BFS si indica un criterio di visita di un grafo; in particolare, BFS sta per \textit{Breadth-first Search}, dunque la visita del grafo avviene controllando i vertici adiacenti ad ogni nodo.
+\end{definition}
+
+\begin{algorithm}[H]
+    \caption{
+        Dato un grafo $G$, rappresentato attraverso liste di adiacenza (nel caso di grafo diretto, è sufficiente memorizzare gli archi uscenti per ogni vertice), ed un suo vertice $u$, l'algoritmo restituisce le distanze dei vertici di $G$ da $u$.\\
+        \textbf{Input}: $G$ grafo, rappresentato attraverso liste di adiacenza; $u \in V(G)$ un vertice di $G$.\\
+        \textbf{Output}: $\forall v \in V(G) \quad \mathrm{dist}(u, v)$.
+    }
+
+    \begin{algorithmic}[1]
+        \label{bfs}
+
+        \Function{findDistances}{$G, u$}
+            \State $\texttt{parents}:=\texttt{[}0\texttt{]} * n$
+            \State $\texttt{parents[}u\texttt{]} = u$
+            \State $\texttt{distances}:=\texttt{[}0\texttt{]} * n$
+            \State $\texttt{Queue Q} := \texttt{[}u\texttt{]}$
+            \While{!$\texttt{Q.isEmpty()}$}
+                \State $v = \texttt{Q.deque()}$
+                \For{$x \in V(G) : x \sim v$}
+                \If{$\left \{ \begin{array}{l} \texttt{distances[}x\texttt{]}= = 0 \\ \texttt{parents[}x\texttt{]} \neq x\end{array} \right .$}
+                    \State $\texttt{parents[}x\texttt{]} = v$
+                    \State $\texttt{distances[}x\texttt{]}=\texttt{distances[}v\texttt{]} + 1$
+                    \State $\texttt{Q.enque(}x\texttt{)}$
+                \EndIf
+                \EndFor
+            \EndWhile
+            \State \textbf{return} \texttt{distances}
+        \EndFunction
+    \end{algorithmic}
+\end{algorithm}
+
+\begin{remark}[Correttezza dell'algoritmo]
+    L'algoritmo inizia definendo un array di nodi padri \texttt{parents}, un array di distanze \texttt{distances} (che conterrà le distanze dei vertici di $G$ dalla radice $u$ di partenza), e una coda \texttt{Q}, contenente $u$ inizialmente (riga $5$).
+
+    Successivamente, fintanto che la coda \texttt{Q} non è vuota, viene eseguito il ciclo \texttt{while} della riga $6$, all'interno del quale viene rimosso il primo nodo $v$ della coda \texttt{Q}, alla riga $7$; inoltre, per ognuno dei suoi nodi adiacenti $x \sim v$, se non ancora visitato (la sua distanza da $u$ è ancora $0$), e non è la radice, ne viene aggiornato il padre, alla riga $10$, e viene aggiornata la sua distanza da $u$, sommando $1$ alla distanza del padre, ossia $v$, dalla radice; infine, $x$ viene posizionato in coda. In particolare, quest'ultima riga permette all'algoritmo di effettuare una visita in BFS del grafo, poiché ogni vertice adiacente a $v$ trovato viene inserito all'interno della coda non appena viene visitato.
+
+    Ad esempio, si consideri il seguente grafo:
+
+    \begin{figure}[H]
+        \centering
+        \begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=3cm,thick,main node/.style={scale=0.6,circle,draw,font=\sffamily\normalsize}]
+            \node[main node] (3) {3};
+            \node[main node] (4) [above right of=3] {4};
+            \node[main node] (2) [below right of=3] {2};
+            \node[main node] (5) [above right of=4] {5};
+            \node[main node] (6) [below right of=4] {6};
+            \node[main node] (1) [below right of=2] {1};
+
+            \path[every node/.style={font=\sffamily\small}]
+                (3) edge (4)
+                (3) edge (2)
+                (4) edge (5)
+                (4) edge (6)
+                (2) edge (6)
+                (2) edge (1)
+                ;
+        \end{tikzpicture}
+        \caption{Un grafo indiretto.}
+    \end{figure}
+
+    partendo dal vertice $u = 3$, l'ordine di visita in BFS dei vertici è il seguente: $$\{3, 4, 2, 5, 6, 1\}$$
+
+\end{remark}
+
+\begin{remark}[Costo dell'algoritmo]
+    Il ciclo \texttt{for} della riga $8$ viene eseguito per ognuno dei vertici adiacenti a $v$, e dunque ha costo $O(\deg(v))$; allora, per ragionamento analogo all'\cref{costo findReachableNodes2}, il costo dell'algoritmo è pari a $O(n +m)$.
+\end{remark}
+
+\subsection{Trovare il numero di cammini minimi}
+
+\begin{algorithm}[H]
+    \caption{
+        TODO
+        Dato un grafo $G$, rappresentato attraverso liste di adiacenza (nel caso di grafo diretto, è sufficiente memorizzare gli archi uscenti per ogni vertice), ed un suo vertice $u$, l'algoritmo restituisce le distanze dei vertici di $G$ da $u$.\\
+        \textbf{Input}: $G$ grafo, rappresentato attraverso liste di adiacenza; $u \in V(G)$ un vertice di $G$.\\
+        \textbf{Output}: $\forall v \in V(G) \quad \mathrm{dist}(u, v)$.
+    }
+
+    \begin{algorithmic}[1]
+            \Function{countShortestPaths}{$G, u$}
+            \State $\texttt{parents}:=\texttt{[}-1\texttt{]} * n$
+            \State $\texttt{parents[}u\texttt{]} = u$
+            \State $\texttt{count}:=\texttt{[}0\texttt{]} * n$
+            \State $\texttt{count[}u\texttt{]}= 1$ \Comment{solo un modo per giungere ad $u$ stesso}
+            \State $\texttt{distances}:=\texttt{[}0\texttt{]} * n$
+            \State $\texttt{Queue Q} := \texttt{[}u\texttt{]}$
+            \While{!$\texttt{Q.isEmpty()}$}
+                \State $v = \texttt{Q.deque()}$
+                \For{$y \in V(G) : y \sim v$}
+                \If{$\texttt{parents[}y\texttt{]}= -1$} \Comment{se non è stato ancora visitato}
+                    \State $\texttt{parents[}y\texttt{]} = v$
+                    \State $\texttt{distances[}y\texttt{]}=\texttt{distances[}v\texttt{]} + 1$
+                    \State $\texttt{count[}y\texttt{]}=\texttt{count[}v\texttt{]}$
+                    \State $\texttt{Q.enque(}y\texttt{)}$
+                    \ElsIf{$\texttt{distances[}y\texttt{]}==\texttt{distances[}v\texttt{]} + 1$}
+                    \State $\texttt{count[}y\texttt{]} \ += \texttt{count[}v\texttt{]}$
+                \EndIf
+                \EndFor
+            \EndWhile
+            \State \textbf{return} \texttt{count}
+        \EndFunction
+    \end{algorithmic}
+\end{algorithm}
+
+\begin{remark}[Correttezza dell'algoritmo]
+    TODO RILEGGERE
+    L'algoritmo presenta una semplice modifica dell'\cref{bfs}, inserendo le righe $14$, $16$ e $17$:
+
+    \begin{itemize}
+        \item alla riga $16$, viene posto il numero di cammini minimi per raggiungere $y$ partendo da $u$, pari al numero di cammini minimi di $v$, ovvero il suo nodo padre; ciò, in quanto alla riga $11$ viene controllato che il nodo non sia stato ancora visitato, e dunque il suo valore in \texttt{count} sarà ancora pari a $0$, e con la riga $14$ viene dunque rimpiazzato;
+        \item alla riga $16$, viene controllato che il valore della distanza sia stato aggiornato correttamente, ed in tal caso, alla riga $17$ viene accomulato al conteggio di $y$, il conteggio di $v$, ovvero il suo nodo padre.
+    \end{itemize}
+
+    Infatti, poiché la visita in BFS trova le distanze minime tra i vertici di $G$, e il vertice $u$ di partenza, allora avendo un vertice $y$, figlio di $v_1$ e $v_2$, si ha che $$\texttt{count[}y\texttt{]} = \texttt{count[}v_1\texttt{]} + \texttt{count[}v_2\texttt{]}$$
+
+    Questo è vero necessariamente, poiché se $\texttt{count[}y\texttt{]}$ fosse maggiore della somma del valore di \texttt{count} dei nodi padri, allora l'algoritmo avrebbe sbagliato la visita in BFS, e se invece fosse minore, allora mancherebbero dei cammini poiché $(v_1, y), (v_2, y) \in E(G)$.
+\end{remark}
+
+\begin{remark}[Costo dell'algoritmo]
+    L'algoritmo effettua esclusivamente una visita in BFS del grafo $G$ in input, e dunque il suo costo è pari a $O(n+m)$.
+\end{remark}
 
 \end{document}
