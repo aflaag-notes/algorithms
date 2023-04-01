@@ -2159,16 +2159,16 @@
     Per ipotesi, $u$ è il vertice adiacente $v$ attraverso un arco $(v, u) \in E(G)$ di peso minimo tra gli adiacenti; allora, considerando qualsiasi altro cammino $c'$ della forma $v \rightarrow u$, non passante per l'arco $(v, u)$, si deve necessariamente avere $$w_p(c') > w_p(\{v, (v, u), u\})$$ poiché il primo arco di $c'$ avrà peso maggiore di $w(v, u)$, per come $u$ è stato scelto in ipotesi.
 \end{proof}
 
-\begin{theorem}[TODO NON SO CHE NOME DARGLI]
-    Sia $G$ un grafo indiretto, e sia $R \subseteq V(G)$ un sottoinsieme dei suoi vertici; siano $v, x \in R$ due vertici in $R$, e sia $$u:= \min_{y \in V(G) - R}{\left(\mathrm{dist}_w(v, x) + w(x, y)\right)}$$ allora necessariamente $$\mathrm{dist}_w(v, u) = \mathrm{dist}_w(v, x) + w(x, u)$$
+\begin{theorem}[Estensioni pesate di insiemi di vertici]
+    Sia $G$ un grafo indiretto, e sia $R \subseteq V(G)$ un sottoinsieme dei suoi vertici; sia $v\in R$ un vertice in $R$, e sia $(x, u) \in E(G)$ un arco con $x \in R$ e $u \in V(G) - R$, tale che $$(x, u):= \min_{\substack{(a, b) \in E(G) \\ a \in R \\ b \in V(G) - R}}{\left(\mathrm{dist}_w(v, x) + w(a, b)\right)}$$ allora necessariamente $$\mathrm{dist}_w(v, u) = \mathrm{dist}_w(v, x) + w(x, u)$$
 \end{theorem}
 
 \begin{proof}
-    Per ipotesi, $u$ è il vertice non in $R$, che minimizza $\mathrm{dist}_w(v, x) + w(x, u)$; si noti che, affinché sia verificata la tesi, è necessario dimostrare che esista un cammino $v \rightarrow u$, passante per $(x, u)$, tale da minimizzare $\mathrm{dist}_w(v, x) + w(x, u)$, e che non esistano cammini $v \rightarrow u$ di peso inferiore:
+    Per ipotesi, $(x, u)$ è l'arco che minimizza $\mathrm{dist}_w(v, x) + w(x, u)$; si noti che, affinché sia verificata la tesi, è necessario dimostrare che esista un cammino $v \rightarrow u$, passante per $(x, u)$, tale da minimizzare $\mathrm{dist}_w(v, x) + w(x, u)$, e che non esistano cammini $v \rightarrow u$, non passanati per $(x, u)$, di peso inferiore:
 
     \begin{itemize}
         \item per la prima parte, è sufficiente considerare il cammino $v \rightarrow x$ che definisce $\mathrm{dist}_w(v, x)$, al quale è possibile aggiungere l'arco $(x, u)$ stesso, per ottenere il cammino che minimizzi $\mathrm{dist}_w(v, x) + w(x, u)$, grazie al \cref{vicini pesati};
-        \item per la seconda parte, sia $Q$ un cammino $v \rightarrow u$, non passante per $(x, u)$; allora TODO
+        \item per la seconda parte, sia $Q$ un cammino $v \rightarrow u$, non passante per $(x, u)$; allora $Q$ deve necessariamente passare per un altro arco $(x', u')$, con $x' \in R$ e $u' \in V(G) - R$; ma poiché $(x, u)$ è stato scelto tale da minimizzare la somma $\mathrm{dist}_w(v, x) + w(x, u)$, si ha che la porzione di cammino $v \rightarrow (x', u')$ deve essere pari o superiore a $w_p\left(v \rightarrow (x, u)\right)$, e dunque $w_p(Q) \ge w_p(v \rightarrow (x, u))$; allora, il cammino cercato deve necessariamente passare per $(x, u)$.
     \end{itemize}
 \end{proof}
 
@@ -2228,16 +2228,25 @@
 
     \begin{algorithmic}[1]
         \Function{findIntervals}{$I$}
-            \State $I\texttt{.sort(key=}\lambda (i: [a_i, b_i]) \rightarrow b_i\texttt{)}$ \Comment{$I$ ordinato attraverso gli estremi destri}
-            \State $\texttt{Sol}:= \verb|{| \verb|}|$
-            \For{$i \in [1, I.\texttt{length()}]$}
-                \If{}
-                    \State 
+            \State $I\texttt{.sort(key=}\lambda (i) \rightarrow i\texttt{.right())}$ \Comment{$I$ ordinato sugli estremi destri}
+            \State $\texttt{Sol}:= \texttt{[]}$
+            \For{$i \in I$}
+                \State $b_f := \texttt{Sol.last().right()}$ \Comment{estremo destro di \texttt{Sol.last()}}
+                \If{$i\texttt{.left()} > b_f$}
+                    \State $\texttt{Sol.append(}i\texttt{)}$
                 \EndIf
             \EndFor
-            \State \textbf{return} \texttt{distancesW}
+            \State \textbf{return} \texttt{Sol}
         \EndFunction
     \end{algorithmic}
 \end{algorithm}
+
+\begin{proof}
+    TODO
+\end{proof}
+
+\begin{remark}[Costo dell'algoritmo]
+    Poiché l'ordinamento di $I$, alla riga 2, non può avere costo inferiore a $O(n \log n)$, e il ciclo \texttt{for} della riga 4 ha costo $O(n)$, l'algoritmo ha costo $O(n \log n) + O(n) = O(n \log n)$.
+\end{remark}
 
 \end{document}
