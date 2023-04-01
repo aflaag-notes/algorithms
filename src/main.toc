@@ -22,3 +22,4 @@
 \contentsline {subsection}{\numberline {1.5.1}Distanza}{50}{subsection.1.5.1}%
 \contentsline {subsection}{\numberline {1.5.2}Visita in BFS}{51}{subsection.1.5.2}%
 \contentsline {subsection}{\numberline {1.5.3}Trovare il numero di cammini minimi}{54}{subsection.1.5.3}%
+\contentsline {subsection}{\numberline {1.5.4}Archi pesati}{55}{subsection.1.5.4}%

@@ -1912,7 +1912,7 @@
 \subsection{Distanza}
 
 \begin{definition}
-    Sia $G$ un grafo, e siano $x, y \in V(G)$ due suoi vertici; è detta \textit{distanza tra $x$ e $y$}, il numero minimo di archi che costituiscono un cammino $x \rightarrow y$. In simboli, sia $\mathcal{C}$ l'insieme dei cammini $x \rightarrow y$ in $G$; allora $$\mathrm{dist}(x, y) := \min_{c \in \mathcal{C}}(E(c))$$
+    Sia $G$ un grafo, e siano $x, y \in V(G)$ due suoi vertici; si definisce \textit{distanza tra $x$ e $y$}, il numero minimo di archi che costituiscono un cammino $x \rightarrow y$. In simboli, sia $\mathcal{C}$ l'insieme dei cammini $x \rightarrow y$ in $G$; allora $$\mathrm{dist}(x, y) := \min_{c \in \mathcal{C}}(E(c))$$
 \end{definition}
 
 \begin{algorithm}[H]
@@ -2060,6 +2060,93 @@
 
 \begin{remark}[Costo dell'algoritmo]
     L'algoritmo effettua esclusivamente una visita in BFS del grafo $G$ in input, e dunque il suo costo è pari a $O(n+m)$.
+\end{remark}
+
+\subsection{Archi pesati}
+
+\begin{definition}[Archi pesati]
+    Sia $G$ un grafo; su esso, è possibile definire una funzione $$w: E(G) \rightarrow \mathbb{R}^+$$ che, ad ogni arco, associa un valore reale positivo detto \textit{peso}.
+\end{definition}
+
+\begin{example}[Grafo indiretto pesato]
+    Ad esempio, si consideri il seguente grafo indiretto:
+
+    \begin{figure}[H]
+        \centering
+        \begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=3cm,thick,main node/.style={scale=0.6,circle,draw,font=\sffamily\normalsize}]
+            \node[main node] (1) {1};
+            \node[main node] (2) [above of=1] {2};
+            \node[main node] (3) [right of=2] {3};
+            \node[main node] (4) [below of=3] {4};
+
+            \path[every node/.style={font=\sffamily\small}]
+                (1) edge node {1} (2)
+                (2) edge node {2} (3)
+                (3) edge node {5} (4)
+                (4) edge node {10} (1)
+                (1) edge node {6} (3)
+                ;
+        \end{tikzpicture}
+        \caption{Un grafo indiretto pesato.}
+    \end{figure}
+
+    su di esso, sono stati inseriti dei valori sugli archi, che ne indicano il peso, secondo la funzione $w$ che associa $$w(1, 2) = 1; \ w(2,3)=2; \ w(3, 4)=5; \ w(4, 1)=10; \ w(1,3)=6$$
+\end{example}
+
+\begin{definition}[Peso di un cammino]
+    Sia $G$ un grafo, e $c$ un cammino in $G$; si definisce \textit{peso di $c$} la somma dei pesi degli archi che lo compongono. In simboli, sia $\mathcal {C}$ l'insieme dei cammini su $G$; allora, è possibile definire la funzione seguente $$w_p : \mathcal{C} \rightarrow \mathbb{R}^+: c \rightarrow \displaystyle \sum_{e \in E(c)}{w(e)}$$ che associa un cammino $c$ al suo peso $w_p(c)$.
+\end{definition}
+
+\begin{definition}[Distanza pesata]
+    Sia $G$ un grafo pesato, e $x, y \in V(G)$ due suoi vertici; si definisce \textit{distanza pesata tra $x$ e $y$} il peso del cammino $x \rightarrow y$ di peso minimo. In simboli, sia $\mathcal{C}$ l'insieme dei cammini $x \rightarrow y$ in $G$; allora $$\mathrm{dist}_w(x, y) := \min_{c \in \mathcal{C}}(w_p(c))$$
+\end{definition}
+
+\begin{example}[Grafo indiretto pesato]
+    Ad esempio, si consideri il seguente grafo indiretto:
+
+    \begin{figure}[H]
+        \centering
+        \begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=3cm,thick,main node/.style={scale=0.6,circle,draw,font=\sffamily\normalsize}]
+            \node[main node] (1) {1};
+            \node[main node] (2) [above of=1] {2};
+            \node[main node] (3) [right of=2] {3};
+            \node[main node] (4) [below of=3] {4};
+
+            \path[every node/.style={font=\sffamily\small}]
+                (1) edge node {1} (2)
+                (2) edge node {2} (3)
+                (3) edge node {5} (4)
+                (4) edge node {10} (1)
+                (1) edge node {6} (3)
+                ;
+        \end{tikzpicture}
+        \caption{Un grafo indiretto pesato.}
+    \end{figure}
+
+    si noti che, in esso, si ha che $$\mathrm{dist}(1, 4) = 1$$ attraversando l'arco $(1, 4)$, mentre $$\mathrm{dist}_w(1, 4)=w(1, 2) + w(2, 3) + w(3, 4)=1 + 2 + 5 = 8$$ attraversando gli archi $(1, 2), (2, 3)$ e $(3, 4)$, poiché $$w(1, 4) = 10; \ w(1, 3) + w(3, 4) = 6 + 5 = 11$$ entrambi maggiori di $8$.
+\end{example}
+
+\begin{lemma}[Caratteristiche delle distanze pesate]
+    Sia $G$ un grafo; le seguenti proposizioni sono vere:
+
+    \begin{enumerate}[i)]
+        \item $\forall x \in V(G) \quad \mathrm{dist}_w(x, x) = 0$
+        \item $\forall x, y \in V(G) \quad \mathrm{dist}_w(x, y) \ge 0$
+        \item $\forall x, y, z \in V(G) \quad \mathrm{dist}_w(x, y) \le \mathrm{dist}_w(x, z) + \mathrm{dist}_w(z, y)$, detta \textup{disuguaglianza triangolare}.
+    \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+    \hspace{0.7cm}
+    \begin{enumerate}[\itshape i)]
+        \item La distanza da un nodo in sé stesso deve necessariamente essere nulla, poiché composta da 0 archi.
+        \item Per definizione di $w$, la somma di numeri in $\mathbb{R}^+$ deve ancora essere in $\mathbb{R}^+$.
+        \item TODO
+    \end{enumerate}
+\end{proof}
+
+\begin{remark}[Distanze pesate di un grafo diretto]
+    Sia $G$ un grafo diretto, e $x, y \in V(G)$ due suoi vertici; si noti che, in un grafo diretto, $\mathrm{dist}_w$ non è necessariamente simmetrica, e potrebbe verificarsi che $$\mathrm{dist}_w(x, y) \neq \mathrm{dist}_w(y, x)$$
 \end{remark}
 
 \end{document}

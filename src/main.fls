@@ -1,4 +1,4 @@
-PWD /home/phantasm/algorithms/src
+PWD /home/aless/algorithms/src
 INPUT /usr/share/texmf-dist/web2c/texmf.cnf
 INPUT /var/lib/texmf/web2c/pdftex/pdflatex.fmt
 INPUT main.tex
@@ -991,6 +991,7 @@ INPUT /usr/share/texmf-dist/fonts/tfm/public/cm/cmtt10.tfm
 INPUT /usr/share/texmf-dist/fonts/tfm/public/cm/cmtt8.tfm
 INPUT /usr/share/texmf-dist/fonts/tfm/public/cm/cmcsc10.tfm
 INPUT /usr/share/texmf-dist/fonts/tfm/jknappen/ec/tcrm1440.tfm
+INPUT /usr/share/texmf-dist/fonts/tfm/public/cm/cmss12.tfm
 INPUT main.aux
 INPUT ./main.out
 INPUT ./main.out
