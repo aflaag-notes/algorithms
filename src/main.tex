@@ -2127,6 +2127,7 @@
 \end{example}
 
 \begin{lemma}[Caratteristiche delle distanze pesate]
+    \label{caratteristiche distanze pesate}
     Sia $G$ un grafo; le seguenti proposizioni sono vere:
 
     \begin{enumerate}[i)]
@@ -2141,12 +2142,66 @@
     \begin{enumerate}[\itshape i)]
         \item La distanza da un nodo in sé stesso deve necessariamente essere nulla, poiché composta da 0 archi.
         \item Per definizione di $w$, la somma di numeri in $\mathbb{R}^+$ deve ancora essere in $\mathbb{R}^+$.
-        \item TODO
+        \item Siano $Q_1$ e $Q_2$ cammini della forma $x \rightarrow z$ e $z \rightarrow y$ rispettivamente; si noti che il peso della passeggiata $Q_1 \cup Q_2$, della forma $x \rightarrow y$, è pari a $$w_p(Q_1 \cup Q_2) = w(Q_1) + w(Q_2)$$ e inoltre, per il \cref{cammini e passeggiate}, è possibile trovare un cammino all'interno di tale passeggiata che, al più, attraversa lo stesso numero di archi di $Q_1 \cup Q_2$; allora segue che tale cammino deve avere peso minore o uguale al peso della passeggiata che lo contiene, e dunque esiste un cammino tale che $$\mathrm{dist}_w(x, y) \le \mathrm{dist}_w(x, z) + \mathrm{dist}_w(z, y)$$
     \end{enumerate}
 \end{proof}
 
 \begin{remark}[Distanze pesate di un grafo diretto]
     Sia $G$ un grafo diretto, e $x, y \in V(G)$ due suoi vertici; si noti che, in un grafo diretto, $\mathrm{dist}_w$ non è necessariamente simmetrica, e potrebbe verificarsi che $$\mathrm{dist}_w(x, y) \neq \mathrm{dist}_w(y, x)$$
+\end{remark}
+
+\begin{lemma}[Distanze pesate dei vicini]
+    \label{vicini pesati}
+    Sia $G$ un grafo indiretto pesato attraverso $w$ e $v \in V(G)$ un suo vertice; sia $N(v)$ l'insieme dei vertici adiacenti a $v$, e sia $$u := \min_{x \in N(v)}(w(v, x))$$ allora necessariamente $$\mathrm{dist}_w(v, u) = w(v, u)$$
+\end{lemma}
+
+\begin{proof}
+    Per ipotesi, $u$ è il vertice adiacente $v$ attraverso un arco $(v, u) \in E(G)$ di peso minimo tra gli adiacenti; allora, considerando qualsiasi altro cammino $c'$ della forma $v \rightarrow u$, non passante per l'arco $(v, u)$, si deve necessariamente avere $$w_p(c') > w_p(\{v, (v, u), u\})$$ poiché il primo arco di $c'$ avrà peso maggiore di $w(v, u)$, per come $u$ è stato scelto in ipotesi.
+\end{proof}
+
+\begin{theorem}[TODO NON SO CHE NOME DARGLI]
+    Sia $G$ un grafo indiretto, e sia $R \subseteq V(G)$ un sottoinsieme dei suoi vertici; siano $v, x \in R$ due vertici in $R$, e sia $$u:= \min_{y \in V(G) - R}{\left(\mathrm{dist}_w(v, x) + w(x, y)\right)}$$ allora necessariamente $$\mathrm{dist}_w(v, u) = \mathrm{dist}_w(v, x) + w(x, u)$$
+\end{theorem}
+
+\begin{proof}
+    Per ipotesi, $u$ è il vertice non in $R$, che minimizza $\mathrm{dist}_w(v, x) + w(x, u)$; si noti che, affinché sia verificata la tesi, è necessario dimostrare che esista un cammino $v \rightarrow u$, passante per $(x, u)$, tale da minimizzare $\mathrm{dist}_w(v, x) + w(x, u)$, e che non esistano cammini $v \rightarrow u$ di peso inferiore:
+
+    \begin{itemize}
+        \item per la prima parte, è sufficiente considerare il cammino $v \rightarrow x$ che definisce $\mathrm{dist}_w(v, x)$, al quale è possibile aggiungere l'arco $(x, u)$ stesso, per ottenere il cammino che minimizzi $\mathrm{dist}_w(v, x) + w(x, u)$, grazie al \cref{vicini pesati};
+        \item per la seconda parte, TODO
+    \end{itemize}
+\end{proof}
+
+\begin{algorithm}[H]
+    \caption{
+        Dato un grafo pesato $G$ attraverso $w$, e $u \in V(G)$ un suo vertice, l'algoritmo restiuisce le distanze pesate dei vertici di $G$ da $u$; l'algoritmo assume che ogni vertice di $G$ sia raggiungibile da $u$, e che ogni peso definito da $w$ sia diverso da $0$.\\
+        \textbf{Input}: $G$ grafo indiretto, tale che $\forall v \in V(G) \quad \deg(v) \ge 2$.\\
+        \textbf{Output}: un ciclo di $G$.
+    }
+
+    \begin{algorithmic}[1]
+        \Function{Dijkstra}{$G$, $w$, $u$}
+            \State $\texttt{distancesW} := \texttt{[}+ \infty \texttt{]} * n$ \Comment{basta un valore sufficientemente grande}
+            \State $\texttt{distancesW[}u\texttt{]} = 0$
+            TODO FIXA STA CAGATA
+            \State $\texttt{HashMap H} := \texttt{[]}$ \Comment{gestito attraverso un min-heap}
+            \For{$v \in V(G)$}
+                \State $\texttt{H.insert(distancesW[}v\texttt{]},v\texttt{)}$
+            \EndFor
+            \While{!$H.isEmpty()$}
+                \State $v = \texttt{H.extract_min()}$
+                \State $\texttt{distancesW[}v\texttt{]}=\texttt{H.key(}v\texttt{)}$
+            \EndWhile
+        \EndFunction
+    \end{algorithmic}
+\end{algorithm}
+
+\begin{remark}[Correttezza dell'algoritmo]
+    TODO \cref{caratteristiche distanze pesate}
+\end{remark}
+
+\begin{remark}[Costo dell'algoritmo]
+    TODO O(log n(n + m))
 \end{remark}
 
 \end{document}
