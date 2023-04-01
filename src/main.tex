@@ -40,6 +40,8 @@
     \par\addvspace{\topsep}
 }
 \algdef{SE}[DOWHILE]{Do}{doWhile}{\algorithmicdo}[1]{\algorithmicwhile\ #1}%
+\DeclareMathOperator*{\argmin}{arg\,min} 
+\DeclareMathOperator*{\argmax}{arg\,max}
 
 % theorems
 \newtheorem{theorem}{Teorema}[subsection]
@@ -1911,8 +1913,8 @@
 
 \subsection{Distanza}
 
-\begin{definition}
-    Sia $G$ un grafo, e siano $x, y \in V(G)$ due suoi vertici; si definisce \textit{distanza tra $x$ e $y$}, il numero minimo di archi che costituiscono un cammino $x \rightarrow y$. In simboli, sia $\mathcal{C}$ l'insieme dei cammini $x \rightarrow y$ in $G$; allora $$\mathrm{dist}(x, y) := \min_{c \in \mathcal{C}}(E(c))$$
+\begin{definition}[Distanza]
+    Sia $G$ un grafo, e siano $x, y \in V(G)$ due suoi vertici; si definisce \textit{distanza tra $x$ e $y$}, il numero minimo di archi che costituiscono un cammino $x \rightarrow y$. In simboli, sia $\mathcal{C}$ l'insieme dei cammini $x \rightarrow y$ in $G$; allora $$\mathrm{dist}(x, y) := \min_{c \in \mathcal{C}}{\left |E(c) \right|}$$
 \end{definition}
 
 \begin{algorithm}[H]
@@ -2098,7 +2100,7 @@
 \end{definition}
 
 \begin{definition}[Distanza pesata]
-    Sia $G$ un grafo pesato, e $x, y \in V(G)$ due suoi vertici; si definisce \textit{distanza pesata tra $x$ e $y$} il peso del cammino $x \rightarrow y$ di peso minimo. In simboli, sia $\mathcal{C}$ l'insieme dei cammini $x \rightarrow y$ in $G$; allora $$\mathrm{dist}_w(x, y) := \min_{c \in \mathcal{C}}(w_p(c))$$
+    Sia $G$ un grafo pesato, e $x, y \in V(G)$ due suoi vertici; si definisce \textit{distanza pesata tra $x$ e $y$} il peso del cammino $x \rightarrow y$ di peso minimo. In simboli, sia $\mathcal{C}$ l'insieme dei cammini $x \rightarrow y$ in $G$; allora $$\mathrm{dist}_w(x, y) := \min_{c \in \mathcal{C}}{w_p(c)}$$
 \end{definition}
 
 \begin{example}[Grafo indiretto pesato]
@@ -2123,7 +2125,7 @@
         \caption{Un grafo indiretto pesato.}
     \end{figure}
 
-    si noti che, in esso, si ha che $$\mathrm{dist}(1, 4) = 1$$ attraversando l'arco $(1, 4)$, mentre $$\mathrm{dist}_w(1, 4)=w(1, 2) + w(2, 3) + w(3, 4)=1 + 2 + 5 = 8$$ attraversando gli archi $(1, 2), (2, 3)$ e $(3, 4)$, poiché $$w(1, 4) = 10; \ w(1, 3) + w(3, 4) = 6 + 5 = 11$$ entrambi maggiori di $8$.
+    si noti che, in esso, si ha che $$\mathrm{dist}(1, 4) = 10$$ attraversando l'arco $(1, 4)$, mentre $$\mathrm{dist}_w(1, 4)=w(1, 2) + w(2, 3) + w(3, 4)=1 + 2 + 5 = 8$$ attraversando gli archi $(1, 2), (2, 3)$ e $(3, 4)$, poiché $$w(1, 4) = 10; \ w(1, 3) + w(3, 4) = 6 + 5 = 11$$ entrambi maggiori di $8$.
 \end{example}
 
 \begin{lemma}[Caratteristiche delle distanze pesate]
@@ -2152,7 +2154,7 @@
 
 \begin{lemma}[Distanze pesate dei vicini]
     \label{vicini pesati}
-    Sia $G$ un grafo indiretto pesato attraverso $w$ e $v \in V(G)$ un suo vertice; sia $N(v)$ l'insieme dei vertici adiacenti a $v$, e sia $$u := \min_{x \in N(v)}(w(v, x))$$ allora necessariamente $$\mathrm{dist}_w(v, u) = w(v, u)$$
+    Sia $G$ un grafo indiretto pesato attraverso $w$ e $v \in V(G)$ un suo vertice; sia $N(v)$ l'insieme dei vertici adiacenti a $v$, e sia $$u := \argmin_{x \in N(v)}{w(v, x)}$$ allora necessariamente $$\mathrm{dist}_w(v, u) = w(v, u)$$
 \end{lemma}
 
 \begin{proof}
@@ -2160,7 +2162,7 @@
 \end{proof}
 
 \begin{theorem}[Estensioni pesate di insiemi di vertici]
-    Sia $G$ un grafo indiretto, e sia $R \subseteq V(G)$ un sottoinsieme dei suoi vertici; sia $v\in R$ un vertice in $R$, e sia $(x, u) \in E(G)$ un arco con $x \in R$ e $u \in V(G) - R$, tale che $$(x, u):= \min_{\substack{(a, b) \in E(G) \\ a \in R \\ b \in V(G) - R}}{\left(\mathrm{dist}_w(v, x) + w(a, b)\right)}$$ allora necessariamente $$\mathrm{dist}_w(v, u) = \mathrm{dist}_w(v, x) + w(x, u)$$
+    Sia $G$ un grafo indiretto, e sia $R \subseteq V(G)$ un sottoinsieme dei suoi vertici; sia $v\in R$ un vertice in $R$, e sia $(x, u) \in E(G)$ un arco con $x \in R$ e $u \in V(G) - R$, tale che $$(x, u):= \argmin_{\substack{(a, b) \in E(G) \\ a \in R \\ b \in V(G) - R}}{\left(\mathrm{dist}_w(v, x) + w(a, b)\right)}$$ allora necessariamente $$\mathrm{dist}_w(v, u) = \mathrm{dist}_w(v, x) + w(x, u)$$
 \end{theorem}
 
 \begin{proof}
