@@ -22,8 +22,9 @@
 \contentsline {subsection}{\numberline {1.5.1}Distanza}{46}{subsection.1.5.1}%
 \contentsline {subsection}{\numberline {1.5.2}Visita in BFS}{47}{subsection.1.5.2}%
 \contentsline {subsection}{\numberline {1.5.3}Trovare il numero di cammini minimi}{50}{subsection.1.5.3}%
-\contentsline {subsection}{\numberline {1.5.4}Archi pesati}{51}{subsection.1.5.4}%
-\contentsline {chapter}{\numberline {2}Algoritmi greedy}{55}{chapter.2}%
-\contentsline {section}{\numberline {2.1}TODO}{55}{section.2.1}%
-\contentsline {subsection}{\numberline {2.1.1}Definizioni}{55}{subsection.2.1.1}%
-\contentsline {subsection}{\numberline {2.1.2}Trovare intervalli disgiunti}{55}{subsection.2.1.2}%
+\contentsline {subsection}{\numberline {1.5.4}Distanza tra insiemi di vertici}{51}{subsection.1.5.4}%
+\contentsline {subsection}{\numberline {1.5.5}Archi pesati}{53}{subsection.1.5.5}%
+\contentsline {chapter}{\numberline {2}Algoritmi greedy}{57}{chapter.2}%
+\contentsline {section}{\numberline {2.1}TODO}{57}{section.2.1}%
+\contentsline {subsection}{\numberline {2.1.1}Definizioni}{57}{subsection.2.1.1}%
+\contentsline {subsection}{\numberline {2.1.2}Trovare intervalli disgiunti}{57}{subsection.2.1.2}%

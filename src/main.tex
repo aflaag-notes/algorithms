@@ -1658,7 +1658,7 @@
     }
 
     \begin{algorithmic}[1]
-        \Function{findCycle}{G}
+        \Function{findCycle}{$G$}
             \State TODO deve funzionare in O(n + m)
         \EndFunction
         \\
@@ -1845,7 +1845,7 @@
 \end{remark}
 
 \begin{remark}[Costo dell'algoritmo]
-    TODO
+    TODO $O(n + m)$
 \end{remark}
 
 \begin{algorithm}[H]
@@ -1896,7 +1896,7 @@
 \begin{remark}[Correttezza dell'algoritmo]
     TODO DA RILEGGERE
 
-    L'algoritmo inizia effettuando un ciclo \texttt{for}, alla riga $25$, su ogni vertice $v \in V(G)$; in particolar, se $v$ non è stato ancora visitato (riga $26$), viene effettuata una visita ricorsiva in DFS di $G$, partendo da $v$.
+    L'algoritmo inizia effettuando un ciclo \texttt{for}, alla riga $25$, su ogni vertice $v \in V(G)$; in particolare, se $v$ non è stato ancora visitato (riga $26$), viene effettuata una visita ricorsiva in DFS di $G$, partendo da $v$.
 
     La funzione che effettua la visita ricorsiva in DFS, inizia con un ciclo \texttt{for}, alla riga $3$, il quale, per ogni vertice $v \in V(G)$ adiacente a $u$ in input, se non visitato, viene marcato come visitato (riga $5$), ne viene aggiornato il nodo padre (riga $6$), e viene effettuata una chiamata ricorsiva radicata su esso, per far si che la visita sia in DFS.
 
@@ -1964,7 +1964,7 @@
                 \If{$\left \{ \begin{array}{l} \texttt{distances[}x\texttt{]}= = 0 \\ \texttt{parents[}x\texttt{]} \neq x\end{array} \right .$}
                     \State $\texttt{parents[}x\texttt{]} = v$
                     \State $\texttt{distances[}x\texttt{]}=\texttt{distances[}v\texttt{]} + 1$
-                    \State $\texttt{Q.enque(}x\texttt{)}$
+                    \State $\texttt{Q.enqueue(}x\texttt{)}$
                 \EndIf
                 \EndFor
             \EndWhile
@@ -2021,7 +2021,7 @@
     }
 
     \begin{algorithmic}[1]
-            \Function{countShortestPaths}{$G, u$}
+        \Function{countShortestPaths}{$G, u$}
             \State $\texttt{parents}:=\texttt{[}-1\texttt{]} * n$
             \State $\texttt{parents[}u\texttt{]} = u$
             \State $\texttt{count}:=\texttt{[}0\texttt{]} * n$
@@ -2031,14 +2031,14 @@
             \While{!$\texttt{Q.isEmpty()}$}
                 \State $v = \texttt{Q.deque()}$
                 \For{$y \in V(G) : y \sim v$}
-                \If{$\texttt{parents[}y\texttt{]}= -1$} \Comment{se non è stato ancora visitato}
-                    \State $\texttt{parents[}y\texttt{]} = v$
-                    \State $\texttt{distances[}y\texttt{]}=\texttt{distances[}v\texttt{]} + 1$
-                    \State $\texttt{count[}y\texttt{]}=\texttt{count[}v\texttt{]}$
-                    \State $\texttt{Q.enque(}y\texttt{)}$
+                    \If{$\texttt{parents[}y\texttt{]}== -1$} \Comment{se non è stato ancora visitato}
+                        \State $\texttt{parents[}y\texttt{]} = v$
+                        \State $\texttt{distances[}y\texttt{]}=\texttt{distances[}v\texttt{]} + 1$
+                        \State $\texttt{count[}y\texttt{]}=\texttt{count[}v\texttt{]}$
+                        \State $\texttt{Q.enqueue(}y\texttt{)}$
                     \ElsIf{$\texttt{distances[}y\texttt{]}==\texttt{distances[}v\texttt{]} + 1$}
-                    \State $\texttt{count[}y\texttt{]} \ += \texttt{count[}v\texttt{]}$
-                \EndIf
+                        \State $\texttt{count[}y\texttt{]} \ += \texttt{count[}v\texttt{]}$
+                    \EndIf
                 \EndFor
             \EndWhile
             \State \textbf{return} \texttt{count}
@@ -2062,6 +2062,57 @@
 
 \begin{remark}[Costo dell'algoritmo]
     L'algoritmo effettua esclusivamente una visita in BFS del grafo $G$ in input, e dunque il suo costo è pari a $O(n+m)$.
+\end{remark}
+
+\subsection{Distanza tra insiemi di vertici}
+
+\begin{definition}[Distanza tra insiemi di vertici]
+    Sia $G$ un grafo, e $X, Y \subseteq V(G)$ due sottoinsiemi di vertici di $G$; allora, si definisce \textit{distanza tra $X$ e $Y$} la distanza minima tra due vertici di $X$ e $Y$; in simboli $$\mathrm{dist}(X, Y) := \min_{x \in X, y \in Y}{\mathrm{dist}(x, y)}$$
+\end{definition}
+
+\begin{algorithm}[H]
+    \caption{
+        Dato un grafo $G$, rappresentato attraverso liste di adiacenza, e due suoi sottoinsiemi di vertici $X, Y \subseteq V(G)$, l'algoritmo restituisce $\mathrm{dist}(X, Y)$.\\
+        \textbf{Input}: $G$ grafo, rappresentato attraverso liste di adiacenza; $X, Y \subseteq V(G)$ sottoinsiemi di vertici di $G$.\\
+        \textbf{Output}: $\mathrm{dist}(X, Y)$.
+    }
+
+    \begin{algorithmic}[1]
+        \Function{setDistance}{$G$, $X$, $Y$}
+            \State $\texttt{distances}:=\texttt{[}-1\texttt{]} * n$
+            \State $\texttt{Queue Q} := \texttt{[}\texttt{]}$
+            \For{$x \in X$}
+                \State $\texttt{Q.enqueue(}x\texttt{)}$
+                \State $\texttt{distances[}x\texttt{]} = 0$ \Comment{i vertici $x \in X$ sono a distanza 0 da $X$}
+            \EndFor
+            \While{!$\texttt{Q.isEmpty()}$}
+                \State $v = \texttt{Q.deque()}$
+                \For{$u \in V(G) : u \sim v$}
+                    \If{$\texttt{distances[}u\texttt{]}== -1$} \Comment{se non è stato ancora visitato}
+                        \State $\texttt{distances[}u\texttt{]}=\texttt{distances[}v\texttt{]} + 1$
+                        \State $\texttt{Q.enqueue(}u\texttt{)}$
+                    \EndIf
+                \EndFor
+            \EndWhile
+            \State $d := + \infty$
+            \For{$y \in Y$}
+                \If{$\texttt{distances[}y\texttt{]} < d$}
+                    \State $d = \texttt{distances[}y\texttt{]}$
+                \EndIf
+            \EndFor
+            \State \textbf{return} \texttt{count}
+        \EndFunction
+    \end{algorithmic}
+\end{algorithm}
+
+\begin{remark}[Correttezza dell'algoritmo]
+    L'algoritmo inizia inserendo ogni vertice $x \in X$ in \texttt{Q}, all'interno del ciclo \texttt{for} della riga 4; successivamente, viene effettuata una visita in BFS di $G$, salvando le distanze trovate all'interno dell'array \texttt{distances}.
+
+    Si noti che, per dimostrazione precedente, l'algoritmo di visita in BFS trova la distranza tra vertici, naturalmente relativa al vertice di partenza; tale caratteristica può essere sfruttata, ad esempio in questo algoritmo, per calcolare tutte le distanze tra i vertici di $X$ e di $Y$, semplicemente ponendo ogni vertice di $X$ all'interno della coda \texttt{Q} all'inizio dell'algoritmo: così facendo, la visita in BFS calcolerà le distanze a partire dai vertici $x \in X$, che avranno $\texttt{distances[}x\texttt{]} = 0$, e per trovare $\mathrm{dist}(X, Y)$ cercata, è sufficiente un ciclo \texttt{for}, alla riga 18, con il quale viene semplicemente trovata $$\displaystyle d := \min_{y \in Y}{\texttt{distances[}y\texttt{]}} = \min_{x \in X, y \in Y}{\mathrm{dist}(x, y)} =: \mathrm{dist}(X, Y)$$
+\end{remark}
+
+\begin{remark}[Costo dell'algoritmo]
+    L'algoritmo è costituito da una visita in BFS del grafo $G$ in input, partendo dai vertici in $X$, che ha costo $O(n + m)$ per osservazioni precedenti, seguita da un ciclo \texttt{for} su ogni vertice $y \in Y$, che ha dunque costo $O(|Y|)$; di conseguenza, il costo dell'algoritmo è pari a $O(n + m) + O(|Y|)$, ma si noti che $Y \subseteq V(G) \implies |Y| \le |V(G)| =: n \implies O(n + m) + O(|Y|) = O(n + m)$.
 \end{remark}
 
 \subsection{Archi pesati}

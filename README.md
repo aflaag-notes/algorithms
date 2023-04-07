@@ -4,5 +4,34 @@ Questi sono i miei [appunti](https://raw.githubusercontent.com/ph04/algorithms/m
 
 ## TODO
 
-- finire TODOs sparsi (si stanno accumulando troppo velocemente)
+- pagina 3
+    - finire la dimostrazione
 
+- pagina 5
+    - inserisci algoritmo vedere se arco in ciclo
+
+- pagina 6
+    - inserisci esercizi
+
+- pagina 7/39
+    - scrivere l'algoritmo per trovare cicli in costo O(n + m)
+    - scrivere il costo totale dell'algoritmo
+
+- pagina 8/43
+    - scrivere proposizione e roba dell'algoritmo
+
+- pagina 9/46
+    - concludere spiegazione dell'algoritmo
+
+- pagina 9/47
+    - scrivere algoritmo "nostro"
+
+- pagina 10
+    - dimostrazione in alto a destra
+    - fun fact a sinistra al centro
+
+- pagina 11
+    - algoritmo
+
+- pagina 12
+    - algoritmo
