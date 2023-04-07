@@ -20,11 +20,11 @@
 \contentsline {subsection}{\numberline {1.4.6}Trovare le componenti}{35}{subsection.1.4.6}%
 \contentsline {section}{\numberline {1.5}BFS (Breadth-first Search)}{46}{section.1.5}%
 \contentsline {subsection}{\numberline {1.5.1}Distanza}{46}{subsection.1.5.1}%
-\contentsline {subsection}{\numberline {1.5.2}Visita in BFS}{47}{subsection.1.5.2}%
-\contentsline {subsection}{\numberline {1.5.3}Trovare il numero di cammini minimi}{50}{subsection.1.5.3}%
-\contentsline {subsection}{\numberline {1.5.4}Distanza tra insiemi di vertici}{51}{subsection.1.5.4}%
-\contentsline {subsection}{\numberline {1.5.5}Archi pesati}{53}{subsection.1.5.5}%
-\contentsline {chapter}{\numberline {2}Algoritmi greedy}{57}{chapter.2}%
-\contentsline {section}{\numberline {2.1}TODO}{57}{section.2.1}%
-\contentsline {subsection}{\numberline {2.1.1}Definizioni}{57}{subsection.2.1.1}%
-\contentsline {subsection}{\numberline {2.1.2}Trovare intervalli disgiunti}{57}{subsection.2.1.2}%
+\contentsline {subsection}{\numberline {1.5.2}Visita in BFS}{48}{subsection.1.5.2}%
+\contentsline {subsection}{\numberline {1.5.3}Trovare il numero di cammini minimi}{51}{subsection.1.5.3}%
+\contentsline {subsection}{\numberline {1.5.4}Distanza tra insiemi di vertici}{52}{subsection.1.5.4}%
+\contentsline {subsection}{\numberline {1.5.5}Archi pesati}{54}{subsection.1.5.5}%
+\contentsline {chapter}{\numberline {2}Algoritmi greedy}{58}{chapter.2}%
+\contentsline {section}{\numberline {2.1}TODO}{58}{section.2.1}%
+\contentsline {subsection}{\numberline {2.1.1}Definizioni}{58}{subsection.2.1.1}%
+\contentsline {subsection}{\numberline {2.1.2}Trovare intervalli disgiunti}{58}{subsection.2.1.2}%

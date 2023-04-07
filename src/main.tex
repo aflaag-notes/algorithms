@@ -666,7 +666,7 @@
 
 \begin{algorithm}[H]
     \caption{
-        Dato un grafo indiretto $G$, con ogni vertice avente grado almeno pari a $2$, l'algoritmo restiuisce un ciclo di $G$.\\
+        Dato un grafo indiretto $G$, con ogni vertice avente grado almeno pari a $2$, l'algoritmo restituisce un ciclo di $G$.\\
         \textbf{Input}: $G$ grafo indiretto, tale che $\forall v \in V(G) \quad \deg(v) \ge 2$.\\
         \textbf{Output}: un ciclo di $G$.
     }
@@ -1652,7 +1652,7 @@
 
 \begin{algorithm}[H]
     \caption{
-        Dato un grafo diretto $G$, rappresentato attraverso liste di adiacenza, con liste di archi sia entranti che uscenti per ogni vertice, l'algoritmo restiuisce le componenti di $G$.\\
+        Dato un grafo diretto $G$, rappresentato attraverso liste di adiacenza, con liste di archi sia entranti che uscenti per ogni vertice, l'algoritmo restituisce le componenti di $G$.\\
         \textbf{Input}: $G$ grafo diretto, rappresentato attraverso liste di adiacenza, con liste di archi sia entranti che uscenti per ogni vertice.\\
         \textbf{Output}: le componenti di $G$.
     }
@@ -1797,7 +1797,7 @@
 
 \begin{algorithm}[H]
     \caption{
-        Dato un grafo diretto $G$, rappresentato attraverso liste di adiacenza, l'algoritmo restiuisce le componenti di $G$.\\
+        Dato un grafo diretto $G$, rappresentato attraverso liste di adiacenza, l'algoritmo restituisce le componenti di $G$.\\
         \textbf{Input}: $G$ grafo diretto, rappresentato attraverso liste di adiacenza.\\
         \textbf{Output}: le componenti di $G$.
     }
@@ -1906,7 +1906,7 @@
 \end{remark}
 
 \begin{remark}[Costo dell'algoritmo]
-    Poiché l'algoritmo effettua una visita ricorsiva in DFS del grafo $G$ in input, il costo dovrebbe essere $O(n + m)$, ma l'unico caso in cui viene effettuata una visita completa del grafo è nel caso peggiore, ovvero quando il grafo è aciclico. Si noti però che, se $G$ è aciclico, si verifica che $m := |E(G)| = n - 1$, e dunque $O(n + m) = O(n + n + 1) = O(2n + 1) = O(n)$. Allora, il costo dell'algoritmo è $O(n)$.
+    Poiché l'algoritmo effettua una visita ricorsiva in DFS del grafo $G$ in input, il costo dovrebbe essere $O(n + m)$, ma l'unico caso in cui viene effettuata una visita completa del grafo è nel caso peggiore, ovvero quando il grafo è aciclico. Si noti però che, se $G$ è aciclico, si verifica che $m := |E(G)| = n - 1$, e dunque $O(n + m) = O(n + n - 1) = O(2n - 1) = O(n)$. Allora, il costo dell'algoritmo è $O(n)$.
 \end{remark}
 
 \section{BFS (Breadth-first Search)}
@@ -1919,33 +1919,68 @@
 
 \begin{algorithm}[H]
     \caption{
-        TODO ALGORITMO "NOSTRO"
-        Dato un grafo diretto $G$, rappresentato attraverso liste di adiacenza, l'algoritmo restiuisce le componenti di $G$.\\
-        \textbf{Input}: $G$ grafo diretto, rappresentato attraverso liste di adiacenza.\\
-        \textbf{Output}: le componenti di $G$.
+        Dato un grafo $G$, rappresentato attraverso liste di adiacenza, e un vettore di padri di un albero/arborescenza di visita in DFS di $G$, l'algoritmo restituisce la distanza di ogni vertice dalla radice dell'albero/arborescenza.\\
+        \textbf{Input}: $G$ grafo diretto, rappresentato attraverso liste di adiacenza; \texttt{parents} un array di padri di un albero/arborescenza radicato in un certo $r \in V(G)$.\\
+        \textbf{Output}: $\forall v \in V(G) \quad \mathrm{dist}(r, v)$.
     }
 
     \begin{algorithmic}[1]
-        \Function{DFS}{$G, u, \texttt{components}, \texttt{S}, \texttt{c}, \texttt{cc}$}
-            TODO
+        \Function{updateDistances}{$v$, \texttt{parents}, \texttt{distances}}
+            \If{$\texttt{distances[parents[}v\texttt{]]} == -1$} \Comment{se non ancora visitato}
+                \State $\texttt{updateDistances(parents[}v\texttt{]}, \texttt{parents}, \texttt{distances)}$
+            \EndIf
+            \State $\texttt{distances[}v\texttt{]} = \texttt{distances[parents[}v\texttt{]]} + 1$
         \EndFunction
         \\
-        \Function{findComponents$_2$}{$G$}
-            TODO
-            \State \textbf{return} \texttt{components}
+        \Function{findRoot}{$G$, \texttt{parents}}
+            \For{$v \in V(G)$}
+                \If{$\texttt{parents[}v\texttt{]} = = v$}
+                    \State \textbf{return} $v$
+                \EndIf
+            \EndFor
+        \EndFunction
+        \\
+        \Function{findDistances}{$G$, \texttt{parents}}
+            \State $r := \texttt{findRoot}(G, \texttt{parents})$
+            \State $\texttt{distances}:=\texttt{[}-1\texttt{]} * n$
+            \State $\texttt{distances[}r\texttt{]} = 0$
+            \For{$v \in V(G)$}
+                \If{$\texttt{distances[}v\texttt{]} == -1$} \Comment{se non ancora visitato}
+                    \State $\texttt{updateDistances(}v, \texttt{parents}, \texttt{distances)}$
+                \EndIf
+            \EndFor
+            \State \textbf{return} \texttt{distances}
         \EndFunction
     \end{algorithmic}
 \end{algorithm}
 
+\begin{remark}[Correttezza dell'algoritmo]
+    L'algoritmo inizia istanziando un array \texttt{distances}, posto a $-1$ per ogni elemento, valore sentinella che verrà sfruttato dall'algoritmo per determinare se un dato vertice è stato visitato o meno.
+
+    Come primo passo, alla riga 17 viene trovata la radice $r$ dell'array \texttt{parents}, il quale rappresenta un albero/arborescenza di visita in DFS del grafo $G$ in input, grazie alla funzione \texttt{findRoot}; quest'ultima, per trovare la radice, esegue un ciclo \texttt{for} sull'array \texttt{parents}, restituendo l'unico vertice $v \in V(G) : \texttt{parents[}v\texttt{]} = v$. Infine, viene salvata la distanza di $r$ dalla radice in \texttt{distances}, pari naturalmente a 0, alla riga 19.
+
+    Successivamente, viene istanziato un ciclo \texttt{for}, alla riga 20, che per ogni vertice $v \in V(G)$ non ancora visitato dall'algoritmo (contrassegnato con $\texttt{distances[}v\texttt{]} = -1$), effettua una chiamata ricorsiva alla funzione \texttt{updateDistances}.
+
+    All'interno di $\texttt{updateDistances}$, alla riga 2, viene controllato se la distanza del padre del vertice $v$ corrente, dalla radice di \texttt{parents}, non sia nota, e in tal caso viene effettuata una chiamata ricorsiva radicata proprio nel padre; questo, di fatto, ha l'effetto di "risalire" l'albero rappresentato da \texttt{parents}, di padre in padre, fintanto che non viene trovato un vertice la cui distanza dalla radice è nota; si noti che, inizialmente, l'unico vertice la cui distanza è nota è la radice stessa, e dunque la riga 19 funge da \textit{caso base} della ricorsione. Infine, una volta risalito l'albero fino alla radice, vengono rimosse le chiamate ricorsive dallo stack-call, aggiornando i valori delle distanze, ora note, dalla radice, secondo la legge $$\texttt{distances[}v\texttt{]} = \texttt{distances[parents[}v\texttt{]]} + 1$$ alla riga 5, poiché naturalmente ogni figlio $v$ sarà ad una distanza, dalla radice $r$, pari alla distanza del proprio padre + 1, quest'ultimo dato dall'arco $(\texttt{parents[}v\texttt{]}, v)$ stesso.
+\end{remark}
+
+\begin{remark}[Costo dell'algoritmo]
+    L'algoritmo esegue inizialmente una chiamata alla funzione \texttt{findRoot}, la quale effettua un singolo ciclo \texttt{for}, che nel caso peggiore ha costo $O(n)$.
+
+    Successivamente, viene effettuato un ciclo \texttt{for} per ogni vertice del grafo $G$, il quale, per ogni nodo non ancora visitato, chiama \texttt{updateDistances}; all'interno di quest'ultima, si noti che la ricorsione viene effettuata esclusivamente se il padre del vertice corrente non è stato ancora visitato (riga 2), e dunque l'intero ciclo \texttt{for} della riga 20 ha costo $O(n)$, poiché è garantito che ogni vertice $v \in V(G)$ viene visitato una ed una sola volta.
+
+    Allora, il costo dell'algoritmo è pari a $O(n) + O(n) = O(n)$.
+\end{remark}
+
 \subsection{Visita in BFS}
 
 \begin{definition}[BFS]
-    Con BFS si indica un criterio di visita di un grafo; in particolare, BFS sta per \textit{Breadth-first Search}, dunque la visita del grafo avviene controllando i vertici adiacenti ad ogni nodo.
+    Con BFS si indica un criterio di visita di un grafo; in particolare, BFS sta per \textit{Breadth-first Search}, dunque la visita del grafo avviene controllando, prima di procedere al prossimo livello, tutti i vertici adiacenti al nodo del livello corrente.
 \end{definition}
 
 \begin{algorithm}[H]
     \caption{
-        Dato un grafo $G$, rappresentato attraverso liste di adiacenza (nel caso di grafo diretto, è sufficiente memorizzare gli archi uscenti per ogni vertice), ed un suo vertice $u$, l'algoritmo restituisce le distanze dei vertici di $G$ da $u$.\\
+        Dato un grafo $G$, rappresentato attraverso liste di adiacenza (nel caso di grafo diretto, è sufficiente memorizzare gli archi uscenti per ogni vertice), ed un suo vertice $u \in V(G)$, l'algoritmo restituisce le distanze dei vertici di $G$ da $u$.\\
         \textbf{Input}: $G$ grafo, rappresentato attraverso liste di adiacenza; $u \in V(G)$ un vertice di $G$.\\
         \textbf{Output}: $\forall v \in V(G) \quad \mathrm{dist}(u, v)$.
     }
@@ -2014,10 +2049,9 @@
 
 \begin{algorithm}[H]
     \caption{
-        TODO
-        Dato un grafo $G$, rappresentato attraverso liste di adiacenza (nel caso di grafo diretto, è sufficiente memorizzare gli archi uscenti per ogni vertice), ed un suo vertice $u$, l'algoritmo restituisce le distanze dei vertici di $G$ da $u$.\\
+        Dato un grafo $G$, rappresentato attraverso liste di adiacenza, ed un suo vertice $u$, per ogni $v \in V(G)$, l'algoritmo restituisce il numero di cammini minimi della forma $u \rightarrow v$.\\
         \textbf{Input}: $G$ grafo, rappresentato attraverso liste di adiacenza; $u \in V(G)$ un vertice di $G$.\\
-        \textbf{Output}: $\forall v \in V(G) \quad \mathrm{dist}(u, v)$.
+        \textbf{Output}: per ogni vertice $v \in V(G)$, il numero di cammini minimi della forma $u \rightarrow v$.
     }
 
     \begin{algorithmic}[1]
@@ -2047,17 +2081,14 @@
 \end{algorithm}
 
 \begin{remark}[Correttezza dell'algoritmo]
-    TODO RILEGGERE
     L'algoritmo presenta una semplice modifica dell'\cref{bfs}, inserendo le righe $14$, $16$ e $17$:
 
     \begin{itemize}
-        \item alla riga $16$, viene posto il numero di cammini minimi per raggiungere $y$ partendo da $u$, pari al numero di cammini minimi di $v$, ovvero il suo nodo padre; ciò, in quanto alla riga $11$ viene controllato che il nodo non sia stato ancora visitato, e dunque il suo valore in \texttt{count} sarà ancora pari a $0$, e con la riga $14$ viene dunque rimpiazzato;
-        \item alla riga $16$, viene controllato che il valore della distanza sia stato aggiornato correttamente, ed in tal caso, alla riga $17$ viene accomulato al conteggio di $y$, il conteggio di $v$, ovvero il suo nodo padre.
+        \item alla riga $14$, viene posto il numero di cammini minimi per raggiungere $y$ partendo da $u$, pari al numero di cammini minimi di $v$, ovvero il suo nodo padre; ciò, in quanto alla riga $11$ viene controllato che il nodo non sia stato ancora visitato, e dunque il suo valore in \texttt{count} sarà ancora pari a $0$, e con la riga $14$ viene dunque semplicemente rimpiazzato; inoltre, il numero di cammini minimi per raggiungere un figlio, sara sicuramente almeno pari a quello del padre;
+        \item alla riga $16$, viene controllato che il valore della distanza sia stato aggiornato correttamente, ed in tal caso, alla riga $17$ viene accumulato al conteggio di $y$, il conteggio di $v$, ovvero il suo nodo padre.
     \end{itemize}
 
-    Infatti, poiché la visita in BFS trova le distanze minime tra i vertici di $G$, e il vertice $u$ di partenza, allora avendo un vertice $y$, figlio di $v_1$ e $v_2$, si ha che $$\texttt{count[}y\texttt{]} = \texttt{count[}v_1\texttt{]} + \texttt{count[}v_2\texttt{]}$$
-
-    Questo è vero necessariamente, poiché se $\texttt{count[}y\texttt{]}$ fosse maggiore della somma del valore di \texttt{count} dei nodi padri, allora l'algoritmo avrebbe sbagliato la visita in BFS, e se invece fosse minore, allora mancherebbero dei cammini poiché $(v_1, y), (v_2, y) \in E(G)$.
+    Infatti, si noti che avendo un vertice $y \in V(G)$, figlio di $v_1, \ldots, v_k \in V(G)$, è sempre vero che $$\texttt{count[}y\texttt{]} = \texttt{count[}v_1\texttt{]} + \ldots + \texttt{count[}v_k\texttt{]}$$
 \end{remark}
 
 \begin{remark}[Costo dell'algoritmo]
@@ -2227,7 +2258,7 @@
 
 % \begin{algorithm}[H]
 %     \caption{
-%         Dato un grafo pesato $G$ attraverso $w$, e $u \in V(G)$ un suo vertice, l'algoritmo restiuisce le distanze pesate dei vertici di $G$ da $u$; l'algoritmo assume che ogni vertice di $G$ sia raggiungibile da $u$, e che ogni peso definito da $w$ sia diverso da $0$.\\
+%         Dato un grafo pesato $G$ attraverso $w$, e $u \in V(G)$ un suo vertice, l'algoritmo restituisce le distanze pesate dei vertici di $G$ da $u$; l'algoritmo assume che ogni vertice di $G$ sia raggiungibile da $u$, e che ogni peso definito da $w$ sia diverso da $0$.\\
 %         \textbf{Input}: $G$ grafo, e $u$ un suo vertice tale che per ogni $x \in V(G)$ esiste un cammino della forma $u \rightarrow x$; $w$ una funzione che associa pesi agli archi in $E(G)$, tale che ogni peso sia strettamente positivo.\\
 %         \textbf{Output}: le distanze dei vertici di $G$ da $u$.
 %     }

@@ -11,7 +11,7 @@ Questi sono i miei [appunti](https://raw.githubusercontent.com/ph04/algorithms/m
     - inserisci algoritmo vedere se arco in ciclo
 
 - pagina 6
-    - inserisci esercizi
+    - inserisci esercizio
 
 - pagina 7/39
     - scrivere l'algoritmo per trovare cicli in costo O(n + m)
@@ -23,15 +23,12 @@ Questi sono i miei [appunti](https://raw.githubusercontent.com/ph04/algorithms/m
 - pagina 9/46
     - concludere spiegazione dell'algoritmo
 
-- pagina 9/47
-    - scrivere algoritmo "nostro"
-
 - pagina 10
     - dimostrazione in alto a destra
     - fun fact a sinistra al centro
 
 - pagina 11
-    - algoritmo
+    - algoritmo dijkstra
 
 - pagina 12
-    - algoritmo
+    - algoritmo dijkstra
