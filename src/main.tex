@@ -7,7 +7,7 @@
 % misc
 \usepackage[italian]{babel} % set the language to italian
 \usepackage{indentfirst} % spacing at the beginning of every paragraph
-\usepackage[margin = 1.0in]{geometry} % size of the margins
+\usepackage[margin = 0.8in]{geometry} % size of the margins
 
 % tools
 \usepackage{amsthm}
@@ -348,13 +348,13 @@
 
 \begin{theorem}[Ordinamento topologico]
     \label{Ordinamento topologico}
-    Un grafo diretto $G$ ha un ordinamento topologico se e solo se è aciclico.
+    Un grafo diretto ha un ordinamento topologico, se e solo se è aciclico.
 \end{theorem}
 
 \begin{proof}
     \hspace{0.7cm}
     \begin{itemize}
-        \item[] \textit{Prima implicazione.} Per assurdo, sia $G$ un grafo diretto ciclico, avente dunque almeno un ciclo, con un ordinamento topologico, e siano $\{v_0, \ldots , v_{k - 1}, v_0\}$ i vertici che costituiscono uno dei cicli di $G$; allora, si ha che $v_0 \rightarrow v_1 \rightarrow \ldots \rightarrow v_{k - 1} \rightarrow v_0$, dunque all'interno dell'ordinamento topologico $v_0$ dovrebbe essere posto contemporaneamente prima e dopo $v_1, \ldots, v_{k - 1} \ \lightning$.
+        \item[] \textit{Prima implicazione.} Per assurdo, sia $G$ un grafo diretto, con un ordinamento topologico, e ciclico, avente dunque almeno un ciclo, e siano $\{v_0, \ldots , v_{k - 1}, v_0\}$ i vertici che costituiscono uno dei cicli di $G$; allora, si ha che $$v_0 \rightarrow v_1 \rightarrow \ldots \rightarrow v_{k - 1} \rightarrow v_0$$ e dunque all'interno dell'ordinamento topologico $v_0$ dovrebbe essere posto contemporaneamente prima e dopo $v_1, \ldots, v_{k - 1} \ \lightning$.
         \item[] \textit{Seconda implicazione.} Sia $G$ un grafo aciclico; allora per definizione, all'interno di esso non esistono cicli, ed è dunque possibile enumerare in sequenza ogni vertice $G$, senza creare dipendenze circloari, per poter trovare un ordinamento topologico del grafo.
     \end{itemize}
 \end{proof}
@@ -1063,7 +1063,7 @@
 \end{remark}
 
 \begin{remark}[Costo dell'algoritmo]
-    Si noti che il ciclo \texttt{while} che inizia alla riga $11$, e termina alla riga $29$, ha lo stesso costo computazionale dell'\cref{findReachableNodes2}, e dunque il suo costo è pari a $O(n + m)$.
+    Si noti che il ciclo \texttt{while} della riga $11$, e termina alla riga $29$, ha lo stesso costo computazionale dell'\cref{findReachableNodes2}, e dunque il suo costo è pari a $O(n + m)$.
 
     Si noti inoltre che, il ciclo \texttt{for} della riga $33$, effettua un'iterazione per ogni singolo vertice del grafo, ma all'interno di esso è presente un ulteriore ciclo \texttt{for}, alla riga $34$, che itera sui rispettivi vertici adiacenti entranti; allora, il costo di questi due cicli equivale al solo spazio di rappresentazione delle liste di adiacenza di $G$, ovvero $O(n + m)$, poiché al loro interno vengono eseguite esclusivamente operazioni in tempo costante.
 
@@ -1406,7 +1406,7 @@
     Successivamente, viene istanziato un ciclo \texttt{for}, alla riga $5$, in cui per ogni vertice $z$, adiacente al vertice $y$ corrente:
     \begin{itemize}
         \item se tale vertice $z$ ha tempo di visita pari a $0$, e dunque non è ancora stato visitato, ne viene inizialmente aggiornato il valore del padre, alla riga $7$, che sarà proprio $y$, e viene poi effettuata una chiamata ricorsiva, radicata in $z$; al termine di quest'ultima, viene aggiornato il valore di $\texttt{back[}y\texttt{]} = \min(\texttt{back[}y\texttt{]}, \texttt{back[}z\texttt{]})$, e dunque sarà sempre il minore tra i suoi discendenti;
-        \item se invece è già stato visitato, va aggiornato il valore di $\texttt{back[}y\texttt{]} = \min(\texttt{t[}z\texttt{]}, \texttt{back[}y\texttt{]})$, esclusivamente se $z$ non è il padre di $y$.
+        \item se invece tale vertice $z$ è già stato visitato, va aggiornato il valore di $\texttt{back[}y\texttt{]}$ con $\min(\texttt{t[}z\texttt{]}, \texttt{back[}y\texttt{]})$, esclusivamente se $z$ non è il padre di $y$.
     \end{itemize}
 
     Al termine della visita in DFS ricorsiva, l'algoritmo conclude cercando tutti i ponti del grafo, a partire dalle informazioni all'interno di \texttt{back}: infatti, alla riga $27$, per ogni vertice $u \in V(G)$ del grafo, viene inserito all'interno dell'insieme \texttt{bridges} l'arco tra $u$ e il suo vertice padre, se e solo se $u \neq \texttt{parents[}u\texttt{]}$ (ovvero, $u$ non è la radice), e $\texttt{back[}u\texttt{]} = \texttt{t[}u\texttt{]}$, dunque il valore di $\texttt{back[}u\texttt{]}$ è rimasto invariato dalla riga $4$. L'algoritmo termina restituendo \texttt{bridges}, che conterrà l'insieme dei ponti di $G$.
@@ -2215,11 +2215,13 @@
 
 \section{TODO}
 
-\subsection{TODO}
+\subsection{Definizioni}
 
 \begin{definition}[Algoritmo greedy]
-    Un algoritmo è detto \textit{greedy}, se cerca una soluzione effettuando delle scelte di passo in passo, optando sempre per il passo più "appetibile".
+    Un algoritmo è detto \textit{greedy}, se cerca una soluzione effettuando delle scelte di passo in passo, optando sempre per il passo più "appetibile" momentaneamente.
 \end{definition}
+
+\subsection{Trovare intervalli disgiunti}
 
 \begin{algorithm}[H]
     \caption{
@@ -2244,11 +2246,54 @@
 \end{algorithm}
 
 \begin{proof}
-    TODO
+    Siano $\texttt{Sol}_0, \ldots, \texttt{Sol}_n$ gli stati di \texttt{Sol}, ad ogni iterazione $k \in [1, n]$ dell'algoritmo; inoltre, sia $\texttt{Sol}^*$ una soluzione ottimale dell'algoritmo; allora, l'algoritmo funziona correttamente se e solo se $\exists \texttt{Sol}^* \mid \texttt{Sol}^* = \texttt{Sol}_n$.
+    \begin{itemize}
+        \textit{Prima implicazione.} $\exists \texttt{Sol}^*$ soluzione ottimale $\mid \texttt{Sol}_n \subseteq \texttt{Sol}^*$
+        \item \textit{caso base}
+            \begin{itemize}
+                \item $k = 0 \implies \texttt{Sol}_0 := \varnothing \implies \forall \texttt{Sol}^*$ soluzione ottimale $\quad \texttt{Sol}_0 \subseteq \texttt{Sol}^*$
+            \end{itemize}
+        \item \textit{ipotesi induttiva}
+            \begin{itemize}
+                \item $\exists \texttt{Sol}^*$ soluzione ottimale $\mid \texttt{Sol}_k \subseteq \texttt{Sol}^*$
+            \end{itemize}
+        \item \textit{passo induttivo}
+            \begin{itemize}
+                \item è necessario dimostrare che $\exists \texttt{Sol}^* \mid \texttt{Sol}_{k + 1} \subseteq \texttt{Sol}^*$
+                \item si noti che, per via della riga 7, per ogni $k \in [1, n)$ si verifica che
+                \begin{equation*}
+                    \resizebox{.86\hsize}{!}{
+                        $\texttt{Sol}_{k + 1} = \left \{ \begin{array}{ll} \texttt{Sol}_k & \exists [a_i, b_i] \in \texttt{Sol}_k \mid [a_i, b_i] \cap [a_{k + 1}, b_{k + 1}] \neq \varnothing \\ \texttt{Sol}_k \cup \{[a_{k + 1}, b_{k + 1}]\} & \forall [a_i, b_i] \in \texttt{Sol}_k \quad [a_i, b_i] \cap [a_{k + 1}, b_{k + 1}] = \varnothing \end{array} \right.$
+                }
+                \end{equation*}
+                
+                \item allora, nel primo caso, se esiste un intervallo $[a_i, b_i] \in \texttt{Sol}_k$ tale per cui $[a_i, b_i] \cap [a_{k + 1}, b_{k + 1}] \neq \varnothing$, si ha che l'intervallo $[a_{k + 1}, b_{k + 1}]$ non può essere inserito in $\texttt{Sol}_{k + 1}$, e dunque $\texttt{Sol}_{k + 1} = \texttt{Sol}_k \implies \exists \texttt{Sol}^* \mid \texttt{Sol}_{k + 1} = \texttt{Sol}_k \subseteq \texttt{Sol}^*$ per ipotesi induttiva
+                \item se invece non esiste alcun intervallo $[a_i, b_i] \in \texttt{Sol}_k$, tale che $[a_i, b_i] \cap [a_{k + 1}, b_{k + 1}] \neq \varnothing$, allora $[a_{k + 1}, b_{k + 1}]$ deve essere inserito in $\texttt{Sol}_{k + 1} = \texttt{Sol}_k \cup \{[a_{k + 1}, b_{k + 1}]\}$; si noti che, per definizione di $\texttt{Sol}_{k + 1}$, si ha che $$\forall k \in [1, n) \quad \texttt{Sol}_k \subseteq \texttt{Sol}_{k + 1}$$ allora, per dimostrare la tesi del passo induttivo è sufficiente considerare $[a_{k + 1}, b_{k + 1}]$; infatti $[a_{k + 1}, b_{k + 1}] \in \texttt{Sol}^* \implies \texttt{Sol}_{k +1} \subseteq \texttt{Sol}^*$ immediatamente
+                \item sia allora $[a_{k +1}, b_{k +1}] \notin \texttt{Sol}^*$; poiché $\texttt{Sol}^*$ è stata scelta ottimale, tale condizione può verificarsi se e solo se $$\exists [a_j, b_j] \in \texttt{Sol}^* \mid [a_j, b_j] \cap [a_{k +1}, b_{k +1}] \neq \varnothing$$
+                dove $[a_j, b_j] \neq [a_{k +1},b_{k +1}]$
+                \item per assurdo sia $b_j < b_{k + 1}$; si noti che $[a_j, b_j] \in \texttt{Sol}^* \implies [a_j, b_j]$ è disgiunto con ogni altro intervallo in $\texttt{Sol}^*$ per definizione; inoltre, poiché gli intervalli in $I$ sono stati ordinati, in ordine crescente, attraverso il loro estremo destro, alla riga 2, allora $b_j < b_{k + 1}$ implica che $[a_j, b_j]$ doveva essere stato esaminato prima della $(k + 1)$-esima iterazione, e poiché $[a_j, b_j] \in \texttt{Sol}^*$, allora sicuramente $[a_j, b_j] \in \texttt{Sol}_k$, poiché $\texttt{Sol}_k \subseteq \texttt{Sol}^*$ per ipotesi induttiva
+                \item allora $\left. \begin{array}{l} [a_j, b_j] \in \texttt{Sol}_k \subseteq \texttt{Sol}^* \\ {[}a_j, b_j] \cap [a_{k +1}, b_{k + 1}] \neq \varnothing \end{array}\right \} \implies [a_{k +1}, b_{k +1}] \notin \texttt{Sol}_{k +1} \ \lightning$ 
+                \item allora, segue necessariamente che $b_j > b_{k + 1}$, e dunque $[a_j, b_j] \in \texttt{Sol}^* - \texttt{Sol}_k$; inoltre, poiché $[a_j, b_j] \cap [a_{k +1} , b_{k +1}] \neq \varnothing$ in ipotesi, si ha che $a_j < b_{k +1} < b_j$
+                \item sia $[a_h, b_h] \in \texttt{Sol}^* - \texttt{Sol}_k \mid [a_h, b_h] \neq [a_j, b_j]$; poiché $I$ è ordinato come precedentemente discusso, segue che $[a_h, b_h] \notin \texttt{Sol}_k \implies b_h \ge b_{k +1}$
+                \item inoltre, per definizione $[a_h, b_h] \in \texttt{Sol}^* \iff \forall [a_i, b_i] \in \texttt{Sol}^* \quad [a_h, b_h] \cap [a_i, b_i] = \varnothing$, e poiché $[a_j,b_j] \in \texttt{Sol}^*$, in particolare si ha che $[a_h, b_h] \cap [a_j, b_j] = \varnothing$; allora, poiché $b_h \ge b_{k + 1} \in (a_j, b_j)$, necessariamente $$a_j < b_{k +1} < b_j \le a_h < b_h$$ e in particolare, $b_{k + 1} < a_h \implies [a_{k +1}, b_{k +1}] \cap [a_h, b_h] = \varnothing$
+                \item questo dimostra che ogni intervallo $[a_h, b_h] \in \texttt{Sol}^* - \texttt{Sol}_k$, che non sia proprio $[a_j, b_j]$, è disgiunto con $[a_{k +1}, b_{k +1}]$; allora, per trovare un insieme $\texttt{Sol}^*$ soluzione ottimale, tale per cui $\texttt{Sol}_{k + 1} \subseteq \texttt{Sol}^*$, è sufficiente considerare l'insieme $$\left(\texttt{Sol}^* - \{[a_j, b_j]\}\right) \cup \{[a_{k +1}, b_{k +1}]\}$$ in quanto $\texttt{Sol}_k \subseteq \texttt{Sol}^*$ per ipotesi induttiva, e $\texttt{Sol}_{k + 1} = \texttt{Sol}_k \cup \{[a_{k +1}, b_{k + 1}]\}$ per osservazione precedente.
+            \end{itemize}
+    \textit{Seconda implicazione.} $\exists \texttt{Sol}^*$ soluzione ottimale $\mid \texttt{Sol}^* \subseteq \texttt{Sol}_n$. Per assurdo, sia $\texttt{Sol}^* \not \subseteq \texttt{Sol}_n \implies \exists [a_t, b_t] \in \texttt{Sol}^* - \texttt{Sol}_n$ TODO
+    \end{itemize}
 \end{proof}
 
+\begin{remark}[Correttezza dell'algoritmo]
+    L'algoritmo inizia ordinando l'insieme di intervalli $I$, in ordine crescente del loro estremo destro, alla riga 2; successivamente, all'interno di \texttt{Sol} vengono inseriti tutti gli intervalli $i \in I$, tali che il loro estremo sinistro sia maggiore dell'estremo destro dell'ultimo elemento attualmente in \texttt{Sol}.
+
+    Infatti, è possibile controllare esclusivamente l'ultimo elemento in \texttt{Sol}, poiché l'ordinamento iniziale garantisce che gli unici intervalli inseriti al suo interno saranno disgiunti; inoltre, grazie al controllo della riga 6, l'estremo sinistro dell'intervallo corrente deve essere superiore dell'estremo destro di \texttt{Sol.last()}, affinchè questo possa essere inserito in \texttt{Sol}.
+
+    Infine, l'ordinamento della riga 2 garantisce di ottenere in output il sottoinsieme di intervalli disgiunti di cardinalità massima, poiché come primo intervallo in $I$ verrà posto l'intervallo con l'estremo destro inferiore.
+\end{remark}
+
 \begin{remark}[Costo dell'algoritmo]
-    Poiché l'ordinamento di $I$, alla riga 2, non può avere costo inferiore a $O(n \log n)$, e il ciclo \texttt{for} della riga 4 ha costo $O(n)$, l'algoritmo ha costo $O(n \log n) + O(n) = O(n \log n)$.
+    Si noti che, all'interno dell'algoritmo si assume \texttt{Sol.last()} abbia costo $O(1)$, andando ad indicizzare correttamente l'ultimo elemento della lista.
+
+    Poiché l'ordinamento di $I$, alla riga 2, indipendentemente dall'algoritmo di ordinamento scelto, non può avere costo inferiore a $O(n \log n)$, e il ciclo \texttt{for} della riga 4 ha costo $O(n)$, si ha che l'algoritmo ha costo $O(n \log n) + O(n) = O(n \log n)$.
 \end{remark}
 
 \end{document}
