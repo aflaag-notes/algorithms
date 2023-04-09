@@ -735,8 +735,8 @@
 
 \begin{algorithm}[H]
     \caption{
-        Prima versione dell'algoritmo; dato un grafo indiretto $G$, e un suo vertice $v$, l'algoritmo restituisce tutti i vertici, raggiungibili attraverso cammini, partendo da $v$.\\
-        \textbf{Input}: $G$ grafo indiretto; $v$ un vertice di $G$.\\
+        Prima versione dell'algoritmo; dato un grafo $G$, diretto o indiretto, e un suo vertice $v$, l'algoritmo restituisce tutti i vertici, raggiungibili attraverso cammini, partendo da $v$.\\
+        \textbf{Input}: $G$ un grafo; $v$ un vertice di $G$.\\
         \textbf{Output}: i vertici raggiungibili da $v$.
     }
 
@@ -746,7 +746,7 @@
             \State $\texttt{visited[}v\texttt{]} = 1$
             \State $\texttt{Stack S}:=\texttt{[}v\texttt{]}$
             \While{$!\texttt{S.isEmpty()}$}
-                \State $v_{top}=\texttt{S.top()}$
+                \State $v_{top}:=\texttt{S.top()}$
                 \If{$\exists z \in V(G) : \left \{ \begin{array}{l}z \sim v_{top} \\ \texttt{visited[}z\texttt{]}=0 \end{array} \right.$}
                     \State $\texttt{S.push(}z\texttt{)}$
                     \State $\texttt{visited[}z\texttt{]} = 1$
@@ -760,8 +760,16 @@
 \end{algorithm}
 
 \begin{proof}
-    Per assurdo, sia $\hat v \in V(G)$, raggiungibile da $v$ attraverso un cammino, che non sia stato raggiunto dall'algoritmo; allora, per definizione esiste un cammino $v, e_1, v_1, \ldots, v_{n - 1}, v_n, \hat v$; inoltre, sia $v_i$ il vertice con indice maggiore all'interno del cammino, raggiunto dall'algoritmo, e dunque avendo che $\left \{ \begin{array}{l}v_i \sim v_{i + 1} \\ v_{i + 1} \notin \texttt{visited}  \end{array} \right.$. Allora, per costruzione dell'algoritmo, $v_i$ sarebbe stato rimosso dallo stack, alla riga $11$, prima che $v_{i + 1}$ potesse essere visitato; ma poiché $v_i \sim v_{i +1}$, allora l'algoritmo dovrebbe aver sbagliato esecuzione, poiché $v_{i +1}$ sarebbe stato raggiunto alla riga $7$ inevitabilmente $\lightning$.
+    Per assurdo, sia $\hat v \in V(G)$, raggiungibile da $v$ attraverso un cammino, che non sia stato raggiunto dall'algoritmo; allora, per definizione esiste un cammino $\{v, e_1, v_1, \ldots, v_{n - 1}, v_n, \hat v\}$; inoltre, sia $v_i$ il vertice con indice maggiore all'interno del cammino, raggiunto dall'algoritmo, e dunque avendo che $\left \{ \begin{array}{l}v_i \sim v_{i + 1} \\ v_{i + 1} \notin \texttt{visited}  \end{array} \right.$. Allora, per costruzione dell'algoritmo, $v_i$ sarebbe stato rimosso dallo stack, alla riga $11$, prima che $v_{i + 1}$ potesse essere visitato; ma poiché $v_i \sim v_{i +1}$, allora l'algoritmo dovrebbe aver sbagliato esecuzione, poiché $v_{i +1}$ sarebbe stato raggiunto alla riga $7$ inevitabilmente $\lightning$.
 \end{proof}
+
+\begin{remark}[Correttezza dell'algoritmo]
+    L'algoritmo inizia definiendo un array \texttt{visited}, alla riga 2, contenente inizialmente il valore sentinella 0 per ogni vertice, il quale marcherà la presenza di nodi non ancora visitati dall'algoritmo; successivamente, viene segnato $v$, il vertice in input, come visitato all'interno di \texttt{visited}, alla riga 3, e viene posto all'interno dello stack \texttt{S}, alla riga 4.
+
+    Alla riga 5, viene inizializzato un ciclo \texttt{while}, all'interno del quale, fintanto che lo stack \texttt{S} non è vuoto, alla riga 6 viene definito $v_{top}$, pari al primo elemento dello stack, e se esiste un vertice $z \in V(G)$, non ancora visitato dall'algoritmo ($\texttt{visited[}z\texttt{]}=0$), tale che sia adiacente a $v_{top}$, viene inserito all'interno dello stack, alla riga 8, e viene marcato come visitato, alla riga 9. Si noti che queste due ultime operazioni garantiscono che la visita del grafo sia in DFS, poiché $v_{top}$ alla prossima iterazione del \texttt{while} sarà proprio il vertice $z$ appena inserito, e dunque l'algoritmo sta procedendo più in profondità che si possa; se invece un tale vertice $z$ non esiste, può voler dire esclusivamente che ogni singolo vertice adiacente a $v_{top}$ corrente è già stato visitato dall'algoritmo, e dunque è possibile retrocedere di profondità nella visita del grafo, andando dunque a rimuovere dallo stack l'attuale primo vertice, alla riga 11.
+
+    Per terminare, è sufficiente dunque ritornare l'array \texttt{visited}, che conterrà 1 su tutti e soli i vertici che sono stati raggiunti dall'algoritmo, e sono dunque raggiungibili dal vertice di partenza $v$; infatti, gli unici vertici che non sono stati raggiunti dall'algoritmo, sono vertici che non sono raggiungibili, partendo da $v$, attraverso cammini. Si noti che, nel caso di un $G$ indiretto, è sempre possibile raggiungere qualsiasi vertice, partendo da qualsiasi nodo, a meno di grafi non connessi.
+\end{remark}
 
 \begin{remark}[Costo dell'algoritmo]
     Si consideri $G$ rappresentato attraverso matrice di adiacenza; allora, il costo della riga $7$, nel caso peggiore, è $O(n)$, poiché è necessario controllare tutta la riga/colonna di $v_{top}$ per trovare un vertice $z$ tale che $\texttt{visited[}z\texttt{]} = 0$, dunque non sia stato ancora visitato. Per ragione analoga, rappresentando $G$ attraverso liste di adiacenza, nel caso peggiore si ha una sola lista corrispondente ad un singolo vertice di $G$, e sarà dunque necessario effettuare $O(n - 1) = O(n)$ controlli.
@@ -776,18 +784,14 @@
     Sia $G$ un grafo indiretto; considerando l'insieme di archi attraversati dall'algoritmo per trovare ogni vertice raggiungibile partendo da $v$, al termine della procedura si ottiene un sottografo indiretto di $G$ connesso ed aciclico: connesso, poiché l'algoritmo procede per adiacenza di vertici, ed aciclico, poiché l'algoritmo non visita lo stesso vertice più di una volta. Allora, per definizione, tale sottografo è un albero.
 \end{remark}
 
-\begin{remark}[Grafo diretto]
-    Si noti che l'algoritmo è valido anche per grafi diretti.
-\end{remark}
-
 \begin{remark}[Arborescenza]
     Sia $G$ un grafo diretto; considerando l'insieme di archi attraversati dall'algoritmo per trovare ogni vertice raggiungibile partendo da $v$, al termine della procedura si ottiene un sottografo diretto di $G$ connesso ed aciclico, per gli stessi motivi dell'\cref{Sottografo di un grafo indiretto}; tale sottografo è un arborescenza di $v$.
 \end{remark}
 
 \begin{algorithm}[H]
     \caption{
-        Seconda versione dell'algoritmo; dato un grafo indiretto $G$, rappresentato attraverso liste di adiacenza, e un suo vertice $v$, l'algoritmo restituisce tutti i vertici, raggiungibili attraverso cammini, partendo da $v$.\\
-        \textbf{Input}: $G$ grafo indiretto, rappresentato attraverso liste di adiacenza; $v$ un vertice di $G$.\\
+        Seconda versione dell'algoritmo; dato un grafo $G$, diretto o indiretto, rappresentato attraverso liste di adiacenza, e un suo vertice $v$, l'algoritmo restituisce tutti i vertici, raggiungibili attraverso cammini, partendo da $v$.\\
+        \textbf{Input}: $G$ un grafo, rappresentato attraverso liste di adiacenza; $v$ un vertice di $G$.\\
         \textbf{Output}: i vertici raggiungibili da $v$.
     }
 
@@ -797,7 +801,7 @@
             \State $\texttt{visited} := \verb|{|v\verb|}|$
             \State $\texttt{Stack S} := \texttt{[}v\texttt{]}$
             \While{$!\texttt{S.isEmpty()}$}
-                \State $v_{top}=\texttt{S.top()}$
+                \State $v_{top}:=\texttt{S.top()}$
                 \While{$!v_{top}\texttt{.adjacent().isEmpty()}$}
                     \State $z := v_{top}\texttt{.adjacent()[}0\texttt{]}$
                     \State $v_{top}\texttt{.adjacent().remove(}0\texttt{)}$ \Comment{fa la differenza}
@@ -817,7 +821,7 @@
 \end{algorithm}
 
 \begin{remark}[Correttezza dell'algoritmo]
-    Questa seconda versione dell'algoritmo presenta una miglioria sostanziale alla riga $8$: infatti, attraverso questa riga si rimuovono di volta in volta i vertici adiacenti appena già visitati; di conseguenza, i vertici adiacenti da controllare saranno progressivamente sempre meno. Infatti, si noti che senza la riga $8$, l'algoritmo si comporterebbe come la prima versione.
+    Questa seconda versione dell'algoritmo presenta una miglioria sostanziale alla riga $8$: infatti, attraverso questa riga si rimuovono di volta in volta i vertici adiacenti appena visitati; di conseguenza, i vertici adiacenti da controllare saranno progressivamente sempre meno. Infatti, si noti che senza la riga $8$, l'algoritmo si comporterebbe come la prima versione.
 
     Il \texttt{break} alla riga $12$ interrompe il ciclo \texttt{while} della riga $6$, facendo sì che $v_{top}$ della riga $5$, all'iterazione successiva del \texttt{while} della riga $4$, sia pari a $z$, dunque cambiando il vertice correntemente in esame. Di conseguenza, alla riga $15$ il controllo sarà valutato a \texttt{True} esclusivamente se non è mai stata eseguita la riga $11$ per tutta l'iterazione del ciclo \texttt{while} della riga $6$, ovvero quando tutti i vertici adiacenti a $v_{top}$ sono già stati visitati.
 \end{remark}
@@ -914,37 +918,6 @@
     La tesi equivale a dimostrare che non può verificarsi il caso in cui c'è intersezione vuota tra i due intervalli, e dunque non è possibile che $\mathrm{Int}(u) \cap \mathrm{Int}(v) = \varnothing$, ovvero $t(u) \le T(u) < t(v) \le T(v)$, poiché $T(u) < t(v)$ implicherebbe che $u$ verrebbe rimosso dallo stack prima che $v$ possa essere inserito, e questo non è possibile per costruzione della visita DFS, poiché $u \sim v$.
 \end{proof}
 
-\subsection{Categorie di archi}
-
-\begin{remark}[Categorie di archi]
-    Sia $G= (V, E)$ un grafo diretto, $\hat v \in V(G)$, e sia $A_{\hat v}$ la sua arborescenza; allora, è possibile classificare ogni arco $(u, v) \in E(G) - E(A_{\hat v})$, mediante $\mathrm{Int}(u)$ e $\mathrm{Int}(v)$:
-    \begin{itemize}
-        \item $\mathrm{Int}(u) \subseteq \mathrm{Int}(v)$, allora l'arco $(u, v)$ è un \textit{backward edge}, ovvero in avanti: sono gli archi che congiungono due nodi dello stesso ramo di $A_{\hat v}$, nel caso in cui $v$ è più in profondità di $u$ nella visita DFS 
-        \item $\mathrm{Int}(v) \subseteq \mathrm{Int}(u)$, allora l'arco $(u, v)$ è un \textit{forward edge}, ovvero all'indietro: sono gli archi che congiungono due nodi dello stesso ramo di $A_{\hat v}$, nel caso in cui $u$ è più in profondità di $v$ nella visita DFS
-        \item $\mathrm{Int}(v) \cap \mathrm{Int}(u) = \varnothing$, allora l'arco $(u, v)$ è un \textit{cross edge}, detto \textit{arco di attraversamento}: sono gli archi che congiungono due nodi di rami differenti in $A_{\hat v}$
-    \end{itemize}
-\end{remark}
-
-\begin{remark}[Categorie di archi]
-    Sia $G=(V, E)$ un grafo indiretto, $\hat v \in V(G)$, e sia $T_{\hat v}$ il suo albero; allora, ogni arco $(u, v) \in E(G) - E(T_{\hat v})$ viene classificato come \textit{backward edge}.
-\end{remark}
-
-\begin{example}
-    TODO
-\end{example}
-
-\begin{theorem}[Presenza di cicli]
-    Sia $G$ un grafo indiretto connesso; allora $G$ ha un ciclo se e solo se in esso esiste un backward edge in ogni albero.
-\end{theorem}
-
-\begin{proof}
-    \hspace{0.7cm}
-    \begin{itemize}
-        \item[] \textit{Prima implicazione.} Per assurdo, sia $G$ un grafo indiretto, in cui è presente almeno un ciclo, e non sono presenti backward edge; inoltre, sia $\hat v \in V(G)$, e sia $T_{\hat v}$ il suo albero. Allora, poiché $G$ non ha backward edge, necessariamente gli unici suoi archi sono quelli che compongono $T_{\hat v}$, e dunque $E(G) = E(T_{\hat v}) \implies G = T_{\hat v} \implies G$ è un albero, e dunque $G$ non ha cicli $\lightning$.
-        \item[] \textit{Seconda implicazione.} Sia $G$ un grafo indiretto connesso, sia $\hat v \in V(G)$, $T_{\hat v}$ il suo albero, e sia $(u, v) \in E(G) - E(T_{\hat v})$ un backward edge. Allora, poiché $u, v \in V(T_{\hat v})$, è sufficiente considerare il cammino tale che $u \rightarrow v$, che esiste poiché $T_{\hat v}$ è un albero, e dunque $\{u \rightarrow v\} \cup (u, v)$ è un ciclo di $G$.
-    \end{itemize}
-\end{proof}
-
 \begin{algorithm}[H]
     \caption{
         Dato un grafo $G$, rappresentato attraverso liste di adiacenza (nel caso di $G$ diretto, l'adiacenza è dei nodi uscenti), e un suo vertice $r$, l'algoritmo restituisce i tempi di visita e di chiusura dei nodi di $G$, relativi alla visita dell'albero, o dell'arborescenza, di $r$.\\
@@ -991,6 +964,37 @@
     Si noti che l'algoritmo controlla ogni singolo vertice una ed una sola volta, e la vista avviene in DFS; inoltre, poiché si ha un ciclo \texttt{for} all'interno di ogni livello della ricorsione, per costruzione stessa, l'algoritmo si comporta esattamente come l'\cref{findReachableNodes2}. Allora, poiché il grafo è rappresentato tramite liste di adiacenza, per ragionamento analogo all'\cref{costo findReachableNodes2}, il costo dell'algoritmo è pari a $O(n + m)$.
 \end{remark}
 
+\subsection{Categorie di archi}
+
+\begin{remark}[Categorie di archi]
+    Sia $G= (V, E)$ un grafo diretto, $\hat v \in V(G)$, e sia $A_{\hat v}$ la sua arborescenza; allora, è possibile classificare ogni arco $(u, v) \in E(G) - E(A_{\hat v})$, mediante $\mathrm{Int}(u)$ e $\mathrm{Int}(v)$:
+    \begin{itemize}
+        \item $\mathrm{Int}(u) \subseteq \mathrm{Int}(v)$, allora l'arco $(u, v)$ è un \textit{backward edge}, ovvero in avanti: sono gli archi che congiungono due nodi dello stesso ramo di $A_{\hat v}$, nel caso in cui $v$ è più in profondità di $u$ nella visita DFS 
+        \item $\mathrm{Int}(v) \subseteq \mathrm{Int}(u)$, allora l'arco $(u, v)$ è un \textit{forward edge}, ovvero all'indietro: sono gli archi che congiungono due nodi dello stesso ramo di $A_{\hat v}$, nel caso in cui $u$ è più in profondità di $v$ nella visita DFS
+        \item $\mathrm{Int}(v) \cap \mathrm{Int}(u) = \varnothing$, allora l'arco $(u, v)$ è un \textit{cross edge}, detto \textit{arco di attraversamento}: sono gli archi che congiungono due nodi di rami differenti in $A_{\hat v}$
+    \end{itemize}
+\end{remark}
+
+\begin{remark}[Categorie di archi]
+    Sia $G=(V, E)$ un grafo indiretto, $\hat v \in V(G)$, e sia $T_{\hat v}$ il suo albero; allora, ogni arco $(u, v) \in E(G) - E(T_{\hat v})$ viene classificato come \textit{backward edge}.
+\end{remark}
+
+\begin{example}
+    TODO
+\end{example}
+
+\begin{theorem}[Presenza di cicli]
+    Sia $G$ un grafo indiretto connesso; allora $G$ ha un ciclo se e solo se in esso esiste un backward edge in ogni albero.
+\end{theorem}
+
+\begin{proof}
+    \hspace{0.7cm}
+    \begin{itemize}
+        \item[] \textit{Prima implicazione.} Per assurdo, sia $G$ un grafo indiretto, in cui è presente almeno un ciclo, e non sono presenti backward edge; inoltre, sia $\hat v \in V(G)$, e sia $T_{\hat v}$ il suo albero. Allora, poiché $G$ non ha backward edge, necessariamente gli unici suoi archi sono quelli che compongono $T_{\hat v}$, e dunque $E(G) = E(T_{\hat v}) \implies G = T_{\hat v} \implies G$ è un albero, e dunque $G$ non ha cicli $\lightning$.
+        \item[] \textit{Seconda implicazione.} Sia $G$ un grafo indiretto connesso, sia $\hat v \in V(G)$, $T_{\hat v}$ il suo albero, e sia $(u, v) \in E(G) - E(T_{\hat v})$ un backward edge. Allora, poiché $u, v \in V(T_{\hat v})$, è sufficiente considerare il cammino tale che $u \rightarrow v$, che esiste poiché $T_{\hat v}$ è un albero, e dunque $\{u \rightarrow v\} \cup (u, v)$ è un ciclo di $G$.
+    \end{itemize}
+\end{proof}
+
 \begin{algorithm}[H]
     \caption{
         Dato un grafo diretto $G$, rappresentato attraverso liste di adiacenza (per ogni vertice sono salvate due liste, dei vertici entranti e dei vertici uscenti), e un suo vertice $v$, l'algoritmo restituisce gli archi non facenti parti dell'arborescenza di $v$, categorizzati in base ai loro intervalli di apertura e chiusura.\\
@@ -1018,7 +1022,7 @@
                         \State $\texttt{visited[}z\texttt{]}=1$
                         \State $\texttt{S.push(}z\texttt{)}$
                         \State $\texttt{parents[}z\texttt{]}=v_{top}$
-                        \State $\texttt{c += } 1$
+                        \State $\texttt{c} \ += 1$
                         \State $\texttt{t[}z\texttt{]}=\texttt{c}$
                         \State \textbf{break}
                     \EndIf
@@ -1039,16 +1043,16 @@
             \State $\texttt{backward} := \texttt{[]}$
             \State $\texttt{cross} := \texttt{[]}$
 
-            \For{$v \in V(G)$}
-                \For{$u \in v\texttt{.incoming\_adjacent()}$}
-                    \If{$\texttt{parents[}v\texttt{]}==u$}
+            \For{$x \in V(G)$}
+                \For{$u \in x\texttt{.incoming\_adjacent()}$}
+                    \If{$\texttt{parents[}x\texttt{]}==u$}
                         \State \textbf{continue} \Comment{faceva parte dell'arborescenza di $v$}
-                    \ElsIf{$\texttt{T[}u\texttt{]} < \texttt{t[}v\texttt{]} \ \texttt{or} \ \texttt{T[}v\texttt{]} < \texttt{t[}u\texttt{]}$}
-                        \State $\texttt{cross.append(}(u, v)\texttt{)}$
-                    \ElsIf{$\texttt{T[}u\texttt{]} \le \texttt{T[}v\texttt{]}$}
-                        \State $\texttt{backward.append(}(u, v)\texttt{)}$
+                    \ElsIf{$\texttt{T[}u\texttt{]} < \texttt{t[}x\texttt{]} \ \texttt{or} \ \texttt{T[}x\texttt{]} < \texttt{t[}u\texttt{]}$}
+                        \State $\texttt{cross.append(}(u, x)\texttt{)}$
+                    \ElsIf{$\texttt{T[}u\texttt{]} \le \texttt{T[}x\texttt{]}$}
+                        \State $\texttt{backward.append(}(u, x)\texttt{)}$
                     \Else
-                        \State $\texttt{forward.append(}(u, v)\texttt{)}$
+                        \State $\texttt{forward.append(}(u, x)\texttt{)}$
                     \EndIf
                 \EndFor
             \EndFor
@@ -1059,15 +1063,36 @@
 \end{nocaptionalg}
 
 \begin{remark}[Correttezza dell'algoritmo]
-    TODO
+    Si noti che, dalla riga 2 alla riga 29, l'algoritmo seguente non presenta alcuna differenza dall'\cref{findReachableNodes2}, se non per alcuni accorgimenti al fine di collezionare i tempi di visita e di chiusura dei vari vertici:
+
+    \begin{itemize}
+        \item alle righe 5, 6 e 7 viene istanziato un contatore \texttt{c}, che servirà per determinare i tempi di visita e di chiusura dei vari vertici, i quali verranno salvati all'interno dei due array \texttt{t} e \texttt{T} appena definiti;
+        \item alla riga 8 viene aggiornato il tempo di visita di $v$ di partenza, pari a \texttt{c}, poiché quest'ultimo è stato definito partendo da 1;
+        \item alla riga 9 e 10 viene creato un array \texttt{parents}, che servirà per la seconda parte dell'algoritmo, ed in esso viene salvato il padre di $v$, pari a $v$ stesso, poiché così facendo sarà possibile identificare la radice successivamente;
+        \item alle righe 13, 14 e 15 è necessario controllare esclusivamente gli archi uscenti, poiché l'algoritmo deve progredire visitando i vertici adiacenti uscenti, e gli entranti sono quelli dai quali si proviene;
+        \item alla riga 19, è necessario salvare il nodo padre di $z$, che sarà naturalmente $v_{top}$;
+        \item alle righe 20 e 21 viene incrementato il contatore dei tempi \texttt{c}, e viene posto il suo valore, appena incrementato, come tempo di visita di $z$;
+        \item alla riga 27 viene aggiornato il tempo di chiusura di $v_{top}$, che sarà pari al valore di \texttt{c} corrente, poiché il contatore deve aumentare esclusivamente quando si incontrano vertici non ancora visitati.
+    \end{itemize}
+
+    Alle righe 30, 31 e 32 vengono definite 3 liste, che conterranno tutti gli archi del grafo, non facenti parte della visita di $G$ in DFS appena realizzata dall'algoritmo, categorizzati opportunamente grazie ai cicli \texttt{for} delle righe 33 e 34. In particolare, per ogni vertice $x \in V(G)$ del grafo, vengono esaminati tutti i vertici $u$, che siano \textit{adiacenti entranti} ad $x$, controllando di fatto l'arco $(u, x)$:
+
+    \begin{itemize}
+        \item se il nodo padre di $x$ è proprio $u$ (riga 35), allora necessariamente l'arco è stato visitato dall'algoritmo nella prima fase, poiché la visita in DFS lo avrebbe sicuramente raggiunto, e dunque è possibile ignorarlo;
+        \item se il tempo di chiusura di uno dei due, tra $x$ e $u$, è minore del tempo di visita dell'altro (riga 37), allora uno dei due è stato rimosso dallo stack, prima che l'altro potesse essere visitato, e l'unico caso in cui tale condizione può verificarsi, è se l'arco $(u, x)$ è un cross edge;
+        \item se il tempo di chiusura di $u$, il quale è entrante in $x$, è inferiore (o uguale) al tempo di chiusura di quest'ultimo (riga 39), allora $x$ è stato rimosso dallo stack dopo $u$, nonostante $u$ fosse adiacente entrante ad $x$, e dunque necessariamente l'arco $(u, x)$ è un backward edge;
+        \item infine, l'ultimo caso possibile restante (riga 41) è un forward edge.
+    \end{itemize}
+
+    L'algoritmo conclude restituendo le liste contenenti i vari archi del grafo, non facenti parte dell'arborescenza di visita di $G$, radicata in $v$, categorizzati sfruttando i loro intervalli.
 \end{remark}
 
 \begin{remark}[Costo dell'algoritmo]
     Si noti che il ciclo \texttt{while} della riga $11$, e termina alla riga $29$, ha lo stesso costo computazionale dell'\cref{findReachableNodes2}, e dunque il suo costo è pari a $O(n + m)$.
 
-    Si noti inoltre che, il ciclo \texttt{for} della riga $33$, effettua un'iterazione per ogni singolo vertice del grafo, ma all'interno di esso è presente un ulteriore ciclo \texttt{for}, alla riga $34$, che itera sui rispettivi vertici adiacenti entranti; allora, il costo di questi due cicli equivale al solo spazio di rappresentazione delle liste di adiacenza di $G$, ovvero $O(n + m)$, poiché al loro interno vengono eseguite esclusivamente operazioni in tempo costante.
+    Si noti inoltre che, il ciclo \texttt{for} della riga $33$, effettua un'iterazione per ogni singolo vertice del grafo, ma all'interno di esso è presente un ulteriore ciclo \texttt{for}, alla riga $34$, che itera sui rispettivi vertici adiacenti entranti; allora, il costo di questi due cicli equivale al solo spazio di rappresentazione delle liste di adiacenza di $G$, ovvero $O(n + m)$.
 
-    In conclusione, il costo computazionale è pari a $O(n + m) + O(n + m) = O(n + m)$.
+    Allora, il costo computazionale è pari a $O(n + m) + O(n + m) = O(n + m)$.
 \end{remark}
 
 \begin{algorithm}[H]
@@ -1848,6 +1873,8 @@
     TODO $O(n + m)$
 \end{remark}
 
+\subsection{Trovare un ciclo}
+
 \begin{algorithm}[H]
     \caption{
         Dato un grafo indiretto $G$, rappresentato attraverso liste di adiacenza, l'algoritmo restituisce un suo ciclo, se presente.\\
@@ -1894,15 +1921,15 @@
 \end{algorithm}
 
 \begin{remark}[Correttezza dell'algoritmo]
-    TODO DA RILEGGERE
-
     L'algoritmo inizia effettuando un ciclo \texttt{for}, alla riga $25$, su ogni vertice $v \in V(G)$; in particolare, se $v$ non è stato ancora visitato (riga $26$), viene effettuata una visita ricorsiva in DFS di $G$, partendo da $v$.
 
-    La funzione che effettua la visita ricorsiva in DFS, inizia con un ciclo \texttt{for}, alla riga $3$, il quale, per ogni vertice $v \in V(G)$ adiacente a $u$ in input, se non visitato, viene marcato come visitato (riga $5$), ne viene aggiornato il nodo padre (riga $6$), e viene effettuata una chiamata ricorsiva radicata su esso, per far si che la visita sia in DFS.
+    La funzione che effettua la visita ricorsiva in DFS, inizia con un ciclo \texttt{for}, alla riga $3$, all'interno del quale, per ogni vertice $v \in V(G)$ adiacente a $u$ in input non ancora visitato, viene marcato come tale (riga $5$), ne viene aggiornato il nodo padre in \texttt{parents} (riga $6$), e viene effettuata una chiamata ricorsiva radicata su $v$ stesso, per far si che la visita sia in DFS.
 
-    Al termine della chiamata ricorsiva, viene esaminato il valore ritornato da \texttt{DFS}, che può essere un ciclo di $G$, oppure \texttt{None}; se si è giunti al primo caso, e dunque si è trovato l'output richiesto dall'algoritmo, sarà sufficiente riportare il risultato di ricorsione in ricorsione a ritroso, ritornando \texttt{output} stesso, alla riga $9$.
+    Al termine della chiamata ricorsiva della riga 7, viene esaminato il valore restituito dalla funzione \texttt{DFS}, che può essere un ciclo di $G$, oppure \texttt{None}; se ci si trova nel primo caso, e dunque si è trovato un output richiesto dall'algoritmo, sarà sufficiente restituire il risultato di ricorsione in ricorsione a ritroso, ritornando \texttt{output} stesso, alla riga $9$.
 
-    Se invece il vertice $v$, in \texttt{DFS} TODO
+    Se invece il vertice $v$ era già stato visitato, è necessario eseguire un controllo, poiché ci si potrebbe trovare all'interno di un ciclo; si noti che il ciclo \texttt{for} della riga 3, trova tutti i vertici adiacenti ad $u$, compreso il nodo padre di $u$ stesso, ma naturalmente non deve essere di interesse per la ricerca di un ciclo in $G$. Allora, se $u$ non è il nodo padre di $v$, né $v$ è il nodo padre di $u$ (si noti che l'array \texttt{parents} è diretto, anche se $G$ non lo è, dunque non è sufficiente controllare solo uno dei due casi), l'unico caso in cui può capitare di rivisitare un nodo è se ci si trova all'interno di un ciclo; di conseguenza, in tale circostanza, l'algoritmo istanzia un insieme \texttt{output}, alla riga 12, all'interno del quale vengono inseriti tutti i vertici che vengono trovati, risalendo la catena di padri, costruitasi in \texttt{parents}, partendo da $u$ stesso, fino a ritornare proprio su $v$; infine, viene restituito tale insieme, alla riga 17, che verrà propagato fino alla riga 27.
+
+    Nel controllo della riga 28, ci si accerta che non sia ancora stato trovato alcun ciclo, e non appena ne viene trovato uno, viene restituito dall'algoritmo, troncando il loop \texttt{for}.
 \end{remark}
 
 \begin{remark}[Costo dell'algoritmo]

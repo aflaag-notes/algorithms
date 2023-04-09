@@ -13,18 +13,19 @@
 \contentsline {subsection}{\numberline {1.3.3}Trovare un ordinamento topologico}{18}{subsection.1.3.3}%
 \contentsline {section}{\numberline {1.4}Tempi di visita e di chiusura}{19}{section.1.4}%
 \contentsline {subsection}{\numberline {1.4.1}Definizioni}{19}{subsection.1.4.1}%
-\contentsline {subsection}{\numberline {1.4.2}Categorie di archi}{21}{subsection.1.4.2}%
-\contentsline {subsection}{\numberline {1.4.3}Trovare un ordinamento topologico}{26}{subsection.1.4.3}%
-\contentsline {subsection}{\numberline {1.4.4}Trovare un pozzo universale}{29}{subsection.1.4.4}%
-\contentsline {subsection}{\numberline {1.4.5}Trovare i ponti}{31}{subsection.1.4.5}%
-\contentsline {subsection}{\numberline {1.4.6}Trovare le componenti}{35}{subsection.1.4.6}%
-\contentsline {section}{\numberline {1.5}BFS (Breadth-first Search)}{46}{section.1.5}%
-\contentsline {subsection}{\numberline {1.5.1}Distanza}{46}{subsection.1.5.1}%
-\contentsline {subsection}{\numberline {1.5.2}Visita in BFS}{48}{subsection.1.5.2}%
-\contentsline {subsection}{\numberline {1.5.3}Trovare il numero di cammini minimi}{51}{subsection.1.5.3}%
-\contentsline {subsection}{\numberline {1.5.4}Distanza tra insiemi di vertici}{52}{subsection.1.5.4}%
-\contentsline {subsection}{\numberline {1.5.5}Archi pesati}{54}{subsection.1.5.5}%
-\contentsline {chapter}{\numberline {2}Algoritmi greedy}{58}{chapter.2}%
-\contentsline {section}{\numberline {2.1}TODO}{58}{section.2.1}%
-\contentsline {subsection}{\numberline {2.1.1}Definizioni}{58}{subsection.2.1.1}%
-\contentsline {subsection}{\numberline {2.1.2}Trovare intervalli disgiunti}{58}{subsection.2.1.2}%
+\contentsline {subsection}{\numberline {1.4.2}Categorie di archi}{22}{subsection.1.4.2}%
+\contentsline {subsection}{\numberline {1.4.3}Trovare un ordinamento topologico}{27}{subsection.1.4.3}%
+\contentsline {subsection}{\numberline {1.4.4}Trovare un pozzo universale}{30}{subsection.1.4.4}%
+\contentsline {subsection}{\numberline {1.4.5}Trovare i ponti}{32}{subsection.1.4.5}%
+\contentsline {subsection}{\numberline {1.4.6}Trovare le componenti}{36}{subsection.1.4.6}%
+\contentsline {subsection}{\numberline {1.4.7}Trovare un ciclo}{47}{subsection.1.4.7}%
+\contentsline {section}{\numberline {1.5}BFS (Breadth-first Search)}{49}{section.1.5}%
+\contentsline {subsection}{\numberline {1.5.1}Distanza}{49}{subsection.1.5.1}%
+\contentsline {subsection}{\numberline {1.5.2}Visita in BFS}{51}{subsection.1.5.2}%
+\contentsline {subsection}{\numberline {1.5.3}Trovare il numero di cammini minimi}{54}{subsection.1.5.3}%
+\contentsline {subsection}{\numberline {1.5.4}Distanza tra insiemi di vertici}{55}{subsection.1.5.4}%
+\contentsline {subsection}{\numberline {1.5.5}Archi pesati}{57}{subsection.1.5.5}%
+\contentsline {chapter}{\numberline {2}Algoritmi greedy}{61}{chapter.2}%
+\contentsline {section}{\numberline {2.1}TODO}{61}{section.2.1}%
+\contentsline {subsection}{\numberline {2.1.1}Definizioni}{61}{subsection.2.1.1}%
+\contentsline {subsection}{\numberline {2.1.2}Trovare intervalli disgiunti}{61}{subsection.2.1.2}%

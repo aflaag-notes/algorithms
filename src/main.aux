@@ -52,77 +52,78 @@
 \@writefile{loa}{\contentsline {algorithm}{\numberline {1.3.1.1}{\ignorespaces  Dato un grafo indiretto $G$, con ogni vertice avente grado almeno pari a $2$, l'algoritmo restituisce un ciclo di $G$.\\ \textbf  {Input}: $G$ grafo indiretto, tale che $\forall v \in V(G) \hskip 1em\relax \deg (v) \ge 2$.\\ \textbf  {Output}: un ciclo di $G$. }}{13}{algorithm.1.3.1.1}\protected@file@percent }
 \@writefile{lof}{\contentsline {figure}{\numberline {1.14}{\ignorespaces Un grafo diretto contenente un ciclo.}}{14}{figure.1.14}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {1.3.2}Visita in DFS}{15}{subsection.1.3.2}\protected@file@percent }
-\@writefile{loa}{\contentsline {algorithm}{\numberline {1.3.2.1}{\ignorespaces  Prima versione dell'algoritmo; dato un grafo indiretto $G$, e un suo vertice $v$, l'algoritmo restituisce tutti i vertici, raggiungibili attraverso cammini, partendo da $v$.\\ \textbf  {Input}: $G$ grafo indiretto; $v$ un vertice di $G$.\\ \textbf  {Output}: i vertici raggiungibili da $v$. }}{15}{algorithm.1.3.2.1}\protected@file@percent }
-\newlabel{Sottografo di un grafo indiretto}{{1.3.2.2}{16}{Albero}{remark.1.3.2.2}{}}
-\newlabel{Sottografo di un grafo indiretto@cref}{{[remark][2][1,3,2]1.3.2.2}{[1][16][]16}}
-\@writefile{loa}{\contentsline {algorithm}{\numberline {1.3.2.2}{\ignorespaces  Seconda versione dell'algoritmo; dato un grafo indiretto $G$, rappresentato attraverso liste di adiacenza, e un suo vertice $v$, l'algoritmo restituisce tutti i vertici, raggiungibili attraverso cammini, partendo da $v$.\\ \textbf  {Input}: $G$ grafo indiretto, rappresentato attraverso liste di adiacenza; $v$ un vertice di $G$.\\ \textbf  {Output}: i vertici raggiungibili da $v$. }}{17}{algorithm.1.3.2.2}\protected@file@percent }
+\@writefile{loa}{\contentsline {algorithm}{\numberline {1.3.2.1}{\ignorespaces  Prima versione dell'algoritmo; dato un grafo $G$, diretto o indiretto, e un suo vertice $v$, l'algoritmo restituisce tutti i vertici, raggiungibili attraverso cammini, partendo da $v$.\\ \textbf  {Input}: $G$ un grafo; $v$ un vertice di $G$.\\ \textbf  {Output}: i vertici raggiungibili da $v$. }}{15}{algorithm.1.3.2.1}\protected@file@percent }
+\newlabel{Sottografo di un grafo indiretto}{{1.3.2.3}{16}{Albero}{remark.1.3.2.3}{}}
+\newlabel{Sottografo di un grafo indiretto@cref}{{[remark][3][1,3,2]1.3.2.3}{[1][16][]16}}
+\@writefile{loa}{\contentsline {algorithm}{\numberline {1.3.2.2}{\ignorespaces  Seconda versione dell'algoritmo; dato un grafo $G$, diretto o indiretto, rappresentato attraverso liste di adiacenza, e un suo vertice $v$, l'algoritmo restituisce tutti i vertici, raggiungibili attraverso cammini, partendo da $v$.\\ \textbf  {Input}: $G$ un grafo, rappresentato attraverso liste di adiacenza; $v$ un vertice di $G$.\\ \textbf  {Output}: i vertici raggiungibili da $v$. }}{17}{algorithm.1.3.2.2}\protected@file@percent }
 \newlabel{findReachableNodes2}{{0}{17}{Visita in DFS}{algorithm.1.3.2.2}{}}
-\newlabel{findReachableNodes2@cref}{{[algorithm][2][1,3,2]1.3.2.2}{[1][16][]17}}
-\newlabel{costo findReachableNodes2}{{1.3.2.6}{17}{Costo dell'algoritmo}{remark.1.3.2.6}{}}
-\newlabel{costo findReachableNodes2@cref}{{[remark][6][1,3,2]1.3.2.6}{[1][17][]17}}
+\newlabel{findReachableNodes2@cref}{{[algorithm][2][1,3,2]1.3.2.2}{[1][17][]17}}
+\newlabel{costo findReachableNodes2}{{1.3.2.6}{18}{Costo dell'algoritmo}{remark.1.3.2.6}{}}
+\newlabel{costo findReachableNodes2@cref}{{[remark][6][1,3,2]1.3.2.6}{[1][18][]18}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {1.3.3}Trovare un ordinamento topologico}{18}{subsection.1.3.3}\protected@file@percent }
 \@writefile{loa}{\contentsline {algorithm}{\numberline {1.3.3.1}{\ignorespaces  Dato un grafo diretto aciclico $G$, l'algoritmo restituisce un suo ordinamento topologico.\\ \textbf  {Input}: $G$ grafo diretto aciclico.\\ \textbf  {Output}: un ordinamento topologico di $G$. }}{18}{algorithm.1.3.3.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {1.4}Tempi di visita e di chiusura}{19}{section.1.4}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {1.4.1}Definizioni}{19}{subsection.1.4.1}\protected@file@percent }
 \newlabel{Intervalli diretto}{{1.4.1.1}{20}{Proprietà degli intervalli}{lemma.1.4.1.1}{}}
-\newlabel{Intervalli diretto@cref}{{[lemma][1][1,4,1]1.4.1.1}{[1][19][]20}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {1.4.2}Categorie di archi}{21}{subsection.1.4.2}\protected@file@percent }
-\@writefile{loa}{\contentsline {algorithm}{\numberline {1.4.2.1}{\ignorespaces  Dato un grafo $G$, rappresentato attraverso liste di adiacenza (nel caso di $G$ diretto, l'adiacenza è dei nodi uscenti), e un suo vertice $r$, l'algoritmo restituisce i tempi di visita e di chiusura dei nodi di $G$, relativi alla visita dell'albero, o dell'arborescenza, di $r$.\\ \textbf  {Input}: $G$ grafo, rappresentato attraverso liste di adiacenza; $r$ un vertice di $G$.\\ \textbf  {Output}: tempi di visita e di chiusura dei $v \in V(G)$, relativi all'albero, o all'arborescenza, di $r$. }}{22}{algorithm.1.4.2.1}\protected@file@percent }
-\@writefile{loa}{\contentsline {algorithm}{\numberline {1.4.2.2}{\ignorespaces  Dato un grafo diretto $G$, rappresentato attraverso liste di adiacenza (per ogni vertice sono salvate due liste, dei vertici entranti e dei vertici uscenti), e un suo vertice $v$, l'algoritmo restituisce gli archi non facenti parti dell'arborescenza di $v$, categorizzati in base ai loro intervalli di apertura e chiusura.\\ \textbf  {Input}: $G$ grafo diretto, rappresentato attraverso liste di adiacenza; $v$ un vertice di $G$.\\ \textbf  {Output}: archi non dell'arborescenza, categorizzati per intervalli. }}{24}{algorithm.1.4.2.2}\protected@file@percent }
-\@writefile{loa}{\contentsline {algorithm}{\numberline {1.4.2.3}{\ignorespaces  Dato un'array di padri \texttt  {parents}, che rappresenta un'arborescenza di visita in DFS di un grafo diretto, e un arco $(x, y)$ del grafo, l'algoritmo restituisce il tipo di arco.\\ \textbf  {Input}: \texttt  {parents} array di padri di un'arborescenza di visita in DFS di un grafo diretto; $(x, y)$ un arco del grafo.\\ \textbf  {Output}: la categoria di $(x, y)$. }}{26}{algorithm.1.4.2.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {1.4.3}Trovare un ordinamento topologico}{26}{subsection.1.4.3}\protected@file@percent }
-\newlabel{Cicli diretto}{{1.4.3.1}{26}{Presenza di cicli}{theorem.1.4.3.1}{}}
-\newlabel{Cicli diretto@cref}{{[theorem][1][1,4,3]1.4.3.1}{[1][26][]26}}
-\@writefile{loa}{\contentsline {algorithm}{\numberline {1.4.3.1}{\ignorespaces  Dato un grafo diretto aciclico connesso $G$, rappresentato attraverso liste di adiacenza in cui vengono salvati gli archi adiacenti uscenti, l'algoritmo restituisce un ordinamento topologico di $G$.\\ \textbf  {Input}: $G$ grafo diretto, rappresentato attraverso liste di adiacenza.\\ \textbf  {Output}: un ordinamento topologico di $G$. }}{28}{algorithm.1.4.3.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {1.4.4}Trovare un pozzo universale}{29}{subsection.1.4.4}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {1.15}{\ignorespaces Un grafo con pozzo universale in $3$.}}{29}{figure.1.15}\protected@file@percent }
-\@writefile{loa}{\contentsline {algorithm}{\numberline {1.4.4.1}{\ignorespaces  Dato un grafo diretto $G$, rappresentato attraverso matrice di adiacenza, l'algoritmo restituisce, se presente, il pozzo universale di $G$.\\ \textbf  {Input}: $G$ grafo diretto, rappresentato attraverso matrice di adiacenza.\\ \textbf  {Output}: il pozzo universale di $G$, se presente. }}{30}{algorithm.1.4.4.1}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {1.16}{\ignorespaces Un grafo che contiene un possibile pozzo universale.}}{30}{figure.1.16}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {1.4.5}Trovare i ponti}{31}{subsection.1.4.5}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {1.17}{\ignorespaces Un grafo con un ponte.}}{31}{figure.1.17}\protected@file@percent }
-\newlabel{teorema dei ponti}{{1.4.5.1}{31}{Presenza di ponti}{theorem.1.4.5.1}{}}
-\newlabel{teorema dei ponti@cref}{{[theorem][1][1,4,5]1.4.5.1}{[1][31][]31}}
-\@writefile{loa}{\contentsline {algorithm}{\numberline {1.4.5.1}{\ignorespaces  Dato un grafo indiretto $G$, rappresentato attraverso liste di adiacenza, l'algoritmo restituisce i ponti di $G$.\\ \textbf  {Input}: $G$ grafo indiretto, rappresentato attraverso liste di adiacenza.\\ \textbf  {Output}: i ponti di $G$. }}{33}{algorithm.1.4.5.1}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {1.18}{\ignorespaces Un grafo indiretto.}}{35}{figure.1.18}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {1.4.6}Trovare le componenti}{35}{subsection.1.4.6}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {1.19}{\ignorespaces Un grafo indiretto.}}{36}{figure.1.19}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {1.20}{\ignorespaces Un grafo diretto.}}{36}{figure.1.20}\protected@file@percent }
-\newlabel{disjoint comps}{{1.4.6.1}{36}{Digiunzione delle componenti}{lemma.1.4.6.1}{}}
-\newlabel{disjoint comps@cref}{{[lemma][1][1,4,6]1.4.6.1}{[1][36][]36}}
-\@writefile{lof}{\contentsline {figure}{\numberline {1.21}{\ignorespaces Il grafo iniziale massimalmente contratto.}}{38}{figure.1.21}\protected@file@percent }
-\newlabel{contrazioni fortemente connesse}{{1.4.6.1}{38}{Contrazioni fortemente connesse}{theorem.1.4.6.1}{}}
-\newlabel{contrazioni fortemente connesse@cref}{{[theorem][1][1,4,6]1.4.6.1}{[1][38][]38}}
-\newlabel{presenza di cicli fort conn}{{1.4.6.2}{38}{Presenza di cicli}{theorem.1.4.6.2}{}}
-\newlabel{presenza di cicli fort conn@cref}{{[theorem][2][1,4,6]1.4.6.2}{[1][38][]38}}
-\@writefile{loa}{\contentsline {algorithm}{\numberline {1.4.6.1}{\ignorespaces  Dato un grafo diretto $G$, rappresentato attraverso liste di adiacenza, con liste di archi sia entranti che uscenti per ogni vertice, l'algoritmo restituisce le componenti di $G$.\\ \textbf  {Input}: $G$ grafo diretto, rappresentato attraverso liste di adiacenza, con liste di archi sia entranti che uscenti per ogni vertice.\\ \textbf  {Output}: le componenti di $G$. }}{39}{algorithm.1.4.6.1}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {1.22}{\ignorespaces Un grafo diretto.}}{40}{figure.1.22}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {1.23}{\ignorespaces Arborescenza di $2$.}}{40}{figure.1.23}\protected@file@percent }
-\@writefile{loa}{\contentsline {algorithm}{\numberline {1.4.6.2}{\ignorespaces  Dato un grafo diretto $G$, rappresentato attraverso liste di adiacenza, l'algoritmo restituisce le componenti di $G$.\\ \textbf  {Input}: $G$ grafo diretto, rappresentato attraverso liste di adiacenza.\\ \textbf  {Output}: le componenti di $G$. }}{43}{algorithm.1.4.6.2}\protected@file@percent }
-\@writefile{loa}{\contentsline {algorithm}{\numberline {1.4.6.3}{\ignorespaces  Dato un grafo indiretto $G$, rappresentato attraverso liste di adiacenza, l'algoritmo restituisce un suo ciclo, se presente.\\ \textbf  {Input}: $G$ grafo indiretto, rappresentato attraverso liste di adiacenza.\\ \textbf  {Output}: un ciclo di $G$, se presente. }}{45}{algorithm.1.4.6.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {1.5}BFS (Breadth-first Search)}{46}{section.1.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {1.5.1}Distanza}{46}{subsection.1.5.1}\protected@file@percent }
-\@writefile{loa}{\contentsline {algorithm}{\numberline {1.5.1.1}{\ignorespaces  Dato un grafo $G$, rappresentato attraverso liste di adiacenza, e un vettore di padri di un albero/arborescenza di visita in DFS di $G$, l'algoritmo restituisce la distanza di ogni vertice dalla radice dell'albero/arborescenza.\\ \textbf  {Input}: $G$ grafo diretto, rappresentato attraverso liste di adiacenza; \texttt  {parents} un array di padri di un albero/arborescenza radicato in un certo $r \in V(G)$.\\ \textbf  {Output}: $\forall v \in V(G) \hskip 1em\relax \mathrm  {dist}(r, v)$. }}{47}{algorithm.1.5.1.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {1.5.2}Visita in BFS}{48}{subsection.1.5.2}\protected@file@percent }
-\@writefile{loa}{\contentsline {algorithm}{\numberline {1.5.2.1}{\ignorespaces  Dato un grafo $G$, rappresentato attraverso liste di adiacenza (nel caso di grafo diretto, è sufficiente memorizzare gli archi uscenti per ogni vertice), ed un suo vertice $u \in V(G)$, l'algoritmo restituisce le distanze dei vertici di $G$ da $u$.\\ \textbf  {Input}: $G$ grafo, rappresentato attraverso liste di adiacenza; $u \in V(G)$ un vertice di $G$.\\ \textbf  {Output}: $\forall v \in V(G) \hskip 1em\relax \mathrm  {dist}(u, v)$. }}{49}{algorithm.1.5.2.1}\protected@file@percent }
-\newlabel{bfs}{{0}{49}{Visita in BFS}{algorithm.1.5.2.1}{}}
-\newlabel{bfs@cref}{{[algorithm][1][1,5,2]1.5.2.1}{[1][48][]49}}
-\@writefile{lof}{\contentsline {figure}{\numberline {1.24}{\ignorespaces Un grafo indiretto.}}{50}{figure.1.24}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {1.5.3}Trovare il numero di cammini minimi}{51}{subsection.1.5.3}\protected@file@percent }
-\@writefile{loa}{\contentsline {algorithm}{\numberline {1.5.3.1}{\ignorespaces  Dato un grafo $G$, rappresentato attraverso liste di adiacenza, ed un suo vertice $u$, per ogni $v \in V(G)$, l'algoritmo restituisce il numero di cammini minimi della forma $u \rightarrow v$.\\ \textbf  {Input}: $G$ grafo, rappresentato attraverso liste di adiacenza; $u \in V(G)$ un vertice di $G$.\\ \textbf  {Output}: per ogni vertice $v \in V(G)$, il numero di cammini minimi della forma $u \rightarrow v$. }}{51}{algorithm.1.5.3.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {1.5.4}Distanza tra insiemi di vertici}{52}{subsection.1.5.4}\protected@file@percent }
-\@writefile{loa}{\contentsline {algorithm}{\numberline {1.5.4.1}{\ignorespaces  Dato un grafo $G$, rappresentato attraverso liste di adiacenza, e due suoi sottoinsiemi di vertici $X, Y \subseteq V(G)$, l'algoritmo restituisce $\mathrm  {dist}(X, Y)$.\\ \textbf  {Input}: $G$ grafo, rappresentato attraverso liste di adiacenza; $X, Y \subseteq V(G)$ sottoinsiemi di vertici di $G$.\\ \textbf  {Output}: $\mathrm  {dist}(X, Y)$. }}{53}{algorithm.1.5.4.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {1.5.5}Archi pesati}{54}{subsection.1.5.5}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {1.25}{\ignorespaces Un grafo indiretto pesato.}}{54}{figure.1.25}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {1.26}{\ignorespaces Un grafo indiretto pesato.}}{55}{figure.1.26}\protected@file@percent }
-\newlabel{caratteristiche distanze pesate}{{1.5.5.1}{55}{Caratteristiche delle distanze pesate}{lemma.1.5.5.1}{}}
-\newlabel{caratteristiche distanze pesate@cref}{{[lemma][1][1,5,5]1.5.5.1}{[1][55][]55}}
-\newlabel{vicini pesati}{{1.5.5.2}{56}{Distanze pesate dei vicini}{lemma.1.5.5.2}{}}
-\newlabel{vicini pesati@cref}{{[lemma][2][1,5,5]1.5.5.2}{[1][56][]56}}
-\@writefile{toc}{\contentsline {chapter}{\numberline {2}Algoritmi greedy}{58}{chapter.2}\protected@file@percent }
+\newlabel{Intervalli diretto@cref}{{[lemma][1][1,4,1]1.4.1.1}{[1][20][]20}}
+\@writefile{loa}{\contentsline {algorithm}{\numberline {1.4.1.1}{\ignorespaces  Dato un grafo $G$, rappresentato attraverso liste di adiacenza (nel caso di $G$ diretto, l'adiacenza è dei nodi uscenti), e un suo vertice $r$, l'algoritmo restituisce i tempi di visita e di chiusura dei nodi di $G$, relativi alla visita dell'albero, o dell'arborescenza, di $r$.\\ \textbf  {Input}: $G$ grafo, rappresentato attraverso liste di adiacenza; $r$ un vertice di $G$.\\ \textbf  {Output}: tempi di visita e di chiusura dei $v \in V(G)$, relativi all'albero, o all'arborescenza, di $r$. }}{21}{algorithm.1.4.1.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.4.2}Categorie di archi}{22}{subsection.1.4.2}\protected@file@percent }
+\@writefile{loa}{\contentsline {algorithm}{\numberline {1.4.2.1}{\ignorespaces  Dato un grafo diretto $G$, rappresentato attraverso liste di adiacenza (per ogni vertice sono salvate due liste, dei vertici entranti e dei vertici uscenti), e un suo vertice $v$, l'algoritmo restituisce gli archi non facenti parti dell'arborescenza di $v$, categorizzati in base ai loro intervalli di apertura e chiusura.\\ \textbf  {Input}: $G$ grafo diretto, rappresentato attraverso liste di adiacenza; $v$ un vertice di $G$.\\ \textbf  {Output}: archi non dell'arborescenza, categorizzati per intervalli. }}{24}{algorithm.1.4.2.1}\protected@file@percent }
+\@writefile{loa}{\contentsline {algorithm}{\numberline {1.4.2.2}{\ignorespaces  Dato un'array di padri \texttt  {parents}, che rappresenta un'arborescenza di visita in DFS di un grafo diretto, e un arco $(x, y)$ del grafo, l'algoritmo restituisce il tipo di arco.\\ \textbf  {Input}: \texttt  {parents} array di padri di un'arborescenza di visita in DFS di un grafo diretto; $(x, y)$ un arco del grafo.\\ \textbf  {Output}: la categoria di $(x, y)$. }}{27}{algorithm.1.4.2.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.4.3}Trovare un ordinamento topologico}{27}{subsection.1.4.3}\protected@file@percent }
+\newlabel{Cicli diretto}{{1.4.3.1}{27}{Presenza di cicli}{theorem.1.4.3.1}{}}
+\newlabel{Cicli diretto@cref}{{[theorem][1][1,4,3]1.4.3.1}{[1][27][]27}}
+\@writefile{loa}{\contentsline {algorithm}{\numberline {1.4.3.1}{\ignorespaces  Dato un grafo diretto aciclico connesso $G$, rappresentato attraverso liste di adiacenza in cui vengono salvati gli archi adiacenti uscenti, l'algoritmo restituisce un ordinamento topologico di $G$.\\ \textbf  {Input}: $G$ grafo diretto, rappresentato attraverso liste di adiacenza.\\ \textbf  {Output}: un ordinamento topologico di $G$. }}{29}{algorithm.1.4.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.4.4}Trovare un pozzo universale}{30}{subsection.1.4.4}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1.15}{\ignorespaces Un grafo con pozzo universale in $3$.}}{30}{figure.1.15}\protected@file@percent }
+\@writefile{loa}{\contentsline {algorithm}{\numberline {1.4.4.1}{\ignorespaces  Dato un grafo diretto $G$, rappresentato attraverso matrice di adiacenza, l'algoritmo restituisce, se presente, il pozzo universale di $G$.\\ \textbf  {Input}: $G$ grafo diretto, rappresentato attraverso matrice di adiacenza.\\ \textbf  {Output}: il pozzo universale di $G$, se presente. }}{31}{algorithm.1.4.4.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1.16}{\ignorespaces Un grafo che contiene un possibile pozzo universale.}}{31}{figure.1.16}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.4.5}Trovare i ponti}{32}{subsection.1.4.5}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1.17}{\ignorespaces Un grafo con un ponte.}}{32}{figure.1.17}\protected@file@percent }
+\newlabel{teorema dei ponti}{{1.4.5.1}{32}{Presenza di ponti}{theorem.1.4.5.1}{}}
+\newlabel{teorema dei ponti@cref}{{[theorem][1][1,4,5]1.4.5.1}{[1][32][]32}}
+\@writefile{loa}{\contentsline {algorithm}{\numberline {1.4.5.1}{\ignorespaces  Dato un grafo indiretto $G$, rappresentato attraverso liste di adiacenza, l'algoritmo restituisce i ponti di $G$.\\ \textbf  {Input}: $G$ grafo indiretto, rappresentato attraverso liste di adiacenza.\\ \textbf  {Output}: i ponti di $G$. }}{34}{algorithm.1.4.5.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1.18}{\ignorespaces Un grafo indiretto.}}{36}{figure.1.18}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.4.6}Trovare le componenti}{36}{subsection.1.4.6}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1.19}{\ignorespaces Un grafo indiretto.}}{37}{figure.1.19}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1.20}{\ignorespaces Un grafo diretto.}}{37}{figure.1.20}\protected@file@percent }
+\newlabel{disjoint comps}{{1.4.6.1}{37}{Digiunzione delle componenti}{lemma.1.4.6.1}{}}
+\newlabel{disjoint comps@cref}{{[lemma][1][1,4,6]1.4.6.1}{[1][37][]37}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1.21}{\ignorespaces Il grafo iniziale massimalmente contratto.}}{39}{figure.1.21}\protected@file@percent }
+\newlabel{contrazioni fortemente connesse}{{1.4.6.1}{39}{Contrazioni fortemente connesse}{theorem.1.4.6.1}{}}
+\newlabel{contrazioni fortemente connesse@cref}{{[theorem][1][1,4,6]1.4.6.1}{[1][39][]39}}
+\newlabel{presenza di cicli fort conn}{{1.4.6.2}{39}{Presenza di cicli}{theorem.1.4.6.2}{}}
+\newlabel{presenza di cicli fort conn@cref}{{[theorem][2][1,4,6]1.4.6.2}{[1][39][]39}}
+\@writefile{loa}{\contentsline {algorithm}{\numberline {1.4.6.1}{\ignorespaces  Dato un grafo diretto $G$, rappresentato attraverso liste di adiacenza, con liste di archi sia entranti che uscenti per ogni vertice, l'algoritmo restituisce le componenti di $G$.\\ \textbf  {Input}: $G$ grafo diretto, rappresentato attraverso liste di adiacenza, con liste di archi sia entranti che uscenti per ogni vertice.\\ \textbf  {Output}: le componenti di $G$. }}{40}{algorithm.1.4.6.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1.22}{\ignorespaces Un grafo diretto.}}{41}{figure.1.22}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1.23}{\ignorespaces Arborescenza di $2$.}}{41}{figure.1.23}\protected@file@percent }
+\@writefile{loa}{\contentsline {algorithm}{\numberline {1.4.6.2}{\ignorespaces  Dato un grafo diretto $G$, rappresentato attraverso liste di adiacenza, l'algoritmo restituisce le componenti di $G$.\\ \textbf  {Input}: $G$ grafo diretto, rappresentato attraverso liste di adiacenza.\\ \textbf  {Output}: le componenti di $G$. }}{44}{algorithm.1.4.6.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.4.7}Trovare un ciclo}{47}{subsection.1.4.7}\protected@file@percent }
+\@writefile{loa}{\contentsline {algorithm}{\numberline {1.4.7.1}{\ignorespaces  Dato un grafo indiretto $G$, rappresentato attraverso liste di adiacenza, l'algoritmo restituisce un suo ciclo, se presente.\\ \textbf  {Input}: $G$ grafo indiretto, rappresentato attraverso liste di adiacenza.\\ \textbf  {Output}: un ciclo di $G$, se presente. }}{47}{algorithm.1.4.7.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {1.5}BFS (Breadth-first Search)}{49}{section.1.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.5.1}Distanza}{49}{subsection.1.5.1}\protected@file@percent }
+\@writefile{loa}{\contentsline {algorithm}{\numberline {1.5.1.1}{\ignorespaces  Dato un grafo $G$, rappresentato attraverso liste di adiacenza, e un vettore di padri di un albero/arborescenza di visita in DFS di $G$, l'algoritmo restituisce la distanza di ogni vertice dalla radice dell'albero/arborescenza.\\ \textbf  {Input}: $G$ grafo diretto, rappresentato attraverso liste di adiacenza; \texttt  {parents} un array di padri di un albero/arborescenza radicato in un certo $r \in V(G)$.\\ \textbf  {Output}: $\forall v \in V(G) \hskip 1em\relax \mathrm  {dist}(r, v)$. }}{50}{algorithm.1.5.1.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.5.2}Visita in BFS}{51}{subsection.1.5.2}\protected@file@percent }
+\@writefile{loa}{\contentsline {algorithm}{\numberline {1.5.2.1}{\ignorespaces  Dato un grafo $G$, rappresentato attraverso liste di adiacenza (nel caso di grafo diretto, è sufficiente memorizzare gli archi uscenti per ogni vertice), ed un suo vertice $u \in V(G)$, l'algoritmo restituisce le distanze dei vertici di $G$ da $u$.\\ \textbf  {Input}: $G$ grafo, rappresentato attraverso liste di adiacenza; $u \in V(G)$ un vertice di $G$.\\ \textbf  {Output}: $\forall v \in V(G) \hskip 1em\relax \mathrm  {dist}(u, v)$. }}{52}{algorithm.1.5.2.1}\protected@file@percent }
+\newlabel{bfs}{{0}{52}{Visita in BFS}{algorithm.1.5.2.1}{}}
+\newlabel{bfs@cref}{{[algorithm][1][1,5,2]1.5.2.1}{[1][51][]52}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1.24}{\ignorespaces Un grafo indiretto.}}{53}{figure.1.24}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.5.3}Trovare il numero di cammini minimi}{54}{subsection.1.5.3}\protected@file@percent }
+\@writefile{loa}{\contentsline {algorithm}{\numberline {1.5.3.1}{\ignorespaces  Dato un grafo $G$, rappresentato attraverso liste di adiacenza, ed un suo vertice $u$, per ogni $v \in V(G)$, l'algoritmo restituisce il numero di cammini minimi della forma $u \rightarrow v$.\\ \textbf  {Input}: $G$ grafo, rappresentato attraverso liste di adiacenza; $u \in V(G)$ un vertice di $G$.\\ \textbf  {Output}: per ogni vertice $v \in V(G)$, il numero di cammini minimi della forma $u \rightarrow v$. }}{54}{algorithm.1.5.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.5.4}Distanza tra insiemi di vertici}{55}{subsection.1.5.4}\protected@file@percent }
+\@writefile{loa}{\contentsline {algorithm}{\numberline {1.5.4.1}{\ignorespaces  Dato un grafo $G$, rappresentato attraverso liste di adiacenza, e due suoi sottoinsiemi di vertici $X, Y \subseteq V(G)$, l'algoritmo restituisce $\mathrm  {dist}(X, Y)$.\\ \textbf  {Input}: $G$ grafo, rappresentato attraverso liste di adiacenza; $X, Y \subseteq V(G)$ sottoinsiemi di vertici di $G$.\\ \textbf  {Output}: $\mathrm  {dist}(X, Y)$. }}{56}{algorithm.1.5.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.5.5}Archi pesati}{57}{subsection.1.5.5}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1.25}{\ignorespaces Un grafo indiretto pesato.}}{57}{figure.1.25}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1.26}{\ignorespaces Un grafo indiretto pesato.}}{58}{figure.1.26}\protected@file@percent }
+\newlabel{caratteristiche distanze pesate}{{1.5.5.1}{58}{Caratteristiche delle distanze pesate}{lemma.1.5.5.1}{}}
+\newlabel{caratteristiche distanze pesate@cref}{{[lemma][1][1,5,5]1.5.5.1}{[1][58][]58}}
+\newlabel{vicini pesati}{{1.5.5.2}{59}{Distanze pesate dei vicini}{lemma.1.5.5.2}{}}
+\newlabel{vicini pesati@cref}{{[lemma][2][1,5,5]1.5.5.2}{[1][59][]59}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {2}Algoritmi greedy}{61}{chapter.2}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {section}{\numberline {2.1}TODO}{58}{section.2.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.1.1}Definizioni}{58}{subsection.2.1.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.1.2}Trovare intervalli disgiunti}{58}{subsection.2.1.2}\protected@file@percent }
-\@writefile{loa}{\contentsline {algorithm}{\numberline {2.1.2.1}{\ignorespaces  Data una lista di intervalli, l'algoritmo restituisce l'insieme di restituisce il sottoinsieme di intervalli disgiunti, di cardinalità massima.\\ \textbf  {Input}: $I$ lista di intervalli di numeri reali della forma $[a, b]$, con $a, b \in \mathbb  {R}$.\\ \textbf  {Output}: il sottoinsieme di $I$ di intervalli disgiunti di cardinalità massima. }}{58}{algorithm.2.1.2.1}\protected@file@percent }
-\gdef \@abspage@last{62}
+\@writefile{toc}{\contentsline {section}{\numberline {2.1}TODO}{61}{section.2.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.1.1}Definizioni}{61}{subsection.2.1.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.1.2}Trovare intervalli disgiunti}{61}{subsection.2.1.2}\protected@file@percent }
+\@writefile{loa}{\contentsline {algorithm}{\numberline {2.1.2.1}{\ignorespaces  Data una lista di intervalli, l'algoritmo restituisce l'insieme di restituisce il sottoinsieme di intervalli disgiunti, di cardinalità massima.\\ \textbf  {Input}: $I$ lista di intervalli di numeri reali della forma $[a, b]$, con $a, b \in \mathbb  {R}$.\\ \textbf  {Output}: il sottoinsieme di $I$ di intervalli disgiunti di cardinalità massima. }}{61}{algorithm.2.1.2.1}\protected@file@percent }
+\gdef \@abspage@last{65}
