@@ -764,7 +764,7 @@
 \end{proof}
 
 \begin{remark}[Correttezza dell'algoritmo]
-    L'algoritmo inizia definiendo un array \texttt{visited}, alla riga 2, contenente inizialmente il valore sentinella 0 per ogni vertice, il quale marcherà la presenza di nodi non ancora visitati dall'algoritmo; successivamente, viene segnato $v$, il vertice in input, come visitato all'interno di \texttt{visited}, alla riga 3, e viene posto all'interno dello stack \texttt{S}, alla riga 4.
+    L'algoritmo inizia definendo un array \texttt{visited}, alla riga 2, contenente inizialmente il valore sentinella 0 per ogni vertice, il quale marcherà la presenza di nodi non ancora visitati dall'algoritmo; successivamente, viene segnato $v$, il vertice in input, come visitato all'interno di \texttt{visited}, alla riga 3, e viene posto all'interno dello stack \texttt{S}, alla riga 4.
 
     Alla riga 5, viene inizializzato un ciclo \texttt{while}, all'interno del quale, fintanto che lo stack \texttt{S} non è vuoto, alla riga 6 viene definito $v_{top}$, pari al primo elemento dello stack, e se esiste un vertice $z \in V(G)$, non ancora visitato dall'algoritmo ($\texttt{visited[}z\texttt{]}=0$), tale che sia adiacente a $v_{top}$, viene inserito all'interno dello stack, alla riga 8, e viene marcato come visitato, alla riga 9. Si noti che queste due ultime operazioni garantiscono che la visita del grafo sia in DFS, poiché $v_{top}$ alla prossima iterazione del \texttt{while} sarà proprio il vertice $z$ appena inserito, e dunque l'algoritmo sta procedendo più in profondità che si possa; se invece un tale vertice $z$ non esiste, può voler dire esclusivamente che ogni singolo vertice adiacente a $v_{top}$ corrente è già stato visitato dall'algoritmo, e dunque è possibile retrocedere di profondità nella visita del grafo, andando dunque a rimuovere dallo stack l'attuale primo vertice, alla riga 11.
 
@@ -1943,6 +1943,67 @@
 \begin{definition}[Distanza]
     Sia $G$ un grafo, e siano $x, y \in V(G)$ due suoi vertici; si definisce \textit{distanza tra $x$ e $y$}, il numero minimo di archi che costituiscono un cammino $x \rightarrow y$. In simboli, sia $\mathcal{C}$ l'insieme dei cammini $x \rightarrow y$ in $G$; allora $$\mathrm{dist}(x, y) := \min_{c \in \mathcal{C}}{\left |E(c) \right|}$$
 \end{definition}
+
+\begin{algorithm}[H]
+    \caption{
+        Dato un array di padri di un grafo (nel caso questo fosse diretto, l'array rappresenterebbe una visita in DFS di tale grafo), e due suoi vertici $x$ ed $y$, l'algoritmo restituisce la loro distanza.\\
+        \textbf{Input}: \texttt{parents} un array di padri di un grafo; $x, y$ due vertici del grafo.\\
+        \textbf{Output}: $\mathrm{dist}(x, y)$.
+    }
+
+    \begin{algorithmic}[1]
+        \Function{findCommonAncestor}{\texttt{parents}, $x$, $y$}
+            \State $\texttt{ancestorsX} := \texttt{[}0\texttt{]} * n$
+            \State $v := x$
+            \While{$\texttt{parents[}v\texttt{]} \neq v$}
+                \State $\texttt{ancestorsX[}v\texttt{]} = 1$
+                \State $v = \texttt{parents[}v\texttt{]}$
+            \EndWhile
+            \State $\texttt{ancestorsX[}v\texttt{]} = 1$
+            \State $v := y$
+            \While{$\texttt{ancestorsX[}v\texttt{]} == 0$}
+                \State $v = \texttt{parents[}v\texttt{]}$
+            \EndWhile
+            \State \textbf{return} $v$
+        \EndFunction
+        \\
+        \Function{distanceRoot}{\texttt{parents}, $v$}
+            \If{$\texttt{parents[}v\texttt{]} == v$}
+                \State \textbf{return} $0$
+            \Else
+            \State \textbf{return} $\texttt{distanceRoot(parents}, \texttt{parents[}v\texttt{])} + 1$
+            \EndIf
+        \EndFunction
+        \\
+        \Function{findDistance}{\texttt{parents}, $x$, $y$}
+            \State $a := \texttt{findCommonAncestor(parents}, x, y\texttt{)}$
+            \State $d_x := \texttt{distanceRoot(parents}, x\texttt{)}$
+            \State $d_y := \texttt{distanceRoot(parents}, y\texttt{)}$
+            \State $d_a := \texttt{distanceRoot(parents}, a\texttt{)}$
+            \State \textbf{return} $d_x + d_y - 2 \cdot d_a$
+        \EndFunction
+    \end{algorithmic}
+\end{algorithm}
+
+\begin{remark}[Correttezza dell'algoritmo]
+    L'algoritmo inizia, alla riga 25, chiamando la funzione \texttt{findCommonAncestor}, che restituisce l'antenato, comune ad $x$ ed $y$ in input, a loro più vicino.
+
+    In particolare, viene inizialmente istanziato un array \texttt{ancestorsX} a 0, alla riga 2, e successivamente viene inizializzato un ciclo \texttt{while}, il quale è utilizzato per marcare gli antenati di $x$, risalendo fino alla radice (condizione di uscita del ciclo, alla riga 4); si noti che la riga 8 è necessaria, in quanto $v$, in quel momento, sarà proprio la radice, la quale non potrebbe essere marcata all'interno del ciclo appena terminato, poiché l'incontro della radice è proprio la condizione di uscita di quest'ultimo; inoltre, è importante notare che l'antenato comune più vicino ad $x$ e $y$ potrebbe proprio essere la radice stessa come caso limite, ed è dunque fondamentale segnare anche quest'ultima come antenato di $x$.
+
+    Nelle righe 9, 10 e 11 viene poi eseguito un ulteriore ciclo \texttt{while}, grazie al quale viene effettivamente trovato l'antenato comune ad $x$ ed $y$, risalendo la catena di padri di $y$ (riga 9), fintanto che gli attuali vertici $v$, padri di $y$, non siano ancora essi stessi antenati di $x$ (condizione di uscita del ciclo, alla riga 10); infatti, si noti che non appena viene trovato un $v$ tale che $\texttt{ancestorsX[}v\texttt{]}$ sia pari ad 1, allora tale $v$ è proprio il primo antenato in comune tra $x$ ed $y$ cercato, che va dunque ritornato, alla riga 13.
+
+    Dopo aver salvato l'antenato, comune ad $x$ ed $y$, a loro più vicino, all'interno di $a$, alla riga 25, l'algoritmo procede definendo 3 variabili, $d_x$, $d_y$ e $d_a$, rispettivamente le distanze, dalla radice di \texttt{parents}, da $x$, $y$ e $a$; tali distanzi vengono determinate utilizzando la funzione \texttt{distanceRoot}, definita alla riga 16, che ricorsivamente risale i nodi padri di $v$ in input, fino a trovare la radice (caso base della ricorsione, riga 17), restituendo 0 in tal caso, ed accumulando $+1$ (riga 20) ogni volta che si decrementa la profondità delle chiamate ricorsive.
+
+    Allora, per restituire la distanza tra $x$ ed $y$, sarà sufficiente calcolare $$d_x + d_y - 2 \cdot d_a$$ come descritto nella riga 29, poiché $d_x + d_y$ è una somma di distanze che conterrà 2 volte la distanza tra la radice, e l'antenato, comune ad $x$ ed $y$, a loro più vicino (di fatto, è l'intersezione dei cammini tra radice ed $x$, e radice ed $y$). Si noti che tale formula risulta essere sempre corretta, poiché \texttt{parents} è un array di padri, il quale rappresenta sempre un albero/arborescenza del grafo di partenza, e dunque per definizione la struttura che si sta utilizzando è aciclica, garantendo che l'unico modo per trovare la distanza tra due vertici è proprio attraverso la formula utilizzata dall'algoritmo.
+\end{remark}
+
+\begin{remark}[Costo dell'algoritmo]
+    La funzione \texttt{findCommonAncestor} esegue 2 cicli \texttt{while}, i quali entrambi visitano ogni nodo di \texttt{parents}, avente esattamente $n$ nodi, una ed una sola volta; allora, il costo della funzione risulta essere $O(n) + O(n) = O(n)$.
+
+    La funzione \texttt{distanceRoot} risale ricorsivamente l'albero \texttt{parents}, e nel caso peggiore dovranno essere ripercorsi tutti i nodi padri del grafo; allora, il suo costo è $O(n)$.
+
+    Infine, \texttt{findDistance} effettua una chiamata a \texttt{findCommonAncestor}, e successivamente 3 chiamate a \texttt{distanceRoot}, e dunque il costo totale dell'algoritmo risulta essere $O(n) + 3 \cdot O(n) = 4 \cdot O(n) = O(n)$.
+\end{remark}
 
 \begin{algorithm}[H]
     \caption{

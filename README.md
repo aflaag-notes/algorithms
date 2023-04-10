@@ -10,9 +10,6 @@ Questi sono i miei [appunti](https://raw.githubusercontent.com/ph04/algorithms/m
 - pagina 5
     - inserisci algoritmo vedere se arco in ciclo
 
-- pagina 6
-    - inserisci esercizio
-
 - pagina 7/39
     - scrivere l'algoritmo per trovare cicli in costo O(n + m)
     - scrivere il costo totale dell'algoritmo
@@ -25,8 +22,10 @@ Questi sono i miei [appunti](https://raw.githubusercontent.com/ph04/algorithms/m
     - fun fact a sinistra al centro
 
 - pagina 11
-    - algoritmo dijkstra
+    - algoritmo dijkstra (considera se metterlo o no)
 
 - pagina 12
     - algoritmo dijkstra
+
+- ESERCITAZIONE DI ANDREA!!
 
