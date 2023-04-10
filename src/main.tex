@@ -1462,7 +1462,7 @@
 
     inoltre, sia $$T_6 = (\{6, 5, 1, 2, 3, 4\}, \{(6, 5), (5, 1), (1, 2), (1, 3), (1, 4)\})$$ l'albero di visita in DFS del grafo, partendo dal vertice $6$; allora, si avranno $$\texttt{t} = \texttt{[}3, 4, 5, 6, 2, 1\texttt{]}$$ $$\texttt{parents} = \texttt{[}5, 1, 1, 1, 6, 6\texttt{]}$$ $$\texttt{back} = \texttt{[}1, 4, 5, 1, 1, 1\texttt{]}$$
 
-    allora, al termine del ciclo \texttt{for} della riga $27$, si avrà $$\texttt{bridges} = \verb|{| (2, \texttt{parents[}2\texttt{]}), (3, \texttt{parents[}3\texttt{]})\verb|}|$$ ovvero $$\texttt{bridges} = \verb|{| (2, 1), (3, 1)\verb|}|$$ poiché $\texttt{back[}2\texttt{]} = \texttt{t[}2\texttt{]} = 4$ e $\texttt{back[}3\texttt{]} = \texttt{t[}3\texttt{]} = 5$; infine, si noti che $\texttt{back[}6\texttt{]} = \texttt{back[}6\texttt{]} = 1$, ma $6 \notin \texttt{bridges}$ poiché $\texttt{parents[}6\texttt{]} = 6$, e infatti $T_6$ è proprio radicato in $6$.
+    allora, al termine del ciclo \texttt{for} della riga $27$, si avrà $$\texttt{bridges} = \verb|{| (\texttt{parents[}2\texttt{]}, 2), (\texttt{parents[}3\texttt{]}, 3)\verb|}|$$ ovvero $$\texttt{bridges} = \verb|{| (1, 2), (1, 3)\verb|}|$$ poiché $\texttt{back[}2\texttt{]} = \texttt{t[}2\texttt{]} = 4$ e $\texttt{back[}3\texttt{]} = \texttt{t[}3\texttt{]} = 5$; infine, si noti che $\texttt{back[}6\texttt{]} = \texttt{back[}6\texttt{]} = 1$, ma $6 \notin \texttt{bridges}$ poiché $\texttt{parents[}6\texttt{]} = 6$, e infatti $T_6$ è proprio radicato in $6$.
 \end{remark}
 
 \begin{remark}[Costo dell'algoritmo]
