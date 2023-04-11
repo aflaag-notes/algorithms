@@ -4,6 +4,8 @@ Questi sono i miei [appunti](https://raw.githubusercontent.com/ph04/algorithms/m
 
 ## TODO
 
+- FIXA INDICE
+
 - pagina 3
     - finire la dimostrazione
 
