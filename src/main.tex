@@ -210,6 +210,10 @@
     All'interno di questi appunti, a meno di esplicita specifica, si assume che ogni grafo trattato sia semplice.
 \end{definition}
 
+\begin{definition}[Multigrafo]
+    Un grafo è detto \textit{multigrafo}, se non è un grafo semplice.
+\end{definition}
+
 \subsection{Visite}
 
 \begin{definition}[Passeggiata]
@@ -980,7 +984,30 @@
 \end{remark}
 
 \begin{example}
-    TODO
+    TODO DA FINIRE
+    Ad esempio, si consideri il seguente multigrafo diretto:
+
+    \begin{figure}[H]
+        \centering
+        \begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=3cm,thick,main node/.style={scale=0.6,circle,draw,font=\sffamily\normalsize}]
+            \node[main node] (1) {1};
+            \node[main node] (2) [above right of=1] {2};
+            \node[main node] (3) [right of=2] {3};
+            \node[main node] (4) [right of=1] {4};
+            \node[main node] (5) [below of=1] {5};
+            \node[main node] (6) [right of=4] {6};
+            \node[main node] (7) [right of=5] {7};
+            \node[main node] (8) [below right of=6] {8};
+            \node[main node] (9) [below of=7] {9};
+            \node[main node] (10) [below left of=8] {10};
+
+            \path[every node/.style={font=\sffamily\small}]
+                (1) edge (2)
+                % (2) edge (1)
+                ;
+        \end{tikzpicture}
+        \caption{Un multigrafo diretto.}
+    \end{figure}
 \end{example}
 
 \begin{theorem}[Presenza di cicli]
@@ -991,7 +1018,7 @@
     \hspace{0.7cm}
     \begin{itemize}
         \item[] \textit{Prima implicazione.} Per assurdo, sia $G$ un grafo indiretto, in cui è presente almeno un ciclo, e non sono presenti backward edge; inoltre, sia $\hat v \in V(G)$, e sia $T_{\hat v}$ il suo albero. Allora, poiché $G$ non ha backward edge, necessariamente gli unici suoi archi sono quelli che compongono $T_{\hat v}$, e dunque $E(G) = E(T_{\hat v}) \implies G = T_{\hat v} \implies G$ è un albero, e dunque $G$ non ha cicli $\lightning$.
-        \item[] \textit{Seconda implicazione.} Sia $G$ un grafo indiretto connesso, sia $\hat v \in V(G)$, $T_{\hat v}$ il suo albero, e sia $(u, v) \in E(G) - E(T_{\hat v})$ un backward edge. Allora, poiché $u, v \in V(T_{\hat v})$, è sufficiente considerare il cammino tale che $u \rightarrow v$, che esiste poiché $T_{\hat v}$ è un albero, e dunque $\{u \rightarrow v\} \cup (u, v)$ è un ciclo di $G$.
+        \item[] \textit{Seconda implicazione.} Sia $G$ un grafo indiretto connesso, sia $\hat v \in V(G)$, sia $T_{\hat v}$ il suo albero, e sia $(u, v) \in E(G) - E(T_{\hat v})$ un backward edge. Allora, poiché $u, v \in V(T_{\hat v})$, è sufficiente considerare il cammino tale che $u \rightarrow v$, che esiste poiché $T_{\hat v}$ è un albero, e dunque $\{u \rightarrow v\} \cup (u, v)$ è un ciclo di $G$.
     \end{itemize}
 \end{proof}
 
