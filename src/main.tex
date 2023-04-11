@@ -1195,7 +1195,7 @@
     Alle righe 30, 31 e 32 vengono definite 3 liste, che conterranno tutti gli archi del grafo, non facenti parte della visita di $G$ in DFS appena realizzata dall'algoritmo, categorizzati opportunamente grazie ai cicli \texttt{for} delle righe 33 e 34. In particolare, per ogni vertice $x \in V(G)$ del grafo, vengono esaminati tutti i vertici $u$, che siano \textit{adiacenti entranti} ad $x$, controllando di fatto l'arco $(u, x)$:
 
     \begin{itemize}
-        \item se il nodo padre di $x$ è proprio $u$ (riga 35), allora necessariamente l'arco è stato visitato dall'algoritmo nella prima fase, poiché la visita in DFS lo avrebbe sicuramente raggiunto, e dunque è possibile ignorarlo;
+        \item se il nodo padre di $x$ è proprio $u$ (riga 35), allora necessariamente l'arco è stato visitato dall'algoritmo nella prima fase, poiché si trova all'interno di \texttt{parents} stesso, e dunque fa parte della visita del grafo, ed è possibile ignorarlo;
         \item se il tempo di chiusura di uno dei due, tra $x$ e $u$, è minore del tempo di visita dell'altro (riga 37), allora uno dei due è stato rimosso dallo stack, prima che l'altro potesse essere visitato, e l'unico caso in cui tale condizione può verificarsi, è se l'arco $(u, x)$ è un cross edge;
         \item se il tempo di chiusura di $u$, il quale è entrante in $x$, è inferiore (o uguale) al tempo di chiusura di quest'ultimo (riga 39), allora $x$ è stato rimosso dallo stack dopo $u$, nonostante $u$ fosse adiacente entrante ad $x$, e dunque necessariamente l'arco $(u, x)$ è un backward edge;
         \item infine, l'ultimo caso possibile restante (riga 41) è un forward edge.
@@ -1231,6 +1231,7 @@
                     \State \textbf{return} \texttt{NodeType::Forward}
                 \EndIf
             \EndWhile
+            \State $z := x$
             \While{$\texttt{parents[}z\texttt{]} \neq z$}
                 \State $z = \texttt{parents[}z\texttt{]}$
                 \If{$z == y$}
@@ -1243,11 +1244,21 @@
 \end{algorithm}
 
 \begin{remark}[Correttezza dell'algoritmo]
-    TODO
+    Sia \texttt{NodeType} un \texttt{enum}, che può assumere le 4 varianti \texttt{Arborescence}, \texttt{Forward}, \texttt{Backward} e \texttt{Cross}.
+
+    L'algoritmo inizia controllando, alla riga 2, se il vertice $x$ è proprio il nodo padre di $y$: in tal caso, vorrebbe dire che il vertice appartiene a \texttt{parents}, e dunque appartiene all'arborescenza di visita del grafo; allora, viene restituita la variante \texttt{NodeType::Arborescence}, alla riga 3.
+
+    Successivamente, alla riga 5 viene definito $z$, posto inizialmente ad $y$, ed all'interno del ciclo \texttt{while} della riga seguente, fintanto che non viene trovata la radice (condizione di uscita, alla riga 6), viene risalita la catena di nodi padri, e se durante il percorso viene trovato proprio $x$, allora vuol dire che $x$ si trova prima di $y$ all'interno della visita in DFS del grafo, e poiché l'arco $(x, y)$ è diretto incidente su $x$, allora questo deve essere un forward edge, ed è dunque sufficiente restituire \texttt{NodeType::Forward}, alla riga 9.
+
+    Simmetricamente, viene eseguito lo stesso ciclo \texttt{while}, ma partendo da $x$, per cercare $y$, e se quest'ultimo viene trovato, allora vuol dire che $y$ viene prima di $x$ nell'albero di visita, ma poiché l'arco $(x, y)$ è diretto incidente su $y$, l'unica possibilità è che l'arco sia un backward edge, e dunque l'algoritmo restituisce \texttt{NodeType::Backward} in tal caso, alla riga 16.
+
+    Infine, se l'arco $(x, y)$ in input non rispetta nessuna delle condizioni precedenti, segue che questo è un cross edge, e viene dunque restituito \texttt{NodeType::Cross} alla riga 18.
 \end{remark}
 
 \begin{remark}[Costo dell'algoritmo]
-    TODO O(n)
+    I cicli \texttt{while} delle righe 6 e 12, poiché identici, hanno lo stesso costo, ovvero $O(n)$, in quanto semplicemente risalgono ogni nodo della catena di padri in \texttt{parents}, il quale ha esattamente $n$ nodi, e dunque nel caso peggiore verranno visitati tutti i nodi fino alla radice.
+
+    Allora, il costo dell'algoritmo è pari a $O(n) + O(n) = O(n)$.
 \end{remark}
 
 \subsection{Trovare un ordinamento topologico}
@@ -1489,7 +1500,7 @@
 \end{lemma}
 
 \begin{proof}
-    Poiché $(u, v)$ è un ponte, per definizione non appartiente a nessun ciclo di $G$, allora preso un qualsiasi $T_u$, albero di visita di $G$ in DFS, radicato in $u$, l'unico modo per raggiungere $v$ è attraverso $(u, v)$ stesso, in quanto $G$ è indiretto, e dunque necessariamente $(u, v) \in E(T_u)$
+    Poiché $(u, v)$ è un ponte, per definizione non appartiene a nessun ciclo di $G$, allora preso un qualsiasi $T_u$, albero di visita di $G$ in DFS, radicato in $u$, l'unico modo per raggiungere $v$ è attraverso $(u, v)$ stesso, in quanto $G$ è indiretto, e dunque necessariamente $(u, v) \in E(T_u)$
 \end{proof}
 
 \begin{algorithm}[H]
