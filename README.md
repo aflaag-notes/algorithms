@@ -17,10 +17,6 @@ Questi sono i miei [appunti](https://raw.githubusercontent.com/ph04/algorithms/m
 - pagina 8/43
     - scrivere proposizione e roba dell'algoritmo
 
-- pagina 10
-    - dimostrazione in alto a destra
-    - fun fact a sinistra al centro
-
 - pagina 11
     - algoritmo dijkstra (considera se metterlo o no)
 

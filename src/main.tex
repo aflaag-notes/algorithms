@@ -2069,6 +2069,8 @@
 \subsection{Distanza}
 
 \begin{definition}[Distanza]
+    \label{distanza}
+
     Sia $G$ un grafo, e siano $x, y \in V(G)$ due suoi vertici; si definisce \textit{distanza tra $x$ e $y$}, il numero minimo di archi che costituiscono un cammino $x \rightarrow y$. In simboli, sia $\mathcal{C}$ l'insieme dei cammini $x \rightarrow y$ in $G$; allora $$\mathrm{dist}(x, y) := \min_{c \in \mathcal{C}}{\left |E(c) \right|}$$
 \end{definition}
 
@@ -2224,10 +2226,34 @@
     \end{algorithmic}
 \end{algorithm}
 
+\begin{proof}
+    Per dimostrare la correttezza dell'algoritmo, è necessario dimostrare che l'array \texttt{distances} in output sia corretto, e dunque che $$\forall v \in V(G) \quad \texttt{distances[}v\texttt{]} = \mathrm{dist}(u, v)$$
+
+    dove $u$ è la radice in input. La dimostrazione procede dunque per induzione sull'array \texttt{distances}, come segue:
+
+    \begin{itemize}
+        \item \textit{caso base}
+            \begin{itemize}
+                \item $\texttt{distances[}u\texttt{]} = 0$ e questo è garantito dalla riga 4, all'interno della quale vengono inizializzate tutte le distanze dei vertici del grafo, dalla radice $u$, a 0; si noti che l'algoritmo si assicura di non modificare la radice ulteriormente, grazie al controllo della riga 9, che procede solo se il vertice correntemente in esame non è la radice
+            \end{itemize}
+        \item \textit{ipotesi induttiva forte}
+            \begin{itemize}
+                \item $\forall v \in V(G) \mid \mathrm{dist}(u, v) =: k \quad \texttt{distances[}v\texttt{]} = k$
+            \end{itemize}
+        \item \textit{passo induttivo}
+            \begin{itemize}
+                \item è necessario dimostrare che $$\forall v \in V(G) \mid \mathrm{dist}(u, v) =: k + 1 \quad \texttt{distances[}v\texttt{]} = k + 1$$
+                \item per la \cref{distanza}, $\forall x, y \in V(G) \quad \mathrm{dist}(x, y)$ è il numero minimo di archi che costituiscono un cammino $x \rightarrow y$; allora, affinché $v$ sia a distanza $k + 1$ dalla radice $u$, deve necessariamente esistere un cammino $u \rightarrow v$ contenente esattamente $k + 1$ archi, per definizione
+                \item sia $\hat v$ il penultimo vertice del cammino $u \rightarrow v$ (l'ultimo è proprio $v$): esso avrà esattamente $(k + 1) - 1 = k$ vertici, e poiché il cammino preso in considerazione aveva un numero di archi minimo, rimuovendo l'arco $(\hat v, v)$ da quest'ultimo, si otterrà un cammino ancora minimo, che definisce di conseguenza la distanza $\mathrm{dist}(u, \hat v) = k$
+                \item allora, su $\hat v$ è possibile applicare l'ipotesi induttiva, per la quale si ha che $$\texttt{distances[}\hat v\texttt{]} = k$$ e poiché $\hat v \sim v$, allora l'arco $(\hat v, v)$ verrà percorso all'interno della visita in BFS (grazie alla riga 8), e dunque alla riga 11 si otterrà che $$\texttt{distances[}v\texttt{]} = \texttt{distances[}\hat v\texttt{]} + 1 = k + 1$$ per ipotesi induttiva.
+            \end{itemize}
+    \end{itemize}
+\end{proof}
+
 \begin{remark}[Correttezza dell'algoritmo]
     L'algoritmo inizia definendo un array di nodi padri \texttt{parents}, un array di distanze \texttt{distances} (che conterrà le distanze dei vertici di $G$ dalla radice $u$ di partenza), e una coda \texttt{Q}, contenente $u$ inizialmente (riga $5$).
 
-    Successivamente, fintanto che la coda \texttt{Q} non è vuota, viene eseguito il ciclo \texttt{while} della riga $6$, all'interno del quale viene rimosso il primo nodo $v$ della coda \texttt{Q}, alla riga $7$; inoltre, per ognuno dei suoi nodi adiacenti $x \sim v$, se non ancora visitato (la sua distanza da $u$ è ancora $0$), e non è la radice, ne viene aggiornato il padre, alla riga $10$, e viene aggiornata la sua distanza da $u$, sommando $1$ alla distanza del padre, ossia $v$, dalla radice; infine, $x$ viene posizionato in coda. In particolare, quest'ultima riga permette all'algoritmo di effettuare una visita in BFS del grafo, poiché ogni vertice adiacente a $v$ trovato viene inserito all'interno della coda non appena viene visitato.
+    Successivamente, fintanto che la coda \texttt{Q} non è vuota, viene eseguito il ciclo \texttt{while} della riga $6$, all'interno del quale viene rimosso il primo nodo $v$ della coda \texttt{Q}, alla riga $7$; inoltre, per ognuno dei suoi nodi adiacenti $x \sim v$, se non ancora visitato (la sua distanza da $u$ è $0$, ma non è la radice), ne viene aggiornato il padre, alla riga $10$, e viene aggiornata la sua distanza da $u$, sommando $1$ alla distanza del padre, ossia $v$, dalla radice; infine, $x$ viene posizionato in coda. In particolare, quest'ultima riga permette all'algoritmo di effettuare una visita in BFS del grafo, poiché ogni vertice adiacente a $v$ trovato viene inserito all'interno della coda non appena viene visitato.
 
     Ad esempio, si consideri il seguente grafo:
 
@@ -2260,6 +2286,66 @@
 \begin{remark}[Costo dell'algoritmo]
     Il ciclo \texttt{for} della riga $8$ viene eseguito per ognuno dei vertici adiacenti a $v$, e dunque ha costo $O(\deg(v))$; allora, per ragionamento analogo all'\cref{costo findReachableNodes2}, il costo dell'algoritmo è pari a $O(n +m)$.
 \end{remark}
+
+\begin{remark}[Archi non della visita]
+    Sia $G$ un grafo, e sia $H$ un albero/arborescenza di visita in BFS di $G$, radicato in un certo $r \in V(G)$; allora $$\forall (x, y) \in E(G - H) \quad \mathrm{dist}(r, x) = \left \{ \begin{array}{l} \mathrm{dist}(r, y) \pm 1 \\ \mathrm{dist}(r, y) \end{array} \right.$$
+\end{remark}
+
+\begin{example}[Archi non della visita]
+    Ad esempio, si consideri il seguente grafo indiretto $G$:
+
+    \begin{figure}[H]
+        \centering
+        \begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=3cm,thick,main node/.style={scale=0.6,circle,draw,font=\sffamily\normalsize}]
+            \node[main node] (3) {3};
+            \node[main node] (4) [below right of=3] {4};
+            \node[main node] (2) [below left of=3] {2};
+            \node[main node] (6) [below of=4] {6};
+            \node[main node] (5) [right of=6] {5};
+            \node[main node] (7) [below of=2] {7};
+            \node[main node] (1) [left of=7] {1};
+
+            \path[every node/.style={font=\sffamily\small}]
+                (3) edge (4)
+                (3) edge (2)
+                (4) edge (5)
+                (4) edge (6)
+                (4) edge (7)
+                (2) edge (1)
+                (2) edge (7)
+                (6) edge (7)
+                ;
+        \end{tikzpicture}
+        \caption{Un grafo indiretto.}
+    \end{figure}
+
+    eseguendo una visita in BFS su di esso, radicata in 3, si potrebbe ottenere il seguente albero $T$:
+
+    \begin{figure}[H]
+        \centering
+        \begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=3cm,thick,main node/.style={scale=0.6,circle,draw,font=\sffamily\normalsize}]
+            \node[main node] (3) {3};
+            \node[main node] (4) [below right of=3] {4};
+            \node[main node] (2) [below left of=3] {2};
+            \node[main node] (6) [below of=4] {6};
+            \node[main node] (5) [right of=6] {5};
+            \node[main node] (7) [below of=2] {7};
+            \node[main node] (1) [left of=7] {1};
+
+            \path[every node/.style={font=\sffamily\small}]
+                (3) edge (4)
+                (3) edge (2)
+                (4) edge (5)
+                (4) edge (6)
+                (2) edge (1)
+                (2) edge (7)
+                ;
+        \end{tikzpicture}
+        \caption{Un grafo indiretto.}
+    \end{figure}
+
+    allora, si noti che $$E(G - T) = \{(4, 7), (6, 7)\}$$ e infatti si ha che $$\mathrm{dist}(3, 7) = 2 = 1 + 1 = \mathrm{dist}(3, 4) + 1$$ $$\mathrm{dist}(3, 6) = 2 = \mathrm{dist}(3, 7)$$
+\end{example}
 
 \subsection{Trovare il numero di cammini minimi}
 
