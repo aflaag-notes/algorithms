@@ -975,7 +975,7 @@
     \begin{itemize}
         \item $\mathrm{Int}(u) \subseteq \mathrm{Int}(v)$, allora l'arco $(u, v)$ è un \textit{backward edge}, ovvero in avanti: sono gli archi che congiungono due nodi dello stesso ramo di $A_{\hat v}$, nel caso in cui $v$ è più in profondità di $u$ nella visita DFS 
         \item $\mathrm{Int}(v) \subseteq \mathrm{Int}(u)$, allora l'arco $(u, v)$ è un \textit{forward edge}, ovvero all'indietro: sono gli archi che congiungono due nodi dello stesso ramo di $A_{\hat v}$, nel caso in cui $u$ è più in profondità di $v$ nella visita DFS
-        \item $\mathrm{Int}(v) \cap \mathrm{Int}(u) = \varnothing$, allora l'arco $(u, v)$ è un \textit{cross edge}, detto \textit{arco di attraversamento}: sono gli archi che congiungono due nodi di rami differenti in $A_{\hat v}$
+        \item $\mathrm{Int}(v) \cap \mathrm{Int}(u) = \varnothing$, allora l'arco $(u, v)$ è un \textit{cross edge}, detto \textit{arco di attraversamento}: sono gli archi che congiungono due nodi di rami differenti dell'arborescenza $A_{\hat v}$
     \end{itemize}
 \end{remark}
 
@@ -984,8 +984,7 @@
 \end{remark}
 
 \begin{example}
-    TODO DA FINIRE
-    Ad esempio, si consideri il seguente multigrafo diretto:
+    Ad esempio, si consideri il seguente multigrafo diretto $G$:
 
     \begin{figure}[H]
         \centering
@@ -1002,12 +1001,103 @@
             \node[main node] (10) [below left of=8] {10};
 
             \path[every node/.style={font=\sffamily\small}]
-                (1) edge (2)
-                % (2) edge (1)
+                (1) edge[bend left] (2)
+                (1) edge (5)
+                (1) edge[bend right] (7)
+                (2) edge (1)
+                (2) edge (3)
+                (2) edge (4)
+                (3) edge (4)
+                (3) edge (6)
+                (4) edge (1)
+                (5) edge[bend right] (7)
+                (7) edge[bend right] (1)
+                (7) edge (6)
+                (7) edge (8)
+                (7) edge (9)
+                (7) edge (10)
+                (8) edge (4)
+                (8) edge (10)
+                (9) edge[bend left] (5)
                 ;
         \end{tikzpicture}
         \caption{Un multigrafo diretto.}
     \end{figure}
+
+    sia $A_1$ la seguente arborescenza di visita in DFS di $G$, radicata in 1:
+
+    \begin{figure}[H]
+        \centering
+        \begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=3cm,thick,main node/.style={scale=0.6,circle,draw,font=\sffamily\normalsize}]
+            \node[main node] (1) {1};
+            \node[main node] (2) [above right of=1] {2};
+            \node[main node] (3) [right of=2] {3};
+            \node[main node] (4) [right of=1] {4};
+            \node[main node] (5) [below of=1] {5};
+            \node[main node] (6) [right of=4] {6};
+            \node[main node] (7) [right of=5] {7};
+            \node[main node] (8) [below right of=6] {8};
+            \node[main node] (9) [below of=7] {9};
+            \node[main node] (10) [below left of=8] {10};
+
+            \path[every node/.style={font=\sffamily\small}]
+                (1) edge[bend left] (2)
+                (1) edge[bend right] (7)
+                (2) edge (3)
+                (3) edge (4)
+                (3) edge (6)
+                (7) edge (8)
+                (7) edge (9)
+                (8) edge (10)
+                (9) edge[bend left] (5)
+                ;
+        \end{tikzpicture}
+        \caption{Un'arborescenza, radicata in 1, di un multigrafo diretto.}
+    \end{figure}
+
+    e siano inoltre i seguenti i tempi di visita e di chiusura di ogni vertice di $G$, relativi ad $A_1$
+
+    \begin{center}
+        \begin{tabular}{c|c c} 
+             \hline
+             $v$ & $t(v)$ & $T(v)$ \\
+             \hline\hline
+             1 & 1 & 10 \\ 
+             \hline
+             2 & 2 & 5 \\
+             \hline
+             3 & 3 & 5 \\
+             \hline
+             4 & 5 & 5 \\
+             \hline
+             5 & 10 & 10 \\
+             \hline
+             6 & 4 & 4 \\
+             \hline
+             7 & 6 & 10 \\
+             \hline
+             8 & 7 & 8 \\
+             \hline
+             9 & 9 & 10 \\
+             \hline
+             10 & 8 & 8 \\
+             \hline
+        \end{tabular}
+    \end{center}
+
+    allora, è possibile classificare gli archi in $E(G) - E(A_1)$, attraverso i loro tempi di visita e di chiusura come segue 
+
+    \begin{center}
+        \begin{tabular}{c||c c} 
+             \hline
+             \textit{backward} & $\{(2, 1), (4, 1), (5, 7), (7, 1)\}$ \\
+             \hline
+             \textit{forward} & $\{(1, 5), (2, 4), (7, 10)\}$\\ 
+             \hline
+             \textit{cross} & $\{(7, 6), (8, 4)\}$\\
+             \hline
+        \end{tabular}
+    \end{center}
 \end{example}
 
 \begin{theorem}[Presenza di cicli]
@@ -1017,7 +1107,7 @@
 \begin{proof}
     \hspace{0.7cm}
     \begin{itemize}
-        \item[] \textit{Prima implicazione.} Per assurdo, sia $G$ un grafo indiretto, in cui è presente almeno un ciclo, e non sono presenti backward edge; inoltre, sia $\hat v \in V(G)$, e sia $T_{\hat v}$ il suo albero. Allora, poiché $G$ non ha backward edge, necessariamente gli unici suoi archi sono quelli che compongono $T_{\hat v}$, e dunque $E(G) = E(T_{\hat v}) \implies G = T_{\hat v} \implies G$ è un albero, e dunque $G$ non ha cicli $\lightning$.
+        \item[] \textit{Prima implicazione.} Per assurdo, sia $G$ un grafo indiretto, in cui è presente almeno un ciclo, e non sono presenti backward edge; inoltre, sia $\hat v \in V(G)$, e sia $T_{\hat v}$ il suo albero. Allora, poiché $G$ non ha backward edge, necessariamente gli unici suoi archi sono quelli che compongono $T_{\hat v}$, e dunque si ha che $E(G) = E(T_{\hat v}) \implies G = T_{\hat v} \implies G$ è un albero, e di conseguenza $G$ non ha cicli $\lightning$.
         \item[] \textit{Seconda implicazione.} Sia $G$ un grafo indiretto connesso, sia $\hat v \in V(G)$, sia $T_{\hat v}$ il suo albero, e sia $(u, v) \in E(G) - E(T_{\hat v})$ un backward edge. Allora, poiché $u, v \in V(T_{\hat v})$, è sufficiente considerare il cammino tale che $u \rightarrow v$, che esiste poiché $T_{\hat v}$ è un albero, e dunque $\{u \rightarrow v\} \cup (u, v)$ è un ciclo di $G$.
     \end{itemize}
 \end{proof}
