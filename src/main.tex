@@ -1999,6 +1999,7 @@
 
 \begin{remark}[Costo dell'algoritmo]
     TODO $O(n + m)$
+    ma che è sta roba
 \end{remark}
 
 \subsection{Trovare un ciclo}
@@ -2032,7 +2033,13 @@
             \EndFor
             \State \textbf{return} \texttt{None}
         \EndFunction
-        \\
+        \algstore{bkbreak}
+    \end{algorithmic}
+\end{algorithm}
+
+\begin{nocaptionalg}
+    \begin{algorithmic}[1]
+        \algrestore{bkbreak}
         \Function{findCycle}{$G$}
             \State $\texttt{visited} := \texttt{[}0\texttt{]} * n$
             \For{$v \in V(G)$}
@@ -2046,7 +2053,7 @@
             \State \textbf{return} \texttt{None}
         \EndFunction
     \end{algorithmic}
-\end{algorithm}
+\end{nocaptionalg}
 
 \begin{remark}[Correttezza dell'algoritmo]
     L'algoritmo inizia effettuando un ciclo \texttt{for}, alla riga $25$, su ogni vertice $v \in V(G)$; in particolare, se $v$ non è stato ancora visitato (riga $26$), viene effettuata una visita ricorsiva in DFS di $G$, partendo da $v$.
