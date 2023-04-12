@@ -2565,6 +2565,40 @@
     \end{itemize}
 \end{proof}
 
+\begin{algorithm}[H]
+    \caption{
+        Dato un grafo pesato $G$ attraverso $w$, e $u \in V(G)$ un suo vertice, l'algoritmo restituisce le distanze pesate dei vertici di $G$ da $u$; l'algoritmo assume che ogni vertice di $G$ sia raggiungibile da $u$, e che ogni peso definito da $w$ sia diverso da $0$.\\
+        \textbf{Input}: $G$ grafo, e $u$ un suo vertice tale che per ogni $x \in V(G)$ esiste un cammino della forma $u \rightarrow x$; $w$ una funzione che associa pesi agli archi in $E(G)$, tale che ogni peso sia strettamente positivo.\\
+        \textbf{Output}: le distanze dei vertici di $G$ da $u$.
+    }
+
+    \begin{algorithmic}[1]
+        \Function{Dijkstra$_1$}{$G$, $w$, $v$}
+            \State $\texttt{distancesW} := \texttt{[}-1\texttt{]} * n$
+            \State $R := \varnothing$
+            \While{$\exists (\alpha, \beta) \in E(G) \mid \left \{ \begin{array}{l} \alpha \in R \\ \beta \in V(G) - R \end{array} \right.$}
+                \State $\displaystyle (x, u):= \argmin_{\substack{(a, b) \in E(G) \\ a \in R \\ b \in V(G) - R}}{\left(\texttt{distancesW[}a\texttt{]} + w(a, b)\right)}$
+                \State $\texttt{distancesW[}u\texttt{]} = \texttt{distancesW[}x\texttt{]} + w(x, u)$
+            \EndWhile
+            \State \textbf{return} \texttt{distancesW}
+        \EndFunction
+    \end{algorithmic}
+\end{algorithm}
+
+\begin{remark}[Correttezza dell'algoritmo]
+    TODO DA RILEGGERE
+
+    L'algoritmo inizia definendo, alla riga 2, l'array \texttt{distancesW}, interamente a -1, che dovrà essere riempito dall'algoritmo e restituito al termine dell'esecuzione; inoltre, alla riga 3 viene definito un insieme di vertici $R \subseteq V(G)$.
+
+    Alla riga 4 viene istanziato un ciclo \texttt{while}, il quale procede fintanto che è presente un arco uscente da $R$, dunque con un vertice in $R$ ed uno in $V(G) - R$
+
+    \cref{caratteristiche distanze pesate}
+\end{remark}
+
+\begin{remark}[Costo dell'algoritmo]
+    TODO $O(n \cdot m)$
+\end{remark}
+
 % \begin{algorithm}[H]
 %     \caption{
 %         Dato un grafo pesato $G$ attraverso $w$, e $u \in V(G)$ un suo vertice, l'algoritmo restituisce le distanze pesate dei vertici di $G$ da $u$; l'algoritmo assume che ogni vertice di $G$ sia raggiungibile da $u$, e che ogni peso definito da $w$ sia diverso da $0$.\\
@@ -2573,7 +2607,7 @@
 %     }
 %
 %     \begin{algorithmic}[1]
-%         \Function{Dijkstra}{$G$, $w$, $u$}
+%         \Function{Dijkstra$_2$}{$G$, $w$, $u$}
 %             \State $\texttt{distancesW} := \texttt{[}+ \infty \texttt{]} * n$ \Comment{valore sufficientemente grande}
 %             \State $\texttt{distancesW[}u\texttt{]} = 0$
 %             \State $\texttt{MinHeap H} := \texttt{[]}$ \Comment{è una \textit{priority queue}}

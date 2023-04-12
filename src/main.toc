@@ -25,7 +25,7 @@
 \contentsline {subsection}{\numberline {1.5.3}Trovare il numero di cammini minimi}{58}{subsection.1.5.3}%
 \contentsline {subsection}{\numberline {1.5.4}Distanza tra insiemi di vertici}{59}{subsection.1.5.4}%
 \contentsline {subsection}{\numberline {1.5.5}Archi pesati}{61}{subsection.1.5.5}%
-\contentsline {chapter}{\numberline {2}Algoritmi greedy}{65}{chapter.2}%
-\contentsline {section}{\numberline {2.1}TODO}{65}{section.2.1}%
-\contentsline {subsection}{\numberline {2.1.1}Definizioni}{65}{subsection.2.1.1}%
-\contentsline {subsection}{\numberline {2.1.2}Trovare intervalli disgiunti}{65}{subsection.2.1.2}%
+\contentsline {chapter}{\numberline {2}Algoritmi greedy}{66}{chapter.2}%
+\contentsline {section}{\numberline {2.1}TODO}{66}{section.2.1}%
+\contentsline {subsection}{\numberline {2.1.1}Definizioni}{66}{subsection.2.1.1}%
+\contentsline {subsection}{\numberline {2.1.2}Trovare intervalli disgiunti}{66}{subsection.2.1.2}%
