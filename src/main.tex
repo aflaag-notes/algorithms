@@ -70,9 +70,13 @@
     \large Informatica, La Sapienza
 \end{titlepage}
 
+\pagenumbering{Roman}
+
 \tableofcontents
 
 \pagebreak
+
+\pagenumbering{arabic}
 
 % === END TEMPLATE ===
 
@@ -172,6 +176,7 @@
 
 \begin{lemma}[Somma dei gradi]
     \label{Somma dei gradi}
+
     Dato un grafo $G$, la somma dei gradi dei vertici è pari a $2 |E(G)|$.
 \end{lemma}
 
@@ -2553,6 +2558,8 @@
 \end{proof}
 
 \begin{theorem}[Estensioni pesate di insiemi di vertici]
+    \label{dijkstra theorem}
+
     Sia $G$ un grafo indiretto, e sia $R \subseteq V(G)$ un sottoinsieme dei suoi vertici; sia $v\in R$ un vertice in $R$, e sia $(x, u) \in E(G)$ un arco con $x \in R$ e $u \in V(G) - R$, tale che $$(x, u):= \argmin_{\substack{(a, b) \in E(G) \\ a \in R \\ b \in V(G) - R}}{\left(\mathrm{dist}_w(v, x) + w(a, b)\right)}$$ allora necessariamente $$\mathrm{dist}_w(v, u) = \mathrm{dist}_w(v, x) + w(x, u)$$
 \end{theorem}
 
@@ -2565,6 +2572,8 @@
     \end{itemize}
 \end{proof}
 
+\subsection{Algoritmo di Dijkstra}
+
 \begin{algorithm}[H]
     \caption{
         Dato un grafo pesato $G$ attraverso $w$, e $u \in V(G)$ un suo vertice, l'algoritmo restituisce le distanze pesate dei vertici di $G$ da $u$; l'algoritmo assume che ogni vertice di $G$ sia raggiungibile da $u$, e che ogni peso definito da $w$ sia diverso da $0$.\\
@@ -2574,11 +2583,12 @@
 
     \begin{algorithmic}[1]
         \Function{Dijkstra$_1$}{$G$, $w$, $v$}
-            \State $\texttt{distancesW} := \texttt{[}-1\texttt{]} * n$
+            \State $\texttt{distancesW} := \texttt{[}+ \infty \texttt{]} * n$ \Comment{valore sufficientemente grande}
             \State $R := \varnothing$
             \While{$\exists (\alpha, \beta) \in E(G) \mid \left \{ \begin{array}{l} \alpha \in R \\ \beta \in V(G) - R \end{array} \right.$}
                 \State $\displaystyle (x, u):= \argmin_{\substack{(a, b) \in E(G) \\ a \in R \\ b \in V(G) - R}}{\left(\texttt{distancesW[}a\texttt{]} + w(a, b)\right)}$
                 \State $\texttt{distancesW[}u\texttt{]} = \texttt{distancesW[}x\texttt{]} + w(x, u)$
+                \State $R = R \cup \{u\}$
             \EndWhile
             \State \textbf{return} \texttt{distancesW}
         \EndFunction
@@ -2586,17 +2596,17 @@
 \end{algorithm}
 
 \begin{remark}[Correttezza dell'algoritmo]
-    TODO DA RILEGGERE
+    L'algoritmo inizia definendo, alla riga 2, l'array \texttt{distancesW}, interamente inizializzato a $+ \infty$, che dovrà essere riempito dall'algoritmo e restituito al termine dell'esecuzione; inoltre, alla riga 3 viene definito un insieme di vertici $R \subseteq V(G)$.
 
-    L'algoritmo inizia definendo, alla riga 2, l'array \texttt{distancesW}, interamente a -1, che dovrà essere riempito dall'algoritmo e restituito al termine dell'esecuzione; inoltre, alla riga 3 viene definito un insieme di vertici $R \subseteq V(G)$.
+    Alla riga 4 viene istanziato un ciclo \texttt{while}, il quale procede fintanto che è presente un arco uscente da $R$, dunque composto da un vertice in $R$ ed uno in $V(G) - R$; al suo interno, alla riga 5, viene preso l'arco $(x, u)$, uscente da $R$, tale da minimizzare la somma $$\texttt{distancesW[}x\texttt{]} + w(x, u) = \mathrm{dist}_w(v, x) + w(x, u)$$ e si noti che, per il \cref{dijkstra theorem}, si ha che $$\mathrm{dist}_w(v, u) = \mathrm{dist}_w(v, x) + w(x, u)$$ allora, viene aggiornato il valore di $\texttt{distancesW[}u\texttt{]}$ coerentemente, alla riga 6; infine, alla riga 7, viene aggiunto $u$ ad $R$. Infine, si noti inoltre che il \texttt{while} della riga 4 prosegue, fintanto che esistono ancora archi uscenti da $R$, e dunque l'algoritmo termina quando $R$ contiene ogni vertice del grafo.
 
-    Alla riga 4 viene istanziato un ciclo \texttt{while}, il quale procede fintanto che è presente un arco uscente da $R$, dunque con un vertice in $R$ ed uno in $V(G) - R$
-
-    \cref{caratteristiche distanze pesate}
+    Si noti che l'algoritmo, ad ogni iterazione, sceglie dunque l'arco $(x, u)$ tale da minimizzare il peso del cammino $\{v \rightarrow x\} \cup (x, u)$, e al termine di ogni iterazione del ciclo \texttt{while} viene inserito $u$ all'interno di $R$, estendendo dunque l'insieme di vertici visitati. Si noti che, per trovare un tale arco è necessario controllare ogni $(x, u)$ uscente da $R$.
 \end{remark}
 
 \begin{remark}[Costo dell'algoritmo]
-    TODO $O(n \cdot m)$
+    Per trovare l'arco cercato, alla riga 5, è necessario controllare ogni arco uscente da $R$, e trovare quello tale da minimizzare la somma richiesta; si noti che, per il \cref{Somma dei gradi}, si ha che $$\displaystyle \sum_{v \in R_i}{\deg(v)} \le \sum_{v \in V(G)}{\deg(v)} = 2m$$ e dunque la ricerca da effettuare per l'$i$-esima iterazione ha costo $O(m)$; si noti inoltre che il ciclo \texttt{while} prosegue fino all'esaurimento degli archi uscenti da $R$, e dunque fino al termine della visita completa del grafo.
+
+    Allora il costo del ciclo, e dunque dell'algoritmo, è pari a $O(n \cdot m)$.
 \end{remark}
 
 % \begin{algorithm}[H]
@@ -2638,13 +2648,19 @@
 
 \chapter{Algoritmi greedy}
 
-\section{TODO}
+\section{Algoritmi greedy}
 
 \subsection{Definizioni}
 
 \begin{definition}[Algoritmo greedy]
     Un algoritmo è detto \textit{greedy}, se cerca una soluzione effettuando delle scelte di passo in passo, optando sempre per il passo più "appetibile" momentaneamente.
 \end{definition}
+
+\begin{example}[Algoritmo greedy]
+    TODO
+\end{example}
+
+\section{Intervalli}
 
 \subsection{Trovare intervalli disgiunti}
 
@@ -2726,6 +2742,43 @@
     Si noti che, all'interno dell'algoritmo si assume \texttt{Sol.last()} abbia costo $O(1)$, andando ad indicizzare correttamente l'ultimo elemento della lista.
 
     Poiché l'ordinamento di $I$, alla riga 2, indipendentemente dall'algoritmo di ordinamento scelto, non può avere costo inferiore a $O(n \log n)$, e il ciclo \texttt{for} della riga 4 ha costo $O(n)$, si ha che l'algoritmo ha costo $O(n \log n) + O(n) = O(n \log n)$.
+\end{remark}
+
+\subsection{Trovare insieme non disgiunto}
+
+\begin{algorithm}[H]
+    \caption{
+        Data una lista di intervalli, l'algoritmo restituisce l'insieme, di cardinalità minima, di interi $x_1, \ldots, x_k$, tali da intersecarsi con ogni intervallo.\\
+        \textbf{Input}: $I$ lista di intervalli di numeri reali della forma $[a, b]$, con $a, b \in \mathbb{R}$.\\
+        \textbf{Output}: l'insieme minimo di $x_1, \ldots, x_n$ tali che $\forall i \in I \quad i \cap \{x_1, \ldots, x_n\} \neq \varnothing$.
+    }
+
+    \begin{algorithmic}[1]
+        \Function{findIntervals}{$I$}
+            \State $I\texttt{.sort(key=}\lambda (i) \rightarrow i\texttt{.right())}$ \Comment{$I$ ordinato sugli estremi destri}
+            \State $\texttt{Sol}:= \varnothing$
+            \For{$i \in I$}
+            \If{$\texttt{Sol} \cap i = \varnothing$}
+                    \State $\texttt{Sol} = \texttt{Sol} \cup \{b_i\}$
+                \EndIf
+            \EndFor
+            \State \textbf{return} \texttt{Sol}
+        \EndFunction
+    \end{algorithmic}
+\end{algorithm}
+
+\begin{proof}
+    TODO
+\end{proof}
+
+\begin{remark}[Correttezza dell'algoritmo]
+    TODO
+\end{remark}
+
+\begin{remark}[Costo dell'algoritmo]
+    L'ordinamento della riga 2 non può essere eseguito con costo minore di $O(n \log n)$; inoltre, il ciclo \texttt{for} della riga 5 esegue linearmente una sola iterazione, per intervallo in $I$, e dunque il suo costo è pari a $O(n)$.
+
+    Allora, il costo dell'algoritmo è pari a $O(n \log n) + O(n) = O(n \log n)$.
 \end{remark}
 
 \end{document}
