@@ -1,4 +1,4 @@
-% === BEGIN TEMPLATE ===
+    % === BEGIN TEMPLATE ===
 
 % !!!THE ORDER MATTERS, DON'T CHANGE THE ORDER OF PACKAGES!!!
 
@@ -2500,7 +2500,7 @@
 \end{definition}
 
 \begin{example}[Grafo indiretto pesato]
-    Ad esempio, si consideri il seguente grafo indiretto:
+    Ad esempio, si consideri il seguente grafo indiretto pesato:
 
     \begin{figure}[H]
         \centering
@@ -2780,5 +2780,88 @@
 
     Allora, il costo dell'algoritmo è pari a $O(n \log n) + O(n) = O(n \log n)$.
 \end{remark}
+
+\subsection{MST (Minimum Spanning Tree)}
+
+\begin{definition}[MST]
+    Sia $G$ un grafo indiretto, pesato attraverso $w$; allora, si definisce \textit{MST (Minimum Spanning Tree)} un sottografo di $G$, connesso, di peso minimo, contenente ogni vertice di $G$.
+\end{definition}
+
+\begin{example}[MST]
+    Ad esepio, si consideri il seguente grafo indiretto pesato:
+
+    \begin{figure}[H]
+        \centering
+        \begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=3cm,thick,main node/.style={scale=0.6,circle,draw,font=\sffamily\normalsize}]
+            \node[main node] (1) {1};
+            \node[main node] (2) [above of=1] {2};
+            \node[main node] (5) [below right of=2] {5};
+            \node[main node] (3) [above right of=5] {3};
+            \node[main node] (4) [below of=3] {4};
+
+            \path[every node/.style={font=\sffamily\small}]
+                (1) edge node {3} (2)
+                (1) edge node {1} (5)
+                (2) edge node {3} (3)
+                (3) edge node {5} (4)
+                (3) edge node [left]{2} (5)
+                (4) edge node {2} (1)
+                (5) edge node {5} (4)
+                ;
+        \end{tikzpicture}
+        \caption{Un grafo indiretto pesato.}
+    \end{figure}
+
+    di esso, un possibile MST è il seguente:
+
+    \begin{figure}[H]
+        \centering
+        \begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=3cm,thick,main node/.style={scale=0.6,circle,draw,font=\sffamily\normalsize}]
+            \node[main node] (1) {1};
+            \node[main node] (2) [above of=1] {2};
+            \node[main node] (5) [below right of=2] {5};
+            \node[main node] (3) [above right of=5] {3};
+            \node[main node] (4) [below of=3] {4};
+
+            \path[every node/.style={font=\sffamily\small}]
+                (1) edge node {1} (5)
+                (2) edge node {3} (3)
+                (3) edge node {2} (5)
+                (4) edge node {2} (1)
+                (5) edge node {5} (4)
+                ;
+        \end{tikzpicture}
+        \caption{Un MST del grafo pesato.}
+    \end{figure}
+\end{example}
+
+\begin{lemma}[Un MST è aciclico]
+    Sia $G$ un grafo indiretto, e $H$ un suo MST; allora $H$ è aciclico.
+\end{lemma}
+
+\begin{proof}
+    Per assurdo, sia $H$ ciclico; allora, $H$ contiene almeno un ciclo, e per definizione ogni vertice di tale ciclo sarà 
+\end{proof}
+
+\begin{algorithm}[H]
+    \caption{
+        Dato un grafo indiretto $G$, pesato attraverso $w$, l'algoritmo restituisce l'MST.\\
+        \textbf{Input}: $I$ lista di intervalli di numeri reali della forma $[a, b]$, con $a, b \in \mathbb{R}$.\\
+        \textbf{Output}: l'insieme minimo di $x_1, \ldots, x_n$ tali che $\forall i \in I \quad i \cap \{x_1, \ldots, x_n\} \neq \varnothing$.
+    }
+
+    \begin{algorithmic}[1]
+        \Function{Kruskal}{$I$}
+            \State $I\texttt{.sort(key=}\lambda (i) \rightarrow i\texttt{.right())}$ \Comment{$I$ ordinato sugli estremi destri}
+            \State $\texttt{Sol}:= \varnothing$
+            \For{$i \in I$}
+            \If{$\texttt{Sol} \cap i = \varnothing$}
+                    \State $\texttt{Sol} = \texttt{Sol} \cup \{b_i\}$
+                \EndIf
+            \EndFor
+            \State \textbf{return} \texttt{Sol}
+        \EndFunction
+    \end{algorithmic}
+\end{algorithm}
 
 \end{document}
