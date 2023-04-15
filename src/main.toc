@@ -32,4 +32,6 @@
 \contentsline {section}{\numberline {2.2}Intervalli}{67}{section.2.2}%
 \contentsline {subsection}{\numberline {2.2.1}Trovare intervalli disgiunti}{67}{subsection.2.2.1}%
 \contentsline {subsection}{\numberline {2.2.2}Trovare insieme non disgiunto}{70}{subsection.2.2.2}%
-\contentsline {subsection}{\numberline {2.2.3}MST (Minimum Spanning Tree)}{70}{subsection.2.2.3}%
+\contentsline {section}{\numberline {2.3}MST (Minimum Spanning Tree)}{70}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1}Definizioni}{70}{subsection.2.3.1}%
+\contentsline {subsection}{\numberline {2.3.2}Algoritmo di Kruskal}{72}{subsection.2.3.2}%

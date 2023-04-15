@@ -2047,6 +2047,7 @@
         \algrestore{bkbreak}
         \Function{findCycle}{$G$}
             \State $\texttt{visited} := \texttt{[}0\texttt{]} * n$
+            \State $\texttt{parents} := \texttt{[}0\texttt{]} * n$
             \For{$v \in V(G)$}
                 \If{$\texttt{visited[}v\texttt{]} = = 0$}
                 \State $\texttt{output} = \texttt{DFS(}G, v, \texttt{parents}, \texttt{visited)}$
@@ -2576,7 +2577,7 @@
 
 \begin{algorithm}[H]
     \caption{
-        Dato un grafo pesato $G$ attraverso $w$, e $u \in V(G)$ un suo vertice, l'algoritmo restituisce le distanze pesate dei vertici di $G$ da $u$; l'algoritmo assume che ogni vertice di $G$ sia raggiungibile da $u$, e che ogni peso definito da $w$ sia diverso da $0$.\\
+        Dato un grafo pesato $G$ attraverso $w$, e $u \in V(G)$ un suo vertice, l'algoritmo restituisce le distanze pesate dei vertici di $G$ da $u$; l'algoritmo assume che ogni vertice di $G$ sia raggiungibile da $u$, e che ogni peso definito da $w$ sia strettamente positivo.\\
         \textbf{Input}: $G$ grafo, e $u$ un suo vertice tale che per ogni $x \in V(G)$ esiste un cammino della forma $u \rightarrow x$; $w$ una funzione che associa pesi agli archi in $E(G)$, tale che ogni peso sia strettamente positivo.\\
         \textbf{Output}: le distanze dei vertici di $G$ da $u$.
     }
@@ -2611,7 +2612,7 @@
 
 % \begin{algorithm}[H]
 %     \caption{
-%         Dato un grafo pesato $G$ attraverso $w$, e $u \in V(G)$ un suo vertice, l'algoritmo restituisce le distanze pesate dei vertici di $G$ da $u$; l'algoritmo assume che ogni vertice di $G$ sia raggiungibile da $u$, e che ogni peso definito da $w$ sia diverso da $0$.\\
+%         Dato un grafo pesato $G$ attraverso $w$, e $u \in V(G)$ un suo vertice, l'algoritmo restituisce le distanze pesate dei vertici di $G$ da $u$; l'algoritmo assume che ogni vertice di $G$ sia raggiungibile da $u$, e che ogni peso definito da $w$ sia strettamente positivo.\\
 %         \textbf{Input}: $G$ grafo, e $u$ un suo vertice tale che per ogni $x \in V(G)$ esiste un cammino della forma $u \rightarrow x$; $w$ una funzione che associa pesi agli archi in $E(G)$, tale che ogni peso sia strettamente positivo.\\
 %         \textbf{Output}: le distanze dei vertici di $G$ da $u$.
 %     }
@@ -2781,14 +2782,16 @@
     Allora, il costo dell'algoritmo è pari a $O(n \log n) + O(n) = O(n \log n)$.
 \end{remark}
 
-\subsection{MST (Minimum Spanning Tree)}
+\section{MST (Minimum Spanning Tree)}
+
+\subsection{Definizioni}
 
 \begin{definition}[MST]
-    Sia $G$ un grafo indiretto, pesato attraverso $w$; allora, si definisce \textit{MST (Minimum Spanning Tree)} un sottografo di $G$, connesso, di peso minimo, contenente ogni vertice di $G$.
+    Sia $G$ un grafo indiretto pesato; allora, si definisce \textit{MST (Minimum Spanning Tree)} un sottografo di $G$, connesso, di peso minimo, contenente ogni vertice di $G$.
 \end{definition}
 
 \begin{example}[MST]
-    Ad esepio, si consideri il seguente grafo indiretto pesato:
+    Ad esempio, si consideri il seguente grafo indiretto pesato:
 
     \begin{figure}[H]
         \centering
@@ -2826,9 +2829,8 @@
             \path[every node/.style={font=\sffamily\small}]
                 (1) edge node {1} (5)
                 (2) edge node {3} (3)
-                (3) edge node {2} (5)
+                (3) edge node [left]{2} (5)
                 (4) edge node {2} (1)
-                (5) edge node {5} (4)
                 ;
         \end{tikzpicture}
         \caption{Un MST del grafo pesato.}
@@ -2836,32 +2838,49 @@
 \end{example}
 
 \begin{lemma}[Un MST è aciclico]
-    Sia $G$ un grafo indiretto, e $H$ un suo MST; allora $H$ è aciclico.
+    Sia $G$ un grafo indiretto pesato, con pesi strettamente positivi, e sia $H$ un suo MST; allora $H$ è aciclico.
 \end{lemma}
 
 \begin{proof}
-    Per assurdo, sia $H$ ciclico; allora, $H$ contiene almeno un ciclo, e per definizione ogni vertice di tale ciclo sarà 
+    Per assurdo, sia $H$ ciclico; allora, $H$ contiene almeno un ciclo, e per definizione ogni vertice di tale ciclo avrà grado almeno pari a 2; allora, rimuovendo un arco $(u, v)$ dal ciclo di $H$, si ottiene un grafo $H'$ con le seguenti caratteristiche:
+
+    \begin{itemize}
+        \item $\deg(u)$ e $\deg(v)$ saranno decrementati di 1, e poiché $\deg(u), \deg(v) \ge 2$, allora in $H'$ si ha $\deg(u), \deg(v) \ge 1$; allora, segue che $H'$ è ancora connesso, e che $V(H') = V(H) = V(G)$;
+        \item sia $w_H$ il peso di $H$, e $w_{H'}$ il peso di $H'$; allora si ha che $$w_{H'} = w_H - w(u, v) \implies w_{H'} < w_H$$ poiché $w(u, v) > 0$ in ipotesi;
+    \end{itemize}
+
+    allora, segue che $H'$ è un MST, ma poiché $w_H \neq w_{H'}$, allora $H$ scelto in ipotesi non aveva peso minimo $\lightning$.
 \end{proof}
+
+\subsection{Algoritmo di Kruskal}
 
 \begin{algorithm}[H]
     \caption{
-        Dato un grafo indiretto $G$, pesato attraverso $w$, l'algoritmo restituisce l'MST.\\
-        \textbf{Input}: $I$ lista di intervalli di numeri reali della forma $[a, b]$, con $a, b \in \mathbb{R}$.\\
-        \textbf{Output}: l'insieme minimo di $x_1, \ldots, x_n$ tali che $\forall i \in I \quad i \cap \{x_1, \ldots, x_n\} \neq \varnothing$.
+        Dato un grafo indiretto $G$, pesato attraverso $w$, l'algoritmo ne restituisce un MST.\\
+        \textbf{Input}: $G$ grafo indiretto; $w$ una funzione che associa pesi agli archi in $E(G)$.\\
+        \textbf{Output}: un MST di $G$.
     }
 
     \begin{algorithmic}[1]
-        \Function{Kruskal}{$I$}
-            \State $I\texttt{.sort(key=}\lambda (i) \rightarrow i\texttt{.right())}$ \Comment{$I$ ordinato sugli estremi destri}
+        \Function{Kruskal}{$G$, $w$}
+            \State $E(G)\texttt{.sort(key=}\lambda (e) \rightarrow w(e)\texttt{)}$ \Comment{$E(G)$ ordinato sui pesi di $w$}
             \State $\texttt{Sol}:= \varnothing$
-            \For{$i \in I$}
-            \If{$\texttt{Sol} \cap i = \varnothing$}
-                    \State $\texttt{Sol} = \texttt{Sol} \cup \{b_i\}$
+            \For{$e \in E(G)$}
+            \If{$\texttt{findCycle(}\texttt{Sol} \cup \{e\}\texttt{)} == \texttt{None}$} \Comment{se non contiene cicli}
+                    \State $\texttt{Sol} = \texttt{Sol} \cup \{e\}$
                 \EndIf
             \EndFor
             \State \textbf{return} \texttt{Sol}
         \EndFunction
     \end{algorithmic}
 \end{algorithm}
+
+\begin{remark}[Correttezza dell'algoritmo]
+    TODO
+\end{remark}
+
+\begin{remark}[Costo dell'algoritmo]
+    TODO
+\end{remark}
 
 \end{document}
