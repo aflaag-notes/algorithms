@@ -119,31 +119,33 @@
 \@writefile{loa}{\contentsline {algorithm}{\numberline {1.5.3.1}{\ignorespaces  Dato un grafo $G$, rappresentato attraverso liste di adiacenza, ed un suo vertice $u$, per ogni $v \in V(G)$, l'algoritmo restituisce il numero di cammini minimi della forma $u \rightarrow v$.\\ \textbf  {Input}: $G$ grafo, rappresentato attraverso liste di adiacenza; $u \in V(G)$ un vertice di $G$.\\ \textbf  {Output}: per ogni vertice $v \in V(G)$, il numero di cammini minimi della forma $u \rightarrow v$. }}{57}{algorithm.1.5.3.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {1.5.4}Distanza tra insiemi di vertici}{58}{subsection.1.5.4}\protected@file@percent }
 \@writefile{loa}{\contentsline {algorithm}{\numberline {1.5.4.1}{\ignorespaces  Dato un grafo $G$, rappresentato attraverso liste di adiacenza, e due suoi sottoinsiemi di vertici $X, Y \subseteq V(G)$, l'algoritmo restituisce $\mathrm  {dist}(X, Y)$.\\ \textbf  {Input}: $G$ grafo, rappresentato attraverso liste di adiacenza; $X, Y \subseteq V(G)$ sottoinsiemi di vertici di $G$.\\ \textbf  {Output}: $\mathrm  {dist}(X, Y)$. }}{59}{algorithm.1.5.4.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {1.5.5}Archi pesati}{60}{subsection.1.5.5}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {1.29}{\ignorespaces Un grafo indiretto pesato.}}{60}{figure.1.29}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {1.30}{\ignorespaces Un grafo indiretto pesato.}}{61}{figure.1.30}\protected@file@percent }
-\newlabel{caratteristiche distanze pesate}{{1.5.5.1}{61}{Caratteristiche delle distanze pesate}{lemma.1.5.5.1}{}}
-\newlabel{caratteristiche distanze pesate@cref}{{[lemma][1][1,5,5]1.5.5.1}{[1][61][]61}}
-\newlabel{vicini pesati}{{1.5.5.2}{62}{Distanze pesate dei vicini}{lemma.1.5.5.2}{}}
-\newlabel{vicini pesati@cref}{{[lemma][2][1,5,5]1.5.5.2}{[1][62][]62}}
-\newlabel{dijkstra theorem}{{1.5.5.1}{63}{Estensioni pesate di insiemi di vertici}{theorem.1.5.5.1}{}}
-\newlabel{dijkstra theorem@cref}{{[theorem][1][1,5,5]1.5.5.1}{[1][62][]63}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {1.5.6}Algoritmo di Dijkstra}{64}{subsection.1.5.6}\protected@file@percent }
-\@writefile{loa}{\contentsline {algorithm}{\numberline {1.5.6.1}{\ignorespaces  Dato un grafo pesato $G$ attraverso $w$, e $u \in V(G)$ un suo vertice, l'algoritmo restituisce le distanze pesate dei vertici di $G$ da $u$; l'algoritmo assume che ogni vertice di $G$ sia raggiungibile da $u$, e che ogni peso definito da $w$ sia strettamente positivo.\\ \textbf  {Input}: $G$ grafo, e $u$ un suo vertice tale che per ogni $x \in V(G)$ esiste un cammino della forma $u \rightarrow x$; $w$ una funzione che associa pesi agli archi in $E(G)$, tale che ogni peso sia strettamente positivo.\\ \textbf  {Output}: le distanze dei vertici di $G$ da $u$. }}{64}{algorithm.1.5.6.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{\numberline {2}Algoritmi greedy}{66}{chapter.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {2}Algoritmi greedy}{61}{chapter.2}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {section}{\numberline {2.1}Algoritmi greedy}{66}{section.2.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.1.1}Definizioni}{66}{subsection.2.1.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {2.2}Intervalli}{67}{section.2.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.2.1}Trovare intervalli disgiunti}{67}{subsection.2.2.1}\protected@file@percent }
-\@writefile{loa}{\contentsline {algorithm}{\numberline {2.2.1.1}{\ignorespaces  Data una lista di intervalli, l'algoritmo restituisce l'insieme di restituisce il sottoinsieme di intervalli disgiunti, di cardinalità massima.\\ \textbf  {Input}: $I$ lista di intervalli di numeri reali della forma $[a, b]$, con $a, b \in \mathbb  {R}$.\\ \textbf  {Output}: il sottoinsieme di $I$ di intervalli disgiunti di cardinalità massima. }}{67}{algorithm.2.2.1.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.2.2}Trovare insieme non disgiunto}{70}{subsection.2.2.2}\protected@file@percent }
-\@writefile{loa}{\contentsline {algorithm}{\numberline {2.2.2.1}{\ignorespaces  Data una lista di intervalli, l'algoritmo restituisce l'insieme, di cardinalità minima, di interi $x_1, \ldots  , x_k$, tali da intersecarsi con ogni intervallo.\\ \textbf  {Input}: $I$ lista di intervalli di numeri reali della forma $[a, b]$, con $a, b \in \mathbb  {R}$.\\ \textbf  {Output}: l'insieme minimo di $x_1, \ldots  , x_n$ tali che $\forall i \in I \hskip 1em\relax i \cap \{x_1, \ldots  , x_n\} \neq  \varnothing $. }}{70}{algorithm.2.2.2.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {2.3}MST (Minimum Spanning Tree)}{70}{section.2.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.3.1}Definizioni}{70}{subsection.2.3.1}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {2.1}{\ignorespaces Un grafo indiretto pesato.}}{71}{figure.2.1}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {2.2}{\ignorespaces Un MST del grafo pesato.}}{71}{figure.2.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.3.2}Algoritmo di Kruskal}{72}{subsection.2.3.2}\protected@file@percent }
-\@writefile{loa}{\contentsline {algorithm}{\numberline {2.3.2.1}{\ignorespaces  Dato un grafo indiretto $G$, pesato attraverso $w$, l'algoritmo ne restituisce un MST.\\ \textbf  {Input}: $G$ grafo indiretto; $w$ una funzione che associa pesi agli archi in $E(G)$.\\ \textbf  {Output}: un MST di $G$. }}{72}{algorithm.2.3.2.1}\protected@file@percent }
-\gdef \@abspage@last{75}
+\@writefile{toc}{\contentsline {section}{\numberline {2.1}Algoritmi greedy}{61}{section.2.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.1.1}Definizioni}{61}{subsection.2.1.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2.2}Algoritmo di Dijkstra}{61}{section.2.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2.1}Archi pesati}{61}{subsection.2.2.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2.1}{\ignorespaces Un grafo indiretto pesato.}}{61}{figure.2.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2.2}{\ignorespaces Un grafo indiretto pesato.}}{62}{figure.2.2}\protected@file@percent }
+\newlabel{caratteristiche distanze pesate}{{2.2.1.1}{63}{Caratteristiche delle distanze pesate}{lemma.2.2.1.1}{}}
+\newlabel{caratteristiche distanze pesate@cref}{{[lemma][1][2,2,1]2.2.1.1}{[1][62][]63}}
+\newlabel{vicini pesati}{{2.2.1.2}{63}{Distanze pesate dei vicini}{lemma.2.2.1.2}{}}
+\newlabel{vicini pesati@cref}{{[lemma][2][2,2,1]2.2.1.2}{[1][63][]63}}
+\newlabel{dijkstra theorem}{{2.2.1.1}{64}{Estensioni pesate di insiemi di vertici}{theorem.2.2.1.1}{}}
+\newlabel{dijkstra theorem@cref}{{[theorem][1][2,2,1]2.2.1.1}{[1][64][]64}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2.2}Trovare le distanze pesate}{65}{subsection.2.2.2}\protected@file@percent }
+\@writefile{loa}{\contentsline {algorithm}{\numberline {2.2.2.1}{\ignorespaces  Dato un grafo pesato $G$ attraverso $w$, e $u \in V(G)$ un suo vertice, l'algoritmo restituisce le distanze pesate dei vertici di $G$ da $u$; l'algoritmo assume che ogni vertice di $G$ sia raggiungibile da $u$, e che ogni peso definito da $w$ sia strettamente positivo.\\ \textbf  {Input}: $G$ grafo, e $u$ un suo vertice tale che per ogni $x \in V(G)$ esiste un cammino della forma $u \rightarrow x$; $w$ una funzione che associa pesi agli archi in $E(G)$, tale che ogni peso sia strettamente positivo.\\ \textbf  {Output}: le distanze dei vertici di $G$ da $u$. }}{65}{algorithm.2.2.2.1}\protected@file@percent }
+\@writefile{loa}{\contentsline {algorithm}{\numberline {2.2.2.2}{\ignorespaces  Dato un grafo pesato $G$ attraverso $w$, e $u \in V(G)$ un suo vertice, l'algoritmo restituisce le distanze pesate dei vertici di $G$ da $u$; l'algoritmo assume che ogni vertice di $G$ sia raggiungibile da $u$, e che ogni peso definito da $w$ sia strettamente positivo.\\ \textbf  {Input}: $G$ grafo, e $u$ un suo vertice tale che per ogni $x \in V(G)$ esiste un cammino della forma $u \rightarrow x$; $w$ una funzione che associa pesi agli archi in $E(G)$, tale che ogni peso sia strettamente positivo.\\ \textbf  {Output}: le distanze dei vertici di $G$ da $u$. }}{67}{algorithm.2.2.2.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2.3}Intervalli}{68}{section.2.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3.1}Trovare intervalli disgiunti}{68}{subsection.2.3.1}\protected@file@percent }
+\@writefile{loa}{\contentsline {algorithm}{\numberline {2.3.1.1}{\ignorespaces  Data una lista di intervalli, l'algoritmo restituisce l'insieme di restituisce il sottoinsieme di intervalli disgiunti, di cardinalità massima.\\ \textbf  {Input}: $I$ lista di intervalli di numeri reali della forma $[a, b]$, con $a, b \in \mathbb  {R}$.\\ \textbf  {Output}: il sottoinsieme di $I$ di intervalli disgiunti di cardinalità massima. }}{68}{algorithm.2.3.1.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3.2}Trovare insieme non disgiunto}{71}{subsection.2.3.2}\protected@file@percent }
+\@writefile{loa}{\contentsline {algorithm}{\numberline {2.3.2.1}{\ignorespaces  Data una lista di intervalli, l'algoritmo restituisce l'insieme, di cardinalità minima, di interi $x_1, \ldots  , x_k$, tali da intersecarsi con ogni intervallo.\\ \textbf  {Input}: $I$ lista di intervalli di numeri reali della forma $[a, b]$, con $a, b \in \mathbb  {R}$.\\ \textbf  {Output}: l'insieme minimo di $x_1, \ldots  , x_n$ tali che $\forall i \in I \hskip 1em\relax i \cap \{x_1, \ldots  , x_n\} \neq  \varnothing $. }}{71}{algorithm.2.3.2.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2.4}MST (Minimum Spanning Tree)}{72}{section.2.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.4.1}Definizioni}{72}{subsection.2.4.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2.3}{\ignorespaces Un grafo indiretto pesato.}}{73}{figure.2.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2.4}{\ignorespaces Un MST del grafo pesato.}}{73}{figure.2.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.4.2}Algoritmo di Kruskal}{74}{subsection.2.4.2}\protected@file@percent }
+\@writefile{loa}{\contentsline {algorithm}{\numberline {2.4.2.1}{\ignorespaces  Dato un grafo indiretto $G$, pesato attraverso $w$, l'algoritmo ne restituisce un MST.\\ \textbf  {Input}: $G$ grafo indiretto; $w$ una funzione che associa pesi agli archi in $E(G)$.\\ \textbf  {Output}: un MST di $G$. }}{74}{algorithm.2.4.2.1}\protected@file@percent }
+\gdef \@abspage@last{77}

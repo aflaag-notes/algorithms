@@ -24,14 +24,15 @@
 \contentsline {subsection}{\numberline {1.5.2}Visita in BFS}{53}{subsection.1.5.2}%
 \contentsline {subsection}{\numberline {1.5.3}Trovare il numero di cammini minimi}{57}{subsection.1.5.3}%
 \contentsline {subsection}{\numberline {1.5.4}Distanza tra insiemi di vertici}{58}{subsection.1.5.4}%
-\contentsline {subsection}{\numberline {1.5.5}Archi pesati}{60}{subsection.1.5.5}%
-\contentsline {subsection}{\numberline {1.5.6}Algoritmo di Dijkstra}{64}{subsection.1.5.6}%
-\contentsline {chapter}{\numberline {2}Algoritmi greedy}{66}{chapter.2}%
-\contentsline {section}{\numberline {2.1}Algoritmi greedy}{66}{section.2.1}%
-\contentsline {subsection}{\numberline {2.1.1}Definizioni}{66}{subsection.2.1.1}%
-\contentsline {section}{\numberline {2.2}Intervalli}{67}{section.2.2}%
-\contentsline {subsection}{\numberline {2.2.1}Trovare intervalli disgiunti}{67}{subsection.2.2.1}%
-\contentsline {subsection}{\numberline {2.2.2}Trovare insieme non disgiunto}{70}{subsection.2.2.2}%
-\contentsline {section}{\numberline {2.3}MST (Minimum Spanning Tree)}{70}{section.2.3}%
-\contentsline {subsection}{\numberline {2.3.1}Definizioni}{70}{subsection.2.3.1}%
-\contentsline {subsection}{\numberline {2.3.2}Algoritmo di Kruskal}{72}{subsection.2.3.2}%
+\contentsline {chapter}{\numberline {2}Algoritmi greedy}{61}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Algoritmi greedy}{61}{section.2.1}%
+\contentsline {subsection}{\numberline {2.1.1}Definizioni}{61}{subsection.2.1.1}%
+\contentsline {section}{\numberline {2.2}Algoritmo di Dijkstra}{61}{section.2.2}%
+\contentsline {subsection}{\numberline {2.2.1}Archi pesati}{61}{subsection.2.2.1}%
+\contentsline {subsection}{\numberline {2.2.2}Trovare le distanze pesate}{65}{subsection.2.2.2}%
+\contentsline {section}{\numberline {2.3}Intervalli}{68}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1}Trovare intervalli disgiunti}{68}{subsection.2.3.1}%
+\contentsline {subsection}{\numberline {2.3.2}Trovare insieme non disgiunto}{71}{subsection.2.3.2}%
+\contentsline {section}{\numberline {2.4}MST (Minimum Spanning Tree)}{72}{section.2.4}%
+\contentsline {subsection}{\numberline {2.4.1}Definizioni}{72}{subsection.2.4.1}%
+\contentsline {subsection}{\numberline {2.4.2}Algoritmo di Kruskal}{74}{subsection.2.4.2}%

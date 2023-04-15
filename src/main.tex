@@ -2461,6 +2461,22 @@
     L'algoritmo è costituito da una visita in BFS del grafo $G$ in input, partendo dai vertici in $X$, che ha costo $O(n + m)$ per osservazioni precedenti, seguita da un ciclo \texttt{for} su ogni vertice $y \in Y$, che ha dunque costo $O(|Y|)$; di conseguenza, il costo dell'algoritmo è pari a $O(n + m) + O(|Y|)$, ma si noti che $Y \subseteq V(G) \implies |Y| \le |V(G)| =: n \implies O(n + m) + O(|Y|) = O(n + m)$.
 \end{remark}
 
+\chapter{Algoritmi greedy}
+
+\section{Algoritmi greedy}
+
+\subsection{Definizioni}
+
+\begin{definition}[Algoritmo greedy]
+    Un algoritmo è detto \textit{greedy}, se cerca una soluzione effettuando delle scelte di passo in passo, optando sempre per il passo più "appetibile" momentaneamente.
+\end{definition}
+
+\begin{example}[Algoritmo greedy]
+    TODO
+\end{example}
+
+\section{Algoritmo di Dijkstra}
+
 \subsection{Archi pesati}
 
 \begin{definition}[Archi pesati]
@@ -2573,7 +2589,7 @@
     \end{itemize}
 \end{proof}
 
-\subsection{Algoritmo di Dijkstra}
+\subsection{Trovare le distanze pesate}
 
 \begin{algorithm}[H]
     \caption{
@@ -2601,7 +2617,7 @@
 
     Alla riga 4 viene istanziato un ciclo \texttt{while}, il quale procede fintanto che è presente un arco uscente da $R$, dunque composto da un vertice in $R$ ed uno in $V(G) - R$; al suo interno, alla riga 5, viene preso l'arco $(x, u)$, uscente da $R$, tale da minimizzare la somma $$\texttt{distancesW[}x\texttt{]} + w(x, u) = \mathrm{dist}_w(v, x) + w(x, u)$$ e si noti che, per il \cref{dijkstra theorem}, si ha che $$\mathrm{dist}_w(v, u) = \mathrm{dist}_w(v, x) + w(x, u)$$ allora, viene aggiornato il valore di $\texttt{distancesW[}u\texttt{]}$ coerentemente, alla riga 6; infine, alla riga 7, viene aggiunto $u$ ad $R$. Infine, si noti inoltre che il \texttt{while} della riga 4 prosegue, fintanto che esistono ancora archi uscenti da $R$, e dunque l'algoritmo termina quando $R$ contiene ogni vertice del grafo.
 
-    Si noti che l'algoritmo, ad ogni iterazione, sceglie dunque l'arco $(x, u)$ tale da minimizzare il peso del cammino $\{v \rightarrow x\} \cup (x, u)$, e al termine di ogni iterazione del ciclo \texttt{while} viene inserito $u$ all'interno di $R$, estendendo dunque l'insieme di vertici visitati. Si noti che, per trovare un tale arco è necessario controllare ogni $(x, u)$ uscente da $R$.
+    Si noti che l'algoritmo, ad ogni iterazione, sceglie dunque l'arco $(x, u)$ tale da minimizzare il peso del cammino $\{v \rightarrow x\} \cup (x, u)$, e al termine di ogni iterazione del ciclo \texttt{while} viene inserito $u$ all'interno di $R$, estendendo l'insieme di vertici visitati; di conseguenza, il comportamento dell'algoritmo è greedy. Si noti che, per trovare un tale arco è necessario controllare ogni $(x, u)$ uscente da $R$.
 \end{remark}
 
 \begin{remark}[Costo dell'algoritmo]
@@ -2610,56 +2626,42 @@
     Allora il costo del ciclo, e dunque dell'algoritmo, è pari a $O(n \cdot m)$.
 \end{remark}
 
-% \begin{algorithm}[H]
-%     \caption{
-%         Dato un grafo pesato $G$ attraverso $w$, e $u \in V(G)$ un suo vertice, l'algoritmo restituisce le distanze pesate dei vertici di $G$ da $u$; l'algoritmo assume che ogni vertice di $G$ sia raggiungibile da $u$, e che ogni peso definito da $w$ sia strettamente positivo.\\
-%         \textbf{Input}: $G$ grafo, e $u$ un suo vertice tale che per ogni $x \in V(G)$ esiste un cammino della forma $u \rightarrow x$; $w$ una funzione che associa pesi agli archi in $E(G)$, tale che ogni peso sia strettamente positivo.\\
-%         \textbf{Output}: le distanze dei vertici di $G$ da $u$.
-%     }
-%
-%     \begin{algorithmic}[1]
-%         \Function{Dijkstra$_2$}{$G$, $w$, $u$}
-%             \State $\texttt{distancesW} := \texttt{[}+ \infty \texttt{]} * n$ \Comment{valore sufficientemente grande}
-%             \State $\texttt{distancesW[}u\texttt{]} = 0$
-%             \State $\texttt{MinHeap H} := \texttt{[]}$ \Comment{è una \textit{priority queue}}
-%             \For{$v \in V(G)$}
-%                 \State $\texttt{H.insert(distancesW[}v\texttt{]},v\texttt{)}$
-%             \EndFor
-%             \While{!\texttt{H.isEmpty()}}
-%                 \State $v = \texttt{H.get\_min()}$
-%                 \For{$x \in V(G) : (v, x) \in E(G)$}
-%                     \If{$\texttt{distancesW[}x\texttt{]}>\texttt{distancesW[}v\texttt{]} + w(v, x)$}
-%                         \State $\texttt{distancesW[}x\texttt{]}=\texttt{distancesW[}v\texttt{]} + w(v, x)$
-%                         \State $\texttt{H.remove(}x\texttt{)}$ TODO NON NE SONO SICURO
-%                     \EndIf
-%                 \EndFor
-%             \EndWhile
-%             \State \textbf{return} \texttt{distancesW}
-%         \EndFunction
-%     \end{algorithmic}
-% \end{algorithm}
-%
-% \begin{remark}[Correttezza dell'algoritmo]
-%     TODO \cref{caratteristiche distanze pesate}
-% \end{remark}
-%
-% \begin{remark}[Costo dell'algoritmo]
-%     TODO O(log n(n + m))
-% \end{remark}
+\begin{algorithm}[H]
+    \caption{
+        Dato un grafo pesato $G$ attraverso $w$, e $u \in V(G)$ un suo vertice, l'algoritmo restituisce le distanze pesate dei vertici di $G$ da $u$; l'algoritmo assume che ogni vertice di $G$ sia raggiungibile da $u$, e che ogni peso definito da $w$ sia strettamente positivo.\\
+        \textbf{Input}: $G$ grafo, e $u$ un suo vertice tale che per ogni $x \in V(G)$ esiste un cammino della forma $u \rightarrow x$; $w$ una funzione che associa pesi agli archi in $E(G)$, tale che ogni peso sia strettamente positivo.\\
+        \textbf{Output}: le distanze dei vertici di $G$ da $u$.
+    }
 
-\chapter{Algoritmi greedy}
+    \begin{algorithmic}[1]
+        \Function{Dijkstra$_2$}{$G$, $w$, $u$}
+            \State $\texttt{distancesW} := \texttt{[}+ \infty \texttt{]} * n$ \Comment{valore sufficientemente grande}
+            \State $\texttt{distancesW[}u\texttt{]} = 0$
+            \State $\texttt{MinHeap H} := \texttt{[]}$ \Comment{è una \textit{priority queue}}
+            \For{$v \in V(G)$}
+                \State $\texttt{H.insert(distancesW[}v\texttt{]},v\texttt{)}$
+            \EndFor
+            \While{!\texttt{H.isEmpty()}}
+                \State $v = \texttt{H.get\_min()}$
+                \For{$x \in V(G) : (v, x) \in E(G)$}
+                    \If{$\texttt{distancesW[}x\texttt{]}>\texttt{distancesW[}v\texttt{]} + w(v, x)$}
+                        \State $\texttt{distancesW[}x\texttt{]}=\texttt{distancesW[}v\texttt{]} + w(v, x)$
+                        \State $\texttt{H.remove(}x\texttt{)}$ TODO DA CONTROLLARE
+                    \EndIf
+                \EndFor
+            \EndWhile
+            \State \textbf{return} \texttt{distancesW}
+        \EndFunction
+    \end{algorithmic}
+\end{algorithm}
 
-\section{Algoritmi greedy}
-
-\subsection{Definizioni}
-
-\begin{definition}[Algoritmo greedy]
-    Un algoritmo è detto \textit{greedy}, se cerca una soluzione effettuando delle scelte di passo in passo, optando sempre per il passo più "appetibile" momentaneamente.
-\end{definition}
-
-\begin{example}[Algoritmo greedy]
+\begin{remark}[Correttezza dell'algoritmo]
     TODO
-\end{example}
+\end{remark}
+
+\begin{remark}[Costo dell'algoritmo]
+    TODO $O(\log n(n + m))$
+\end{remark}
 
 \section{Intervalli}
 
@@ -2769,7 +2771,29 @@
 \end{algorithm}
 
 \begin{proof}
-    TODO
+    Siano $\texttt{Sol}_0, \ldots, \texttt{Sol}_n$ gli stati di $\texttt{Sol}_k$, ad ogni iterazione $k \in [1, n]$ dell'algoritmo; allora, l'algoritmo funziona correttamente se e solo se $\exists \texttt{Sol}^*$ soluzione ottimale $\mid \texttt{Sol}^* = \texttt{Sol}_n$.
+    \begin{itemize}
+        \textit{Prima implicazione.} $\exists \texttt{Sol}^*$ soluzione ottimale $\mid \texttt{Sol}_n \subseteq \texttt{Sol}^*$
+        \item \textit{caso base}
+            \begin{itemize}
+                \item $k = 0 \implies \texttt{Sol}_0 := \varnothing \implies \forall \texttt{Sol}^*$ soluzione ottimale $\quad \texttt{Sol}_0 \subseteq \texttt{Sol}^*$
+            \end{itemize}
+        \item \textit{ipotesi induttiva}
+            \begin{itemize}
+                \item $\exists \texttt{Sol}^*$ soluzione ottimale $\mid \texttt{Sol}_k \subseteq \texttt{Sol}^*$
+            \end{itemize}
+        \item \textit{passo induttivo}
+            \begin{itemize}
+                \item è necessario dimostrare che $\exists \texttt{Sol}^*$ soluzione ottimale $\mid \texttt{Sol}_{k + 1} \subseteq \texttt{Sol}^*$
+                \item si noti che, per via della riga 5 $$\forall k \in [1, n) \quad \texttt{Sol}_{k +1} = \left \{ \begin{array}{ll} \texttt{Sol}_k & \texttt{Sol}_k \cap [a_{k +1}, b_{k+1}] \neq \varnothing \\ \texttt{Sol}_k \cup \{b_{k +1}\} & \texttt{Sol}_k \cap [a_{k +1}, b_{k +1}] = \varnothing \end{array} \right.$$
+                \item si noti che, nel primo caso, si ha che $\texttt{Sol}_{k +1} = \texttt{Sol}_k$, e dunque $\exists \texttt{Sol}^*$ soluzione ottimale $\mid \texttt{Sol}_{k +1} = \texttt{Sol}_k \subseteq \texttt{Sol}^*$ per ipotesi induttiva
+                \item allora sia $[a_{k+1}, b_{k+1}]$ tale che $\texttt{Sol}_k \cap [a_{k+1}, b_{k +1}] = \varnothing \implies \texttt{Sol}_{k +1} = \texttt{Sol}_k \cup \{b_{k +1}\}$
+                \item sia $\texttt{Sol}^*$ una soluzione ottimale tale da soddisfare l'ipotesi induttiva; si noti che $b_{k +1} \in \texttt{Sol}^* \implies \exists \texttt{Sol}^*$ soluzione ottimale $\mid \texttt{Sol}_k \cup \{ b_{k +1}\} \subseteq \texttt{Sol}^*$ per ipotesi induttiva
+                \item sia allora $b_{k +1} \notin \texttt{Sol}^*$
+                \item TODO DA FINIRE
+            \end{itemize}
+        \textit{Seconda implicazione.} $\exists \texttt{Sol}^*$ soluzione ottimale $\mid \texttt{Sol}^* \subseteq \texttt{Sol}_n$. TODO
+    \end{itemize}
 \end{proof}
 
 \begin{remark}[Correttezza dell'algoritmo]
