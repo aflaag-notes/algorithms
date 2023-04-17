@@ -1,4 +1,4 @@
-    % === BEGIN TEMPLATE ===
+% === BEGIN TEMPLATE ===
 
 % !!!THE ORDER MATTERS, DON'T CHANGE THE ORDER OF PACKAGES!!!
 
@@ -2675,12 +2675,13 @@
     }
 
     \begin{algorithmic}[1]
+        \label{intervalli1}
         \Function{findIntervals}{$I$}
             \State $I\texttt{.sort(key=}\lambda (i) \rightarrow i\texttt{.right())}$ \Comment{$I$ ordinato sugli estremi destri}
             \State $\texttt{Sol}:= \texttt{[]}$
             \For{$i \in I$}
                 \State $b_f := \texttt{Sol.last().right()}$ \Comment{estremo destro di \texttt{Sol.last()}}
-                \If{$i\texttt{.left()} > b_f$}
+                \If{$i\texttt{.left()} > b_f$} \Comment{equivalente a $\texttt{Sol} \cap i = \varnothing$}
                     \State $\texttt{Sol.append(}i\texttt{)}$
                 \EndIf
             \EndFor
@@ -2757,12 +2758,13 @@
     }
 
     \begin{algorithmic}[1]
-        \Function{findIntervals}{$I$}
+        \Function{findIntersectionPoints}{$I$}
             \State $I\texttt{.sort(key=}\lambda (i) \rightarrow i\texttt{.right())}$ \Comment{$I$ ordinato sugli estremi destri}
             \State $\texttt{Sol}:= \varnothing$
             \For{$i \in I$}
-            \If{$\texttt{Sol} \cap i = \varnothing$}
-                    \State $\texttt{Sol} = \texttt{Sol} \cup \{b_i\}$
+                \State $b_f := \texttt{Sol.last().right()}$ \Comment{estremo destro di \texttt{Sol.last()}}
+                \If{$i\texttt{.left()} > b_f$} \Comment{equivalente a $\texttt{Sol} \cap i = \varnothing$}
+                    \State $\texttt{Sol} = \texttt{Sol} \cup \{i\texttt{.right()}\}$
                 \EndIf
             \EndFor
             \State \textbf{return} \texttt{Sol}
@@ -2771,17 +2773,10 @@
 \end{algorithm}
 
 \begin{proof}
-    Siano $\texttt{Sol}_0, \ldots, \texttt{Sol}_n$ gli stati di $\texttt{Sol}_k$, ad ogni iterazione $k \in [1, n]$ dell'algoritmo; allora, l'algoritmo funziona correttamente se e solo se $\exists \texttt{Sol}^*$ soluzione ottimale $\mid \texttt{Sol}^* = \texttt{Sol}_n$.
+    La struttura della dimostrazione di questo algoritmo è analoga a quella dell'\cref{intervalli1}; è dunque omessa la premessa iniziale, e la dimostrazione procede assumendo le stesse condizioni di partenza per l'induzione.
+
     \begin{itemize}
-        \textit{Prima implicazione.} $\exists \texttt{Sol}^*$ soluzione ottimale $\mid \texttt{Sol}_n \subseteq \texttt{Sol}^*$
-        \item \textit{caso base}
-            \begin{itemize}
-                \item $k = 0 \implies \texttt{Sol}_0 := \varnothing \implies \forall \texttt{Sol}^*$ soluzione ottimale $\quad \texttt{Sol}_0 \subseteq \texttt{Sol}^*$
-            \end{itemize}
-        \item \textit{ipotesi induttiva}
-            \begin{itemize}
-                \item $\exists \texttt{Sol}^*$ soluzione ottimale $\mid \texttt{Sol}_k \subseteq \texttt{Sol}^*$
-            \end{itemize}
+        \textit{Prima implicazione.} È riportata di seguito la dimostrazione a partire dal passo induttivo. 
         \item \textit{passo induttivo}
             \begin{itemize}
                 \item è necessario dimostrare che $\exists \texttt{Sol}^*$ soluzione ottimale $\mid \texttt{Sol}_{k + 1} \subseteq \texttt{Sol}^*$
@@ -2789,20 +2784,23 @@
                 \item si noti che, nel primo caso, si ha che $\texttt{Sol}_{k +1} = \texttt{Sol}_k$, e dunque $\exists \texttt{Sol}^*$ soluzione ottimale $\mid \texttt{Sol}_{k +1} = \texttt{Sol}_k \subseteq \texttt{Sol}^*$ per ipotesi induttiva
                 \item allora sia $[a_{k+1}, b_{k+1}]$ tale che $\texttt{Sol}_k \cap [a_{k+1}, b_{k +1}] = \varnothing \implies \texttt{Sol}_{k +1} = \texttt{Sol}_k \cup \{b_{k +1}\}$
                 \item sia $\texttt{Sol}^*$ una soluzione ottimale tale da soddisfare l'ipotesi induttiva; si noti che $b_{k +1} \in \texttt{Sol}^* \implies \exists \texttt{Sol}^*$ soluzione ottimale $\mid \texttt{Sol}_k \cup \{ b_{k +1}\} \subseteq \texttt{Sol}^*$ per ipotesi induttiva
-                \item sia allora $b_{k +1} \notin \texttt{Sol}^*$; allora, affinchè tale condizione si verifichi, l'unica possibilità è che già è presente un valore nell'insieme corrente, tale da intersecarsi con l'intervallo corrente, in simboli $$\exists x \in \texttt{Sol}_k \mid x \in [a_{k + 1}, b_{k +1}]$$ inoltre, si noti che $x \notin \texttt{Sol}_{k + 1}$, poiché altrimenti la soluzione dell'algoritmo non avrebbe cardinalità minima
-                \item sia $[a_j, b_j] \in I$ per qualche $j \in [1, n)$, e sia $x \in \texttt{Sol}_k \mid x \in [a_j, b_j]$; allora, si verificano due casi
+                \item sia allora $b_{k +1} \notin \texttt{Sol}^*$; si noti che, poiché $\texttt{Sol}^*$ è una soluzione ottimale, necessariamente $$b_{k +1} \notin \texttt{Sol}^* \iff \exists x \in \texttt{Sol}^*  \mid x \in [a_{k + 1}, b_{k +1}]$$ inoltre, si noti che $x \notin \texttt{Sol}_k$, poiché altrimenti TODO NON SO PERCHE; allora, poiché per ipotesi induttiva si ha che $\texttt{Sol}_k \subseteq \texttt{Sol}^*$, necessariamente $x \in \texttt{Sol}^* - \texttt{Sol}_k$
+                \item sia $j \in [1, n) \mid x \in [a_j, b_j]$; allora, si verifica uno dei seguenti casi:
                     \begin{itemize}
-                        \item $j \le k \implies [a_j, b_j]$ è coprto da $\texttt{Sol}_k$
-                        \item $j > k \implies$
+                        \item $j \le k \implies \exists \hat x \in \texttt{Sol}_k \mid \hat x \in [a_j, b_j]$ poiché doveva essere già stato analizzato dall'algoritmo
+                        \item $j \ge k + 1 \implies \left \{ \begin{array}{l} b_j \ge b_{k +1} \\ a_j \ge a_{k + 1} \end{array} \right.$; si noti inoltre che l'intervallo $[a_j, b_j]$ è stato scelto tale che $x \in [a_j, b_j]$, e poiché $x \in [a_{k +1}, b_{k +1}]$ per sua definizione, si verifica necessariamente che $$\left .\begin{array}{r} x \in [a_j , b_j] \cap [a_{k + 1}, b_{k +1}] \neq \varnothing \\ b_j \ge b_{k +1} \\ a_j \ge a_{k +1} \end{array} \right \} \implies a_{k + 1} \le a_j \le x \le b_{k +1} \le b_j$$ in particolare, si noti che $b_{k +1} \in [a_j, b_j]$, e poiché la dimostrazione non dipende dalla scelta di $x \in \texttt{Sol}^* - \texttt{Sol}_k$, né da $j \in [1, n)$, si ha che $b_{k +1}$ copre ogni intervallo coperto da $x$; allora, per far si che esista soluzione ottimale $\texttt{Sol}^*$ tale da contenere $\texttt{Sol}_{k +1} = \texttt{Sol}_k \cup \{b_{k +1}\}$, è sufficiente considerare $$(\texttt{Sol}^* - \{x\}) \cup \{b_{k +1}\}$$
                     \end{itemize}
-                \item TODO DA FINIRE
             \end{itemize}
-        \textit{Seconda implicazione.} $\exists \texttt{Sol}^*$ soluzione ottimale $\mid \texttt{Sol}^* \subseteq \texttt{Sol}_n$. TODO
+        \textit{Seconda implicazione.} $\exists \texttt{Sol}^*$ soluzione ottimale $\mid \texttt{Sol}^* \subseteq \texttt{Sol}_n$. La dimostrazione è analoga a quella dell'\cref{intervalli1}, ed è dunque omessa.
     \end{itemize}
 \end{proof}
 
 \begin{remark}[Correttezza dell'algoritmo]
-    TODO
+    L'algoritmo inizia ordinando gli intervalli in $I$, attraverso il loro estremo destro, e definendo successivamente un insieme \texttt{Sol} che conterrà la soluzione cercata.
+
+    Alla riga 4, viene istanziato un ciclo \texttt{for}, che per ogni intervallo $i \in I$, ne inserisce l'estremo destro all'interno di \texttt{Sol}, se e solo tale $i$ non si interca con l'ultimo intervallo contenuto attualmente in \texttt{Sol} stesso.
+
+    Si noti che la scelta dell'estremo destro garantisce di trovare una soluzione ottimale, poiché gli intervalli sono ordinati attraverso il loro estremo destro, ed è dunque necessario utilizzare gli estremi destri degli intervalli anche per trovare i valori da inserire in \texttt{Sol}, altrimenti non sarebbe garantito che quest'ultimo abbia cardinalità minima.
 \end{remark}
 
 \begin{remark}[Costo dell'algoritmo]
@@ -2866,7 +2864,7 @@
     \end{figure}
 \end{example}
 
-\begin{lemma}[Un MST è aciclico]
+\begin{lemma}[MST aciclici]
     Sia $G$ un grafo indiretto pesato, con pesi strettamente positivi, e sia $H$ un suo MST; allora $H$ è aciclico.
 \end{lemma}
 
@@ -2903,6 +2901,23 @@
         \EndFunction
     \end{algorithmic}
 \end{algorithm}
+
+\begin{proof}
+    La struttura della dimostrazione di questo algoritmo è analoga a quella dell'\cref{intervalli1}; è dunque omessa la premessa iniziale, e la dimostrazione procede assumendo le stesse condizioni di partenza per l'induzione.
+
+    \begin{itemize}
+        \textit{Prima implicazione.} È riportata di seguito la dimostrazione a partire dal passo induttivo. 
+        \item \textit{passo induttivo}
+            \begin{itemize}
+                \item è necessario dimostrare che $\exists \texttt{Sol}^*$ soluzione ottimale $\mid \texttt{Sol}_{k + 1} \subseteq \texttt{Sol}^*$
+                \item TODO DA CAMBIARE si noti che, per via della riga 5, si ha che $$\forall k \in [1, n) \quad \texttt{Sol}_{k +1} = \left \{ \begin{array}{ll} \texttt{Sol}_k & \texttt{Sol}_k \cap [a_{k +1}, b_{k+1}] \neq \varnothing \\ \texttt{Sol}_k \cup \{b_{k +1}\} & \texttt{Sol}_k \cap [a_{k +1}, b_{k +1}] = \varnothing \end{array} \right.$$
+                \item si noti che, nel primo caso, si ha che $\texttt{Sol}_{k +1} = \texttt{Sol}_k$, e dunque $\exists \texttt{Sol}^*$ soluzione ottimale $\mid \texttt{Sol}_{k +1} = \texttt{Sol}_k \subseteq \texttt{Sol}^*$ per ipotesi induttiva
+                \item allora sia $[a_{k+1}, b_{k+1}]$ tale che $\texttt{Sol}_k \cap [a_{k+1}, b_{k +1}] = \varnothing \implies \texttt{Sol}_{k +1} = \texttt{Sol}_k \cup \{b_{k +1}\}$
+                \item sia $\texttt{Sol}^*$ una soluzione ottimale tale da soddisfare l'ipotesi induttiva; si noti che $b_{k +1} \in \texttt{Sol}^* \implies \exists \texttt{Sol}^*$ soluzione ottimale $\mid \texttt{Sol}_k \cup \{ b_{k +1}\} \subseteq \texttt{Sol}^*$ per ipotesi induttiva
+            \end{itemize}
+        \textit{Seconda implicazione.} $\exists \texttt{Sol}^*$ soluzione ottimale $\mid \texttt{Sol}^* \subseteq \texttt{Sol}_n$. La dimostrazione è analoga a quella dell'\cref{intervalli1}, ed è dunque omessa.
+    \end{itemize}
+\end{proof}
 
 \begin{remark}[Correttezza dell'algoritmo]
     TODO

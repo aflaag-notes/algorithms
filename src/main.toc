@@ -35,4 +35,4 @@
 \contentsline {subsection}{\numberline {2.3.2}Trovare insieme non disgiunto}{71}{subsection.2.3.2}%
 \contentsline {section}{\numberline {2.4}MST (Minimum Spanning Tree)}{73}{section.2.4}%
 \contentsline {subsection}{\numberline {2.4.1}Definizioni}{73}{subsection.2.4.1}%
-\contentsline {subsection}{\numberline {2.4.2}Algoritmo di Kruskal}{74}{subsection.2.4.2}%
+\contentsline {subsection}{\numberline {2.4.2}Algoritmo di Kruskal}{75}{subsection.2.4.2}%
