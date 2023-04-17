@@ -91,7 +91,7 @@
 \end{definition}
 
 \begin{remark}
-    $E(G) \subseteq V^2$.
+    Si noti che, per ogni grafo $G$, si verifica che $E(G) \subseteq V^2$.
 \end{remark}
 
 \begin{definition}[Vertici adiacenti]
@@ -2744,7 +2744,7 @@
 \begin{remark}[Costo dell'algoritmo]
     Si noti che, all'interno dell'algoritmo si assume \texttt{Sol.last()} abbia costo $O(1)$, andando ad indicizzare correttamente l'ultimo elemento della lista.
 
-    Poiché l'ordinamento di $I$, alla riga 2, indipendentemente dall'algoritmo di ordinamento scelto, non può avere costo inferiore a $O(n \log n)$, e il ciclo \texttt{for} della riga 4 ha costo $O(n)$, si ha che l'algoritmo ha costo $O(n \log n) + O(n) = O(n \log n)$.
+    Poiché l'ordinamento di $I$, alla riga 2, indipendentemente dall'algoritmo di ordinamento (per confronti) scelto, non può avere costo inferiore a $O(n \log n)$, e il ciclo \texttt{for} della riga 4 ha costo $O(n)$, si ha che l'algoritmo ha costo $O(n \log n) + O(n) = O(n \log n)$.
 \end{remark}
 
 \subsection{Trovare insieme non disgiunto}
@@ -2789,7 +2789,12 @@
                 \item si noti che, nel primo caso, si ha che $\texttt{Sol}_{k +1} = \texttt{Sol}_k$, e dunque $\exists \texttt{Sol}^*$ soluzione ottimale $\mid \texttt{Sol}_{k +1} = \texttt{Sol}_k \subseteq \texttt{Sol}^*$ per ipotesi induttiva
                 \item allora sia $[a_{k+1}, b_{k+1}]$ tale che $\texttt{Sol}_k \cap [a_{k+1}, b_{k +1}] = \varnothing \implies \texttt{Sol}_{k +1} = \texttt{Sol}_k \cup \{b_{k +1}\}$
                 \item sia $\texttt{Sol}^*$ una soluzione ottimale tale da soddisfare l'ipotesi induttiva; si noti che $b_{k +1} \in \texttt{Sol}^* \implies \exists \texttt{Sol}^*$ soluzione ottimale $\mid \texttt{Sol}_k \cup \{ b_{k +1}\} \subseteq \texttt{Sol}^*$ per ipotesi induttiva
-                \item sia allora $b_{k +1} \notin \texttt{Sol}^*$
+                \item sia allora $b_{k +1} \notin \texttt{Sol}^*$; allora, affinchè tale condizione si verifichi, l'unica possibilità è che già è presente un valore nell'insieme corrente, tale da intersecarsi con l'intervallo corrente, in simboli $$\exists x \in \texttt{Sol}_k \mid x \in [a_{k + 1}, b_{k +1}]$$ inoltre, si noti che $x \notin \texttt{Sol}_{k + 1}$, poiché altrimenti la soluzione dell'algoritmo non avrebbe cardinalità minima
+                \item sia $[a_j, b_j] \in I$ per qualche $j \in [1, n)$, e sia $x \in \texttt{Sol}_k \mid x \in [a_j, b_j]$; allora, si verificano due casi
+                    \begin{itemize}
+                        \item $j \le k \implies [a_j, b_j]$ è coprto da $\texttt{Sol}_k$
+                        \item $j > k \implies$
+                    \end{itemize}
                 \item TODO DA FINIRE
             \end{itemize}
         \textit{Seconda implicazione.} $\exists \texttt{Sol}^*$ soluzione ottimale $\mid \texttt{Sol}^* \subseteq \texttt{Sol}_n$. TODO
