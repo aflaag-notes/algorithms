@@ -2693,7 +2693,7 @@
 \begin{proof}
     Siano $\texttt{Sol}_0, \ldots, \texttt{Sol}_n$ gli stati di $\texttt{Sol}_k$, ad ogni iterazione $k \in [1, n]$ dell'algoritmo; allora, l'algoritmo funziona correttamente se e solo se $\exists \texttt{Sol}^*$ soluzione ottimale $\mid \texttt{Sol}^* = \texttt{Sol}_n$.
     \begin{itemize}
-        \textit{Prima implicazione.} $\exists \texttt{Sol}^*$ soluzione ottimale $\mid \texttt{Sol}_n \subseteq \texttt{Sol}^*$
+        \item[] \textit{Prima implicazione.} $\exists \texttt{Sol}^*$ soluzione ottimale $\mid \texttt{Sol}_n \subseteq \texttt{Sol}^*$
         \item \textit{caso base}
             \begin{itemize}
                 \item $k = 0 \implies \texttt{Sol}_0 := \varnothing \implies \forall \texttt{Sol}^*$ soluzione ottimale $\quad \texttt{Sol}_0 \subseteq \texttt{Sol}^*$
@@ -2723,7 +2723,7 @@
                 \item inoltre, per definizione $[a_h, b_h] \in \texttt{Sol}^* \iff \forall [a_i, b_i] \in \texttt{Sol}^* \quad [a_h, b_h] \cap [a_i, b_i] = \varnothing$, e poiché $[a_j,b_j] \in \texttt{Sol}^*$, in particolare si ha che $[a_h, b_h] \cap [a_j, b_j] = \varnothing$; allora, poiché $b_h > b_{k + 1} \in (a_j, b_j)$, necessariamente $$a_j < b_{k +1} < b_j < a_h < b_h$$ e in particolare, $b_{k + 1} < a_h \implies [a_{k +1}, b_{k +1}] \cap [a_h, b_h] = \varnothing$
                 \item questo dimostra che ogni intervallo $[a_h, b_h] \in \texttt{Sol}^* - \texttt{Sol}_k$, che non sia proprio $[a_j, b_j]$, è disgiunto con $[a_{k +1}, b_{k +1}]$; allora, per trovare un insieme $\texttt{Sol}^*$ soluzione ottimale, tale per cui $\texttt{Sol}_{k + 1} \subseteq \texttt{Sol}^*$, è sufficiente considerare l'insieme $$\left(\texttt{Sol}^* - \{[a_j, b_j]\}\right) \cup \{[a_{k +1}, b_{k +1}]\}$$ in quanto $\texttt{Sol}_k \subseteq \texttt{Sol}^*$ per ipotesi induttiva, e $\texttt{Sol}_{k + 1} = \texttt{Sol}_k \cup \{[a_{k +1}, b_{k + 1}]\}$ per osservazione precedente.
             \end{itemize}
-            \textit{Seconda implicazione.} $\exists \texttt{Sol}^*$ soluzione ottimale $\mid \texttt{Sol}^* \subseteq \texttt{Sol}_n$. Per assurdo, si assuma che $\nexists \texttt{Sol}^*$ soluzione ottimale $\mid \texttt{Sol}^* \subseteq \texttt{Sol}_n \iff \forall \texttt{Sol}^*$ soluzione ottimale $\quad \texttt{Sol}^* \not \subseteq \texttt{Sol}_n \iff$ per ogni soluzione ottimale $\texttt{Sol}^*$ si verifica una delle seguenti:
+            \item[] \textit{Seconda implicazione.} $\exists \texttt{Sol}^*$ soluzione ottimale $\mid \texttt{Sol}^* \subseteq \texttt{Sol}_n$. Per assurdo, si assuma che $\nexists \texttt{Sol}^*$ soluzione ottimale $\mid \texttt{Sol}^* \subseteq \texttt{Sol}_n \iff \forall \texttt{Sol}^*$ soluzione ottimale $\quad \texttt{Sol}^* \not \subseteq \texttt{Sol}_n \iff$ per ogni soluzione ottimale $\texttt{Sol}^*$ si verifica una delle seguenti:
             \begin{itemize}
                 \item $\texttt{Sol}^* \cap \texttt{Sol}_n = \varnothing$
                 \item $\texttt{Sol}^* \cap \texttt{Sol}_n \neq \varnothing \land \texttt{Sol}^* \not \subseteq \texttt{Sol}_n \land \texttt{Sol}_n \not \subseteq \texttt{Sol}^*$
@@ -2776,14 +2776,14 @@
     La struttura della dimostrazione di questo algoritmo è analoga a quella dell'\cref{intervalli1}; è dunque omessa la premessa iniziale, e la dimostrazione procede assumendo le stesse condizioni di partenza per l'induzione.
 
     \begin{itemize}
-        \textit{Prima implicazione.} È riportata di seguito la dimostrazione a partire dal passo induttivo. 
+        \item[] \textit{Prima implicazione.} È riportata di seguito la dimostrazione a partire dal passo induttivo. 
         \item \textit{passo induttivo}
             \begin{itemize}
                 \item è necessario dimostrare che $\exists \texttt{Sol}^*$ soluzione ottimale $\mid \texttt{Sol}_{k + 1} \subseteq \texttt{Sol}^*$
                 \item si noti che, per via della riga 5, si ha che $$\forall k \in [1, n) \quad \texttt{Sol}_{k +1} = \left \{ \begin{array}{ll} \texttt{Sol}_k & \texttt{Sol}_k \cap [a_{k +1}, b_{k+1}] \neq \varnothing \\ \texttt{Sol}_k \cup \{b_{k +1}\} & \texttt{Sol}_k \cap [a_{k +1}, b_{k +1}] = \varnothing \end{array} \right.$$
                 \item si noti che, nel primo caso, si ha che $\texttt{Sol}_{k +1} = \texttt{Sol}_k$, e dunque $\exists \texttt{Sol}^*$ soluzione ottimale $\mid \texttt{Sol}_{k +1} = \texttt{Sol}_k \subseteq \texttt{Sol}^*$ per ipotesi induttiva
                 \item allora sia $[a_{k+1}, b_{k+1}]$ tale che $\texttt{Sol}_k \cap [a_{k+1}, b_{k +1}] = \varnothing \implies \texttt{Sol}_{k +1} = \texttt{Sol}_k \cup \{b_{k +1}\}$
-                \item sia $\texttt{Sol}^*$ una soluzione ottimale tale da soddisfare l'ipotesi induttiva; si noti che $b_{k +1} \in \texttt{Sol}^* \implies \exists \texttt{Sol}^*$ soluzione ottimale $\mid \texttt{Sol}_k \cup \{ b_{k +1}\} \subseteq \texttt{Sol}^*$ per ipotesi induttiva
+                \item sia $\texttt{Sol}^*$ una soluzione ottimale tale da soddisfare l'ipotesi induttiva; si noti che $b_{k +1} \in \texttt{Sol}^* \implies \exists \texttt{Sol}^*$ soluzione ottimale $\mid \texttt{Sol}_{k +1} = \texttt{Sol}_k \cup \{ b_{k +1}\} \subseteq \texttt{Sol}^*$ per ipotesi induttiva
                 \item sia allora $b_{k +1} \notin \texttt{Sol}^*$; si noti che, poiché $\texttt{Sol}^*$ è una soluzione ottimale, necessariamente $$b_{k +1} \notin \texttt{Sol}^* \iff \exists x \in \texttt{Sol}^*  \mid x \in [a_{k + 1}, b_{k +1}]$$ inoltre, si noti che $x \notin \texttt{Sol}_k$, poiché $$\left . \begin{array}{r} b_{k +1} \in \texttt{Sol}_{k +1} \\ x \in \texttt{Sol}_k \\ x \in [a_{k +1}, b_{ k+1}] \end{array} \right \} \implies \texttt{Sol}_k \cap [a_{k +1}, b_{k +1}] \neq \varnothing \ \lightning$$; allora, poiché per ipotesi induttiva si ha che $\texttt{Sol}_k \subseteq \texttt{Sol}^*$, necessariamente $x \in \texttt{Sol}^* - \texttt{Sol}_k$
                 \item sia $j \in [1, n) \mid x \in [a_j, b_j]$; allora, si verifica uno dei seguenti casi:
                     \begin{itemize}
@@ -2791,7 +2791,7 @@
                         \item $j > k + 1 \implies \left \{ \begin{array}{l} b_j > b_{k +1} \\ a_j > a_{k + 1} \end{array} \right.$; si noti inoltre che l'intervallo $[a_j, b_j]$ è stato scelto tale che $x \in [a_j, b_j]$, e poiché $x \in [a_{k +1}, b_{k +1}]$ per sua definizione, si verifica necessariamente che $$\left .\begin{array}{r} x \in [a_j , b_j] \cap [a_{k + 1}, b_{k +1}] \neq \varnothing \\ b_j > b_{k +1} \\ a_j > a_{k +1} \end{array} \right \} \implies a_{k + 1} \le a_j \le x \le b_{k +1} \le b_j$$ in particolare, si noti che $b_{k +1} \in [a_j, b_j]$, e poiché la dimostrazione non dipende dalla scelta di $x \in \texttt{Sol}^* - \texttt{Sol}_k$, né da $j \in [1, n)$, si ha che $b_{k +1}$ copre ogni intervallo coperto da $x$; allora, per far si che esista soluzione ottimale $\texttt{Sol}^*$ tale da contenere $\texttt{Sol}_{k +1} = \texttt{Sol}_k \cup \{b_{k +1}\}$, è sufficiente considerare $$(\texttt{Sol}^* - \{x\}) \cup \{b_{k +1}\}$$
                     \end{itemize}
             \end{itemize}
-        \textit{Seconda implicazione.} $\exists \texttt{Sol}^*$ soluzione ottimale $\mid \texttt{Sol}^* \subseteq \texttt{Sol}_n$. La dimostrazione è analoga a quella dell'\cref{intervalli1}, ed è dunque omessa.
+        \item[] \textit{Seconda implicazione.} $\exists \texttt{Sol}^*$ soluzione ottimale $\mid \texttt{Sol}^* \subseteq \texttt{Sol}_n$. La dimostrazione è analoga a quella dell'\cref{intervalli1}, ed è dunque omessa.
     \end{itemize}
 \end{proof}
 
@@ -2865,6 +2865,8 @@
 \end{example}
 
 \begin{lemma}[MST aciclici]
+    \label{lemma mst}
+
     Sia $G$ un grafo indiretto pesato, con pesi strettamente positivi, e sia $H$ un suo MST; allora $H$ è aciclico.
 \end{lemma}
 
@@ -2883,8 +2885,8 @@
 
 \begin{algorithm}[H]
     \caption{
-        Dato un grafo indiretto $G$, pesato attraverso $w$, l'algoritmo ne restituisce un MST.\\
-        \textbf{Input}: $G$ grafo indiretto; $w$ una funzione che associa pesi agli archi in $E(G)$.\\
+        Dato un grafo indiretto connesso $G$, pesato attraverso $w$ con pesi strettamente positivi, l'algoritmo ne restituisce un MST.\\
+        \textbf{Input}: $G$ grafo indiretto; $w$ una funzione che associa pesi, strettamente positivi, agli archi in $E(G)$.\\
         \textbf{Output}: un MST di $G$.
     }
 
@@ -2906,7 +2908,7 @@
     La struttura della dimostrazione di questo algoritmo è analoga a quella dell'\cref{intervalli1}; è dunque omessa la premessa iniziale, e la dimostrazione procede assumendo le stesse condizioni di partenza per l'induzione.
 
     \begin{itemize}
-        \textit{Prima implicazione.} È riportata di seguito la dimostrazione a partire dal passo induttivo. 
+        \item[] \textit{Prima implicazione.} È riportata di seguito la dimostrazione a partire dal passo induttivo. 
         \item \textit{passo induttivo}
             \begin{itemize}
                 \item è necessario dimostrare che $\exists \texttt{Sol}^*$ soluzione ottimale $\mid \texttt{Sol}_{k + 1} \subseteq \texttt{Sol}^*$
@@ -2915,7 +2917,7 @@
                 \item allora sia $[a_{k+1}, b_{k+1}]$ tale che $\texttt{Sol}_k \cap [a_{k+1}, b_{k +1}] = \varnothing \implies \texttt{Sol}_{k +1} = \texttt{Sol}_k \cup \{b_{k +1}\}$
                 \item sia $\texttt{Sol}^*$ una soluzione ottimale tale da soddisfare l'ipotesi induttiva; si noti che $b_{k +1} \in \texttt{Sol}^* \implies \exists \texttt{Sol}^*$ soluzione ottimale $\mid \texttt{Sol}_k \cup \{ b_{k +1}\} \subseteq \texttt{Sol}^*$ per ipotesi induttiva
             \end{itemize}
-        \textit{Seconda implicazione.} $\exists \texttt{Sol}^*$ soluzione ottimale $\mid \texttt{Sol}^* \subseteq \texttt{Sol}_n$. La dimostrazione è analoga a quella dell'\cref{intervalli1}, ed è dunque omessa.
+        \item[] \textit{Seconda implicazione.} $\exists \texttt{Sol}^*$ soluzione ottimale $\mid \texttt{Sol}^* \subseteq \texttt{Sol}_n$. La dimostrazione è analoga a quella dell'\cref{intervalli1}, ed è dunque omessa.
     \end{itemize}
 \end{proof}
 
@@ -2924,7 +2926,95 @@
 \end{remark}
 
 \begin{remark}[Costo dell'algoritmo]
+    TODO $O(n(n + m))$
+\end{remark}
+
+\subsection{Algoritmo di Prim}
+
+\begin{algorithm}[H]
+    \caption{
+        Dato un grafo indiretto connesso $G$, pesato attraverso $w$ con pesi strettamente positivi, l'algoritmo ne restituisce un MST.\\
+        \textbf{Input}: $G$ grafo indiretto; $w$ una funzione che associa pesi, strettamente positivi, agli archi in $E(G)$.\\
+        \textbf{Output}: un MST di $G$.
+    }
+
+    \begin{algorithmic}[1]
+        \Function{Prim$_1$}{$G$, $w$}
+            \State $v \in V(G)$
+            \State $\texttt{Sol} := \varnothing$
+            \While{$R \neq V(G)$}
+                \State $\displaystyle (x, y) := \argmin_{a \in R, b \notin R} {w(a, b)}$
+                \State $\texttt{Sol} = \texttt{Sol} \cup \{ (x, y) \}$
+                \State $R = R \cup \{y\}$
+            \EndWhile
+            \State \textbf{return} \texttt{Sol}
+        \EndFunction
+    \end{algorithmic}
+\end{algorithm}
+
+\begin{proof}
+    TODO DA RILEGGERE TUTTO
+
+    Per dimostrare la correttezza dell'algoritmo, è necessario dimostrare che \texttt{Sol} in output dall'algoritmo sia un MST; allora, \texttt{Sol} deve essere un albero, deve essere di copertura, e deve essere minimale rispetto al peso degli archi dato da $w$; si ha dunque che:
+
+    \begin{itemize}
+        \item \texttt{Sol} è un albero
+            \begin{itemize}
+                \item \texttt{Sol} è aciclico, in quanto alla riga 5 vengono aggiunti esclusivamente archi con un estremo in $R$ (insieme dei vertici visitati), e l'altro non in $R$, e dunque è garantito che l'algoritmo non ripercorra gli stessi vertici più di una volta
+                \item inoltre, per lo stesso motivo, l'algoritmo non crea componenti non connesse all'interno di \texttt{Sol}, poiché prende sempre archi che congiungono $R$ con $V(G) - R$, e dunque necessariamente \texttt{Sol} è connesso
+                \item allora, per definizione, \texttt{Sol} è un albero
+            \end{itemize}
+        \item \texttt{Sol} è un albero di copertura
+            \begin{itemize}
+                \item poiché il ciclo \texttt{while} della riga 4 non termina fino a quando $R = V(G)$, l'algoritmo visita tutti i vertici del grafo, e dunque \texttt{Sol} è necessariamente un albero di copertura
+            \end{itemize}
+    \end{itemize}
+
+    La struttura della dimostrazione per garantire che \texttt{Sol} sia un albero di copertura minimale, è analoga a quella dell'\cref{intervalli1}; è dunque omessa la premessa iniziale, e la dimostrazione procede assumendo le stesse condizioni di partenza per l'induzione.
+
+    \begin{itemize}
+        \item[] \textit{Prima implicazione.} È riportata di seguito la dimostrazione a partire dal passo induttivo. 
+        \item \textit{passo induttivo}
+            \begin{itemize}
+                \item è necessario dimostrare che $\exists \texttt{Sol}^*$ soluzione ottimale $\mid \texttt{Sol}_{k + 1} \subseteq \texttt{Sol}^*$
+                \item si noti che, per via della riga 5, si ha che $$\forall k \in [1, n) \quad \texttt{Sol}_{k +1} = \texttt{Sol}_k \cup \{e_{k +1}\}$$
+                \item sia $\texttt{Sol}^*$ una soluzione ottimale tale da soddisfare l'ipotesi induttiva; si noti che $e_{k +1} \in \texttt{Sol}^* \implies \exists \texttt{Sol}^*$ soluzione ottimale $\mid \texttt{Sol}_{k +1} = \texttt{Sol}_k \cup \{e_{k +1}\} \subseteq \texttt{Sol}^*$ per ipotesi induttiva
+                \item sia allora $e_{k +1} \notin \texttt{Sol}^*$; si noti che, per il \cref{lemma mst}, si ha che qualsiasi soluzione ottimale $\texttt{Sol}^*$ deve essere aciclica, e dunque necessariamente $e_{k +1} \notin \texttt{Sol}^* \implies \texttt{Sol}^* \cup \{e_{k +1}\}$ è un ciclo $C$ di $\texttt{Sol}^*$; inoltre, poiché $\texttt{Sol}^*$ è una soluzione ottimale, ed è dunque un MST, il suo insieme di archi deve necessariamente avere il peso minimo possibile, e dunque per trovare una soluzione ottimale tale da includere $\texttt{Sol}_{k + 1}$, è necessario garantire che il suo peso sia pari a quello di $\texttt{Sol}^*$
+                \item inoltre, necessariamente $C \not \subset R_k$, poiché l'arco $e_{k + 1}$, per via della riga 5, deve essere stato scelto con un estremo in $R_k$ e un estremo in $\texttt{Sol}^* - R$; allora, $C$ è solo parzialmente contenuto in $R_k$, ma poiché $C$ è un ciclo, affinché questo si chiuda deve necessariamente esistere un secondo arco $\hat e \in C$, che congiunga $R_k$ e $\texttt{Sol}^* - R_k$
+                \item si noti che deve necessariamente verificarsi che $$w(e_{k +1}) \le w(\hat e) \iff w(e_{k +1}) - w(\hat e) \le 0$$ poiché se $\hat e$ avesse avuto peso inferiore a $e_{k +1}$, l'algoritmo, alla riga 5, lo avrebbe scelto al posto di $e_{k +1}$
+                \item allora, dalla formula precedente segue che $$\displaystyle \sum_{e \in E((\texttt{Sol}^* \cup \{e_{k +1}\} )- \{\hat e\}) }{w(e)}  = \sum_{e \in E(\texttt{Sol}^*)}{w(e)} + w(e_{k +1}) - w(\hat e) \le \sum_{e \in E(\texttt{Sol}^*}{w(e)}$$ e dunque, e possibile considerare $$(\texttt{Sol}^* \cup \{e_{k+1}\}) - \{\hat e\}$$ per ottenere una soluzione ottimale tale da contenere $\texttt{Sol}_{k + 1}$.
+            \end{itemize}
+        \item[] \textit{Seconda implicazione.} $\exists \texttt{Sol}^*$ soluzione ottimale $\mid \texttt{Sol}^* \subseteq \texttt{Sol}_n$. La dimostrazione è analoga a quella dell'\cref{intervalli1}, ed è dunque omessa.
+    \end{itemize}
+\end{proof}
+
+\begin{remark}[Correttezza dell'algoritmo]
     TODO
 \end{remark}
+
+\begin{remark}[Costo dell'algoritmo]
+    TODO $O(n \cdot m)$
+\end{remark}
+
+% \begin{algorithm}[H]
+%     \caption{
+%         Dato un grafo indiretto $G$, pesato attraverso $w$, l'algoritmo ne restituisce un MST.\\
+%         \textbf{Input}: $G$ grafo indiretto; $w$ una funzione che associa pesi agli archi in $E(G)$.\\
+%         \textbf{Output}: un MST di $G$.
+%     }
+%
+%     \begin{algorithmic}[1]
+%         \Function{Kruskal}{$G$, $w$}
+%             \State $E(G)\texttt{.sort(key=}\lambda (e) \rightarrow w(e)\texttt{)}$ \Comment{$E(G)$ ordinato sui pesi di $w$}
+%             \State $\texttt{Sol}:= \varnothing$
+%             \For{$e \in E(G)$}
+%             \If{$\texttt{findCycle(}\texttt{Sol} \cup \{e\}\texttt{)} == \texttt{None}$} \Comment{se non contiene cicli}
+%                     \State $\texttt{Sol} = \texttt{Sol} \cup \{e\}$
+%                 \EndIf
+%             \EndFor
+%             \State \textbf{return} \texttt{Sol}
+%         \EndFunction
+%     \end{algorithmic}
+% \end{algorithm}
 
 \end{document}

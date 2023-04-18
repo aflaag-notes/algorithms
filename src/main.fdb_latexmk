@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1681805985 "main.tex" "main.pdf" "main" 1681805988 0
+["pdflatex"] 1681847982 "main.tex" "main.pdf" "main" 1681847984 0
   "/usr/share/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1680514707 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/share/texmf-dist/fonts/map/fontname/texfonts.map" 1680514707 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texmf-dist/fonts/tfm/jknappen/ec/tcrm1440.tfm" 1680514707 1536 3290a75021d32d016616fe527bc9884c ""
@@ -36,6 +36,7 @@
   "/usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb" 1680514707 32569 5e5ddc8df908dea60932f3c484a54c0d ""
   "/usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb" 1680514707 32716 08e384dc442464e7285e891af9f45947 ""
   "/usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb" 1680514707 36118 fad905eba93cff5bce1e185fe980a177 ""
+  "/usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb" 1680514707 31099 c85edf1dd5b9e826d67c9c7293b6786c ""
   "/usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb" 1680514707 24252 1e4e051947e12dfb50fee0b7f4e26e3a ""
   "/usr/share/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb" 1680514707 34694 ad62b13721ee8eda1dcc8993c8bd7041 ""
   "/usr/share/texmf-dist/fonts/type1/public/cm-super/sfrm1440.pfb" 1680514707 131078 d96015a2fa5c350129e933ca070b2484 ""
@@ -184,10 +185,10 @@
   "/usr/share/texmf-dist/web2c/texmf.cnf" 1680514707 39911 2da6c67557ec033436fe5418a70a8a61 ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1680936469 4491781 539e3b5e308794ddb50e5f94f0e971f4 ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1680936457 8204070 fc17bf98c59c0ce7adab676cde35ff8e ""
-  "main.aux" 1681805988 24526 d57bdb4b833ecf065efbbcb3dbb03b7d "pdflatex"
-  "main.out" 1681805988 5843 67e6b2bdae9e40bf9bca81f997abd6fe "pdflatex"
-  "main.tex" 1681805981 186773 68755ead8117e0286006e8f07c3d3e99 ""
-  "main.toc" 1681805988 3192 495e71f2664a525fccaecf4053d6342e "pdflatex"
+  "main.aux" 1681847984 25268 805914c5b05678cc31743e34b5fca386 "pdflatex"
+  "main.out" 1681847984 5996 88432d7ae8e60636f5f78d21e15d3ed0 "pdflatex"
+  "main.tex" 1681847981 193366 9025af14256eb91be82bb44e7e6af0a6 ""
+  "main.toc" 1681847984 3280 ed90fff26ed757417d0f23699e25d0eb "pdflatex"
   (generated)
   "main.aux"
   "main.log"

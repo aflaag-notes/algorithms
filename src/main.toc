@@ -36,3 +36,4 @@
 \contentsline {section}{\numberline {2.4}Minimum Spanning Tree (MST)}{73}{section.2.4}%
 \contentsline {subsection}{\numberline {2.4.1}Definizioni}{73}{subsection.2.4.1}%
 \contentsline {subsection}{\numberline {2.4.2}Algoritmo di Kruskal}{75}{subsection.2.4.2}%
+\contentsline {subsection}{\numberline {2.4.3}Algoritmo di Prim}{76}{subsection.2.4.3}%
