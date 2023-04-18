@@ -19,13 +19,23 @@ Questi sono i miei [appunti](https://raw.githubusercontent.com/ph04/algorithms/m
 - pagina 8/43
     - scrivere proposizione e roba dell'algoritmo
 
-- pagina 11
-    - algoritmo dijkstra (considera se metterlo o no)
-
 - pagina 12
-    - algoritmo dijkstra
+    - algoritmo dijkstra 2
+        - correttezza
+        - costo
 
-- ESERCITAZIONE DI ANDREA!!
+- esercitazione di andrea
 
-- algoritmo di kruskal
+- pagina 13
+    - algoritmo di kruskal
+        - proof
+        - correttezza
+        - costo
+    - algoritmo di prim 1
+        - correttezza
+    - algoritmo di prim2
+        - correttezza
+        - costo
+
+- !!!!!!! rileggi tutto quello scritto la sera del 18/04/2023
 

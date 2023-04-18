@@ -2475,7 +2475,7 @@
     TODO
 \end{example}
 
-\section{Algoritmo di Dijkstra}
+\section{Distanza pesata}
 
 \subsection{Archi pesati}
 
@@ -2589,7 +2589,7 @@
     \end{itemize}
 \end{proof}
 
-\subsection{Trovare le distanze pesate}
+\subsection{Algoritmo di Dijkstra}
 
 \begin{algorithm}[H]
     \caption{
@@ -2637,16 +2637,17 @@
         \Function{Dijkstra$_2$}{$G$, $w$, $u$}
             \State $\texttt{distancesW} := \texttt{[}+ \infty \texttt{]} * n$ \Comment{valore sufficientemente grande}
             \State $\texttt{distancesW[}u\texttt{]} = 0$
-            \State $\texttt{MinHeap H} := \texttt{[]}$ \Comment{è una \textit{priority queue}}
+            \State $\texttt{MinHeap H} := \texttt{[]}$
             \For{$v \in V(G)$}
-                \State $\texttt{H.insert(distancesW[}v\texttt{]},v\texttt{)}$
+                \State $\texttt{H.insert(}v, \texttt{distancesW[}v\texttt{]}\texttt{)}$ \Comment{le chiavi sono le distanze pesate da $u$}
             \EndFor
             \While{!\texttt{H.isEmpty()}}
-                \State $v = \texttt{H.get\_min()}$
-                \For{$x \in V(G) : (v, x) \in E(G)$}
-                    \If{$\texttt{distancesW[}x\texttt{]}>\texttt{distancesW[}v\texttt{]} + w(v, x)$}
-                        \State $\texttt{distancesW[}x\texttt{]}=\texttt{distancesW[}v\texttt{]} + w(v, x)$
-                        \State $\texttt{H.remove(}x\texttt{)}$ TODO DA CONTROLLARE
+                \State $v := \texttt{H.extract\_min()}$ \Comment{il minore viene \underline{rimosso} da \texttt{H}}
+                \State $\texttt{distancesW[}v\texttt{]} = \texttt{H.get\_key(}v\texttt{)}$
+                \For{$x \in V(G) : \left \{ \begin{array}{l} (v, x) \in E(G) \\ \texttt{H.contains(}x\texttt{)} \end{array} \right.$}
+                    \State $d := \texttt{distancesW[}v\texttt{]} + w(v, x)$
+                    \If{$\texttt{H.get\_key(}x\texttt{)} > d$}
+                        \State $\texttt{H.set\_key(}x, d\texttt{)}$
                     \EndIf
                 \EndFor
             \EndWhile
@@ -2953,7 +2954,7 @@
 \end{algorithm}
 
 \begin{proof}
-    TODO DA RILEGGERE TUTTO
+    TODO DA RILEGGERE TUTTO, manca da garantire che $\hat e$ non stia in $\texttt{Sol}_{k +1}$
 
     Per dimostrare la correttezza dell'algoritmo, è necessario dimostrare che \texttt{Sol} in output dall'algoritmo sia un MST; allora, \texttt{Sol} deve essere un albero, deve essere di copertura, e deve essere minimale rispetto al peso degli archi dato da $w$; si ha dunque che:
 
@@ -2993,28 +2994,50 @@
 \end{remark}
 
 \begin{remark}[Costo dell'algoritmo]
-    TODO $O(n \cdot m)$
+    TODO DA RILEGGERE
+
+    L'algoritmo effettua un singolo ciclo \texttt{while}, alla riga 4, che termina nel momento in cui $R$ contiene ogni vertice di $V(G)$, e poiché ad ogni iterazione viene inserito esatatmente un vertice in $R$ (riga 7), allora il ciclo viene ripetuto esattamente $n$ volte
+
+    Inoltre, alla riga 5 viene cercato l'arco, uscente da $R$, con peso minore, e il costo di tale operazione, nel caso peggiore, è $O(m)$, poiché implica il controllo del peso di ogni singolo arco uscente da $R$.
+
+    Allora, complessivamente l'algoritmo ha costo $n \cdot O(m) = O(n \cdot m)$.
 \end{remark}
 
-% \begin{algorithm}[H]
-%     \caption{
-%         Dato un grafo indiretto $G$, pesato attraverso $w$, l'algoritmo ne restituisce un MST.\\
-%         \textbf{Input}: $G$ grafo indiretto; $w$ una funzione che associa pesi agli archi in $E(G)$.\\
-%         \textbf{Output}: un MST di $G$.
-%     }
-%
-%     \begin{algorithmic}[1]
-%         \Function{Kruskal}{$G$, $w$}
-%             \State $E(G)\texttt{.sort(key=}\lambda (e) \rightarrow w(e)\texttt{)}$ \Comment{$E(G)$ ordinato sui pesi di $w$}
-%             \State $\texttt{Sol}:= \varnothing$
-%             \For{$e \in E(G)$}
-%             \If{$\texttt{findCycle(}\texttt{Sol} \cup \{e\}\texttt{)} == \texttt{None}$} \Comment{se non contiene cicli}
-%                     \State $\texttt{Sol} = \texttt{Sol} \cup \{e\}$
-%                 \EndIf
-%             \EndFor
-%             \State \textbf{return} \texttt{Sol}
-%         \EndFunction
-%     \end{algorithmic}
-% \end{algorithm}
+\begin{algorithm}[H]
+    \caption{
+        Dato un grafo indiretto connesso $G$, pesato attraverso $w$ con pesi strettamente positivi, l'algoritmo ne restituisce un MST.\\
+        \textbf{Input}: $G$ grafo indiretto; $w$ una funzione che associa pesi, strettamente positivi, agli archi in $E(G)$.\\
+        \textbf{Output}: un MST di $G$.
+    }
+
+    \begin{algorithmic}[1]
+        \Function{Prim$_2$}{$G$, $w$}
+            \State $v \in V(G)$
+            \State $\texttt{Sol} := \varnothing$
+            \State $\texttt{MinHeap H} := \texttt{[]}$
+            \For{$u \in V(G) - \{v\}$}
+                \State $\texttt{H.insert(}u, +\infty\texttt{)}$
+            \EndFor
+            \State $\texttt{parents} := \texttt{[}-1\texttt{]} * n$
+            \State $\texttt{parents[}v\texttt{]} = v$
+            \For{$y \in V(G) : y \sim v$}
+                \State $\texttt{parents[}y\texttt{]} = v$
+                \State $\texttt{H.set\_key(}y, w(v, y)\texttt{)}$
+            \EndFor
+            \While{$R \neq V(G)$}
+                \State $y := \texttt{H.extract\_min()}$
+                    \State $\texttt{Sol} = \texttt{Sol} \cup \{ (y, \texttt{parents[}y\texttt{]}) \}$
+                \State $R = R \cup \{y\}$
+                \For{$x \in V(G) - R : x \sim y$}
+                    \If{$\texttt{H.get\_key(}x\texttt{)} > w(x, y)$}
+                        \State $\texttt{H.set\_key(}x, w(x, y)\texttt{)}$
+                        \State $\texttt{parents[}x\texttt{]} = y$
+                    \EndIf
+                \EndFor
+            \EndWhile
+            \State \textbf{return} \texttt{Sol}
+        \EndFunction
+    \end{algorithmic}
+\end{algorithm}
 
 \end{document}
