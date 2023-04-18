@@ -7,7 +7,7 @@
 \contentsline {section}{\numberline {1.2}Rappresentazione}{9}{section.1.2}%
 \contentsline {subsection}{\numberline {1.2.1}Matrici di adiacenza}{9}{subsection.1.2.1}%
 \contentsline {subsection}{\numberline {1.2.2}Liste di adiacenza}{10}{subsection.1.2.2}%
-\contentsline {section}{\numberline {1.3}DFS (Depth-first Search)}{12}{section.1.3}%
+\contentsline {section}{\numberline {1.3}Depth-first Search (DFS)}{12}{section.1.3}%
 \contentsline {subsection}{\numberline {1.3.1}Trovare un ciclo}{12}{subsection.1.3.1}%
 \contentsline {subsection}{\numberline {1.3.2}Visita in DFS}{14}{subsection.1.3.2}%
 \contentsline {subsection}{\numberline {1.3.3}Trovare un ordinamento topologico}{17}{subsection.1.3.3}%
@@ -19,7 +19,7 @@
 \contentsline {subsection}{\numberline {1.4.5}Trovare i ponti}{33}{subsection.1.4.5}%
 \contentsline {subsection}{\numberline {1.4.6}Trovare le componenti}{37}{subsection.1.4.6}%
 \contentsline {subsection}{\numberline {1.4.7}Trovare un ciclo}{46}{subsection.1.4.7}%
-\contentsline {section}{\numberline {1.5}BFS (Breadth-first Search)}{48}{section.1.5}%
+\contentsline {section}{\numberline {1.5}Breadth-first Search (BFS)}{48}{section.1.5}%
 \contentsline {subsection}{\numberline {1.5.1}Distanza}{48}{subsection.1.5.1}%
 \contentsline {subsection}{\numberline {1.5.2}Visita in BFS}{53}{subsection.1.5.2}%
 \contentsline {subsection}{\numberline {1.5.3}Trovare il numero di cammini minimi}{57}{subsection.1.5.3}%
@@ -33,6 +33,6 @@
 \contentsline {section}{\numberline {2.3}Intervalli}{68}{section.2.3}%
 \contentsline {subsection}{\numberline {2.3.1}Trovare intervalli disgiunti}{68}{subsection.2.3.1}%
 \contentsline {subsection}{\numberline {2.3.2}Trovare insieme non disgiunto}{71}{subsection.2.3.2}%
-\contentsline {section}{\numberline {2.4}MST (Minimum Spanning Tree)}{73}{section.2.4}%
+\contentsline {section}{\numberline {2.4}Minimum Spanning Tree (MST)}{73}{section.2.4}%
 \contentsline {subsection}{\numberline {2.4.1}Definizioni}{73}{subsection.2.4.1}%
 \contentsline {subsection}{\numberline {2.4.2}Algoritmo di Kruskal}{75}{subsection.2.4.2}%

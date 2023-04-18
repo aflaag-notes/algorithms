@@ -669,7 +669,7 @@
     mentre le corrispondenti liste di adiacenza sono $$\left \{ \begin{array}{l} 1: \texttt{[}4\texttt{]} \\ 2: \texttt{[}4, 3\texttt{]} \\ 3: \texttt{[}2, 4\texttt{]} \\ 4: \texttt{[}1, 3, 5, 6\texttt{]} \\ 5: \texttt{[}4, 6\texttt{]} \\ 6: \texttt{[}4, 5\texttt{]} \end{array} \right.$$
 \end{example}
 
-\section{DFS (Depth-first Search)}
+\section{Depth-first Search (DFS)}
 
 \subsection{Trovare un ciclo}
 
@@ -2077,7 +2077,7 @@
     Poiché l'algoritmo effettua una visita ricorsiva in DFS del grafo $G$ in input, il costo dovrebbe essere $O(n + m)$, ma l'unico caso in cui viene effettuata una visita completa del grafo è nel caso peggiore, ovvero quando il grafo è aciclico. Si noti però che, se $G$ è aciclico, si verifica che $m := |E(G)| = n - 1$, e dunque $O(n + m) = O(n + n - 1) = O(2n - 1) = O(n)$. Allora, il costo dell'algoritmo è $O(n)$.
 \end{remark}
 
-\section{BFS (Breadth-first Search)}
+\section{Breadth-first Search (BFS)}
 
 \subsection{Distanza}
 
@@ -2780,15 +2780,15 @@
         \item \textit{passo induttivo}
             \begin{itemize}
                 \item è necessario dimostrare che $\exists \texttt{Sol}^*$ soluzione ottimale $\mid \texttt{Sol}_{k + 1} \subseteq \texttt{Sol}^*$
-                \item si noti che, per via della riga 5 $$\forall k \in [1, n) \quad \texttt{Sol}_{k +1} = \left \{ \begin{array}{ll} \texttt{Sol}_k & \texttt{Sol}_k \cap [a_{k +1}, b_{k+1}] \neq \varnothing \\ \texttt{Sol}_k \cup \{b_{k +1}\} & \texttt{Sol}_k \cap [a_{k +1}, b_{k +1}] = \varnothing \end{array} \right.$$
+                \item si noti che, per via della riga 5, si ha che $$\forall k \in [1, n) \quad \texttt{Sol}_{k +1} = \left \{ \begin{array}{ll} \texttt{Sol}_k & \texttt{Sol}_k \cap [a_{k +1}, b_{k+1}] \neq \varnothing \\ \texttt{Sol}_k \cup \{b_{k +1}\} & \texttt{Sol}_k \cap [a_{k +1}, b_{k +1}] = \varnothing \end{array} \right.$$
                 \item si noti che, nel primo caso, si ha che $\texttt{Sol}_{k +1} = \texttt{Sol}_k$, e dunque $\exists \texttt{Sol}^*$ soluzione ottimale $\mid \texttt{Sol}_{k +1} = \texttt{Sol}_k \subseteq \texttt{Sol}^*$ per ipotesi induttiva
                 \item allora sia $[a_{k+1}, b_{k+1}]$ tale che $\texttt{Sol}_k \cap [a_{k+1}, b_{k +1}] = \varnothing \implies \texttt{Sol}_{k +1} = \texttt{Sol}_k \cup \{b_{k +1}\}$
                 \item sia $\texttt{Sol}^*$ una soluzione ottimale tale da soddisfare l'ipotesi induttiva; si noti che $b_{k +1} \in \texttt{Sol}^* \implies \exists \texttt{Sol}^*$ soluzione ottimale $\mid \texttt{Sol}_k \cup \{ b_{k +1}\} \subseteq \texttt{Sol}^*$ per ipotesi induttiva
-                \item sia allora $b_{k +1} \notin \texttt{Sol}^*$; si noti che, poiché $\texttt{Sol}^*$ è una soluzione ottimale, necessariamente $$b_{k +1} \notin \texttt{Sol}^* \iff \exists x \in \texttt{Sol}^*  \mid x \in [a_{k + 1}, b_{k +1}]$$ inoltre, si noti che $x \notin \texttt{Sol}_k$, poiché altrimenti TODO NON SO PERCHE; allora, poiché per ipotesi induttiva si ha che $\texttt{Sol}_k \subseteq \texttt{Sol}^*$, necessariamente $x \in \texttt{Sol}^* - \texttt{Sol}_k$
+                \item sia allora $b_{k +1} \notin \texttt{Sol}^*$; si noti che, poiché $\texttt{Sol}^*$ è una soluzione ottimale, necessariamente $$b_{k +1} \notin \texttt{Sol}^* \iff \exists x \in \texttt{Sol}^*  \mid x \in [a_{k + 1}, b_{k +1}]$$ inoltre, si noti che $x \notin \texttt{Sol}_k$, poiché $$\left . \begin{array}{r} b_{k +1} \in \texttt{Sol}_{k +1} \\ x \in \texttt{Sol}_k \\ x \in [a_{k +1}, b_{ k+1}] \end{array} \right \} \implies \texttt{Sol}_k \cap [a_{k +1}, b_{k +1}] \neq \varnothing \ \lightning$$; allora, poiché per ipotesi induttiva si ha che $\texttt{Sol}_k \subseteq \texttt{Sol}^*$, necessariamente $x \in \texttt{Sol}^* - \texttt{Sol}_k$
                 \item sia $j \in [1, n) \mid x \in [a_j, b_j]$; allora, si verifica uno dei seguenti casi:
                     \begin{itemize}
                         \item $j \le k \implies \exists \hat x \in \texttt{Sol}_k \mid \hat x \in [a_j, b_j]$ poiché doveva essere già stato analizzato dall'algoritmo
-                        \item $j \ge k + 1 \implies \left \{ \begin{array}{l} b_j \ge b_{k +1} \\ a_j \ge a_{k + 1} \end{array} \right.$; si noti inoltre che l'intervallo $[a_j, b_j]$ è stato scelto tale che $x \in [a_j, b_j]$, e poiché $x \in [a_{k +1}, b_{k +1}]$ per sua definizione, si verifica necessariamente che $$\left .\begin{array}{r} x \in [a_j , b_j] \cap [a_{k + 1}, b_{k +1}] \neq \varnothing \\ b_j \ge b_{k +1} \\ a_j \ge a_{k +1} \end{array} \right \} \implies a_{k + 1} \le a_j \le x \le b_{k +1} \le b_j$$ in particolare, si noti che $b_{k +1} \in [a_j, b_j]$, e poiché la dimostrazione non dipende dalla scelta di $x \in \texttt{Sol}^* - \texttt{Sol}_k$, né da $j \in [1, n)$, si ha che $b_{k +1}$ copre ogni intervallo coperto da $x$; allora, per far si che esista soluzione ottimale $\texttt{Sol}^*$ tale da contenere $\texttt{Sol}_{k +1} = \texttt{Sol}_k \cup \{b_{k +1}\}$, è sufficiente considerare $$(\texttt{Sol}^* - \{x\}) \cup \{b_{k +1}\}$$
+                        \item $j > k + 1 \implies \left \{ \begin{array}{l} b_j > b_{k +1} \\ a_j > a_{k + 1} \end{array} \right.$; si noti inoltre che l'intervallo $[a_j, b_j]$ è stato scelto tale che $x \in [a_j, b_j]$, e poiché $x \in [a_{k +1}, b_{k +1}]$ per sua definizione, si verifica necessariamente che $$\left .\begin{array}{r} x \in [a_j , b_j] \cap [a_{k + 1}, b_{k +1}] \neq \varnothing \\ b_j > b_{k +1} \\ a_j > a_{k +1} \end{array} \right \} \implies a_{k + 1} \le a_j \le x \le b_{k +1} \le b_j$$ in particolare, si noti che $b_{k +1} \in [a_j, b_j]$, e poiché la dimostrazione non dipende dalla scelta di $x \in \texttt{Sol}^* - \texttt{Sol}_k$, né da $j \in [1, n)$, si ha che $b_{k +1}$ copre ogni intervallo coperto da $x$; allora, per far si che esista soluzione ottimale $\texttt{Sol}^*$ tale da contenere $\texttt{Sol}_{k +1} = \texttt{Sol}_k \cup \{b_{k +1}\}$, è sufficiente considerare $$(\texttt{Sol}^* - \{x\}) \cup \{b_{k +1}\}$$
                     \end{itemize}
             \end{itemize}
         \textit{Seconda implicazione.} $\exists \texttt{Sol}^*$ soluzione ottimale $\mid \texttt{Sol}^* \subseteq \texttt{Sol}_n$. La dimostrazione è analoga a quella dell'\cref{intervalli1}, ed è dunque omessa.
@@ -2809,7 +2809,7 @@
     Allora, il costo dell'algoritmo è pari a $O(n \log n) + O(n) = O(n \log n)$.
 \end{remark}
 
-\section{MST (Minimum Spanning Tree)}
+\section{Minimum Spanning Tree (MST)}
 
 \subsection{Definizioni}
 

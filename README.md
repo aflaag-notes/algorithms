@@ -27,3 +27,5 @@ Questi sono i miei [appunti](https://raw.githubusercontent.com/ph04/algorithms/m
 
 - ESERCITAZIONE DI ANDREA!!
 
+- algoritmo di kruskal
+
