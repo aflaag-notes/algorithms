@@ -37,5 +37,9 @@ Questi sono i miei [appunti](https://raw.githubusercontent.com/ph04/algorithms/m
         - correttezza
         - costo
 
-- !!!!!!! rileggi tutto quello scritto la sera del 18/04/2023
+- rileggere qualsiasi cosa
+
+- "dimostrazioncina"
+
+- da master theorem in poi
 

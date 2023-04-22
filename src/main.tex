@@ -2887,7 +2887,7 @@
 \begin{algorithm}[H]
     \caption{
         Dato un grafo indiretto connesso $G$, pesato attraverso $w$ con pesi strettamente positivi, l'algoritmo ne restituisce un MST.\\
-        \textbf{Input}: $G$ grafo indiretto; $w$ una funzione che associa pesi, strettamente positivi, agli archi in $E(G)$.\\
+        \textbf{Input}: $G$ grafo indiretto connesso; $w$ una funzione che associa pesi, strettamente positivi, agli archi in $E(G)$.\\
         \textbf{Output}: un MST di $G$.
     }
 
@@ -2906,19 +2906,40 @@
 \end{algorithm}
 
 \begin{proof}
-    La struttura della dimostrazione di questo algoritmo è analoga a quella dell'\cref{intervalli1}; è dunque omessa la premessa iniziale, e la dimostrazione procede assumendo le stesse condizioni di partenza per l'induzione.
+    TODO DA RILEGGERE TUTTO
+
+    Per dimostrare la correttezza dell'algoritmo, è necessario dimostrare che \texttt{Sol} in output dall'algoritmo sia un MST; allora, $\texttt{Sol}_m$ (si noti che l'algoritmo ha $m$ iterazioni) deve essere un albero, deve essere di copertura, e deve essere minimale rispetto al peso degli archi dato da $w$; si ha dunque che:
+
+    \begin{itemize}
+        \item \texttt{Sol} è un albero
+            \begin{itemize}
+                \item $\texttt{Sol}_m$ è aciclico, in quanto alla riga 5 vengono aggiunti esclusivamente archi che non formano un ciclo con l'insieme \texttt{Sol} di archi già aggiunti
+                \item per assurdo, sia l'output dell'algoritmo un grafo non connesso, e dunque esiste una componente $C$, non contenente tutti i vertici in $V(G)$; si noti che, poiché $G$ in input è connesso, allora necessariamente deve esistere un arco $$(x, y) \in E(G) \mid \left \{ \begin{array}{l} x \in V(C) \\ y \in V(G - C) \end{array} \right.$$ si noti inoltre che tale arco non può costituire un ciclo in $C$; allora, l'algoritmo avrebbe sbagliato a non selezionare l'arco $(x, y)$
+                \item allora, per definizione, \texttt{Sol} è un albero
+            \end{itemize}
+        \item $\texttt{Sol}_m$ è un albero di copertura
+            \begin{itemize}
+                \item poiché l'output dell'algoritmo è connesso, e l'algoritmo visita ogni arco del grafo in input, anch'esso connesso, non può esistere un vertice non contenuto nell'output dell'algoritmo, e dunque l'output è necessariamente un albero di copertura
+            \end{itemize}
+    \end{itemize}
+
+    La struttura della dimostrazione per garantire che $\texttt{Sol}_m$ sia un albero di copertura minimale, è analoga a quella dell'\cref{intervalli1}, con la sola differenza che le iterazioni del ciclo sono $m$ e non $n$ (si noti il ciclo \texttt{for} della riga 4); è dunque omessa la premessa iniziale, e la dimostrazione procede assumendo le stesse condizioni di partenza per l'induzione.
 
     \begin{itemize}
         \item[] \textit{Prima implicazione.} È riportata di seguito la dimostrazione a partire dal passo induttivo. 
         \item \textit{passo induttivo}
             \begin{itemize}
                 \item è necessario dimostrare che $\exists \texttt{Sol}^*$ soluzione ottimale $\mid \texttt{Sol}_{k + 1} \subseteq \texttt{Sol}^*$
-                \item TODO DA CAMBIARE si noti che, per via della riga 5, si ha che $$\forall k \in [1, n) \quad \texttt{Sol}_{k +1} = \left \{ \begin{array}{ll} \texttt{Sol}_k & \texttt{Sol}_k \cap [a_{k +1}, b_{k+1}] \neq \varnothing \\ \texttt{Sol}_k \cup \{b_{k +1}\} & \texttt{Sol}_k \cap [a_{k +1}, b_{k +1}] = \varnothing \end{array} \right.$$
+                \item si noti che, per via della riga 5, si ha che per ogni $k \in [1, m)$ si ha che $$\texttt{Sol}_{k +1} = \left \{ \begin{array}{ll} \texttt{Sol}_k & \texttt{findCycle(Sol} \cup \{e_{k +1}\} \texttt{)} \neq \texttt{None} \\ \texttt{Sol}_k \cup \{e_{k +1}\} & \texttt{findCycle(Sol} \cup \{e_{k +1}\} \texttt{)} = \texttt{None} \end{array} \right.$$
                 \item si noti che, nel primo caso, si ha che $\texttt{Sol}_{k +1} = \texttt{Sol}_k$, e dunque $\exists \texttt{Sol}^*$ soluzione ottimale $\mid \texttt{Sol}_{k +1} = \texttt{Sol}_k \subseteq \texttt{Sol}^*$ per ipotesi induttiva
-                \item allora sia $[a_{k+1}, b_{k+1}]$ tale che $\texttt{Sol}_k \cap [a_{k+1}, b_{k +1}] = \varnothing \implies \texttt{Sol}_{k +1} = \texttt{Sol}_k \cup \{b_{k +1}\}$
-                \item sia $\texttt{Sol}^*$ una soluzione ottimale tale da soddisfare l'ipotesi induttiva; si noti che $b_{k +1} \in \texttt{Sol}^* \implies \exists \texttt{Sol}^*$ soluzione ottimale $\mid \texttt{Sol}_k \cup \{ b_{k +1}\} \subseteq \texttt{Sol}^*$ per ipotesi induttiva
+                \item allora sia $e_{k + 1}$ tale che $\texttt{findCycle(Sol} \cup \{e_{k +1}\} \texttt{)} = \texttt{None} \implies \texttt{Sol}_{k +1} = \texttt{Sol}_k \cup \{e_{k +1}\}$
+                \item sia $\texttt{Sol}^*$ una soluzione ottimale tale da soddisfare l'ipotesi induttiva; si noti che $e_{k +1} \in \texttt{Sol}^* \implies \exists \texttt{Sol}^*$ soluzione ottimale $\mid \texttt{Sol}_k \cup \{ e_{k +1}\} \subseteq \texttt{Sol}^*$ per ipotesi induttiva
+                \item sia allora $e_{k +1} \notin \texttt{Sol}^*$, e sia $e_{k+1}:=(x, y) \in E(G)$ per certi $x, y \in V(G)$; si noti che, poichè $\texttt{Sol}^*$ è una soluzione ottimale, e dunque un MST, per il \cref{lemma mst} è aciclica, e dunque $(x, y) \notin \texttt{Sol}^*$ se e solo se esiste un cammino della forma $x \rightarrow y$ in $\texttt{Sol}^*$; allora, necessariamente $\{x \rightarrow y\} \cup \{e_{k +1}\}$ è un ciclo in $\texttt{Sol}^* \cup \{e_{k +1}\}$
+                \item si noti che, essendo $\{x \rightarrow y\} \cup \{e_{k +1}\}$ un ciclo parzialmente contenuto in $\texttt{Sol}_k$, allora deve esistere un arco $e_j := (z, y) \in \{x \rightarrow y\} - \texttt{Sol}_{k +1}$ per un certo $z \in V(G)$ (di fatto, l'ultimo arco del cammino $x \rightarrow y$)
+                \item allora, sicuramente considerando l'insieme di archi $(\texttt{Sol}^* \cup \{e_{k +1}\}) - \{e_j\}$, il vertice $y$ resta coperto
+                \item si noti che l'arco $e_j$ non è in $\texttt{Sol}_{k +1}$, e dunque $k + 1 < j$; allora, per via dell'ordinamento degli archi alla riga $2$, necessariamente $$w(e_{k +1}) \le w(e_j) \implies \displaystyle \sum_{e \in (\texttt{Sol}^* \cup \{e_{k +1}\}) - \{e_j\}}{w(e)} \le \sum_{e \in \texttt{Sol}^*}{w(e)}$$ ma poiché $\texttt{Sol}^*$, per definizione, è soluzione ottimale, non è possibile trovare una soluzione con peso inferiore, e dunque necessariamente $$(\texttt{Sol}^* \cup \{e_{k +1}\}) - \{e_j\}$$ ha lo stesso peso di un MST di $G$; allora, costituisce una soluzione ottimale, contenente $\texttt{Sol}_{k +1}$ per definizione
             \end{itemize}
-        \item[] \textit{Seconda implicazione.} $\exists \texttt{Sol}^*$ soluzione ottimale $\mid \texttt{Sol}^* \subseteq \texttt{Sol}_n$. La dimostrazione è analoga a quella dell'\cref{intervalli1}, ed è dunque omessa.
+        \item[] \textit{Seconda implicazione.} $\exists \texttt{Sol}^*$ soluzione ottimale $\mid \texttt{Sol}^* \subseteq \texttt{Sol}_m$. Si noti che, per implicazione precedente, esiste una soluzione ottimale $\texttt{Sol}^\#$ tale che $\texttt{Sol}_m \subseteq \texttt{Sol}^\#$; allora, poichè $\texttt{Sol}_m$ è stato dimostrato essere un MST, e $\texttt{Sol}^\#$ è un MST poiché per definizione è una soluzione ottimale, si ha che $$\texttt{Sol}_m \subseteq \texttt{Sol}^\# \implies \texttt{Sol}_m = \texttt{Sol}^*$$
     \end{itemize}
 \end{proof}
 
@@ -2935,7 +2956,7 @@
 \begin{algorithm}[H]
     \caption{
         Dato un grafo indiretto connesso $G$, pesato attraverso $w$ con pesi strettamente positivi, l'algoritmo ne restituisce un MST.\\
-        \textbf{Input}: $G$ grafo indiretto; $w$ una funzione che associa pesi, strettamente positivi, agli archi in $E(G)$.\\
+        \textbf{Input}: $G$ grafo indiretto connesso; $w$ una funzione che associa pesi, strettamente positivi, agli archi in $E(G)$.\\
         \textbf{Output}: un MST di $G$.
     }
 
@@ -2956,22 +2977,22 @@
 \begin{proof}
     TODO DA RILEGGERE TUTTO, manca da garantire che $\hat e$ non stia in $\texttt{Sol}_{k +1}$
 
-    Per dimostrare la correttezza dell'algoritmo, è necessario dimostrare che \texttt{Sol} in output dall'algoritmo sia un MST; allora, \texttt{Sol} deve essere un albero, deve essere di copertura, e deve essere minimale rispetto al peso degli archi dato da $w$; si ha dunque che:
+    Per dimostrare la correttezza dell'algoritmo, è necessario dimostrare che $\texttt{Sol}_n$ in output dall'algoritmo sia un MST; allora, $\texttt{Sol}_n$ deve essere un albero, deve essere di copertura, e deve essere minimale rispetto al peso degli archi dato da $w$; si ha dunque che:
 
     \begin{itemize}
-        \item \texttt{Sol} è un albero
+        \item $\texttt{Sol}_n$ è un albero
             \begin{itemize}
-                \item \texttt{Sol} è aciclico, in quanto alla riga 5 vengono aggiunti esclusivamente archi con un estremo in $R$ (insieme dei vertici visitati), e l'altro non in $R$, e dunque è garantito che l'algoritmo non ripercorra gli stessi vertici più di una volta
-                \item inoltre, per lo stesso motivo, l'algoritmo non crea componenti non connesse all'interno di \texttt{Sol}, poiché prende sempre archi che congiungono $R$ con $V(G) - R$, e dunque necessariamente \texttt{Sol} è connesso
-                \item allora, per definizione, \texttt{Sol} è un albero
+                \item $\texttt{Sol}_n$ è aciclico, in quanto alla riga 5 vengono aggiunti esclusivamente archi con un estremo in $R$ (insieme dei vertici visitati), e l'altro non in $R$, e dunque è garantito che l'algoritmo non ripercorra gli stessi vertici più di una volta
+                \item inoltre, per lo stesso motivo, l'algoritmo non crea componenti non connesse all'interno di \texttt{Sol}, poiché prende sempre archi che congiungono $R$ con $V(G) - R$, e il grafo in input è connesso, e dunque necessariamente $\texttt{Sol}_n$ è connesso
+                \item allora, per definizione, $\texttt{Sol}_n$ è un albero
             \end{itemize}
-        \item \texttt{Sol} è un albero di copertura
+        \item $\texttt{Sol}_n$ è un albero di copertura
             \begin{itemize}
-                \item poiché il ciclo \texttt{while} della riga 4 non termina fino a quando $R = V(G)$, l'algoritmo visita tutti i vertici del grafo, e dunque \texttt{Sol} è necessariamente un albero di copertura
+                \item poiché il ciclo \texttt{while} della riga 4 non termina fino a quando $R = V(G)$, l'algoritmo visita tutti i vertici del grafo, e dunque $\texttt{Sol}_n$ è necessariamente un albero di copertura
             \end{itemize}
     \end{itemize}
 
-    La struttura della dimostrazione per garantire che \texttt{Sol} sia un albero di copertura minimale, è analoga a quella dell'\cref{intervalli1}; è dunque omessa la premessa iniziale, e la dimostrazione procede assumendo le stesse condizioni di partenza per l'induzione.
+    La struttura della dimostrazione per garantire che $\texttt{Sol}_n$ sia un albero di copertura minimale, è analoga a quella dell'\cref{intervalli1}; è dunque omessa la premessa iniziale, e la dimostrazione procede assumendo le stesse condizioni di partenza per l'induzione.
 
     \begin{itemize}
         \item[] \textit{Prima implicazione.} È riportata di seguito la dimostrazione a partire dal passo induttivo. 
@@ -2985,7 +3006,7 @@
                 \item si noti che deve necessariamente verificarsi che $$w(e_{k +1}) \le w(\hat e) \iff w(e_{k +1}) - w(\hat e) \le 0$$ poiché se $\hat e$ avesse avuto peso inferiore a $e_{k +1}$, l'algoritmo, alla riga 5, lo avrebbe scelto al posto di $e_{k +1}$
                 \item allora, dalla formula precedente segue che $$\displaystyle \sum_{e \in E((\texttt{Sol}^* \cup \{e_{k +1}\} )- \{\hat e\}) }{w(e)}  = \sum_{e \in E(\texttt{Sol}^*)}{w(e)} + w(e_{k +1}) - w(\hat e) \le \sum_{e \in E(\texttt{Sol}^*}{w(e)}$$ e dunque, e possibile considerare $$(\texttt{Sol}^* \cup \{e_{k+1}\}) - \{\hat e\}$$ per ottenere una soluzione ottimale tale da contenere $\texttt{Sol}_{k + 1}$.
             \end{itemize}
-        \item[] \textit{Seconda implicazione.} $\exists \texttt{Sol}^*$ soluzione ottimale $\mid \texttt{Sol}^* \subseteq \texttt{Sol}_n$. La dimostrazione è analoga a quella dell'\cref{intervalli1}, ed è dunque omessa.
+        \item[] \textit{Seconda implicazione.} $\exists \texttt{Sol}^*$ soluzione ottimale $\mid \texttt{Sol}^* \subseteq \texttt{Sol}_n$. TODO (copia kruskal)
     \end{itemize}
 \end{proof}
 
@@ -3006,7 +3027,7 @@
 \begin{algorithm}[H]
     \caption{
         Dato un grafo indiretto connesso $G$, pesato attraverso $w$ con pesi strettamente positivi, l'algoritmo ne restituisce un MST.\\
-        \textbf{Input}: $G$ grafo indiretto; $w$ una funzione che associa pesi, strettamente positivi, agli archi in $E(G)$.\\
+        \textbf{Input}: $G$ grafo indiretto connesso; $w$ una funzione che associa pesi, strettamente positivi, agli archi in $E(G)$.\\
         \textbf{Output}: un MST di $G$.
     }
 
@@ -3039,5 +3060,42 @@
         \EndFunction
     \end{algorithmic}
 \end{algorithm}
+
+\begin{remark}[Correttezza dell'algoritmo]
+    TODO
+\end{remark}
+
+\begin{remark}[Costo dell'algoritmo]
+    TODO DA RILEGGERE
+    Si noti che il costo di inserimento di un nodo all'interno di un heap è pari a $O(\log n)$, e dunque il costo del ciclo \texttt{for} alla riga 5 è pari a $O (n \log n)$, poichè viene inserito ogni nodo in $V(G) - \{v\}$ all'interno di \texttt{H}, e $O(|V(G) - \{v\}|) = O(n - 1) = O(n)$.
+
+    Inoltre, il costo di aggiornamento di una chiave all'interno di un heap è pari anch'esso a $O(\log n)$, e dunque la complessità del ciclo \texttt{for} della riga 10 è pari a $\deg(v) \cdot O(\log n) = O(\deg(v) \cdot \log n) = O(n \log n)$ (nel caso peggiore, $\deg(v) = n - 1$).
+
+    L'operazione di estrazione del minimo dall'heap, alla riga 15, ha anch'essa costo pari a $O(\log n)$; inoltre, il controllo della riga 19 ha costo pari a 
+\end{remark}
+
+\chapter{Algoritmi Divide et Impera}
+
+\section{Algoritmi Divide et Impera}
+
+\subsection{Definizioni}
+
+\begin{definition}[Divide et Impera]
+    TODO RILEGGERE
+    Con la locuzione latina \textit{divide et impera}, si intende una tecnica di risoluzione dei problemi basata sull'induzione, con la quale il problema di partenza viene scomposto in sotto-problemi di dimensione inferiore, ricorsivamente (la fase del \textit{divide}), e una volta raggiunto un caso base della ricorsione, per il quale è nota la soluzione del problema, l'algoritmo procedere a combinare le soluzioni dei sotto-problemi, per trovare la soluzione del problema di partenza (la fase dell'\textit{impera}).
+\end{definition}
+
+\subsection{TODO}
+
+\begin{theorem}[Master theorem - Teorema principale]
+    TODO DA RILEGGERE
+
+    Siano $\alpha, \beta \ge 1$ tali da descrivere la seguente equazione di ricorrenza $$\left \{ \begin{array}{l} T(n) = \alpha \cdot T\left(\dfrac{n}{\beta}\right) + f(n) \\ T(1) = \Theta(1) \end{array} \right.$$ allora si ha che
+    \begin{itemize}
+        \item $f(n) = \Theta(n^c)$, con $c < \log_{\beta}{\alpha}$, allora $$T(n) = \Theta(n^{\log_{\beta}{\alpha}})$$
+        \item $f(n) = \Theta(n^c \log^k n)$, con $\left \{ \begin{array}{l} c = \log_{\beta}{\alpha} \\ k \ge 0 \end{array} \right.$, allora $$T(n) = \Theta(n^{\log_{\beta}{\alpha}} \log^{k+1} {n})$$
+        \item $f(n) = \Theta(n^c)$, con $c > \log_{\beta}{\alpha}$, allora $$T(n) = f(n)$$
+    \end{itemize}
+\end{theorem}
 
 \end{document}
