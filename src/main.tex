@@ -2601,7 +2601,8 @@
     \begin{algorithmic}[1]
         \Function{Dijkstra$_1$}{$G$, $w$, $v$}
             \State $\texttt{distancesW} := \texttt{[}+ \infty \texttt{]} * n$ \Comment{valore sufficientemente grande}
-            \State $R := \varnothing$
+            \State $\texttt{distancesW[}v\texttt{]} = 0$
+            \State $R := \{v\}$
             \While{$\exists (\alpha, \beta) \in E(G) \mid \left \{ \begin{array}{l} \alpha \in R \\ \beta \in V(G) - R \end{array} \right.$}
                 \State $\displaystyle (x, u):= \argmin_{\substack{(a, b) \in E(G) \\ a \in R \\ b \in V(G) - R}}{\left(\texttt{distancesW[}a\texttt{]} + w(a, b)\right)}$
                 \State $\texttt{distancesW[}u\texttt{]} = \texttt{distancesW[}x\texttt{]} + w(x, u)$
@@ -2613,6 +2614,8 @@
 \end{algorithm}
 
 \begin{remark}[Correttezza dell'algoritmo]
+    \hspace{0.7pt}
+    TODO RICONTROLLA OGNI NUMERO DELLE RIGHE
     L'algoritmo inizia definendo, alla riga 2, l'array \texttt{distancesW}, interamente inizializzato a $+ \infty$, che dovrà essere riempito dall'algoritmo e restituito al termine dell'esecuzione; inoltre, alla riga 3 viene definito un insieme di vertici $R \subseteq V(G)$.
 
     Alla riga 4 viene istanziato un ciclo \texttt{while}, il quale procede fintanto che è presente un arco uscente da $R$, dunque composto da un vertice in $R$ ed uno in $V(G) - R$; al suo interno, alla riga 5, viene preso l'arco $(x, u)$, uscente da $R$, tale da minimizzare la somma $$\texttt{distancesW[}x\texttt{]} + w(x, u) = \mathrm{dist}_w(v, x) + w(x, u)$$ e si noti che, per il \cref{dijkstra theorem}, si ha che $$\mathrm{dist}_w(v, u) = \mathrm{dist}_w(v, x) + w(x, u)$$ allora, viene aggiornato il valore di $\texttt{distancesW[}u\texttt{]}$ coerentemente, alla riga 6; infine, alla riga 7, viene aggiunto $u$ ad $R$. Infine, si noti inoltre che il \texttt{while} della riga 4 prosegue, fintanto che esistono ancora archi uscenti da $R$, e dunque l'algoritmo termina quando $R$ contiene ogni vertice del grafo.
@@ -2621,6 +2624,7 @@
 \end{remark}
 
 \begin{remark}[Costo dell'algoritmo]
+    TODO RICONTROLLA OGNI NUMERO DELLE RIGHE
     Per trovare l'arco cercato, alla riga 5, è necessario controllare ogni arco uscente da $R$, e trovare quello tale da minimizzare la somma richiesta; si noti che, per il \cref{Somma dei gradi}, si ha che $$\displaystyle \sum_{v \in R_i}{\deg(v)} \le \sum_{v \in V(G)}{\deg(v)} = 2m$$ e dunque la ricerca da effettuare per l'$i$-esima iterazione ha costo $O(m)$; si noti inoltre che il ciclo \texttt{while} prosegue fino all'esaurimento degli archi uscenti da $R$, e dunque fino al termine della visita completa del grafo.
 
     Allora il costo del ciclo, e dunque dell'algoritmo, è pari a $O(n \cdot m)$.
@@ -2805,7 +2809,7 @@
 \end{remark}
 
 \begin{remark}[Costo dell'algoritmo]
-    L'ordinamento della riga 2 non può essere eseguito con costo minore di $O(n \log n)$; inoltre, il ciclo \texttt{for} della riga 5 esegue linearmente una sola iterazione, per intervallo in $I$, e dunque il suo costo è pari a $O(n)$.
+    L'ordinamento della riga 2 non può essere eseguito con costo minore di $O(n \log n)$; inoltre, il ciclo \texttt{for} della riga 4 esegue linearmente una sola iterazione, per ogni intervallo in $I$, e dunque il suo costo è pari a $O(n)$.
 
     Allora, il costo dell'algoritmo è pari a $O(n \log n) + O(n) = O(n \log n)$.
 \end{remark}
@@ -2882,6 +2886,10 @@
     allora, segue che $H'$ è un MST, ma poiché $w_H \neq w_{H'}$, allora $H$ scelto in ipotesi non aveva peso minimo $\lightning$.
 \end{proof}
 
+\begin{lemma}[TODO]
+    TODO
+\end{lemma}
+
 \subsection{Algoritmo di Kruskal}
 
 \begin{algorithm}[H]
@@ -2911,7 +2919,7 @@
     Per dimostrare la correttezza dell'algoritmo, è necessario dimostrare che \texttt{Sol} in output dall'algoritmo sia un MST; allora, $\texttt{Sol}_m$ (si noti che l'algoritmo ha $m$ iterazioni) deve essere un albero, deve essere di copertura, e deve essere minimale rispetto al peso degli archi dato da $w$; si ha dunque che:
 
     \begin{itemize}
-        \item \texttt{Sol} è un albero
+        \item \texttt{Sol} è un albero TODO FIXA SOLM DAPPERTUTTO
             \begin{itemize}
                 \item $\texttt{Sol}_m$ è aciclico, in quanto alla riga 5 vengono aggiunti esclusivamente archi che non formano un ciclo con l'insieme \texttt{Sol} di archi già aggiunti
                 \item per assurdo, sia l'output dell'algoritmo un grafo non connesso, e dunque esiste una componente $C$, non contenente tutti i vertici in $V(G)$; si noti che, poiché $G$ in input è connesso, allora necessariamente deve esistere un arco $$(x, y) \in E(G) \mid \left \{ \begin{array}{l} x \in V(C) \\ y \in V(G - C) \end{array} \right.$$ si noti inoltre che tale arco non può costituire un ciclo in $C$; allora, l'algoritmo avrebbe sbagliato a non selezionare l'arco $(x, y)$
@@ -2944,7 +2952,13 @@
 \end{proof}
 
 \begin{remark}[Correttezza dell'algoritmo]
-    TODO
+    TODO DA RILEGGERE E CAMBIARE LE RIGHE
+
+    L'algoritmo inizia ordinando gli archi di $G$, in ordine crescente, attraverso i loro pesi, calcolati con la funzione $w$ in input, alla riga 2; questo ordinamento garantisce che l'algoritmo prenderà in considerazione esclusivamente gli archi col peso minore.
+
+    Successivamente, alla riga 3 viene istanziato l'insieme \texttt{Sol}, che conterrà l'insieme di archi che comporranno la soluzione dell'algoritmo (ovvero, un MST di $G$), e all'interno del ciclo \texttt{for} della riga 4, l'algoritmo esegue un controllo (riga 5) per ogni singolo arco $e \in E(G)$, e inserisce quest'ultimo all'interno di \texttt{Sol} (riga 6), esclusivamente se $\texttt{Sol} \cup \{e\}$ non costituisce un ciclo; questo controllo infatti garantisce che non si vengano a creare cicli all'interno della soluzione, e dunque che l'output sia sicuramente un albero.
+
+    L'algoritmo termina restituendo, alla riga 9, l'insieme $\texttt{Sol} \subseteq E(G)$ degli archi che costituiscono un MST di $G$.
 \end{remark}
 
 \begin{remark}[Costo dell'algoritmo]
@@ -2964,6 +2978,7 @@
         \Function{Prim$_1$}{$G$, $w$}
             \State $v \in V(G)$
             \State $\texttt{Sol} := \varnothing$
+            \State $R := \{v\}$
             \While{$R \neq V(G)$}
                 \State $\displaystyle (x, y) := \argmin_{a \in R, b \notin R} {w(a, b)}$
                 \State $\texttt{Sol} = \texttt{Sol} \cup \{ (x, y) \}$
@@ -2975,7 +2990,7 @@
 \end{algorithm}
 
 \begin{proof}
-    TODO DA RILEGGERE TUTTO, manca da garantire che $\hat e$ non stia in $\texttt{Sol}_{k +1}$
+    TODO DA RILEGGERE TUTTO E CAMBIARE LE RIGHE, manca da garantire che $\hat e$ non stia in $\texttt{Sol}_{k +1}$
 
     Per dimostrare la correttezza dell'algoritmo, è necessario dimostrare che $\texttt{Sol}_n$ in output dall'algoritmo sia un MST; allora, $\texttt{Sol}_n$ deve essere un albero, deve essere di copertura, e deve essere minimale rispetto al peso degli archi dato da $w$; si ha dunque che:
 
@@ -3011,7 +3026,13 @@
 \end{proof}
 
 \begin{remark}[Correttezza dell'algoritmo]
-    TODO
+    TODO RILEGGI TUTTO
+
+    L'algoritmo inizia scegliendo un verice $v \in V(G)$ qualsiasi, e lo inserisce in $R$ alla riga 4, il quale rappresenterà l'insieme di vertici correntemente visitati dall'algoritmo nelle successive iterazioni; viene inoltre definto \texttt{Sol} alla riga 3, che sarà l'insieme di archi costituenti un MST di $G$.
+
+    All'interno del ciclo \texttt{while} della riga 5, fintanto che $R$ non è pari a $V(G)$ (si noti dunque che ogni vertice del grafo viene visitato, garantendo che \texttt{Sol} sia di copertura, poiché $G$ in input è un grafo indiretto connesso), viene calcolato scelto l'arco $(x, y)$ di peso minore, avente un estremo in $R$, e l'altro in $V(G) - R$ (dunque un arco che colleghi la regione di vertici già visitati, con quelli ancora da visitare); ciò garantisce che il grafo in output sia connesso, e poiché viene scelto con peso minimo, è anche garantito che \texttt{Sol} sia minimale rispetto ai pesi di $w$, e dunque l'output dell'algoritmo è proprio un MST.
+
+    L'algoritmo termina restituendo, alla riga 10, l'insieme di archi calcolato.
 \end{remark}
 
 \begin{remark}[Costo dell'algoritmo]
@@ -3035,6 +3056,7 @@
         \Function{Prim$_2$}{$G$, $w$}
             \State $v \in V(G)$
             \State $\texttt{Sol} := \varnothing$
+            \State $R := \{v\}$
             \State $\texttt{MinHeap H} := \texttt{[]}$
             \For{$u \in V(G) - \{v\}$}
                 \State $\texttt{H.insert(}u, +\infty\texttt{)}$
