@@ -2467,11 +2467,11 @@
 
 \subsection{Definizioni}
 
-\begin{definition}[Algoritmo greedy]
+\begin{definition}[Algoritmi greedy]
     Un algoritmo è detto \textit{greedy}, se cerca una soluzione effettuando delle scelte di passo in passo, optando sempre per il passo più "appetibile" momentaneamente.
 \end{definition}
 
-\begin{example}[Algoritmo greedy]
+\begin{example}[Algoritmi greedy]
     TODO
 \end{example}
 
@@ -3107,9 +3107,12 @@
     Con la locuzione latina \textit{divide et impera}, si intende una tecnica di risoluzione dei problemi basata sull'induzione, con la quale il problema di partenza viene scomposto in sotto-problemi di dimensione inferiore, ricorsivamente (la fase del \textit{divide}), e una volta raggiunto un caso base della ricorsione, per il quale è nota la soluzione del problema, l'algoritmo procedere a combinare le soluzioni dei sotto-problemi, per trovare la soluzione del problema di partenza (la fase dell'\textit{impera}).
 \end{definition}
 
-\subsection{TODO}
+\begin{example}[Divide et Impera]
+    TODO
+\end{example}
 
 \begin{theorem}[Master theorem - Teorema principale]
+    \label{master theorem}
     TODO DA RILEGGERE
 
     Siano $\alpha, \beta \ge 1$ tali da descrivere la seguente equazione di ricorrenza $$\left \{ \begin{array}{l} T(n) = \alpha \cdot T\left(\dfrac{n}{\beta}\right) + f(n) \\ T(1) = \Theta(1) \end{array} \right.$$ allora si ha che
@@ -3120,13 +3123,13 @@
     \end{itemize}
 \end{theorem}
 
-\subsection{TODO}
+\subsection{Trovare la somma massima dei sotto-array}
 
 \begin{algorithm}[H]
     \caption{
-        Dato un array \texttt{A} di $n$ interi, l'algoritmo restituisce la somma massima di un suo sotto-array.\\
+        Dato un array \texttt{A} di $n$ interi, l'algoritmo restituisce la somma massima dei suoi sotto-array contigui.\\
         \textbf{Input}: \texttt{A} un array di $n$ interi.\\
-        \textbf{Output}: la somma massima di un suo sotto-array.
+        \textbf{Output}: la somma massima dei sotto-array contigui di \texttt{A}.
     }
 
     \begin{algorithmic}[1]
@@ -3141,14 +3144,55 @@
                 \State $m := \left \lfloor \dfrac{a + b}{2} \right \rfloor$
                 \State $M_s := \texttt{FMSSInternals(A}, a, m\texttt{)}$
                 \State $M_d := \texttt{FMSSInternals(A}, m +1, b\texttt{)}$
-                \State TODO DA FINIRE
+                \State $t, s := 0$
+                \For{$i \in [m, a]$} \Comment{dal centro verso sinistra}
+                    \State $t \ += \texttt{A[}i\texttt{]}$
+                    \If{$t > s$}
+                        \State $s = t$
+                    \EndIf
+                \EndFor
+                \State $t, d := 0$
+                \For{$i \in [m + 1, b]$} \Comment{dal centro verso destra}
+                    \State $t \ += \texttt{A[}i\texttt{]}$
+                    \If{$t > d$}
+                        \State $d = t$
+                    \EndIf
+                \EndFor
+                \State \textbf{return} $\max(M_s, M_d, s + d)$
             \EndIf
         \EndFunction
         \\
         \Function{findMaxSubarraySum}{\texttt{A}}
-            \State \textbf{return} $\texttt{FMSSInternals(A}, 0, \texttt{A.length())}$
+            \State \textbf{return} $\texttt{FMSSInternals(A}, 0, \texttt{A.length()} - 1 \texttt{)}$ \Comment{$-1$ per indicizzazione}
         \EndFunction
     \end{algorithmic}
 \end{algorithm}
+
+\begin{remark}[Correttezza dell'algoritmo]
+    TODO RILEGGI
+
+    L'algoritmo inizia alla riga 31, chiamando una funzione ricorsiva interna, ovvero \texttt{FMSSInternals}, poiché è necessario inizializzarne correttamente i parametri; infatti, ad essa vengono forniti, oltre all'array di interi \texttt{A}, anche gli estremi di quest'ultimo, in modo da effettuare la ricorsione sull'intero array.
+
+    La funzione ricorsiva inizia controllando se $a$ e $b$ input sono uguali: questo infatti è il caso base della ricorsione, poiché equivale a dire che l'array della chiamata ricorsiva corrente è lungo 1, e dunque ha esattamente 1 elemento; allora, in tal caso è sufficiente restituire $\texttt{A[}a\texttt{]}$ stesso, nel caso in cui quest'ultimo fosse positivo, mentre se dovesse essere negativo, è necessario restituire 0. Questo, in quanto nel caso peggiore \texttt{A} è costituito esclusivamente da interi negativi, e dunque il sotto-array contiguo di \texttt{A} con somma maggiore risulta essere l'array nullo, che ha sempre somma 0, e dunque la riga 6 garantisce tale risultato in questo caso particolare (per la precisione, si noti che le righe 15 e 22, discusse nella sezione successiva, già garantiscono che il risultato sia 0 nel caso in cui \texttt{A} contenesse eslcusivamente interi negativi, con la sola eccezione in cui \texttt{A} è costituito da un solo intero, negativo, nel qual caso la ricosione non verrebbe effettuata, e dunque la riga 6 garantisce di restituire 0 ugualmente).
+
+    Se invece $a \neq b$, allora si entra nel caso base, poiché gli estremi del sotto-array da controllare non coincidono; alla riga 9 viene dunque calcolato il punto medio $m$ tra $a$ e $b$, arrotondato per eccesso, per poter effettuare 2 chiamate ricorsive, nelle righe 10 e 11, grazie alle quali vengono rispettivamente restituiti $M_s$ ed $M_d$, che costituiscono il primo la somma massima dei sotto-array compresi in $\texttt{A[}a\texttt{:}m\texttt{]}$, ed il secondo la somma massima dei sotto-array compresi in $\texttt{A[}m + 1\texttt{:}b\texttt{]}$ (considerando la notazione degli \textit{slice} inclusiva su entrambe gli estremi).
+
+    Successivamente, dalla riga 12 alla riga 18, viene effettuato un ciclo \texttt{for}, che calcola la somma massima del sotto-array del livello di ricorsione corrente, ma partendo dal centro muovendosi verso l'inizio di \texttt{A}; viceversa, il ciclo \texttt{for} delle righe successive (dalla 19 fino alla 25), effettua il calcolo della somma massima del sotto-array del livello di ricosione corrente, partendo dal centro muovendosi verso destra. Questo, poiché se entrambe i cicli si muovessero con indici crescenti (dunque da destra verso sinistra), di fatto i due \texttt{for} starebbero controllando 2 sotto-array diversi nel livello di ricorsione corrente, e non lo stesso; per ovviare a questo problema, è sufficiente realizzare i cicli come appena descritto. Si noti che all'interno di questi, viene semplicemente istanziato un accumulatore $t$, che viene aggiornato ad ogni iterazione dei cicli (righe 14 e 21), e se quest'ultimo diventa maggiore del totale massimo raggiunto correntemente (in un caso rappresentato da $s$, nell'altro rappresentato da $d$), lo si aggiorna col valore attuale di $t$. Si noti che questo garantisce che venga propagato 0 nel caso di array totalmente negativo, poiché $s$ e $d$ vengono aggiornati soltanto in cui $t$ diventa maggiore del loro valore corrente, e sono inizializzati entrambi a 0 nelle righe 12 e 19. Infine, si noti che $t$ alla riga 19 deve essere nuovamente inizializzato a 0 per funzionare correttamente.
+
+    Concludendo, il caso ricorsivo, alla riga 26, restituisce il massimo tra $M_s$, $M_d$ e $s + d$, dove quest'ultimo costituisce proprio la somma massima del sotto-array corrente.
+
+\end{remark}
+
+\begin{remark}[Costo dell'algoritmo]
+    TODO RILEGGI
+
+    Il caso base dell'algoritmo è costituito da un controllo, alla riga 2, con costo $\Theta(1)$, e da un secondo controllo, alla riga 3, con costo $\Theta(1)$ anch'esso; allora, il caso base ha costo $\Theta(1)$.
+
+    Nel caso ricorsivo, incontrato dall'algoritmo nella riga 8, vengono effettuate 2 chiamate ricorsive, alle righe 10 e 11, che hanno entrambe costo $T\left(\dfrac{n}{2}\right)$, e successivamente vengono eseguiti due cicli \texttt{for}, nelle righe 13 e 19, i quali hanno entrambi costo $\Theta\left(\dfrac{n}{2}\right) = \Theta(n)$; allora, il costo del caso ricorsivo è pari a $2 \cdot T\left(\dfrac{n}{2}\right) + \Theta(n)$.
+
+    Allora, l'equazione di ricorrenza che rappresenta il costo dell'algoritmo è pari a $$\left \{ \begin{array}{l} T(n) = T\left(\dfrac{n}{2}\right) + \Theta(n) \\ T(1) = \Theta(1) \end{array} \right .$$
+
+    Si noti che questa è un'equazione che è possibile risolvere utilizzando il \cref{master theorem}, in quanto $$\left . \begin{array}{l} \alpha = 2 \\ \beta = 2 \end{array} \right \} \implies n ^ {\log_{2}{2}} = n^1 = n$$ e poiché $f(n) = \Theta(n)$, allora ci si trova nel secondo caso del Master theorem, e infatti ponendo $k = 0$ si ha $$f(n) = \Theta(n) = \Theta(n \log^0 n)$$ e dunque si ha che $$T(n) = \Theta(n ^{\log_{2}{2}} \log ^ {0 + 1}n) = \Theta(n \log n)$$
+\end{remark}
 
 \end{document}
