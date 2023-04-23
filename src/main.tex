@@ -3120,4 +3120,35 @@
     \end{itemize}
 \end{theorem}
 
+\subsection{TODO}
+
+\begin{algorithm}[H]
+    \caption{
+        Dato un array \texttt{A} di $n$ interi, l'algoritmo restituisce la somma massima di un suo sotto-array.\\
+        \textbf{Input}: \texttt{A} un array di $n$ interi.\\
+        \textbf{Output}: la somma massima di un suo sotto-array.
+    }
+
+    \begin{algorithmic}[1]
+        \Function{FMSSInternals}{\texttt{A}, $a$, $b$}
+            \If{$a == b$}
+                \If{$\texttt{A[}a\texttt{]} \ge 0$}
+                    \State \textbf{return} $\texttt{A[}a\texttt{]}$
+                \Else
+                    \State \textbf{return} $0$
+                \EndIf
+            \Else
+                \State $m := \left \lfloor \dfrac{a + b}{2} \right \rfloor$
+                \State $M_s := \texttt{FMSSInternals(A}, a, m\texttt{)}$
+                \State $M_d := \texttt{FMSSInternals(A}, m +1, b\texttt{)}$
+                \State TODO DA FINIRE
+            \EndIf
+        \EndFunction
+        \\
+        \Function{findMaxSubarraySum}{\texttt{A}}
+            \State \textbf{return} $\texttt{FMSSInternals(A}, 0, \texttt{A.length())}$
+        \EndFunction
+    \end{algorithmic}
+\end{algorithm}
+
 \end{document}
