@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Arch Linux) (preloaded format=pdflatex 2023.4.8)  23 APR 2023 18:05
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Arch Linux) (preloaded format=pdflatex 2023.4.8)  24 APR 2023 17:44
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -830,17 +830,17 @@ l.1922 \end{example}
 pdfTeX warning (ext4): destination with the same identifier (name{figure.1.26}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.2334 
+l.2333 
        ] [56
 pdfTeX warning (ext4): destination with the same identifier (name{figure.1.27}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.2397 
+l.2396 
        
 pdfTeX warning (ext4): destination with the same identifier (name{figure.1.28}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.2397 
+l.2396 
        ] [57] [58] [59] [60]
 Capitolo 2.
 [61
@@ -849,27 +849,27 @@ Capitolo 2.
 pdfTeX warning (ext4): destination with the same identifier (name{figure.2.1}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.2508 ..., secondo la funzione $w$ che associa $$
+l.2507 ..., secondo la funzione $w$ che associa $$
                                                   w(1, 2) = 1; \ w(2,3)=2; \...] [62
 pdfTeX warning (ext4): destination with the same identifier (name{figure.2.2}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.2551         \item $
+l.2550         \item $
                       \forall x, y, z \in V(G) \quad \mathrm{dist}_w(x, y) \...] [63] [64] [65] [66] [67] [68] [69] [70] [71] [72] [73
 pdfTeX warning (ext4): destination with the same identifier (name{figure.2.3}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.2870 \end{example}
+l.2866 \end{example}
                     ] [74
 pdfTeX warning (ext4): destination with the same identifier (name{figure.2.4}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.2915 
-       ] [75] [76] [77] [78] [79] [80] [81] [82]
+l.2897 
+       ] [75] [76] [77] [78] [79] [80] [81] [82] [83]
 Capitolo 3.
-[83
+[84
 
-] [84] [85] [86] [87] (./main.aux
+] [85] [86] [87] [88] (./main.aux
 Package cleveref Info: loaded `italian' language definitions on input line 18.
 Package cleveref Info: loaded `italian' language definitions on input line 19.
 )
@@ -877,18 +877,18 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: 02834639E1DCE58E5AF87817F58E8524;6706.
  ) 
 Here is how much of TeX's memory you used:
- 26328 strings out of 476025
- 492159 string characters out of 5796533
+ 26329 strings out of 476025
+ 492166 string characters out of 5796533
  1869388 words of memory out of 5000000
  45998 multiletter control sequences out of 15000+600000
  521064 words of font info for 65 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 84i,14n,89p,1506b,1026s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 84i,14n,89p,1567b,1026s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfrm1440.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfti1440.pfb></usr/share/texmf-dist/fonts/type1/public/stmaryrd/stmary10.pfb>
-Output written on main.pdf (90 pages, 473527 bytes).
+Output written on main.pdf (91 pages, 475110 bytes).
 PDF statistics:
- 1052 PDF objects out of 1200 (max. 8388607)
- 910 compressed objects within 10 object streams
- 371 named destinations out of 1000 (max. 500000)
+ 1057 PDF objects out of 1200 (max. 8388607)
+ 914 compressed objects within 10 object streams
+ 372 named destinations out of 1000 (max. 500000)
  341 words of extra memory for PDF output out of 10000 (max. 10000000)
 

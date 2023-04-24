@@ -1999,12 +1999,11 @@
 \end{algorithm}
 
 \begin{remark}[Correttezza dell'algoritmo]
-    Sia $G$ un grafo diretto, sia $\hat v \in V(G)$ un suo vertice, e sia $A_{\hat v}$ l'arborescenza di $\hat v$ in $G$; allora, un vertice $u \in V(G)$ è una c-radice in $A_{\hat v}$, se e solo se TODO
+    Sia $G$ un grafo diretto, sia $\hat v \in V(G)$ un suo vertice, e sia $A_{\hat v}$ l'arborescenza di $\hat v$ in $G$; allora, un vertice $u \in V(G)$ è una c-radice in $A_{\hat v}$, se e solo se TODO DA FINIRE
 \end{remark}
 
 \begin{remark}[Costo dell'algoritmo]
     TODO $O(n + m)$
-    ma che è sta roba
 \end{remark}
 
 \subsection{Trovare un ciclo}
@@ -2614,18 +2613,15 @@
 \end{algorithm}
 
 \begin{remark}[Correttezza dell'algoritmo]
-    \hspace{0.7pt}
-    TODO RICONTROLLA OGNI NUMERO DELLE RIGHE
     L'algoritmo inizia definendo, alla riga 2, l'array \texttt{distancesW}, interamente inizializzato a $+ \infty$, che dovrà essere riempito dall'algoritmo e restituito al termine dell'esecuzione; inoltre, alla riga 3 viene definito un insieme di vertici $R \subseteq V(G)$.
 
-    Alla riga 4 viene istanziato un ciclo \texttt{while}, il quale procede fintanto che è presente un arco uscente da $R$, dunque composto da un vertice in $R$ ed uno in $V(G) - R$; al suo interno, alla riga 5, viene preso l'arco $(x, u)$, uscente da $R$, tale da minimizzare la somma $$\texttt{distancesW[}x\texttt{]} + w(x, u) = \mathrm{dist}_w(v, x) + w(x, u)$$ e si noti che, per il \cref{dijkstra theorem}, si ha che $$\mathrm{dist}_w(v, u) = \mathrm{dist}_w(v, x) + w(x, u)$$ allora, viene aggiornato il valore di $\texttt{distancesW[}u\texttt{]}$ coerentemente, alla riga 6; infine, alla riga 7, viene aggiunto $u$ ad $R$. Infine, si noti inoltre che il \texttt{while} della riga 4 prosegue, fintanto che esistono ancora archi uscenti da $R$, e dunque l'algoritmo termina quando $R$ contiene ogni vertice del grafo.
+    Alla riga 5 viene istanziato un ciclo \texttt{while}, il quale procede fintanto che è presente un arco uscente da $R$, dunque composto da un vertice in $R$ ed uno in $V(G) - R$; al suo interno, alla riga 6, viene preso l'arco $(x, u)$, uscente da $R$, tale da minimizzare la somma $$\texttt{distancesW[}x\texttt{]} + w(x, u) = \mathrm{dist}_w(v, x) + w(x, u)$$ e si noti che, per il \cref{dijkstra theorem}, si ha che $$\mathrm{dist}_w(v, u) = \mathrm{dist}_w(v, x) + w(x, u)$$ allora, viene aggiornato il valore di $\texttt{distancesW[}u\texttt{]}$ coerentemente, alla riga 7; infine, alla riga 8, viene aggiunto $u$ ad $R$. Infine, si noti inoltre che il \texttt{while} della riga 5 prosegue, fintanto che esistono ancora archi uscenti da $R$, e dunque l'algoritmo termina quando $R$ contiene ogni vertice del grafo.
 
     Si noti che l'algoritmo, ad ogni iterazione, sceglie dunque l'arco $(x, u)$ tale da minimizzare il peso del cammino $\{v \rightarrow x\} \cup (x, u)$, e al termine di ogni iterazione del ciclo \texttt{while} viene inserito $u$ all'interno di $R$, estendendo l'insieme di vertici visitati; di conseguenza, il comportamento dell'algoritmo è greedy. Si noti che, per trovare un tale arco è necessario controllare ogni $(x, u)$ uscente da $R$.
 \end{remark}
 
 \begin{remark}[Costo dell'algoritmo]
-    TODO RICONTROLLA OGNI NUMERO DELLE RIGHE
-    Per trovare l'arco cercato, alla riga 5, è necessario controllare ogni arco uscente da $R$, e trovare quello tale da minimizzare la somma richiesta; si noti che, per il \cref{Somma dei gradi}, si ha che $$\displaystyle \sum_{v \in R_i}{\deg(v)} \le \sum_{v \in V(G)}{\deg(v)} = 2m$$ e dunque la ricerca da effettuare per l'$i$-esima iterazione ha costo $O(m)$; si noti inoltre che il ciclo \texttt{while} prosegue fino all'esaurimento degli archi uscenti da $R$, e dunque fino al termine della visita completa del grafo.
+    Per trovare l'arco cercato, alla riga 7, è necessario controllare ogni arco uscente da $R$, e trovare quello tale da minimizzare la somma richiesta; si noti che, per il \cref{Somma dei gradi}, si ha che $$\displaystyle \sum_{v \in R_i}{\deg(v)} \le \sum_{v \in V(G)}{\deg(v)} = 2m$$ e dunque la ricerca da effettuare per l'$i$-esima iterazione ha costo $O(m)$; si noti inoltre che il ciclo \texttt{while} prosegue fino all'esaurimento degli archi uscenti da $R$, e dunque fino al termine della visita completa del grafo.
 
     Allora il costo del ciclo, e dunque dell'algoritmo, è pari a $O(n \cdot m)$.
 \end{remark}
@@ -2714,7 +2710,7 @@
                 \begin{equation*}
                     \resizebox{.86\hsize}{!}{
                         $\texttt{Sol}_{k + 1} = \left \{ \begin{array}{ll} \texttt{Sol}_k & \exists [a_i, b_i] \in \texttt{Sol}_k \mid [a_i, b_i] \cap [a_{k + 1}, b_{k + 1}] \neq \varnothing \\ \texttt{Sol}_k \cup \{[a_{k + 1}, b_{k + 1}]\} & \forall [a_i, b_i] \in \texttt{Sol}_k \quad [a_i, b_i] \cap [a_{k + 1}, b_{k + 1}] = \varnothing \end{array} \right.$
-                }
+                    }
                 \end{equation*}
                 
                 \item allora, nel primo caso, se esiste un intervallo $[a_i, b_i] \in \texttt{Sol}_k$ tale per cui $[a_i, b_i] \cap [a_{k + 1}, b_{k + 1}] \neq \varnothing$, si ha che l'intervallo $[a_{k + 1}, b_{k + 1}]$ non può essere inserito in $\texttt{Sol}_{k + 1}$, e dunque $\texttt{Sol}_{k + 1} = \texttt{Sol}_k \implies \exists \texttt{Sol}^*$ soluzione ottimale $\mid \texttt{Sol}_{k + 1} = \texttt{Sol}_k \subseteq \texttt{Sol}^*$ per ipotesi induttiva
@@ -2886,9 +2882,21 @@
     allora, segue che $H'$ è un MST, ma poiché $w_H \neq w_{H'}$, allora $H$ scelto in ipotesi non aveva peso minimo $\lightning$.
 \end{proof}
 
-\begin{lemma}[TODO]
-    TODO
+\begin{lemma}[Unicità dell'MST]
+    TODO RILEGGI
+
+    Sia $G$ un grafo indiretto conneso, pesato attraverso una funzione $w$ che associa un peso ad ogni arco, tale che $w$ sia iniettiva; allora, esiste un unico MST di $G$.
 \end{lemma}
+
+\begin{proof}
+    TODO RILEGGI
+
+    Per ipotesi, $w$ è iniettiva, e dunque per definizione $$\forall e_1, e_2 \in E(G) \mid e_1 \neq e_2 \implies w(e_1) \neq w(e_2)$$. Per assurdo, siano $T, T'$ due MST di $G$, il quale è pesato attraverso $w$, e sono tali che $T \neq T'$; sia $(x, y)$ l'arco di peso minore nell'unione delle regioni non in comune tra $T$ e $T'$, a loro interne; in simboli: $$(x, y) := \argmin_{(a, b) \in E((T - T') \cup (T' - T))}{w(a, b)}$$
+
+    Si supponga $(x, y) \in E(T - T')$, e in particolare $(x, y) \notin E(T')$; poiché $T'$ è un MST, per definizione $V(T') = V(G)$, e dunque $(x, y) \notin E(T')$ implica che esiste un cammino della forma $x \rightarrow y$ all'interno di $T'$. Inoltre, si noti che per definizione $T'$ è un albero, dunque aciclico; allora necessariamente $\{(x, y)\} \cup T'$ è un ciclo; sia quest'ultimo $C$.
+
+    Si noti che, poiché $C$ è un ciclo, deve esistere un arco $(z, y)$ TODO DA FINIRE
+\end{proof}
 
 \subsection{Algoritmo di Kruskal}
 
@@ -2914,20 +2922,18 @@
 \end{algorithm}
 
 \begin{proof}
-    TODO DA RILEGGERE TUTTO
-
-    Per dimostrare la correttezza dell'algoritmo, è necessario dimostrare che \texttt{Sol} in output dall'algoritmo sia un MST; allora, $\texttt{Sol}_m$ (si noti che l'algoritmo ha $m$ iterazioni) deve essere un albero, deve essere di copertura, e deve essere minimale rispetto al peso degli archi dato da $w$; si ha dunque che:
+    Per dimostrare la correttezza dell'algoritmo, è necessario dimostrare che l'output sia un MST; allora, $\texttt{Sol}_m$ (si noti che l'algoritmo ha $m$ iterazioni) deve essere un albero, deve essere di copertura, e deve essere minimale rispetto al peso degli archi dato da $w$; si ha dunque che:
 
     \begin{itemize}
-        \item \texttt{Sol} è un albero TODO FIXA SOLM DAPPERTUTTO
+        \item $\texttt{Sol}_m$ è un albero
             \begin{itemize}
                 \item $\texttt{Sol}_m$ è aciclico, in quanto alla riga 5 vengono aggiunti esclusivamente archi che non formano un ciclo con l'insieme \texttt{Sol} di archi già aggiunti
-                \item per assurdo, sia l'output dell'algoritmo un grafo non connesso, e dunque esiste una componente $C$, non contenente tutti i vertici in $V(G)$; si noti che, poiché $G$ in input è connesso, allora necessariamente deve esistere un arco $$(x, y) \in E(G) \mid \left \{ \begin{array}{l} x \in V(C) \\ y \in V(G - C) \end{array} \right.$$ si noti inoltre che tale arco non può costituire un ciclo in $C$; allora, l'algoritmo avrebbe sbagliato a non selezionare l'arco $(x, y)$
+                \item per assurdo, sia $\texttt{Sol}_m$ un grafo non connesso, e dunque in esso esiste una componente $C$, non contenente tutti i vertici in $V(G)$; si noti che, poiché $G$ in input è connesso, allora necessariamente deve esistere un arco $$(x, y) \in E(G) \mid \left \{ \begin{array}{l} x \in V(C) \\ y \in V(G - C) \end{array} \right.$$ si noti inoltre che tale arco non può formare un ciclo in $C$, poiché $\texttt{Sol}_m$ è aciclico per il punto precedente; allora, per via della riga 5, l'algoritmo avrebbe sbagliato a non selezionare l'arco $(x, y)$
                 \item allora, per definizione, \texttt{Sol} è un albero
             \end{itemize}
         \item $\texttt{Sol}_m$ è un albero di copertura
             \begin{itemize}
-                \item poiché l'output dell'algoritmo è connesso, e l'algoritmo visita ogni arco del grafo in input, anch'esso connesso, non può esistere un vertice non contenuto nell'output dell'algoritmo, e dunque l'output è necessariamente un albero di copertura
+                \item poiché $\texttt{Sol}_m$ è connesso, e l'algoritmo visita ogni arco di $G$, anch'esso connesso, non può esistere un vertice non contenuto in $\texttt{Sol}_m$, e dunque l'output è necessariamente un albero di copertura
             \end{itemize}
     \end{itemize}
 
@@ -2944,19 +2950,17 @@
                 \item sia $\texttt{Sol}^*$ una soluzione ottimale tale da soddisfare l'ipotesi induttiva; si noti che $e_{k +1} \in \texttt{Sol}^* \implies \exists \texttt{Sol}^*$ soluzione ottimale $\mid \texttt{Sol}_k \cup \{ e_{k +1}\} \subseteq \texttt{Sol}^*$ per ipotesi induttiva
                 \item sia allora $e_{k +1} \notin \texttt{Sol}^*$, e sia $e_{k+1}:=(x, y) \in E(G)$ per certi $x, y \in V(G)$; si noti che, poichè $\texttt{Sol}^*$ è una soluzione ottimale, e dunque un MST, per il \cref{lemma mst} è aciclica, e dunque $(x, y) \notin \texttt{Sol}^*$ se e solo se esiste un cammino della forma $x \rightarrow y$ in $\texttt{Sol}^*$; allora, necessariamente $\{x \rightarrow y\} \cup \{e_{k +1}\}$ è un ciclo in $\texttt{Sol}^* \cup \{e_{k +1}\}$
                 \item si noti che, essendo $\{x \rightarrow y\} \cup \{e_{k +1}\}$ un ciclo parzialmente contenuto in $\texttt{Sol}_k$, allora deve esistere un arco $e_j := (z, y) \in \{x \rightarrow y\} - \texttt{Sol}_{k +1}$ per un certo $z \in V(G)$ (di fatto, l'ultimo arco del cammino $x \rightarrow y$)
-                \item allora, sicuramente considerando l'insieme di archi $(\texttt{Sol}^* \cup \{e_{k +1}\}) - \{e_j\}$, il vertice $y$ resta coperto
-                \item si noti che l'arco $e_j$ non è in $\texttt{Sol}_{k +1}$, e dunque $k + 1 < j$; allora, per via dell'ordinamento degli archi alla riga $2$, necessariamente $$w(e_{k +1}) \le w(e_j) \implies \displaystyle \sum_{e \in (\texttt{Sol}^* \cup \{e_{k +1}\}) - \{e_j\}}{w(e)} \le \sum_{e \in \texttt{Sol}^*}{w(e)}$$ ma poiché $\texttt{Sol}^*$, per definizione, è soluzione ottimale, non è possibile trovare una soluzione con peso inferiore, e dunque necessariamente $$(\texttt{Sol}^* \cup \{e_{k +1}\}) - \{e_j\}$$ ha lo stesso peso di un MST di $G$; allora, costituisce una soluzione ottimale, contenente $\texttt{Sol}_{k +1}$ per definizione
+                \item si noti che, considerando l'insieme di archi $(\texttt{Sol}^* \cup \{e_{k +1}\}) - \{e_j\}$, il vertice $y$ resta coperto
+                \item si noti che l'arco $e_j$ non è in $\texttt{Sol}_{k +1}$, e dunque $k + 1 < j$; allora, per via dell'ordinamento degli archi alla riga $2$, necessariamente $w(e_{k +1}) \le w(e_j)$; dunque, si ha che $$\displaystyle \sum_{e \in (\texttt{Sol}^* \cup \{e_{k +1}\}) - \{e_j\}}{w(e)} \le \sum_{e \in \texttt{Sol}^*}{w(e)}$$ ma poiché $\texttt{Sol}^*$, per definizione, è soluzione ottimale, non è possibile trovare una soluzione con peso inferiore, e dunque necessariamente $$(\texttt{Sol}^* \cup \{e_{k +1}\}) - \{e_j\}$$ ha lo stesso peso di $\texttt{Sol}^*$, che costituisce un MST di $G$; allora, tale insieme di archi è una soluzione ottimale, contenente $\texttt{Sol}_{k +1}$ per definizione.
             \end{itemize}
-        \item[] \textit{Seconda implicazione.} $\exists \texttt{Sol}^*$ soluzione ottimale $\mid \texttt{Sol}^* \subseteq \texttt{Sol}_m$. Si noti che, per implicazione precedente, esiste una soluzione ottimale $\texttt{Sol}^\#$ tale che $\texttt{Sol}_m \subseteq \texttt{Sol}^\#$; allora, poichè $\texttt{Sol}_m$ è stato dimostrato essere un MST, e $\texttt{Sol}^\#$ è un MST poiché per definizione è una soluzione ottimale, si ha che $$\texttt{Sol}_m \subseteq \texttt{Sol}^\# \implies \texttt{Sol}_m = \texttt{Sol}^*$$
+        \item[] \textit{Seconda implicazione.} $\exists \texttt{Sol}^*$ soluzione ottimale $\mid \texttt{Sol}^* \subseteq \texttt{Sol}_m$. Si noti che, per implicazione precedente, esiste una soluzione ottimale $\texttt{Sol}^\#$ tale che $\texttt{Sol}_m \subseteq \texttt{Sol}^\#$; allora, poichè $\texttt{Sol}_m$ è stato dimostrato essere un MST, e $\texttt{Sol}^\#$ è un MST per definizione, si ha che $$\texttt{Sol}_m \subseteq \texttt{Sol}^\# \implies \texttt{Sol}_m = \texttt{Sol}^*$$
     \end{itemize}
 \end{proof}
 
 \begin{remark}[Correttezza dell'algoritmo]
-    TODO DA RILEGGERE E CAMBIARE LE RIGHE
-
     L'algoritmo inizia ordinando gli archi di $G$, in ordine crescente, attraverso i loro pesi, calcolati con la funzione $w$ in input, alla riga 2; questo ordinamento garantisce che l'algoritmo prenderà in considerazione esclusivamente gli archi col peso minore.
 
-    Successivamente, alla riga 3 viene istanziato l'insieme \texttt{Sol}, che conterrà l'insieme di archi che comporranno la soluzione dell'algoritmo (ovvero, un MST di $G$), e all'interno del ciclo \texttt{for} della riga 4, l'algoritmo esegue un controllo (riga 5) per ogni singolo arco $e \in E(G)$, e inserisce quest'ultimo all'interno di \texttt{Sol} (riga 6), esclusivamente se $\texttt{Sol} \cup \{e\}$ non costituisce un ciclo; questo controllo infatti garantisce che non si vengano a creare cicli all'interno della soluzione, e dunque che l'output sia sicuramente un albero.
+    Successivamente, alla riga 3 viene istanziato l'insieme \texttt{Sol}, che conterrà gli archi che comporranno la soluzione dell'algoritmo (ovvero, un MST di $G$), e all'interno del ciclo \texttt{for} della riga 4, l'algoritmo esegue un controllo (riga 5) per ogni singolo arco $e \in E(G)$, inserendolo all'interno di \texttt{Sol} (riga 6), esclusivamente se $\texttt{Sol} \cup \{e\}$ non costituisce un ciclo; questo controllo infatti garantisce che non si vengano a creare cicli all'interno della soluzione, e dunque che l'output sia sicuramente un albero.
 
     L'algoritmo termina restituendo, alla riga 9, l'insieme $\texttt{Sol} \subseteq E(G)$ degli archi che costituiscono un MST di $G$.
 \end{remark}
@@ -2990,20 +2994,18 @@
 \end{algorithm}
 
 \begin{proof}
-    TODO DA RILEGGERE TUTTO E CAMBIARE LE RIGHE, manca da garantire che $\hat e$ non stia in $\texttt{Sol}_{k +1}$
-
-    Per dimostrare la correttezza dell'algoritmo, è necessario dimostrare che $\texttt{Sol}_n$ in output dall'algoritmo sia un MST; allora, $\texttt{Sol}_n$ deve essere un albero, deve essere di copertura, e deve essere minimale rispetto al peso degli archi dato da $w$; si ha dunque che:
+    Per dimostrare la correttezza dell'algoritmo, è necessario dimostrare che l'output sia un MST; allora, $\texttt{Sol}_n$ deve essere un albero, deve essere di copertura, e deve essere minimale rispetto al peso degli archi dato da $w$; si ha dunque che:
 
     \begin{itemize}
         \item $\texttt{Sol}_n$ è un albero
             \begin{itemize}
-                \item $\texttt{Sol}_n$ è aciclico, in quanto alla riga 5 vengono aggiunti esclusivamente archi con un estremo in $R$ (insieme dei vertici visitati), e l'altro non in $R$, e dunque è garantito che l'algoritmo non ripercorra gli stessi vertici più di una volta
-                \item inoltre, per lo stesso motivo, l'algoritmo non crea componenti non connesse all'interno di \texttt{Sol}, poiché prende sempre archi che congiungono $R$ con $V(G) - R$, e il grafo in input è connesso, e dunque necessariamente $\texttt{Sol}_n$ è connesso
+                \item $\texttt{Sol}_n$ è aciclico, in quanto alla riga 7 vengono aggiunti esclusivamente archi con un estremo in $R$ (insieme dei vertici visitati), e l'altro non in $R$ (si noti la riga 6), e dunque è garantito che l'algoritmo non ripercorra gli stessi vertici più di una volta
+                \item inoltre, per lo stesso motivo, l'algoritmo non crea componenti non connesse all'interno di $\texttt{Sol}_n$, poiché vengono presi sempre archi che congiungono $R$ con $V(G) - R$, e il grafo in input è connesso, e dunque necessariamente deve esserlo anche $\texttt{Sol}_n$
                 \item allora, per definizione, $\texttt{Sol}_n$ è un albero
             \end{itemize}
         \item $\texttt{Sol}_n$ è un albero di copertura
             \begin{itemize}
-                \item poiché il ciclo \texttt{while} della riga 4 non termina fino a quando $R = V(G)$, l'algoritmo visita tutti i vertici del grafo, e dunque $\texttt{Sol}_n$ è necessariamente un albero di copertura
+                \item poiché il ciclo \texttt{while} della riga 5 non termina fino a quando $R = V(G)$, l'algoritmo visita tutti i vertici del grafo, e dunque $\texttt{Sol}_n$ è necessariamente un albero di copertura
             \end{itemize}
     \end{itemize}
 
@@ -3014,33 +3016,30 @@
         \item \textit{passo induttivo}
             \begin{itemize}
                 \item è necessario dimostrare che $\exists \texttt{Sol}^*$ soluzione ottimale $\mid \texttt{Sol}_{k + 1} \subseteq \texttt{Sol}^*$
-                \item si noti che, per via della riga 5, si ha che $$\forall k \in [1, n) \quad \texttt{Sol}_{k +1} = \texttt{Sol}_k \cup \{e_{k +1}\}$$
+                \item si noti che, per via della riga 7, si ha che $$\forall k \in [1, n) \quad \texttt{Sol}_{k +1} = \texttt{Sol}_k \cup \{e_{k +1}\}$$
                 \item sia $\texttt{Sol}^*$ una soluzione ottimale tale da soddisfare l'ipotesi induttiva; si noti che $e_{k +1} \in \texttt{Sol}^* \implies \exists \texttt{Sol}^*$ soluzione ottimale $\mid \texttt{Sol}_{k +1} = \texttt{Sol}_k \cup \{e_{k +1}\} \subseteq \texttt{Sol}^*$ per ipotesi induttiva
-                \item sia allora $e_{k +1} \notin \texttt{Sol}^*$; si noti che, per il \cref{lemma mst}, si ha che qualsiasi soluzione ottimale $\texttt{Sol}^*$ deve essere aciclica, e dunque necessariamente $e_{k +1} \notin \texttt{Sol}^* \implies \texttt{Sol}^* \cup \{e_{k +1}\}$ è un ciclo $C$ di $\texttt{Sol}^*$; inoltre, poiché $\texttt{Sol}^*$ è una soluzione ottimale, ed è dunque un MST, il suo insieme di archi deve necessariamente avere il peso minimo possibile, e dunque per trovare una soluzione ottimale tale da includere $\texttt{Sol}_{k + 1}$, è necessario garantire che il suo peso sia pari a quello di $\texttt{Sol}^*$
-                \item inoltre, necessariamente $C \not \subset R_k$, poiché l'arco $e_{k + 1}$, per via della riga 5, deve essere stato scelto con un estremo in $R_k$ e un estremo in $\texttt{Sol}^* - R$; allora, $C$ è solo parzialmente contenuto in $R_k$, ma poiché $C$ è un ciclo, affinché questo si chiuda deve necessariamente esistere un secondo arco $\hat e \in C$, che congiunga $R_k$ e $\texttt{Sol}^* - R_k$
-                \item si noti che deve necessariamente verificarsi che $$w(e_{k +1}) \le w(\hat e) \iff w(e_{k +1}) - w(\hat e) \le 0$$ poiché se $\hat e$ avesse avuto peso inferiore a $e_{k +1}$, l'algoritmo, alla riga 5, lo avrebbe scelto al posto di $e_{k +1}$
-                \item allora, dalla formula precedente segue che $$\displaystyle \sum_{e \in E((\texttt{Sol}^* \cup \{e_{k +1}\} )- \{\hat e\}) }{w(e)}  = \sum_{e \in E(\texttt{Sol}^*)}{w(e)} + w(e_{k +1}) - w(\hat e) \le \sum_{e \in E(\texttt{Sol}^*}{w(e)}$$ e dunque, e possibile considerare $$(\texttt{Sol}^* \cup \{e_{k+1}\}) - \{\hat e\}$$ per ottenere una soluzione ottimale tale da contenere $\texttt{Sol}_{k + 1}$.
+                \item sia allora $e_{k +1} \notin \texttt{Sol}^*$; si noti che, per il \cref{lemma mst}, si ha che qualsiasi soluzione ottimale $\texttt{Sol}^*$, che è un MST, deve essere aciclica, e dunque necessariamente $e_{k +1} \notin \texttt{Sol}^* \implies \texttt{Sol}^* \cup \{e_{k +1}\}$ è un ciclo $C$ di $\texttt{Sol}^*$; inoltre, poiché $\texttt{Sol}^*$ è una soluzione ottimale, ed è dunque un MST, il suo insieme di archi deve necessariamente avere il peso minimo possibile, e dunque per trovare una soluzione ottimale tale da includere $\texttt{Sol}_{k + 1}$, è necessario garantire che il peso di quest'ultima sia pari a quello di $\texttt{Sol}^*$
+                \item inoltre, necessariamente $C \not \subset R_k$, poiché l'arco $e_{k + 1}$, per via della riga 6, deve essere stato scelto con un estremo in $R_k$ e un estremo in $\texttt{Sol}^* - R_k$; allora, $C$ è solo parzialmente contenuto in $R_k$, ma poiché $C$ è un ciclo, affinché questo si chiuda deve necessariamente esistere un secondo arco $\hat e \in C$, tale da congiungere $R_k$ e $\texttt{Sol}^* - R_k$
+                \item si noti che deve necessariamente verificarsi che $$w(e_{k +1}) \le w(\hat e) \iff w(e_{k +1}) - w(\hat e) \le 0$$ poiché se $\hat e$ avesse avuto peso inferiore a $e_{k +1}$, l'algoritmo, alla riga 6, lo avrebbe scelto al posto di $e_{k +1}$
+                \item allora, dalla formula precedente segue che $$\displaystyle \sum_{e \in (\texttt{Sol}^* \cup \{e_{k +1}\} )- \{\hat e\} }{w(e)}  = \sum_{e \in \texttt{Sol}^*}{w(e)} + w(e_{k +1}) - w(\hat e) \le \sum_{e \in \texttt{Sol}^*}{w(e)}$$ e dunque, e possibile considerare l'insieme di archi $$(\texttt{Sol}^* \cup \{e_{k+1}\}) - \{\hat e\}$$ per ottenere una soluzione ottimale tale da contenere $\texttt{Sol}_{k + 1}$.
             \end{itemize}
-        \item[] \textit{Seconda implicazione.} $\exists \texttt{Sol}^*$ soluzione ottimale $\mid \texttt{Sol}^* \subseteq \texttt{Sol}_n$. TODO (copia kruskal)
+
+        \item[] \textit{Seconda implicazione.} $\exists \texttt{Sol}^*$ soluzione ottimale $\mid \texttt{Sol}^* \subseteq \texttt{Sol}_m$. Si noti che, per implicazione precedente, esiste una soluzione ottimale $\texttt{Sol}^\#$ tale che $\texttt{Sol}_m \subseteq \texttt{Sol}^\#$; allora, poichè $\texttt{Sol}_m$ è stato dimostrato essere un MST, e $\texttt{Sol}^\#$ è un MST per definizione, si ha che $$\texttt{Sol}_m \subseteq \texttt{Sol}^\# \implies \texttt{Sol}_m = \texttt{Sol}^*$$
     \end{itemize}
 \end{proof}
 
 \begin{remark}[Correttezza dell'algoritmo]
-    TODO RILEGGI TUTTO
+    L'algoritmo inizia scegliendo un verice $v \in V(G)$ qualsiasi, e lo inserisce in $R$ alla riga 4, dove quest'ultimo rappresenterà, nelle successive iterazioni l'insieme di vertici correntemente visitati dall'algoritmo; viene inoltre definto \texttt{Sol} alla riga 3, che sarà l'insieme di archi costituenti un MST di $G$.
 
-    L'algoritmo inizia scegliendo un verice $v \in V(G)$ qualsiasi, e lo inserisce in $R$ alla riga 4, il quale rappresenterà l'insieme di vertici correntemente visitati dall'algoritmo nelle successive iterazioni; viene inoltre definto \texttt{Sol} alla riga 3, che sarà l'insieme di archi costituenti un MST di $G$.
+    All'interno del ciclo \texttt{while} della riga 5, fintanto che $R$ non è pari a $V(G)$ (si noti dunque che ogni vertice del grafo viene visitato, garantendo che \texttt{Sol} copra $G$, poiché quest'ultimo è un grafo indiretto connesso), viene calcolato l'arco $(x, y)$ di peso minore, avente un estremo in $R$, e l'altro in $V(G) - R$ (dunque, un arco che colleghi la regione di vertici già visitati, con quelli ancora da visitare); ciò garantisce che il grafo in output sia connesso, e poiché viene scelto con peso minimo, è anche garantito che \texttt{Sol} sia minimale rispetto ai pesi di $w$; allora, l'output dell'algoritmo è proprio un MST.
 
-    All'interno del ciclo \texttt{while} della riga 5, fintanto che $R$ non è pari a $V(G)$ (si noti dunque che ogni vertice del grafo viene visitato, garantendo che \texttt{Sol} sia di copertura, poiché $G$ in input è un grafo indiretto connesso), viene calcolato scelto l'arco $(x, y)$ di peso minore, avente un estremo in $R$, e l'altro in $V(G) - R$ (dunque un arco che colleghi la regione di vertici già visitati, con quelli ancora da visitare); ciò garantisce che il grafo in output sia connesso, e poiché viene scelto con peso minimo, è anche garantito che \texttt{Sol} sia minimale rispetto ai pesi di $w$, e dunque l'output dell'algoritmo è proprio un MST.
-
-    L'algoritmo termina restituendo, alla riga 10, l'insieme di archi calcolato.
+    L'algoritmo termina restituendo, alla riga 10, l'insieme di archi trovato.
 \end{remark}
 
 \begin{remark}[Costo dell'algoritmo]
-    TODO DA RILEGGERE
+    L'algoritmo effettua un singolo ciclo \texttt{while}, alla riga 5, che termina nel momento in cui $R$ contiene ogni vertice di $V(G)$, e poiché ad ogni iterazione viene inserito esattamente un vertice in $R$ (riga 8), allora il ciclo viene ripetuto esattamente $n$ volte.
 
-    L'algoritmo effettua un singolo ciclo \texttt{while}, alla riga 4, che termina nel momento in cui $R$ contiene ogni vertice di $V(G)$, e poiché ad ogni iterazione viene inserito esatatmente un vertice in $R$ (riga 7), allora il ciclo viene ripetuto esattamente $n$ volte
-
-    Inoltre, alla riga 5 viene cercato l'arco, uscente da $R$, con peso minore, e il costo di tale operazione, nel caso peggiore, è $O(m)$, poiché implica il controllo del peso di ogni singolo arco uscente da $R$.
+    Inoltre, alla riga 6 viene cercato l'arco, uscente da $R$, con peso minore, e il costo di tale operazione, nel caso peggiore, è $O(m)$, poiché implica il controllo del peso di ogni singolo arco uscente da $R$.
 
     Allora, complessivamente l'algoritmo ha costo $n \cdot O(m) = O(n \cdot m)$.
 \end{remark}
@@ -3088,12 +3087,11 @@
 \end{remark}
 
 \begin{remark}[Costo dell'algoritmo]
-    TODO DA RILEGGERE
     Si noti che il costo di inserimento di un nodo all'interno di un heap è pari a $O(\log n)$, e dunque il costo del ciclo \texttt{for} alla riga 5 è pari a $O (n \log n)$, poichè viene inserito ogni nodo in $V(G) - \{v\}$ all'interno di \texttt{H}, e $O(|V(G) - \{v\}|) = O(n - 1) = O(n)$.
 
     Inoltre, il costo di aggiornamento di una chiave all'interno di un heap è pari anch'esso a $O(\log n)$, e dunque la complessità del ciclo \texttt{for} della riga 10 è pari a $\deg(v) \cdot O(\log n) = O(\deg(v) \cdot \log n) = O(n \log n)$ (nel caso peggiore, $\deg(v) = n - 1$).
 
-    L'operazione di estrazione del minimo dall'heap, alla riga 15, ha anch'essa costo pari a $O(\log n)$; inoltre, il controllo della riga 19 ha costo pari a 
+    L'operazione di estrazione del minimo dall'heap, alla riga 15, ha anch'essa costo pari a $O(\log n)$; inoltre, il controllo della riga 19 ha costo pari a TODO DA RILEGGERE E FINIRE
 \end{remark}
 
 \chapter{Algoritmi Divide et Impera}
@@ -3103,8 +3101,12 @@
 \subsection{Definizioni}
 
 \begin{definition}[Divide et Impera]
-    TODO RILEGGERE
-    Con la locuzione latina \textit{divide et impera}, si intende una tecnica di risoluzione dei problemi basata sull'induzione, con la quale il problema di partenza viene scomposto in sotto-problemi di dimensione inferiore, ricorsivamente (la fase del \textit{divide}), e una volta raggiunto un caso base della ricorsione, per il quale è nota la soluzione del problema, l'algoritmo procedere a combinare le soluzioni dei sotto-problemi, per trovare la soluzione del problema di partenza (la fase dell'\textit{impera}).
+    Con la locuzione latina \textit{divide et impera}, ci si riferisce ad una tecnica di risoluzione dei problemi, basata sull'induzione, attraverso la quale:
+
+    \begin{itemize} 
+        \item il problema di partenza viene inizialmente scomposto in sotto-problemi di dimensione inferiore, ricorsivamente (la fase del \textit{divide});
+        \item successivamente, una volta raggiunto un caso base della ricorsione, per il quale è nota la soluzione, l'algoritmo procede a combinare le soluzioni dei sotto-problemi, per trovare la soluzione del problema di partenza (la fase dell'\textit{impera}).
+    \end{itemize}
 \end{definition}
 
 \begin{example}[Divide et Impera]
@@ -3113,13 +3115,11 @@
 
 \begin{theorem}[Master theorem - Teorema principale]
     \label{master theorem}
-    TODO DA RILEGGERE
-
-    Siano $\alpha, \beta \ge 1$ tali da descrivere la seguente equazione di ricorrenza $$\left \{ \begin{array}{l} T(n) = \alpha \cdot T\left(\dfrac{n}{\beta}\right) + f(n) \\ T(1) = \Theta(1) \end{array} \right.$$ allora si ha che
+    Siano $\alpha, \beta \ge 1$ tali da descrivere la seguente equazione di ricorrenza: $$\left \{ \begin{array}{l} T(n) = \alpha \cdot T\left(\dfrac{n}{\beta}\right) + f(n) \\ T(1) = \Theta(1) \end{array} \right.$$ allora, si ha che
     \begin{itemize}
-        \item $f(n) = \Theta(n^c)$, con $c < \log_{\beta}{\alpha}$, allora $$T(n) = \Theta(n^{\log_{\beta}{\alpha}})$$
-        \item $f(n) = \Theta(n^c \log^k n)$, con $\left \{ \begin{array}{l} c = \log_{\beta}{\alpha} \\ k \ge 0 \end{array} \right.$, allora $$T(n) = \Theta(n^{\log_{\beta}{\alpha}} \log^{k+1} {n})$$
-        \item $f(n) = \Theta(n^c)$, con $c > \log_{\beta}{\alpha}$, allora $$T(n) = f(n)$$
+        \item se $f(n) = \Theta(n^c)$, con $c < \log_{\beta}{\alpha}$, allora $$T(n) = \Theta(n^{\log_{\beta}{\alpha}})$$
+        \item se $f(n) = \Theta(n^c \log^k n)$, con $\left \{ \begin{array}{l} c = \log_{\beta}{\alpha} \\ k \ge 0 \end{array} \right.$, allora $$T(n) = \Theta(n^{\log_{\beta}{\alpha}} \log^{k+1} {n})$$
+        \item se $f(n) = \Theta(n^c)$, con $c > \log_{\beta}{\alpha}$, allora $$T(n) = f(n)$$
     \end{itemize}
 \end{theorem}
 
@@ -3127,9 +3127,9 @@
 
 \begin{algorithm}[H]
     \caption{
-        Dato un array \texttt{A} di $n$ interi, l'algoritmo restituisce la somma massima dei suoi sotto-array contigui.\\
+        Dato un array \texttt{A} di $n$ interi, l'algoritmo restituisce la somma massima tra i suoi sotto-array contigui.\\
         \textbf{Input}: \texttt{A} un array di $n$ interi.\\
-        \textbf{Output}: la somma massima dei sotto-array contigui di \texttt{A}.
+        \textbf{Output}: la somma massima tra i sotto-array contigui di \texttt{A}.
     }
 
     \begin{algorithmic}[1]
@@ -3169,28 +3169,24 @@
 \end{algorithm}
 
 \begin{remark}[Correttezza dell'algoritmo]
-    TODO RILEGGI
-
     L'algoritmo inizia alla riga 31, chiamando una funzione ricorsiva interna, ovvero \texttt{FMSSInternals}, poiché è necessario inizializzarne correttamente i parametri; infatti, ad essa vengono forniti, oltre all'array di interi \texttt{A}, anche gli estremi di quest'ultimo, in modo da effettuare la ricorsione sull'intero array.
 
-    La funzione ricorsiva inizia controllando se $a$ e $b$ input sono uguali: questo infatti è il caso base della ricorsione, poiché equivale a dire che l'array della chiamata ricorsiva corrente è lungo 1, e dunque ha esattamente 1 elemento; allora, in tal caso è sufficiente restituire $\texttt{A[}a\texttt{]}$ stesso, nel caso in cui quest'ultimo fosse positivo, mentre se dovesse essere negativo, è necessario restituire 0. Questo, in quanto nel caso peggiore \texttt{A} è costituito esclusivamente da interi negativi, e dunque il sotto-array contiguo di \texttt{A} con somma maggiore risulta essere l'array nullo, che ha sempre somma 0, e dunque la riga 6 garantisce tale risultato in questo caso particolare (per la precisione, si noti che le righe 15 e 22, discusse nella sezione successiva, già garantiscono che il risultato sia 0 nel caso in cui \texttt{A} contenesse eslcusivamente interi negativi, con la sola eccezione in cui \texttt{A} è costituito da un solo intero, negativo, nel qual caso la ricosione non verrebbe effettuata, e dunque la riga 6 garantisce di restituire 0 ugualmente).
+    La funzione ricorsiva inizia controllando se $a$ e $b$ in input sono uguali: questo infatti è il caso base della ricorsione, poiché per tale condizione l'array della chiamata ricorsiva corrente è lungo 1, e dunque ha esattamente 1 elemento; allora, in tal caso è sufficiente restituire $\texttt{A[}a\texttt{]}$ stesso, se quest'ultimo fosse positivo, mentre se dovesse essere negativo, è necessario restituire 0. Questo, in quanto, nel caso peggiore, \texttt{A} è costituito esclusivamente da interi negativi, e dunque il sotto-array contiguo di \texttt{A} con somma maggiore risulta essere l'array nullo, che ha sempre somma 0, e dunque la riga 6 garantisce tale risultato in questo caso particolare (per la precisione, si noti che le righe 15 e 22, discusse nella sezione successiva, già garantiscono che il risultato sia 0 nel caso in cui \texttt{A} contenesse eslcusivamente interi negativi, con la sola eccezione in cui \texttt{A} è costituito da un solo intero, negativo, nel qual caso la ricosione non verrebbe effettuata, e dunque la riga 6 garantisce di restituire 0 ugualmente).
 
-    Se invece $a \neq b$, allora si entra nel caso base, poiché gli estremi del sotto-array da controllare non coincidono; alla riga 9 viene dunque calcolato il punto medio $m$ tra $a$ e $b$, arrotondato per eccesso, per poter effettuare 2 chiamate ricorsive, nelle righe 10 e 11, grazie alle quali vengono rispettivamente restituiti $M_s$ ed $M_d$, che costituiscono il primo la somma massima dei sotto-array compresi in $\texttt{A[}a\texttt{:}m\texttt{]}$, ed il secondo la somma massima dei sotto-array compresi in $\texttt{A[}m + 1\texttt{:}b\texttt{]}$ (considerando la notazione degli \textit{slice} inclusiva su entrambe gli estremi).
+    Se invece $a \neq b$, allora non si entra nel caso base, poiché gli estremi del sotto-array da controllare non coincidono; alla riga 9 viene dunque calcolato il punto medio $m$ tra $a$ e $b$, arrotondato per eccesso, per poter effettuare 2 chiamate ricorsive, nelle righe 10 e 11, grazie alle quali vengono rispettivamente restituiti $M_s$ ed $M_d$, che costituiscono il primo la somma massima tra i sotto-array compresi in $\texttt{A[}a\texttt{:}m\texttt{]}$, ed il secondo la somma massima tra i sotto-array compresi in $\texttt{A[}m + 1\texttt{:}b\texttt{]}$ (considerando la notazione degli \textit{slice} inclusiva su entrambe gli estremi).
 
-    Successivamente, dalla riga 12 alla riga 18, viene effettuato un ciclo \texttt{for}, che calcola la somma massima del sotto-array del livello di ricorsione corrente, ma partendo dal centro muovendosi verso l'inizio di \texttt{A}; viceversa, il ciclo \texttt{for} delle righe successive (dalla 19 fino alla 25), effettua il calcolo della somma massima del sotto-array del livello di ricosione corrente, partendo dal centro muovendosi verso destra. Questo, poiché se entrambe i cicli si muovessero con indici crescenti (dunque da destra verso sinistra), di fatto i due \texttt{for} starebbero controllando 2 sotto-array diversi nel livello di ricorsione corrente, e non lo stesso; per ovviare a questo problema, è sufficiente realizzare i cicli come appena descritto. Si noti che all'interno di questi, viene semplicemente istanziato un accumulatore $t$, che viene aggiornato ad ogni iterazione dei cicli (righe 14 e 21), e se quest'ultimo diventa maggiore del totale massimo raggiunto correntemente (in un caso rappresentato da $s$, nell'altro rappresentato da $d$), lo si aggiorna col valore attuale di $t$. Si noti che questo garantisce che venga propagato 0 nel caso di array totalmente negativo, poiché $s$ e $d$ vengono aggiornati soltanto in cui $t$ diventa maggiore del loro valore corrente, e sono inizializzati entrambi a 0 nelle righe 12 e 19. Infine, si noti che $t$ alla riga 19 deve essere nuovamente inizializzato a 0 per funzionare correttamente.
+    Successivamente, dalla riga 12 alla riga 18, viene effettuato un ciclo \texttt{for}, che calcola la somma massima della prima metà del sotto-array del livello di ricorsione corrente, dunque partendo dal centro muovendosi verso sinistra; viceversa, il ciclo \texttt{for} delle righe successive (dalla 19 fino alla 25), effettua il calcolo della somma massima della seconda metà del sotto-array del livello di ricosione corrente, dunque partendo dal centro muovendosi verso destra. Questo, poiché se entrambe i cicli si muovessero con indici crescenti (dunque da sinistra verso destra), di fatto i due \texttt{for} starebbero controllando 2 sotto-array diversi nel livello di ricorsione corrente, e non lo stesso; per ovviare a questo problema, è sufficiente realizzare i cicli come appena descritto. Si noti che all'interno di questi, viene semplicemente istanziato un accumulatore $t$, che viene aggiornato ad ogni iterazione dei cicli (righe 14 e 21) con l'$i$-esimo elemento di \texttt{A}, e se $t$ diventa maggiore del totale massimo raggiunto correntemente (in un caso rappresentato da $s$, nell'altro rappresentato da $d$), lo si aggiorna col valore attuale di $t$. Si noti che questo garantisce che venga propagato 0 nel caso di array totalmente negativo, poiché $s$ e $d$ vengono aggiornati soltanto se $t$ diventa maggiore del loro valore corrente, e sono inizializzati entrambi a 0 nelle righe 12 e 19. Infine, si noti che $t$ alla riga 19 deve essere nuovamente inizializzato a 0 per funzionare correttamente.
 
-    Concludendo, il caso ricorsivo, alla riga 26, restituisce il massimo tra $M_s$, $M_d$ e $s + d$, dove quest'ultimo costituisce proprio la somma massima del sotto-array corrente.
+    Concludendo, il caso ricorsivo, alla riga 26, restituisce il massimo tra $M_s$, $M_d$ e $s + d$, dove quest'ultima costituisce proprio la somma massima del sotto-array corrente.
 
 \end{remark}
 
 \begin{remark}[Costo dell'algoritmo]
-    TODO RILEGGI
-
     Il caso base dell'algoritmo è costituito da un controllo, alla riga 2, con costo $\Theta(1)$, e da un secondo controllo, alla riga 3, con costo $\Theta(1)$ anch'esso; allora, il caso base ha costo $\Theta(1)$.
 
     Nel caso ricorsivo, incontrato dall'algoritmo nella riga 8, vengono effettuate 2 chiamate ricorsive, alle righe 10 e 11, che hanno entrambe costo $T\left(\dfrac{n}{2}\right)$, e successivamente vengono eseguiti due cicli \texttt{for}, nelle righe 13 e 19, i quali hanno entrambi costo $\Theta\left(\dfrac{n}{2}\right) = \Theta(n)$; allora, il costo del caso ricorsivo è pari a $2 \cdot T\left(\dfrac{n}{2}\right) + \Theta(n)$.
 
-    Allora, l'equazione di ricorrenza che rappresenta il costo dell'algoritmo è pari a $$\left \{ \begin{array}{l} T(n) = T\left(\dfrac{n}{2}\right) + \Theta(n) \\ T(1) = \Theta(1) \end{array} \right .$$
+    Allora, l'equazione di ricorrenza che rappresenta il costo dell'algoritmo è la seguente $$\left \{ \begin{array}{l} T(n) = T\left(\dfrac{n}{2}\right) + \Theta(n) \\ T(1) = \Theta(1) \end{array} \right .$$
 
     Si noti che questa è un'equazione che è possibile risolvere utilizzando il \cref{master theorem}, in quanto $$\left . \begin{array}{l} \alpha = 2 \\ \beta = 2 \end{array} \right \} \implies n ^ {\log_{2}{2}} = n^1 = n$$ e poiché $f(n) = \Theta(n)$, allora ci si trova nel secondo caso del Master theorem, e infatti ponendo $k = 0$ si ha $$f(n) = \Theta(n) = \Theta(n \log^0 n)$$ e dunque si ha che $$T(n) = \Theta(n ^{\log_{2}{2}} \log ^ {0 + 1}n) = \Theta(n \log n)$$
 \end{remark}

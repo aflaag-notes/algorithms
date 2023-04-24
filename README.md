@@ -28,18 +28,10 @@ Questi sono i miei [appunti](https://raw.githubusercontent.com/ph04/algorithms/m
 
 - pagina 13
     - algoritmo di kruskal
-        - proof
-        - correttezza
         - costo
-    - algoritmo di prim 1
-        - correttezza
     - algoritmo di prim2
         - correttezza
         - costo
 
-- rileggere qualsiasi cosa
-
-- "dimostrazioncina"
-
-- da master theorem in poi
+- dimostrazione univocità MST
 
