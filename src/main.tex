@@ -3067,13 +3067,13 @@
                 \State $\texttt{H.set\_key(}y, w(v, y)\texttt{)}$
             \EndFor
             \While{$R \neq V(G)$}
-                \State $y := \texttt{H.extract\_min()}$
+                \State $y := \texttt{H.extract\_min()}$ \Comment{l'elemento viene \underline{rimosso}}
                     \State $\texttt{Sol} = \texttt{Sol} \cup \{ (y, \texttt{parents[}y\texttt{]}) \}$
                 \State $R = R \cup \{y\}$
                 \For{$x \in V(G) - R : x \sim y$}
                     \If{$\texttt{H.get\_key(}x\texttt{)} > w(x, y)$}
-                        \State $\texttt{H.set\_key(}x, w(x, y)\texttt{)}$
                         \State $\texttt{parents[}x\texttt{]} = y$
+                        \State $\texttt{H.set\_key(}x, w(x, y)\texttt{)}$
                     \EndIf
                 \EndFor
             \EndWhile
@@ -3083,7 +3083,15 @@
 \end{algorithm}
 
 \begin{remark}[Correttezza dell'algoritmo]
-    TODO
+    TODO RILEGGERE
+
+    L'algoritmo inizia alla riga 2, scegliendo un vertice qualunque $v \in V(G)$, dal quale partire; alla riga 3, viene definito \texttt{Sol}, che contterrà l'insieme di archi dell'MST di $G$, che verrà restituito alla riga 26 al termine della procedura; alla riga 4, viene inoltre definito un insieme di vertici $R$, che costituirà la regione di vertici correntemente coperta dall'algoritmo attraverso gli archi in \texttt{Sol}; infine, alla riga 5 viene inizializzato un min-heap, il quale viene riempito con le righe 6 e 7, utilizzando tutti i vertici in $V(G)$ eccetto $v$ scelto in partenza; si noti che ad ogni nodo viene associato inizialmente $+ \infty$, poiché per ogni $u \in V(G) - \{v\}$ il criterio di ordinamento del min-heap dovrà essere il peso dell'arco tale da inserire $u$ in $R$, ed è dunque necessario inizializzare le loro chiavi con un valore sufficientemente alto tale da non essere mai scelto inizialmente dall'algoritmo.
+
+    Alla riga 9 viene definito un array di padri \texttt{parents}, il quale non costituirà propriamente un albero di padri della visita del grafo in input, ma un albero i cui padri dei nodi sono sempre i vertici tali da minimizzare l'arco tra padre e figlio; alla riga 10 viene marcata la radice dell'albero ponendo $\texttt{parents[}v\texttt{]} = v$.
+
+    Il ciclo \texttt{for} della riga 11, per ogni vertice $y$ adiacente a $v$ di partenza, inizializza $\texttt{parents[}y\texttt{]} = v$ alla riga 12, ed alla riga 13 viene aggiornato il valore della chiave di $y$ all'interno del min-heap, attraverso proprio il peso dell'arco $(v, y)$.
+
+    La procedura dell'algoritmo inizia dunque alla riga 15, definendo un ciclo \texttt{while} che termina se $R$ contiene tutti i vertici in $V(G)$, garantendo dunque che l'output \texttt{Sol} sarà un grafo di copertura; alla riga 16 viene salvato $y$, definito come l'elemento minore del min-heap (\textit{si noti che l'operazione} \texttt{H.extract\_min()} \textit{rimuove il minimo dal min-heap}); nella riga successiva, poiché $y$ è definito come elemento minore del min-heap, e gli elementi di quest'ultimo sono comparati attraverso i pesi degli archi che permettono di raggiungere i vertici stessi, allora è garantito che l'arco $(y, \texttt{parents[}y\texttt{]})$ minimizzi il peso, e dunque è necessario inserirlo in \texttt{Sol} (si noti che questo assicura che l'algoritmo sceglie un insieme di archi minimalerispetto al peso di $w$); alla riga 18, viene aggiunto il vertice $y$ che è stato appena visitato dall'algoritmo. Inoltre, alla riga 19 viene istanziato un ulteriore ciclo \texttt{for}, il quale per ogni vertice $x$ non contenuto in $R$ (dunque ancora non visitato dall'algoritmo), adiacente all'attuale $y$, effettua un aggiornamento simile a quello eseguito dal ciclo \texttt{for} della riga 11: infatti, la riga 20 controlla che la chiave di $x$ sia maggiore del peso dell'arco $(x, y)$ (si noti che le chiavi dei vertici non visitati sono attualmente tutte a $+ \infty$, e dunque questo controllo garantisce di aggiornare le chiavi per la prossima iterazione del ciclo \texttt{while} della riga 15), poiché in tal caso è necessario aggiornare la chiave di $x$ nel min-heap con il peso stesso (di fatto, minimizzando sempre il peso associato ad $x$ nel min-heap), ed aggiornare il padre di $x$ con $y$.
 \end{remark}
 
 \begin{remark}[Costo dell'algoritmo]
