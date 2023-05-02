@@ -35,3 +35,7 @@ Questi sono i miei [appunti](https://raw.githubusercontent.com/ph04/algorithms/m
 
 - pagina 14
 
+- pagina 15
+    - finiscila
+    - scrivi che i file in input non possono avere dimensione maggiore di C
+
