@@ -3205,6 +3205,14 @@
 
 \subsection{TODO}
 
+\begin{definition}[Programmazione dinamica]
+    TODO
+\end{definition}
+
+\begin{definition}[Memoization]
+    TODO
+\end{definition}
+
 \begin{definition}[Tempo polinomiale]
     Un algoritmo è detto essere in \textit{tempo polinomiale} se il suo tempo di esecuzione è limitato superiormente da un'espressione polinomiale della dimensione del suo input.
 \end{definition}
@@ -3224,7 +3232,7 @@
 \begin{algorithm}[H]
     \caption{
         Data una lista \texttt{S} di dimensioni di $n$ file, e una memoria di capacità $C$, l'algoritmo restituisce il massimo spazio che può essere allocato dai file in \texttt{S} sulla memoria; inoltre, i file hanno tutti dimensione inferiore a $C$.\\
-        \textbf{Input}: \texttt{S} lista di dimensioni di file; $C$ capacità della memoria, tale che $\forall s_i \in S \quad s_i < C$\\
+        \textbf{Input}: \texttt{S} lista di dimensioni di file; $C$ capacità della memoria, tale che $\forall s_i \in S \quad s_i \le C$\\
         \textbf{Output}: quantità di spazio massima che è possibile allocare.
     }
 
@@ -3268,8 +3276,7 @@
 \end{remark}
 
 \begin{remark}[Costo dell'algoritmo]
-    TODO RILEGGI
-    TODO scrivere che il problema è NP-completo
+    TODO RILEGGI e scrivere che il problema è NP-completo
 
     L'algoritmo inizializza una matrice \texttt{T} di dimensioni $(n + 1) \times (C + 1)$ alla riga 2, e il costo della sua creazione è dunque $O((n + 1) \cdot (C + 1)) = O(n \cdot C)$; i cicli \texttt{for} delle righe 3 e 6 hanno rispettivamente costo $O(n)$ e $O(C)$.
 
@@ -3282,16 +3289,16 @@
 
 \begin{algorithm}[H]
     \caption{
-        Data una lista \texttt{S} di dimensioni di $n$ file, una memoria di capacità $C$, e la matrice costruita attraverso la funzione \texttt{fileAllocation} dell'\cref{fileallocation}, l'algoritmo restituisce un insieme di file che massimizzano la memoria allocata; inoltre, i file hanno tutti dimensione inferiore a $C$.\\
-        \textbf{Input}: \texttt{S} lista di dimensioni di file; $C$ capacità della memoria, tale che $\forall s_i \in S \quad s_i < C$; \texttt{T} matrice prodotta precedentemente.\\
-        \textbf{Output}: insieme di file che massimizzano la memoria allocata.
+        Data una lista \texttt{S} di dimensioni di $n$ file, una memoria di capacità $C$, e la matrice costruita attraverso la funzione \texttt{fileAllocation} dell'\cref{fileallocation}, l'algoritmo restituisce un insieme di file che massimizza la memoria allocata; inoltre, i file hanno tutti dimensione inferiore a $C$.\\
+        \textbf{Input}: \texttt{S} lista di dimensioni di file; $C$ capacità della memoria, tale che $\forall s_i \in S \quad s_i \le C$; \texttt{T} matrice prodotta precedentemente.\\
+        \textbf{Output}: un insieme di file che massimizza la memoria allocata.
     }
 
     \begin{algorithmic}[1]
         \Function{maxAllocationFiles}{$S$, $C$, \texttt{T}}
             \State $\texttt{Sol} := \varnothing$
             \State $j:= C$
-            \For{$k \in [n, 1]$}
+            \For{$k \in [n, 1]$} \Comment{il ciclo decrementa}
                 \If{$\texttt{T[}k\texttt{][}j\texttt{]} > \texttt{T[}k -1\texttt{][}j\texttt{]}$}
                     \State $\texttt{Sol} = \texttt{Sol} \cup \{k\}$
                     \State $j \ -= s_k$
@@ -3303,11 +3310,19 @@
 \end{algorithm}
 
 \begin{remark}[Correttezza dell'algoritmo]
-    TODO
+    L'algoritmo inizia definendo un insieme vuoto \texttt{Sol} alla riga 2, che conterrà l'insieme di file al termine della procedura; inoltre, alla riga 3 viene definito $j$, pari alla capacità del disco $C$.
+
+    Il ciclo \texttt{for} della riga 4 scorre la matrice \texttt{T} in input seguendo un preciso criterio: partendo dall'ultima riga della matrice (si noti che con $k \in [n, 1]$ si sta indicando un ciclo che parte da $n$ e termina ad $1$), il ciclo controlla che la cella corrente, ovvero $\texttt{T[}k\texttt{][}j\texttt{]}$, sia maggiore della cella direttamente sopra ad essa, ovvero $\texttt{T[}k - 1\texttt{][}j\texttt{]}$; in tal caso, l'algoritmo inserisce $k$ all'interno della soluzione \texttt{Sol} (ad indicare l'indice del $k$-esimo file), alla riga 6, e alla riga 7 $j$ viene decrementato di $s_k$;
+
+    L'idea alla base di questo ciclo è di partire dall'ultima cella della matrice (ultima riga, ultima colonna, ovvero $\texttt{T[}n\texttt{][}C\texttt{]}$), salendo le righe in ogni iterazione, spostanosi orizzontalmente ogni volta che la cella sovrastante a quella corrente aveva valore inferiore ad essa; questo, poiché per via di come è stata costruita la matrice, necessariamente $$\texttt{T[}k\texttt{][}j\texttt{]} \neq \texttt{T[}k -1\texttt{][}j\texttt{]} \iff \texttt{T[}k\texttt{][}j\texttt{]} > \texttt{T[}k -1\texttt{][}j\texttt{]}$$ e dunque se la cella corrente ha valore maggiore della cella ad essa sovrastante, allora il $k$-esimo file era stato scelto dall'algoritmo, e va dunque inserito all'interno della soluzione; si noti dunque che poiché è stato preso il $k$-esimo file, la dimensione della memoria all'iterazione successiva dovrà essere pari a $j - s_k$, altrimenti si lascerebbe lo spazio del $k$-esimo file.
+
+    L'algoritmo termina restituendo la soluzione accumulata, alla riga 10.
 \end{remark}
 
 \begin{remark}[Costo dell'algoritmo]
-    TODO $O(n)$
+    L'algoritmo effettua un solo ciclo \texttt{for} alla riga 4, che scorre la matrice in input parentdo da $k = n$ fino a $k = 1$, ma si noti che non viene controllata ogni cella di \texttt{T}, poiché viene controllata al massimo 1 cella per riga.
+
+    Allora, il costo dell'algoritmo è pari a $O(n)$.
 \end{remark}
 
 \end{document}
