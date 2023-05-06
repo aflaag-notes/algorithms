@@ -3199,7 +3199,7 @@
     Si noti che questa è un'equazione che è possibile risolvere utilizzando il \cref{master theorem}, in quanto $$\left . \begin{array}{l} \alpha = 2 \\ \beta = 2 \end{array} \right \} \implies n ^ {\log_{2}{2}} = n^1 = n$$ e poiché $f(n) = \Theta(n)$, allora ci si trova nel secondo caso del Master theorem, e infatti ponendo $k = 0$ si ha $$f(n) = \Theta(n) = \Theta(n \log^0 n)$$ e dunque si ha che $$T(n) = \Theta(n ^{\log_{2}{2}} \log ^ {0 + 1}n) = \Theta(n \log n)$$
 \end{remark}
 
-\chapter{TODO}
+\chapter{Programmazione dinamica}
 
 \section{TODO}
 
@@ -3213,19 +3213,24 @@
     L'\textit{insieme P} è costituito dalla categoria di problemi per i quali esiste un algoritmo deterministico in tempo polinomiale.
 \end{definition}
 
-\begin{example}[Problemi non in P]
-    Un esempio di problema che non fa parte dei problemi in P è rappresentato dal sudoku, in quanto non sono noti algoritmi di risoluzione in tempi polinomiali rispetto alla dimensione del suo input per risolverlo.
+\begin{definition}[NP-completezza]
+    Un problema è detto \textit{NP-completo}, se non è possibile risolverlo deterministicamente in tempo polinomiale, rispetto alla dimensione del suo input.
+\end{definition}
+
+\begin{example}[Problema NP-completo]
+    Un esempio di problema attualmente NP-completo è rappresentato dal sudoku, in quanto non sono noti algoritmi di risoluzione in tempo polinomiale, rispetto alla dimensione dell'input, per risolvere un sudoku.
 \end{example}
 
 \begin{algorithm}[H]
     \caption{
-        Data una lista \texttt{S} di dimensioni di $n$ file, e una memoria di capacità $C$, l'algoritmo restituisce il massimo spazio che può essere allocato dai file in \texttt{S} sulla memoria.\\
-        \textbf{Input}: \texttt{S} lista di dimensioni di file; $C$ capacità della memoria.\\
+        Data una lista \texttt{S} di dimensioni di $n$ file, e una memoria di capacità $C$, l'algoritmo restituisce il massimo spazio che può essere allocato dai file in \texttt{S} sulla memoria; inoltre, i file hanno tutti dimensione inferiore a $C$.\\
+        \textbf{Input}: \texttt{S} lista di dimensioni di file; $C$ capacità della memoria, tale che $\forall s_i \in S \quad s_i < C$\\
         \textbf{Output}: quantità di spazio massima che è possibile allocare.
     }
 
     \begin{algorithmic}[1]
-        \Function{fileAllocation}{$S$, $C$}
+        \label{fileallocation}
+        \Function{maxAllocation}{$S$, $C$}
             \State $\texttt{T} := \texttt{[[}-1\texttt{]} * (C + 1) \texttt{]} * (n + 1)$
             \For{$k \in [0, n]$} \Comment{$[0, n]$ ha $n + 1$ elementi}
                 \State $\texttt{T[} k\texttt{][}0\texttt{]} = 0$ \Comment{prima colonna a $0$}
@@ -3239,7 +3244,7 @@
 
                     \State $s_k = \texttt{S[}k - 1\texttt{]}$ \Comment{indicizzazione parte da $0$}
                     \State $v := \texttt{T[}k-1\texttt{][}j-s_k\texttt{]} + s_k$
-                    \If{$\left \{ \begin{array}{l} s_k \ge j \\ v > \texttt{T[}k\texttt{][}j\texttt{]} \end{array} \right.$}
+                    \If{$\left \{ \begin{array}{l} s_k \ge j \\ v > \texttt{T[}k - 1\texttt{][}j\texttt{]} \end{array} \right.$}
                         \State $\texttt{T[}k\texttt{][}j\texttt{]} = v$
                     \EndIf
                 \EndFor
@@ -3250,10 +3255,22 @@
 \end{algorithm}
 
 \begin{remark}[Correttezza dell'algoritmo]
+    TODO RILEGGI
+
+    L'algoritmo inizia definendo una matrice \texttt{T} di dimensioni $(n + 1) \times (C + 1)$, inizializzandone ogni cella a $-1$; successivamente, con il ciclo \texttt{for} della riga 3, viene posta ogni cella della prima colonna a 0, e con il ciclo \texttt{for} della riga 6 viene posta ogni cella della prima riga a 0.
+
+    Lo scopo della matrice è di rappresentare, per ogni cella $\texttt{T[}k\texttt{][}j\texttt{]}$, lo spazio massimo che è possibile allocare con i file di dimensione $s_1, \ldots, s_k$, su un disco di capacità $j$; di conseguenza, il numero di file che è possibile allocare con una memoria di capacità nulla, è sicuramente 0 (dunque la prima colonna vede solamente 0), e la memoria che possibile allocare con 0 file è sicuramente 0 (dunque la prima riga del file vede solamente 0). In simboli, si ha che $$\forall k \in [0, n], j \in [0, C] \quad \texttt{T[}k\texttt{][}0\texttt{]} = \texttt{T[}0\texttt{][}k\texttt{]} = 0$$
+
+    Procedendo per gradi, si può notare che, avendo ad esempio $k = 1$, indipendentemente dalla memoria disponibile, non sarà possibile allorcare uno spazio superiore a $s_k = s_1$, e dunque segue che $$\texttt{T[}1\texttt{][}j\texttt{]}= \left \{ \begin{array}{ll} 0 & j < s_1 \\ s_1 & j \ge s_1 \end{array} \right.$$ ovvero, la seconda riga della tabella sarà completamente nulla, fino a quando $j = s_1$, valore dal quale la riga sarà interamente pari a $s_1$.
+
+    TODO DA FINIRE
+
 \end{remark}
 
 \begin{remark}[Costo dell'algoritmo]
     TODO RILEGGI
+    TODO scrivere che il problema è NP-completo
+
     L'algoritmo inizializza una matrice \texttt{T} di dimensioni $(n + 1) \times (C + 1)$ alla riga 2, e il costo della sua creazione è dunque $O((n + 1) \cdot (C + 1)) = O(n \cdot C)$; i cicli \texttt{for} delle righe 3 e 6 hanno rispettivamente costo $O(n)$ e $O(C)$.
 
     Il ciclo \texttt{for} della riga 9, poiché contiene un ulteriore ciclo \texttt{for} annidato alla riga 10, ha costo $O(n \cdot C)$; inoltre all'interno di questi vengono svolte solamente operazioni elementari.
@@ -3261,6 +3278,36 @@
     Allora il costo dell'algoritmo è pari a $2 \cdot O(n \cdot C) + O(n) + O(C) = O(n \cdot C)$.
 
     Si noti che l'input contiene $n$ interi $s_1, \ldots, s_n$, e il numero di bit totale per salvarli in memoria è pari a $$\displaystyle \sum_{i = 0}^n{O(\log s_i)} = O \left ( \sum_{i = 0}^n{\log s_i} \right )$$ ma poiché nel caso peggiore i file da considerare nell'output sono proprio $n$ TODO RICONTROLLA, in tal caso si avrebbe sicuramente che $\forall i \in [1, n] \quad s_i \le C \implies \log(s_i) < \log(C)$ e dunque nel caso peggiore $$O \left ( \sum_{i = 0}^n{\log s_i} \right ) = O(n \cdot \log C)$$ poiché $C$ necessita di $O(\log C)$ bit per essere rappresentato; infine, contando anche la dimensione in bit di $C$ in input, si ha che la dimensione dell'input dell'algoritmo è pari a $O((n + 1) \cdot \log C = O(n \cdot \log C)$. Allora, l'algoritmo non ha tempo polinomiale, poiché il suo costo è pari a $O(n \cdot C)$.
+\end{remark}
+
+\begin{algorithm}[H]
+    \caption{
+        Data una lista \texttt{S} di dimensioni di $n$ file, una memoria di capacità $C$, e la matrice costruita attraverso la funzione \texttt{fileAllocation} dell'\cref{fileallocation}, l'algoritmo restituisce un insieme di file che massimizzano la memoria allocata; inoltre, i file hanno tutti dimensione inferiore a $C$.\\
+        \textbf{Input}: \texttt{S} lista di dimensioni di file; $C$ capacità della memoria, tale che $\forall s_i \in S \quad s_i < C$; \texttt{T} matrice prodotta precedentemente.\\
+        \textbf{Output}: insieme di file che massimizzano la memoria allocata.
+    }
+
+    \begin{algorithmic}[1]
+        \Function{maxAllocationFiles}{$S$, $C$, \texttt{T}}
+            \State $\texttt{Sol} := \varnothing$
+            \State $j:= C$
+            \For{$k \in [n, 1]$}
+                \If{$\texttt{T[}k\texttt{][}j\texttt{]} > \texttt{T[}k -1\texttt{][}j\texttt{]}$}
+                    \State $\texttt{Sol} = \texttt{Sol} \cup \{k\}$
+                    \State $j \ -= s_k$
+                \EndIf
+            \EndFor
+            \State \textbf{return} \texttt{Sol}
+        \EndFunction
+    \end{algorithmic}
+\end{algorithm}
+
+\begin{remark}[Correttezza dell'algoritmo]
+    TODO
+\end{remark}
+
+\begin{remark}[Costo dell'algoritmo]
+    TODO $O(n)$
 \end{remark}
 
 \end{document}

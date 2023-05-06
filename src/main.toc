@@ -41,6 +41,6 @@
 \contentsline {section}{\numberline {3.1}Algoritmi Divide et Impera}{85}{section.3.1}%
 \contentsline {subsection}{\numberline {3.1.1}Definizioni}{85}{subsection.3.1.1}%
 \contentsline {subsection}{\numberline {3.1.2}Trovare la somma massima dei sotto-array}{87}{subsection.3.1.2}%
-\contentsline {chapter}{\numberline {4}TODO}{90}{chapter.4}%
+\contentsline {chapter}{\numberline {4}Programmazione dinamica}{90}{chapter.4}%
 \contentsline {section}{\numberline {4.1}TODO}{90}{section.4.1}%
 \contentsline {subsection}{\numberline {4.1.1}TODO}{90}{subsection.4.1.1}%
