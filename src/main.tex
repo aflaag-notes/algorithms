@@ -435,7 +435,7 @@
 \end{example}
 
 \begin{definition}[Grafo connesso]
-    Un grafo è detto \textit{connesso} se per ogni $v_1, v_2 \in V(G)$ esiste un cammino che li collega. Nel caso dei grafi diretti, è sufficiente avere $v_1 \rightarrow v_2$, oppure $v_2 \rightarrow v_1$.
+    Un grafo è detto \textit{connesso} se per ogni $v_1, v_2 \in V(G)$ esiste un cammino che li collega. Nel caso dei grafi indiretti, è sufficiente avere $v_1 \rightarrow v_2$, oppure $v_2 \rightarrow v_1$.
 \end{definition}
 
 \begin{example}[Grafo non connesso]
@@ -604,7 +604,7 @@
 \end{remark}
 
 \begin{remark}[Controllo di adiacenza]
-    Per controllare che $v_i, v_j \in V(G)$ non coincidenti siano adiacenti, sarà sufficiente controllare $M_G[i, j] = M_G[j, i]$, e dunque il costo di un controllo è $O(1)$.
+    Per controllare che $v_i, v_j \in V(G)$ non coincidenti siano adiacenti, è sufficiente controllare se $M_G[i, j] = M_G[j, i] = 1$, e dunque il costo di un controllo è $O(1)$.
 \end{remark}
 
 \subsection{Liste di adiacenza}
