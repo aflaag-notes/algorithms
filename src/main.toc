@@ -44,3 +44,4 @@
 \contentsline {chapter}{\numberline {4}Programmazione dinamica}{90}{chapter.4}%
 \contentsline {section}{\numberline {4.1}Programmazione dinamica e Memoizzazione}{90}{section.4.1}%
 \contentsline {subsection}{\numberline {4.1.1}Definizioni}{90}{subsection.4.1.1}%
+\contentsline {subsection}{\numberline {4.1.2}Knapsack problem}{95}{subsection.4.1.2}%
