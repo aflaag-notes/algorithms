@@ -600,7 +600,7 @@
 \end{remark}
 
 \begin{remark}[Eliminazione di un nodo]
-    Per eliminare un nodo da un grafo indiretto, sarà necessario eliminare tutti i suoi collegamenti, e dunque il costo risulta essere $O(n)$, rimuovendo interamente la sua riga e la sua colonna.
+    Per eliminare un nodo da un grafo indiretto, sarà necessario eliminare tutti i suoi collegamenti, e dunque il costo risulta essere $O(n)$ se si pone il valore \texttt{NULL} a l'intera riga e l'intera colonna del nodo da rimuovere, altrimenti è $O(n^2)$ nel caso in cui la matrice è da ricostruire.
 \end{remark}
 
 \begin{remark}[Controllo di adiacenza]
