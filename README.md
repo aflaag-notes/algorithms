@@ -34,3 +34,6 @@ Questi sono i miei [appunti](https://raw.githubusercontent.com/ph04/algorithms/m
 
 - pagina 14
 
+- pagina 16
+    - rivedi le cose che sono in dubbio e completa tutto
+

@@ -42,6 +42,9 @@
 \contentsline {subsection}{\numberline {3.1.1}Definizioni}{85}{subsection.3.1.1}%
 \contentsline {subsection}{\numberline {3.1.2}Trovare la somma massima dei sotto-array}{87}{subsection.3.1.2}%
 \contentsline {chapter}{\numberline {4}Programmazione dinamica}{90}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Programmazione dinamica e Memoizzazione}{90}{section.4.1}%
+\contentsline {section}{\numberline {4.1}Programmazione dinamica}{90}{section.4.1}%
 \contentsline {subsection}{\numberline {4.1.1}Definizioni}{90}{subsection.4.1.1}%
-\contentsline {subsection}{\numberline {4.1.2}Knapsack problem}{95}{subsection.4.1.2}%
+\contentsline {section}{\numberline {4.2}Memoizzazione}{90}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Trovare il massimo spazio allocabile}{91}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.2.2}Knapsack problem}{95}{subsection.4.2.2}%
+\contentsline {subsection}{\numberline {4.2.3}Trovare il peso massimo di un cammino}{96}{subsection.4.2.3}%

@@ -2566,21 +2566,21 @@
 
 \begin{lemma}[Distanze pesate dei vicini]
     \label{vicini pesati}
-    Sia $G$ un grafo indiretto pesato attraverso $w$ e $v \in V(G)$ un suo vertice; sia $N(v)$ l'insieme dei vertici adiacenti a $v$, e sia $$u := \argmin_{x \in N(v)}{w(v, x)}$$ allora necessariamente $$\mathrm{dist}_w(v, u) = w(v, u)$$
+    Sia $G$ un grafo indiretto pesato attraverso $w$ e $v \in V(G)$ un suo vertice; sia $N(v)$ l'insieme dei vertici adiacenti a $v$, e sia $$u \in \argmin_{x \in N(v)}{w(v, x)}$$ allora necessariamente $$\mathrm{dist}_w(v, u) = w(v, u)$$
 \end{lemma}
 
 \begin{proof}
-    Per ipotesi, $u$ è il vertice adiacente $v$ attraverso un arco $(v, u) \in E(G)$ di peso minimo tra gli adiacenti; allora, considerando qualsiasi altro cammino $c'$ della forma $v \rightarrow u$, non passante per l'arco $(v, u)$, si deve necessariamente avere $$w_p(c') > w_p(\{v, (v, u), u\})$$ poiché il primo arco di $c'$ avrà peso maggiore di $w(v, u)$, per come $u$ è stato scelto in ipotesi.
+    Per ipotesi, $u$ è un vertice adiacente a $v$, attraverso un arco $(v, u) \in E(G)$, avente peso minimo tra gli adiacenti a $v$; allora, considerando qualsiasi altro cammino $c'$ della forma $v \rightarrow u$, non passante per l'arco $(v, u)$, si deve necessariamente avere $$w_p(c') > w_p(\{v, (v, u), u\})$$ poiché il primo arco di $c'$ avrà peso maggiore di $w(v, u)$, per come $u$ è stato scelto in ipotesi.
 \end{proof}
 
 \begin{theorem}[Estensioni pesate di insiemi di vertici]
     \label{dijkstra theorem}
 
-    Sia $G$ un grafo indiretto, e sia $R \subseteq V(G)$ un sottoinsieme dei suoi vertici; sia $v\in R$ un vertice in $R$, e sia $(x, u) \in E(G)$ un arco con $x \in R$ e $u \in V(G) - R$, tale che $$(x, u):= \argmin_{\substack{(a, b) \in E(G) \\ a \in R \\ b \in V(G) - R}}{\left(\mathrm{dist}_w(v, x) + w(a, b)\right)}$$ allora necessariamente $$\mathrm{dist}_w(v, u) = \mathrm{dist}_w(v, x) + w(x, u)$$
+    Sia $G$ un grafo indiretto, e sia $R \subseteq V(G)$ un sottoinsieme dei suoi vertici; sia $v\in R$ un vertice in $R$, e sia $(x, u) \in E(G)$ un arco con $x \in R$ e $u \in V(G) - R$, tale che $$(x, u) \in \argmin_{\substack{(a, b) \in E(G) \\ a \in R \\ b \in V(G) - R}}{\left(\mathrm{dist}_w(v, x) + w(a, b)\right)}$$ allora necessariamente $$\mathrm{dist}_w(v, u) = \mathrm{dist}_w(v, x) + w(x, u)$$
 \end{theorem}
 
 \begin{proof}
-    Per ipotesi, $(x, u)$ è l'arco che minimizza $\mathrm{dist}_w(v, x) + w(x, u)$; si noti che, affinché sia verificata la tesi, è necessario dimostrare che esista un cammino $v \rightarrow u$, passante per $(x, u)$, tale da minimizzare $\mathrm{dist}_w(v, x) + w(x, u)$, e che non esistano cammini $v \rightarrow u$, non passanati per $(x, u)$, di peso inferiore:
+    Per ipotesi, $(x, u)$ è un arco tale da minimizzare $\mathrm{dist}_w(v, x) + w(x, u)$; si noti che, affinché sia verificata la tesi, è necessario dimostrare che esista un cammino $v \rightarrow u$, passante per $(x, u)$, tale da minimizzare $\mathrm{dist}_w(v, x) + w(x, u)$, e che non esistano cammini $v \rightarrow u$, non passanati per $(x, u)$, di peso inferiore:
 
     \begin{itemize}
         \item per la prima parte, è sufficiente considerare il cammino $v \rightarrow x$ che definisce $\mathrm{dist}_w(v, x)$, al quale è possibile aggiungere l'arco $(x, u)$ stesso, per ottenere il cammino che minimizzi $\mathrm{dist}_w(v, x) + w(x, u)$, grazie al \cref{vicini pesati};
@@ -2592,8 +2592,8 @@
 
 \begin{algorithm}[H]
     \caption{
-        Dato un grafo pesato $G$ attraverso $w$, e $u \in V(G)$ un suo vertice, l'algoritmo restituisce le distanze pesate dei vertici di $G$ da $u$; l'algoritmo assume che ogni vertice di $G$ sia raggiungibile da $u$, e che ogni peso definito da $w$ sia strettamente positivo.\\
-        \textbf{Input}: $G$ grafo, e $u$ un suo vertice tale che per ogni $x \in V(G)$ esiste un cammino della forma $u \rightarrow x$; $w$ una funzione che associa pesi agli archi in $E(G)$, tale che ogni peso sia strettamente positivo.\\
+        Dato un grafo pesato $G$ attraverso $w$, e $u \in V(G)$ un suo vertice, l'algoritmo restituisce le distanze pesate dei vertici di $G$ da $u$; l'algoritmo assume che ogni vertice di $G$ sia raggiungibile da $u$, e che ogni peso definito da $w$ sia positivo.\\
+        \textbf{Input}: $G$ grafo, e $u$ un suo vertice tale che per ogni $x \in V(G)$ esiste un cammino della forma $u \rightarrow x$; $w$ una funzione che associa pesi agli archi in $E(G)$, tale che ogni peso sia positivo.\\
         \textbf{Output}: le distanze dei vertici di $G$ da $u$.
     }
 
@@ -2603,7 +2603,7 @@
             \State $\texttt{distancesW[}v\texttt{]} = 0$
             \State $R := \{v\}$
             \While{$\exists (\alpha, \beta) \in E(G) \mid \left \{ \begin{array}{l} \alpha \in R \\ \beta \in V(G) - R \end{array} \right.$}
-                \State $\displaystyle (x, u):= \argmin_{\substack{(a, b) \in E(G) \\ a \in R \\ b \in V(G) - R}}{\left(\texttt{distancesW[}a\texttt{]} + w(a, b)\right)}$
+                \State $\displaystyle (x, u) \in \argmin_{\substack{(a, b) \in E(G) \\ a \in R \\ b \in V(G) - R}}{\left(\texttt{distancesW[}a\texttt{]} + w(a, b)\right)}$
                 \State $\texttt{distancesW[}u\texttt{]} = \texttt{distancesW[}x\texttt{]} + w(x, u)$
                 \State $R = R \cup \{u\}$
             \EndWhile
@@ -2615,7 +2615,7 @@
 \begin{remark}[Correttezza dell'algoritmo]
     L'algoritmo inizia definendo, alla riga 2, l'array \texttt{distancesW}, interamente inizializzato a $+ \infty$, che dovrà essere riempito dall'algoritmo e restituito al termine dell'esecuzione; inoltre, alla riga 3 viene definito un insieme di vertici $R \subseteq V(G)$.
 
-    Alla riga 5 viene istanziato un ciclo \texttt{while}, il quale procede fintanto che è presente un arco uscente da $R$, dunque composto da un vertice in $R$ ed uno in $V(G) - R$; al suo interno, alla riga 6, viene preso l'arco $(x, u)$, uscente da $R$, tale da minimizzare la somma $$\texttt{distancesW[}x\texttt{]} + w(x, u) = \mathrm{dist}_w(v, x) + w(x, u)$$ e si noti che, per il \cref{dijkstra theorem}, si ha che $$\mathrm{dist}_w(v, u) = \mathrm{dist}_w(v, x) + w(x, u)$$ allora, viene aggiornato il valore di $\texttt{distancesW[}u\texttt{]}$ coerentemente, alla riga 7; infine, alla riga 8, viene aggiunto $u$ ad $R$. Infine, si noti inoltre che il \texttt{while} della riga 5 prosegue, fintanto che esistono ancora archi uscenti da $R$, e dunque l'algoritmo termina quando $R$ contiene ogni vertice del grafo.
+    Alla riga 5 viene istanziato un ciclo \texttt{while}, il quale procede fintanto che è presente un arco uscente da $R$, dunque composto da un vertice in $R$ ed uno in $V(G) - R$; al suo interno, alla riga 6, viene preso un arco $(x, u)$, uscente da $R$, tale da minimizzare la somma $$\texttt{distancesW[}x\texttt{]} + w(x, u) = \mathrm{dist}_w(v, x) + w(x, u)$$ e si noti che, per il \cref{dijkstra theorem}, si ha che $$\mathrm{dist}_w(v, u) = \mathrm{dist}_w(v, x) + w(x, u)$$ allora, viene aggiornato il valore di $\texttt{distancesW[}u\texttt{]}$ coerentemente, alla riga 7; infine, alla riga 8, viene aggiunto $u$ ad $R$. Infine, si noti inoltre che il \texttt{while} della riga 5 prosegue, fintanto che esistono ancora archi uscenti da $R$, e dunque l'algoritmo termina quando $R$ contiene ogni vertice del grafo.
 
     Si noti che l'algoritmo, ad ogni iterazione, sceglie dunque l'arco $(x, u)$ tale da minimizzare il peso del cammino $\{v \rightarrow x\} \cup (x, u)$, e al termine di ogni iterazione del ciclo \texttt{while} viene inserito $u$ all'interno di $R$, estendendo l'insieme di vertici visitati; di conseguenza, il comportamento dell'algoritmo è greedy. Si noti che, per trovare un tale arco è necessario controllare ogni $(x, u)$ uscente da $R$.
 \end{remark}
@@ -2628,8 +2628,8 @@
 
 \begin{algorithm}[H]
     \caption{
-        Dato un grafo pesato $G$ attraverso $w$, e $u \in V(G)$ un suo vertice, l'algoritmo restituisce le distanze pesate dei vertici di $G$ da $u$; l'algoritmo assume che ogni vertice di $G$ sia raggiungibile da $u$, e che ogni peso definito da $w$ sia strettamente positivo.\\
-        \textbf{Input}: $G$ grafo, e $u$ un suo vertice tale che per ogni $x \in V(G)$ esiste un cammino della forma $u \rightarrow x$; $w$ una funzione che associa pesi agli archi in $E(G)$, tale che ogni peso sia strettamente positivo.\\
+        Dato un grafo pesato $G$ attraverso $w$, e $u \in V(G)$ un suo vertice, l'algoritmo restituisce le distanze pesate dei vertici di $G$ da $u$; l'algoritmo assume che ogni vertice di $G$ sia raggiungibile da $u$, e che ogni peso definito da $w$ sia positivo.\\
+        \textbf{Input}: $G$ grafo, e $u$ un suo vertice tale che per ogni $x \in V(G)$ esiste un cammino della forma $u \rightarrow x$; $w$ una funzione che associa pesi agli archi in $E(G)$, tale che ogni peso sia positivo.\\
         \textbf{Output}: le distanze dei vertici di $G$ da $u$.
     }
 
@@ -2891,7 +2891,7 @@
 \begin{proof}
     TODO RILEGGI
 
-    Per ipotesi, $w$ è iniettiva, e dunque per definizione $$\forall e_1, e_2 \in E(G) \mid e_1 \neq e_2 \implies w(e_1) \neq w(e_2)$$. Per assurdo, siano $T, T'$ due MST di $G$, il quale è pesato attraverso $w$, e sono tali che $T \neq T'$; sia $(x, y)$ l'arco di peso minore nell'unione delle regioni non in comune tra $T$ e $T'$, a loro interne; in simboli: $$(x, y) := \argmin_{(a, b) \in E((T - T') \cup (T' - T))}{w(a, b)}$$
+    Per ipotesi, $w$ è iniettiva, e dunque per definizione $$\forall e_1, e_2 \in E(G) \mid e_1 \neq e_2 \implies w(e_1) \neq w(e_2)$$. Per assurdo, siano $T, T'$ due MST di $G$, il quale è pesato attraverso $w$, e sono tali che $T \neq T'$; sia $(x, y)$ l'arco di peso minore nell'unione delle regioni non in comune tra $T$ e $T'$, a loro interne; in simboli: $$(x, y) \in \argmin_{(a, b) \in E((T - T') \cup (T' - T))}{w(a, b)}$$
 
     Si supponga $(x, y) \in E(T - T')$, e in particolare $(x, y) \notin E(T')$; poiché $T'$ è un MST, per definizione $V(T') = V(G)$, e dunque $(x, y) \notin E(T')$ implica che esiste un cammino della forma $x \rightarrow y$ all'interno di $T'$. Inoltre, si noti che per definizione $T'$ è un albero, dunque aciclico; allora necessariamente $\{(x, y)\} \cup T'$ è un ciclo; sia quest'ultimo $C$.
 
@@ -2951,7 +2951,7 @@
                 \item sia allora $e_{k +1} \notin \texttt{Sol}^*$, e sia $e_{k+1}:=(x, y) \in E(G)$ per certi $x, y \in V(G)$; si noti che, poichè $\texttt{Sol}^*$ è una soluzione ottimale, e dunque un MST, per il \cref{lemma mst} è aciclica, e dunque $(x, y) \notin \texttt{Sol}^*$ se e solo se esiste un cammino della forma $x \rightarrow y$ in $\texttt{Sol}^*$; allora, necessariamente $\{x \rightarrow y\} \cup \{e_{k +1}\}$ è un ciclo in $\texttt{Sol}^* \cup \{e_{k +1}\}$
                 \item si noti che, essendo $\{x \rightarrow y\} \cup \{e_{k +1}\}$ un ciclo parzialmente contenuto in $\texttt{Sol}_k$, allora deve esistere un arco $e_j := (z, y) \in \{x \rightarrow y\} - \texttt{Sol}_{k +1}$ per un certo $z \in V(G)$ (di fatto, l'ultimo arco del cammino $x \rightarrow y$)
                 \item si noti che, considerando l'insieme di archi $(\texttt{Sol}^* \cup \{e_{k +1}\}) - \{e_j\}$, il vertice $y$ resta coperto
-                \item si noti che l'arco $e_j$ non è in $\texttt{Sol}_{k +1}$, e dunque $k + 1 < j$; allora, per via dell'ordinamento degli archi alla riga $2$, necessariamente $w(e_{k +1}) \le w(e_j)$; dunque, si ha che $$\displaystyle \sum_{e \in (\texttt{Sol}^* \cup \{e_{k +1}\}) - \{e_j\}}{w(e)} \le \sum_{e \in \texttt{Sol}^*}{w(e)}$$ ma poiché $\texttt{Sol}^*$, per definizione, è soluzione ottimale, non è possibile trovare una soluzione con peso inferiore, e dunque necessariamente $$(\texttt{Sol}^* \cup \{e_{k +1}\}) - \{e_j\}$$ ha lo stesso peso di $\texttt{Sol}^*$, che costituisce un MST di $G$; allora, tale insieme di archi è una soluzione ottimale, contenente $\texttt{Sol}_{k +1}$ per definizione.
+                \item si noti che l'arco $e_j$ non è in $\texttt{Sol}_{k +1}$, e dunque $k + 1 < j$; allora, per via dell'ordinamento degli archi alla riga $2$, necessariamente $w(e_{k +1}) \le w(e_j)$; dunque, si ha che $$\displaystyle \sum_{e \in ((\texttt{Sol}^* \cup \{e_{k +1}\}) - \{e_j\})}{w(e)} \le \sum_{e \in \texttt{Sol}^*}{w(e)}$$ ma poiché $\texttt{Sol}^*$, per definizione, è soluzione ottimale, non è possibile trovare una soluzione con peso inferiore, e dunque necessariamente $$(\texttt{Sol}^* \cup \{e_{k +1}\}) - \{e_j\}$$ ha lo stesso peso di $\texttt{Sol}^*$, che costituisce un MST di $G$; allora, tale insieme di archi è una soluzione ottimale, contenente $\texttt{Sol}_{k +1}$ per definizione.
             \end{itemize}
         \item[] \textit{Seconda implicazione.} $\exists \texttt{Sol}^*$ soluzione ottimale $\mid \texttt{Sol}^* \subseteq \texttt{Sol}_m$. Si noti che, per implicazione precedente, esiste una soluzione ottimale $\texttt{Sol}^\#$ tale che $\texttt{Sol}_m \subseteq \texttt{Sol}^\#$; allora, poichè $\texttt{Sol}_m$ è stato dimostrato essere un MST, e $\texttt{Sol}^\#$ è un MST per definizione, si ha che $$\texttt{Sol}_m \subseteq \texttt{Sol}^\# \implies \texttt{Sol}_m = \texttt{Sol}^*$$
     \end{itemize}
@@ -2973,8 +2973,8 @@
 
 \begin{algorithm}[H]
     \caption{
-        Dato un grafo indiretto connesso $G$, pesato attraverso $w$ con pesi strettamente positivi, l'algoritmo ne restituisce un MST.\\
-        \textbf{Input}: $G$ grafo indiretto connesso; $w$ una funzione che associa pesi, strettamente positivi, agli archi in $E(G)$.\\
+        Dato un grafo indiretto connesso $G$, pesato attraverso $w$ con pesi positivi, l'algoritmo ne restituisce un MST.\\
+        \textbf{Input}: $G$ grafo indiretto connesso; $w$ una funzione che associa pesi positivi agli archi in $E(G)$.\\
         \textbf{Output}: un MST di $G$.
     }
 
@@ -2984,7 +2984,7 @@
             \State $\texttt{Sol} := \varnothing$
             \State $R := \{v\}$
             \While{$R \neq V(G)$}
-                \State $\displaystyle (x, y) := \argmin_{a \in R, b \notin R} {w(a, b)}$
+                \State $\displaystyle (x, y) \in \argmin_{a \in R, b \notin R} {w(a, b)}$
                 \State $\texttt{Sol} = \texttt{Sol} \cup \{ (x, y) \}$
                 \State $R = R \cup \{y\}$
             \EndWhile
@@ -3021,7 +3021,7 @@
                 \item sia allora $e_{k +1} \notin \texttt{Sol}^*$; si noti che, per il \cref{lemma mst}, si ha che qualsiasi soluzione ottimale $\texttt{Sol}^*$, che è un MST, deve essere aciclica, e dunque necessariamente $e_{k +1} \notin \texttt{Sol}^* \implies \texttt{Sol}^* \cup \{e_{k +1}\}$ è un ciclo $C$ di $\texttt{Sol}^*$; inoltre, poiché $\texttt{Sol}^*$ è una soluzione ottimale, ed è dunque un MST, il suo insieme di archi deve necessariamente avere il peso minimo possibile, e dunque per trovare una soluzione ottimale tale da includere $\texttt{Sol}_{k + 1}$, è necessario garantire che il peso di quest'ultima sia pari a quello di $\texttt{Sol}^*$
                 \item inoltre, necessariamente $C \not \subset R_k$, poiché l'arco $e_{k + 1}$, per via della riga 6, deve essere stato scelto con un estremo in $R_k$ e un estremo in $\texttt{Sol}^* - R_k$; allora, $C$ è solo parzialmente contenuto in $R_k$, ma poiché $C$ è un ciclo, affinché questo si chiuda deve necessariamente esistere un secondo arco $\hat e \in C$, tale da congiungere $R_k$ e $\texttt{Sol}^* - R_k$
                 \item si noti che deve necessariamente verificarsi che $$w(e_{k +1}) \le w(\hat e) \iff w(e_{k +1}) - w(\hat e) \le 0$$ poiché se $\hat e$ avesse avuto peso inferiore a $e_{k +1}$, l'algoritmo, alla riga 6, lo avrebbe scelto al posto di $e_{k +1}$
-                \item allora, dalla formula precedente segue che $$\displaystyle \sum_{e \in (\texttt{Sol}^* \cup \{e_{k +1}\} )- \{\hat e\} }{w(e)}  = \sum_{e \in \texttt{Sol}^*}{w(e)} + w(e_{k +1}) - w(\hat e) \le \sum_{e \in \texttt{Sol}^*}{w(e)}$$ e dunque, e possibile considerare l'insieme di archi $$(\texttt{Sol}^* \cup \{e_{k+1}\}) - \{\hat e\}$$ per ottenere una soluzione ottimale tale da contenere $\texttt{Sol}_{k + 1}$.
+                \item allora, dalla formula precedente segue che $$\displaystyle \sum_{e \in ((\texttt{Sol}^* \cup \{e_{k +1}\} )- \{\hat e\} )}{w(e)}  = \sum_{e \in \texttt{Sol}^*}{w(e)} + w(e_{k +1}) - w(\hat e) \le \sum_{e \in \texttt{Sol}^*}{w(e)}$$ e dunque, e possibile considerare l'insieme di archi $$(\texttt{Sol}^* \cup \{e_{k+1}\}) - \{\hat e\}$$ per ottenere una soluzione ottimale tale da contenere $\texttt{Sol}_{k + 1}$.
             \end{itemize}
 
         \item[] \textit{Seconda implicazione.} $\exists \texttt{Sol}^*$ soluzione ottimale $\mid \texttt{Sol}^* \subseteq \texttt{Sol}_m$. Si noti che, per implicazione precedente, esiste una soluzione ottimale $\texttt{Sol}^\#$ tale che $\texttt{Sol}_m \subseteq \texttt{Sol}^\#$; allora, poichè $\texttt{Sol}_m$ è stato dimostrato essere un MST, e $\texttt{Sol}^\#$ è un MST per definizione, si ha che $$\texttt{Sol}_m \subseteq \texttt{Sol}^\# \implies \texttt{Sol}_m = \texttt{Sol}^*$$
@@ -3031,7 +3031,7 @@
 \begin{remark}[Correttezza dell'algoritmo]
     L'algoritmo inizia scegliendo un verice $v \in V(G)$ qualsiasi, e lo inserisce in $R$ alla riga 4, dove quest'ultimo rappresenterà, nelle successive iterazioni l'insieme di vertici correntemente visitati dall'algoritmo; viene inoltre definto \texttt{Sol} alla riga 3, che sarà l'insieme di archi costituenti un MST di $G$.
 
-    All'interno del ciclo \texttt{while} della riga 5, fintanto che $R$ non è pari a $V(G)$ (si noti dunque che ogni vertice del grafo viene visitato, garantendo che \texttt{Sol} copra $G$, poiché quest'ultimo è un grafo indiretto connesso), viene calcolato l'arco $(x, y)$ di peso minore, avente un estremo in $R$, e l'altro in $V(G) - R$ (dunque, un arco che colleghi la regione di vertici già visitati, con quelli ancora da visitare); ciò garantisce che il grafo in output sia connesso, e poiché viene scelto con peso minimo, è anche garantito che \texttt{Sol} sia minimale rispetto ai pesi di $w$; allora, l'output dell'algoritmo è proprio un MST.
+    All'interno del ciclo \texttt{while} della riga 5, fintanto che $R$ non è pari a $V(G)$ (si noti dunque che ogni vertice del grafo viene visitato, garantendo che \texttt{Sol} copra $G$, poiché quest'ultimo è un grafo indiretto connesso), viene scelto un arco $(x, y)$, avente peso minore, con un estremo in $R$, e l'altro in $V(G) - R$ (dunque, un arco che colleghi la regione di vertici già visitati, con quelli ancora da visitare); ciò garantisce che il grafo in output sia connesso, e poiché viene scelto con peso minimo, è anche garantito che \texttt{Sol} sia minimale rispetto ai pesi di $w$; allora, l'output dell'algoritmo è proprio un MST.
 
     L'algoritmo termina restituendo, alla riga 10, l'insieme di archi trovato.
 \end{remark}
@@ -3046,8 +3046,8 @@
 
 \begin{algorithm}[H]
     \caption{
-        Dato un grafo indiretto connesso $G$, pesato attraverso $w$ con pesi strettamente positivi, l'algoritmo ne restituisce un MST.\\
-        \textbf{Input}: $G$ grafo indiretto connesso; $w$ una funzione che associa pesi, strettamente positivi, agli archi in $E(G)$.\\
+        Dato un grafo indiretto connesso $G$, pesato attraverso $w$ con pesi positivi, l'algoritmo ne restituisce un MST.\\
+        \textbf{Input}: $G$ grafo indiretto connesso; $w$ una funzione che associa pesi positivi agli archi in $E(G)$.\\
         \textbf{Output}: un MST di $G$.
     }
 
@@ -3203,16 +3203,12 @@
 
 \chapter{Programmazione dinamica}
 
-\section{Programmazione dinamica e Memoizzazione}
+\section{Programmazione dinamica}
 
 \subsection{Definizioni}
 
 \begin{definition}[Programmazione dinamica]
     Con \textit{programmazione dinamica}, si intende un processo di risoluzione dei problemi, in cui questi vengono risolti partendo da soluzioni delgli stessi, ma di dimensioni inferiori; si noti che tali sottoproblemi sono sovrapponibili, e questo rende l'approccio fondamentalmente differente rispetto al \textit{divide et impera}.
-\end{definition}
-
-\begin{definition}[Memoizzazione]
-    La \textit{memoizzazione}, nota anche con il termine inglese \textit{memoization}, è una tecnica di programmazione che consiste nel salvare in memoria i valori restituiti da una funzione, in modo da averli nuovamente a disposizione per un uso successivo, senza aver bisogno di ricalcolarli; tale tecnica viene spesso utilizzata per risolvere problemi di programmazione dinamica.
 \end{definition}
 
 \begin{definition}[Tempo polinomiale]
@@ -3231,10 +3227,18 @@
     Un esempio di problema attualmente NP-completo è rappresentato dal sudoku, in quanto non sono noti algoritmi di risoluzione in tempo polinomiale, rispetto alla dimensione dell'input, per risolverne uno.
 \end{example}
 
+\section{Memoizzazione}
+
+\begin{definition}[Memoizzazione]
+    La \textit{memoizzazione}, nota anche con il termine inglese \textit{memoization}, è una tecnica di programmazione che consiste nel salvare in memoria i valori restituiti da una funzione, in modo da averli nuovamente a disposizione per un uso successivo, senza aver bisogno di ricalcolarli; tale tecnica viene spesso utilizzata per risolvere problemi di programmazione dinamica.
+\end{definition}
+
+\subsection{Trovare il massimo spazio allocabile}
+
 \begin{algorithm}[H]
     \caption{
         Data una lista \texttt{S} di dimensioni di $n$ file, e una memoria di capacità $C$, l'algoritmo restituisce il massimo spazio che può essere allocato dai file in \texttt{S} sulla memoria; inoltre, i file hanno tutti dimensione inferiore a $C$.\\
-        \textbf{Input}: \texttt{S} lista di dimensioni di file; $C$ capacità della memoria, tale che $\forall s_i \in \texttt{S} \quad s_i \le C$\\
+        \textbf{Input}: \texttt{S} lista di dimensioni di file; $C$ capacità della memoria, tale che $\forall s_i \in \texttt{S} \quad s_i \le C$.\\
         \textbf{Output}: quantità di spazio massima che è possibile allocare.
     }
 
@@ -3333,7 +3337,7 @@
 \begin{algorithm}[H]
     \caption{
         Date due liste \texttt{V} e \texttt{P}, rispettivamente rappresentanti il valore e il peso di $n$ oggetti, ed uno zaino di capienza $C$, l'algoritmo restituisce il massimo valore che può essere totalizzato dagli oggetti in input, all'interno dello zaino, senza sforare la sua capienza massima in termini di peso; inoltre, gli oggetti hanno tutti peso inferiore a $C$.\\
-        \textbf{Input}: \texttt{V} lista di valori di oggetti; \texttt{P} lista di pesi di oggetti; $C$ capienza dello zaino, tale che $\forall p_i \in \texttt{P} \quad p_i \le C$\\
+        \textbf{Input}: \texttt{V} lista di valori di oggetti; \texttt{P} lista di pesi di oggetti; $C$ capienza dello zaino, tale che $\forall p_i \in \texttt{P} \quad p_i \le C$.\\
         \textbf{Output}: valore massimo che è possibile totalizzare.
     }
 
@@ -3374,6 +3378,71 @@
 
 \begin{remark}[Costo dell'algoritmo]
     Poiché l'algoritmo è di fatto una sola generalizzazione dell'\cref{fileallocation}, e il codice è pressochè invariato, il costo è esattamente lo stesso, ovvero $O(n \cdot C)$, e infatti il problema resta NP-completo.
+\end{remark}
+
+\subsection{Trovare il peso massimo di un cammino}
+
+\begin{lemma}[TODO]
+    Sia $G$ un grafo diretto aciclico, pesato attraverso $w$, siano $u, v \in V(G)$ due suoi vertici, e sia $z \in V(G) - \{u, v\}$ un suo vertice, tale che $(z, v) \in E(G)$; se esiste un cammino della forma $u \rightarrow z$, avente peso $\alpha$, allora esiste un cammino della forma $u \rightarrow v$, avente peso $\alpha + w(z, v)$.
+\end{lemma}
+
+\begin{proof}
+    TODO questa dimostrazione ha delle falle, da rivedere il secondo caso
+
+    Sia $u \rightarrow z$ un cammino da $u$ a $z$, avente peso $\alpha$; allora, per trovare un cammino della forma $u \rightarrow v$, avente peso $\alpha + w(z, v)$, è sufficiente considerare il cammino $\{u \rightarrow z\} \cup (z, v)$, poiché $(z, v) \in E(G)$ in ipotesi. Si noti che questa dimostrazione non esclude la possibilità che il cammino $u \rightarrow z$ sia passante per $v$; così fosse, poiché in ipotesi si ha che $(z, v) \in E(G)$, allora $(\{u \rightarrow z\} - \{u \rightarrow v\}) \cup (z, v)$ è un ciclo di $G$, e questo non è possibile perché $G$ è stato scelto aciclico in ipotesi $\lightning$.
+\end{proof}
+
+\begin{algorithm}[H]
+    \caption{
+        Dato un grafo $G$ diretto aciclico, pesato attraverso $w$, e due suoi nodi $u, v \in V(G)$, l'algoritmo restituisce il peso massimo che un cammino della forma $u \rightarrow v$ può avere.\\
+        \textbf{Input}: $G$ grafo diretto aciclico; $w$ funzione dei pesi degli archi TODO PESI POSITIVI?; $u, v \in V(G)$ due vertici di $G$.\\
+        \textbf{Output}: peso massimo di un cammino $u \rightarrow v$.
+    }
+
+    \begin{algorithmic}[1]
+        \Function{maxWeightPaths}{$G$, $w$, $u$, $v$}
+            \State $\texttt{T} := \texttt{[[}-1\texttt{]} * n \texttt{]} * n$
+            \For{$x \in V(G)$}
+                \If{$x == u$}
+                    \State $\texttt{T[}0\texttt{][}x\texttt{]} = 0$
+                \Else
+                    \State $\texttt{T[}0\texttt{][}x\texttt{]} = - \infty$
+                \EndIf
+            \EndFor
+            \For{$k \in [1, n - 1]$}
+                \For{$x \in V(G)$}
+                    \State $\texttt{T[}k\texttt{][}x\texttt{]} = \texttt{T[}k -1 \texttt{][}x\texttt{]}$ \Comment{lo stesso della riga precedente}
+
+                    \For{$(z, x) \in E(G)$} \Comment{$z$ è \underline{entrante} in $x$ ($G$ è diretto)}
+                        \State $v := \texttt{T[}k-1\texttt{][}z\texttt{]} + w(z, x)$
+                        \If{$v > \texttt{T[}k\texttt{][}x\texttt{]}$ TODO RICONTROLLA QUESTA RIGA}
+                            \State $\texttt{T[}k\texttt{][}x\texttt{]} = v$
+                        \EndIf
+                    \EndFor
+                \EndFor
+            \EndFor
+            \State \textbf{return} $\texttt{T[}n- 1\texttt{][}v\texttt{]}$
+        \EndFunction
+    \end{algorithmic}
+\end{algorithm}
+
+\begin{remark}[Correttezza dell'algoritmo]
+    TODO FINIRE E RILEGGERE
+    La discussione della correttezza qui presentata fa affidamento a quella dell'\cref{fileallocation}, dunque alcuni dettagli verrano sottointesi poiché l'idea alla base è la medesima.
+
+    L'algoritmo inizia alla riga 2, definendo una matrice $n \times n$, inizializzata con ogni cella a $-1$, e successivamente, attraverso un ciclo \texttt{for} alla riga 3, vengono inizializzate tutte le celle della prima riga della matrice a $- \infty$, eccetto per $\texttt{T[}0\texttt{][}u\texttt{]}=0$.
+
+    In questo algoritmo, lo scopo della matrice è di rappresentare, per ogni generica cella $\texttt{T[}k\texttt{][}x\texttt{]}$, il peso massimo di un cammino della forma $u \rightarrow x$, con al massimo $k$ archi; allora, naturalmente il peso di un cammino $u \rightarrow u$ è sempre 0, mentre per quanto riguarda il resto della prima riga, ad ogni sua cella viene assegnato il valore $- \infty$, poiché l'algoritmo deve trovare il cammino di peso massimo, e dunque tale valore ricopre il ruolo di invariante nei controlli, e poiché non esiste altro cammino, che inizi da $u$, avente 0 archi, oltre a $u \rightarrow u$ già discusso. In simboli $$\texttt{T[}0\texttt{][}x\texttt{]} = \left \{ \begin{array}{ll} - \infty & x \neq u \\ 0 & x = u \end{array} \right.$$
+
+    Proseguendo gradualmente, se il numero di archi massimo aumenta a $k =1$, allora si ha che $$\texttt{T[}1\texttt{][}x\texttt{]} = \left \{ \begin{array}{ll} \texttt{T[}0\texttt{][}x\texttt{]} & (x, u) \notin E(G) \\ w(x, u) & (x, u) \in E(G) \end{array} \right .$$ poiché naturlamente, avendo a disposizione al massimo 1 arco, se l'arco $(x, u)$ stesso è presente in $E(G)$ (si noti che il grafo è diretto), allora il valore della cella sarà assegnato al peso di quest'ultimo $w(x, u)$, altrimenti viene lasciato il peso che aveva nella cella sovrastante (si noti che non basta inserre $- \infty$, poiché andrebbe gestito comunque il caso in cui $x = w$, e dunque basta prendere il valore della cella sovrastante).
+
+    TODO DA FINIRE (la formula che ho scritto è shiftata di 1 su $k$ ma non so serve davvero)
+\end{remark}
+
+\begin{remark}[Costo dell'algoritmo]
+    TODO DA FINIRE $O(n(n + m))$, dire che il problema è NP-completo (credo?)
+
+    L'algoritmo costruisce una matrice $n \times n$, e la sua costruzione ha dunque costo $O(n^2)$.
 \end{remark}
 
 \end{document}
