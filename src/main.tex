@@ -171,7 +171,7 @@
 \end{example}
 
 \begin{definition}[Grado]
-    Il \textit{grado} di un vertice $v \in V(G)$ è il numero di archi incidenti su $v$, indicato con $\deg(v)$.
+    Il \textit{grado} di un vertice $v \in V(G)$ è il numero di archi incidenti su $v$, indicato con $\deg(v)$; all'interno di questi appunti, nel caso di grafi diretti, con $\deg(v)$ verrà inteso il numero di archi uscenti da $v$, mentre con $\deg^{in}(v)$ il numero di archi entranti in $v$.
 \end{definition}
 
 \begin{lemma}[Somma dei gradi]
@@ -837,7 +837,7 @@
 
 \begin{remark}[Costo dell'algoritmo]
     \label{costo findReachableNodes2}
-    Poiché i nodi visitati vengono eliminati, il costo del ciclo \texttt{while} dipende da operazioni eseguite in tempo costante $O(1)$, e da quanti nodi vengono controllati per ogni iterazione del ciclo, ma poiché non si possono ricontrollare più volte gli stessi nodi, allora il costo del ciclo dipende solamente dalla dimensione delle liste di adiacenza, e dunque si ha $\displaystyle O\left( \sum_{v \in V(G)}{O(1) + \deg(v)}\right)=O\left(\sum_{v \in V(G)}{O(1)}\right) + O\left(\sum_{v \in V(G)}{\deg(v)}\right) = O(n) + O(m) = O(n+ m)$, per il \cref{Somma dei gradi}.
+    Poiché i nodi visitati vengono eliminati, il costo del ciclo \texttt{while} dipende da operazioni eseguite in tempo costante $O(1)$, e da quanti nodi vengono controllati per ogni iterazione del ciclo, ma poiché non si possono ricontrollare più volte gli stessi nodi, allora il costo del ciclo dipende solamente dalla dimensione delle liste di adiacenza, e dunque si ha $\displaystyle O\left( \sum_{v \in V(G)}{1 + \deg(v)}\right)=O\left(\sum_{v \in V(G)}{1}\right) + O\left(\sum_{v \in V(G)}{\deg(v)}\right) = O(n) + O(m) = O(n+ m)$, per il \cref{Somma dei gradi}.
 \end{remark}
 
 \begin{remark}[Grafo diretto]
@@ -3216,7 +3216,7 @@
 \end{definition}
 
 \begin{definition}[Insieme P]
-    L'\textit{insieme P} è costituito dalla categoria di problemi per i quali esiste un algoritmo deterministico in tempo polinomiale.
+    L'\textit{insieme P} è costituito dalla categoria di problemi per i quali esiste un algoritmo deterministico in tempo polinomiale, rispetto alla dimensione del suo input.
 \end{definition}
 
 \begin{definition}[NP-completezza]
@@ -3383,6 +3383,7 @@
 \subsection{Trovare il peso massimo di un cammino}
 
 \begin{lemma}[Pesi di cammini]
+    \label{lemma grafi max}
     Sia $G$ un grafo diretto aciclico, pesato attraverso $w$, siano $u, v \in V(G)$ due suoi vertici, e sia $z \in V(G) - \{u, v\}$ un suo vertice, tale che $(z, v) \in E(G)$; se esiste un cammino della forma $u \rightarrow z$, avente peso $\alpha$, allora esiste un cammino della forma $u \rightarrow v$, avente peso $\alpha + w(z, v)$.
 \end{lemma}
 
@@ -3394,8 +3395,8 @@
 
 \begin{algorithm}[H]
     \caption{
-        Dato un grafo $G$ diretto aciclico, pesato attraverso $w$, e due suoi nodi $u, v \in V(G)$, l'algoritmo restituisce il peso massimo che un cammino della forma $u \rightarrow v$ può avere.\\
-        \textbf{Input}: $G$ grafo diretto aciclico; $w$ funzione dei pesi degli archi TODO PESI POSITIVI?; $u, v \in V(G)$ due vertici di $G$.\\
+        Dato un grafo $G$ diretto aciclico, pesato attraverso $w$ attraverso pesi sia positivi che negativi, e due suoi nodi $u, v \in V(G)$, l'algoritmo restituisce il peso massimo che un cammino della forma $u \rightarrow v$ può avere.\\
+        \textbf{Input}: $G$ grafo diretto aciclico; $w$ funzione dei pesi degli archi; $u, v \in V(G)$ due vertici di $G$.\\
         \textbf{Output}: peso massimo di un cammino $u \rightarrow v$.
     }
 
@@ -3427,22 +3428,43 @@
 \end{algorithm}
 
 \begin{remark}[Correttezza dell'algoritmo]
-    TODO FINIRE E RILEGGERE
     La discussione della correttezza qui presentata fa affidamento a quella dell'\cref{fileallocation}, dunque alcuni dettagli verrano sottointesi poiché l'idea alla base è la medesima.
 
     L'algoritmo inizia alla riga 2, definendo una matrice $n \times n$, inizializzata con ogni cella a $-1$, e successivamente, attraverso un ciclo \texttt{for} alla riga 3, vengono inizializzate tutte le celle della prima riga della matrice a $- \infty$, eccetto per $\texttt{T[}0\texttt{][}u\texttt{]}=0$.
 
-    In questo algoritmo, lo scopo della matrice è di rappresentare, per ogni generica cella $\texttt{T[}k\texttt{][}x\texttt{]}$, il peso massimo di un cammino della forma $u \rightarrow x$, con al massimo $k$ archi; allora, naturalmente il peso di un cammino $u \rightarrow u$ è sempre 0, mentre per quanto riguarda il resto della prima riga, ad ogni sua cella viene assegnato il valore $- \infty$, poiché l'algoritmo deve trovare il cammino di peso massimo, e dunque tale valore ricopre il ruolo di invariante nei controlli, e poiché non esiste altro cammino, che inizi da $u$, avente 0 archi, oltre a $u \rightarrow u$ già discusso. In simboli $$\texttt{T[}0\texttt{][}x\texttt{]} = \left \{ \begin{array}{ll} - \infty & x \neq u \\ 0 & x = u \end{array} \right.$$
+    In questo algoritmo, lo scopo della matrice è di rappresentare, per ogni generica cella $\texttt{T[}k\texttt{][}x\texttt{]}$, il peso massimo di un cammino della forma $u \rightarrow x$, avente al massimo $k$ archi; allora, naturalmente il peso di un cammino $u \rightarrow u$ è sempre 0, mentre per quanto riguarda il resto della prima riga, ad ogni sua cella viene assegnato il valore $- \infty$, poiché l'algoritmo deve trovare il peso massimo di cammini, e dunque tale valore ricopre il ruolo di invariante nei controlli, oltre al fatto che non esiste altro cammino, che inizi da $u$, avente 0 archi, oltre a $u \rightarrow u$ già discusso; inoltre, si noti che il grafo $G$ in input non è necessariamente fortemente connesso, e poiché è diretto, è possibile non vi siano cammini tra due dati nodi di $G$, dunque in tal caso l'algoritmo propagherà il valore $- \infty$, ad indicare che il valore iniziale non è stato modificato, in quanto non vi era valore con cui sostituire quello di partenza, perché non esiste collegamento tra i due vertici. In simboli $$\texttt{T[}0\texttt{][}x\texttt{]} = \left \{ \begin{array}{ll} - \infty & x \neq u \\ 0 & x = u \end{array} \right.$$
 
-    Proseguendo gradualmente, se il numero di archi massimo aumenta a $k =1$, allora si ha che $$\texttt{T[}1\texttt{][}x\texttt{]} = \left \{ \begin{array}{ll} \texttt{T[}0\texttt{][}x\texttt{]} & (x, u) \notin E(G) \\ w(x, u) & (x, u) \in E(G) \end{array} \right .$$ poiché naturlamente, avendo a disposizione al massimo 1 arco, se l'arco $(x, u)$ stesso è presente in $E(G)$ (si noti che il grafo è diretto), allora il valore della cella sarà assegnato al peso di quest'ultimo $w(x, u)$, altrimenti viene lasciato il peso che aveva nella cella sovrastante (si noti che non basta inserre $- \infty$, poiché andrebbe gestito comunque il caso in cui $x = w$, e dunque basta prendere il valore della cella sovrastante).
+    Proseguendo gradualmente, se il numero di archi massimo aumenta a $k =1$, allora si ha che $$\texttt{T[}1\texttt{][}x\texttt{]} = \left \{ \begin{array}{ll} \texttt{T[}0\texttt{][}x\texttt{]} & (x, u) \notin E(G) \\ w(x, u) & (x, u) \in E(G) \end{array} \right .$$ poiché naturlamente, avendo a disposizione al massimo 1 arco, se l'arco $(x, u)$ stesso è presente in $E(G)$ (si noti che il grafo è diretto), allora il valore della cella sarà assegnato al peso di quest'ultimo, ovvero $w(x, u)$, altrimenti viene lasciato il peso che aveva nella cella sovrastante (si noti che non basta inserre $- \infty$, poiché andrebbe gestito comunque il caso in cui $x = w$, e dunque basta prendere il valore della cella sovrastante per evitare ulteriori controlli).
 
-    TODO DA FINIRE (la formula che ho scritto è shiftata di 1 su $k$ ma non so serve davvero)
+    Spostando l'attenzione al caso generale, la formula che descrive una generica cella della matrice dell'algoritmo è la seguente:
+    \begin{equation*}
+        \resizebox{.99\hsize}{!}{
+            $\forall k \in [1, n-1] \quad \texttt{T[}k\texttt{][}x\texttt{]} = \max\{ \texttt{T[}k -1\texttt{][}x\texttt{]},\{\texttt{T[}k-1\texttt{][}z\texttt{]} + w(z, x) \mid \exists z \in V(G) : (z, x) \in E(G) \}\}$
+        }
+    \end{equation*}
+
+    Partendo da $k$, si può notare che tale variabile è definita nell'intervallo $[1, n - 1]$, esattamente come procede l'algoritmo per il ciclo \texttt{for} della riga 10; infatti il numero di righe della matrice creata è $n$ (riga 2), e la prima è già stata riempita come discusso precedentemente, ma il motivo per cui sono sufficienti esattamente $n$ righe, è che $k$ rappresenta il numero massimo di archi di un cammino da $u$ ad ognuno dei nodi della $k$-esima riga, e poiché sono cammini, e dunque per definizione in essi non è possibile ripercorrere vertici o archi più di una volta, allora segue che il massimo numero di archi che ognuno dei cammini può percorrere è $m$, ma poiché $G$ è stato scelto aciclico in ipotesi, allora $m = n - 1$, e dunque è sufficiente avere $n$ righe, nell'intervallo $[0, n - 1]$.
+
+    Inoltre, la formula definisce che la cella generica, che rappresenta il peso massimo che un cammino $u \rightarrow x$ avente al massimo $k$ archi può avere, è pari al valore massimo tra i seguenti:
+
+    \begin{itemize}
+        \item $\texttt{T[}k - 1\texttt{][}x\texttt{]}$, e se questo dovesse essere stato il valore preso dal $\max$, allora qualsiasi altro cammino $u \rightarrow x$ presente in $G$, con al massimo $k$ archi, doveva avere necessariamente peso inferiore al peso massimo tra i cammini, correntemente trovati, aventi al massimo $k - 1$ archi (si noti che questa eventualità si può verificare in quanto $G$ contiene archi anche negativi, altrimenti se i pesi degli archi fossero stati tutti positivi, aggiungere un arco avrebbe certamente restituito un valore maggiore, o uguale, al peso del cammino);
+        \item $\{\texttt{T[}k-1\texttt{][}z\texttt{]} + w(z, x) \mid \exists z \in V(G) : (z, x) \in E(G) \}$, che rappresenta l'insieme dei pesi dei cammini $u \rightarrow z$, aventi al massimo $k - 1$ archi (dove $z$ è un nodo adiacente entrante in $x$), ad ognuno dei quali è stato aggiunto il peso dell'arco $(z, x)$; si noti che è garantito che $$\texttt{T[}k - 1\texttt{][}z\texttt{]} = \alpha \implies w_p(\{u \rightarrow x\}) = \alpha + w(z, x)$$ grazie al \cref{lemma grafi max} (il quale è applicabile, poiché $G$ in input è aciclico).
+    \end{itemize}
+
+    Allora, l'algoritmo effettua 2 cicli \texttt{for} annidati, nelle righe 10 e 11, per poter scorrere l'intera matrice, e come per l'\cref{fileallocation}, alla riga 12 viene posto come valore di default il primo argomento del $\max$ della formula discussa in precedenza; successivamente, viene effettuato un ulteriore ciclo \texttt{for}, alla riga 13, il quale per ogni arco $(z, x)$, con $z$ vertice adiacente entrante in $x$, aggiorna il valore della cella corrente con quello definito alla riga 14, se si verifica la condizione della riga 15, di fatto implementando i controlli per il secondo argomento del $\max$ della formula, assegnando a $\texttt{T[}k\texttt{][}x\texttt{]}$ sempre il valore maggiore corrente.
+
+    Infine, l'algoritmo termina alla riga 21, restituendo $\texttt{T[}n - 1\texttt{][}v\texttt{]}$, poiché l'indicizzazione parte da $0$ e l'ultima riga della matrice è l'$(n - 1)$-esima, ritornando dunque il peso massimo di un cammino $u \rightarrow v$, avente al massimo $n - 1$ archi.
 \end{remark}
 
 \begin{remark}[Costo dell'algoritmo]
-    TODO DA FINIRE $O(n(n + m))$, dire che il problema è NP-completo (credo?)
+    L'algoritmo costruisce una matrice $n \times n$ alla riga 2, e la sua costruzione ha dunque costo $O(n^2)$; inoltre, il ciclo \texttt{for} della riga 3 ha costo $O(n)$.
 
-    L'algoritmo costruisce una matrice $n \times n$, e la sua costruzione ha dunque costo $O(n^2)$.
+    Il ciclo della riga 11 scorre ogni nodo del grafo, ma il \texttt{for} in esso annidato, della riga 13, cicla solamente sui nodi adiacenti entranti nel vertice correntemente visitato, dunque il costo di questi due \texttt{for} annidati è $\displaystyle O\left(\sum_{x \in V(G)}{\deg^{in}(x) + 1} \right) = O(n + m)$; allora, poiché questi due cicli si trovano in un ulteriore \texttt{for} (alla riga 10), che percorre ogni intero $k \in [1, n- 1]$, ed ha dunque costo $O(n - 1) = O(n)$, segue che il costo di questa sezione dell'algoritmo è $O(n \cdot (n + m))$
+
+    Allora, il costo dell'algoritmo è pari a $O(n ^2) + O(n) + O(n \cdot(n + m)) = O(n \cdot (n + m))$.
+
+    Il grafo $G$ in input, se rappresentato attraverso liste di adiacenza (salvando ad esempio i vertici adiacenti entranti per ogni nodo, facilitando le computazioni del ciclo \texttt{for} della riga 13), ha costo spaziale pari a $O(n + m)$, mentre il costo di $w$ è $O(m) = O(n - 1) = O(n)$, poiché è sufficiente ad esempio un array, che mappi ogni arco ad un peso. Allora, la dimensione dell'input è pari a $O(n + m) + O(n) = O(n + m)$, ma poiché il costo dell'algoritmo è $O(n \cdot (n + m))$, questo risulta dunque essere in P, poiché ha costo polinomiale rispetto alla dimensione del suo input.
 \end{remark}
 
 \end{document}
