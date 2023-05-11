@@ -2617,7 +2617,7 @@
 
     Alla riga 5 viene istanziato un ciclo \texttt{while}, il quale procede fintanto che è presente un arco uscente da $R$, dunque composto da un vertice in $R$ ed uno in $V(G) - R$; al suo interno, alla riga 6, viene preso un arco $(x, u)$, uscente da $R$, tale da minimizzare la somma $$\texttt{distancesW[}x\texttt{]} + w(x, u) = \mathrm{dist}_w(v, x) + w(x, u)$$ e si noti che, per il \cref{dijkstra theorem}, si ha che $$\mathrm{dist}_w(v, u) = \mathrm{dist}_w(v, x) + w(x, u)$$ allora, viene aggiornato il valore di $\texttt{distancesW[}u\texttt{]}$ coerentemente, alla riga 7; infine, alla riga 8, viene aggiunto $u$ ad $R$. Infine, si noti inoltre che il \texttt{while} della riga 5 prosegue, fintanto che esistono ancora archi uscenti da $R$, e dunque l'algoritmo termina quando $R$ contiene ogni vertice del grafo.
 
-    Si noti che l'algoritmo, ad ogni iterazione, sceglie dunque l'arco $(x, u)$ tale da minimizzare il peso del cammino $\{v \rightarrow x\} \cup (x, u)$, e al termine di ogni iterazione del ciclo \texttt{while} viene inserito $u$ all'interno di $R$, estendendo l'insieme di vertici visitati; di conseguenza, il comportamento dell'algoritmo è greedy. Si noti che, per trovare un tale arco è necessario controllare ogni $(x, u)$ uscente da $R$.
+    Si noti che l'algoritmo, ad ogni iterazione, sceglie dunque un arco $(x, u)$ tale da minimizzare il peso del cammino $\{v \rightarrow x\} \cup (x, u)$, e al termine di ogni iterazione del ciclo \texttt{while} viene inserito $u$ all'interno di $R$, estendendo l'insieme di vertici visitati; di conseguenza, il comportamento dell'algoritmo è greedy. Si noti che, per trovare un tale arco è necessario controllare ogni $(x, u)$ uscente da $R$.
 \end{remark}
 
 \begin{remark}[Costo dell'algoritmo]
@@ -3216,7 +3216,7 @@
 \end{definition}
 
 \begin{definition}[Insieme P]
-    L'\textit{insieme P} è costituito dalla categoria di problemi per i quali esiste un algoritmo deterministico in tempo polinomiale, rispetto alla dimensione del suo input.
+    L'\textit{insieme P} è costituito dalla categoria di problemi per i quali esiste un algoritmo deterministico in tempo polinomiale, rispetto alla dimensione del proprio input.
 \end{definition}
 
 \begin{definition}[NP-completezza]
@@ -3228,6 +3228,8 @@
 \end{example}
 
 \section{Memoizzazione}
+
+\subsection{Definizioni}
 
 \begin{definition}[Memoizzazione]
     La \textit{memoizzazione}, nota anche con il termine inglese \textit{memoization}, è una tecnica di programmazione che consiste nel salvare in memoria i valori restituiti da una funzione, in modo da averli nuovamente a disposizione per un uso successivo, senza aver bisogno di ricalcolarli; tale tecnica viene spesso utilizzata per risolvere problemi di programmazione dinamica.
