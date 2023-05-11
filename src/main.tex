@@ -3382,14 +3382,14 @@
 
 \subsection{Trovare il peso massimo di un cammino}
 
-\begin{lemma}[TODO]
+\begin{lemma}[Pesi di cammini]
     Sia $G$ un grafo diretto aciclico, pesato attraverso $w$, siano $u, v \in V(G)$ due suoi vertici, e sia $z \in V(G) - \{u, v\}$ un suo vertice, tale che $(z, v) \in E(G)$; se esiste un cammino della forma $u \rightarrow z$, avente peso $\alpha$, allora esiste un cammino della forma $u \rightarrow v$, avente peso $\alpha + w(z, v)$.
 \end{lemma}
 
 \begin{proof}
-    TODO questa dimostrazione ha delle falle, da rivedere il secondo caso
+    Sia $u \rightarrow z$ un cammino da $u$ a $z$, avente peso $\alpha$; allora, per trovare un cammino della forma $u \rightarrow v$, avente peso $\alpha + w(z, v)$, è sufficiente considerare il cammino $\{u \rightarrow z\} \cup (z, v)$, poiché $(z, v) \in E(G)$ in ipotesi.
 
-    Sia $u \rightarrow z$ un cammino da $u$ a $z$, avente peso $\alpha$; allora, per trovare un cammino della forma $u \rightarrow v$, avente peso $\alpha + w(z, v)$, è sufficiente considerare il cammino $\{u \rightarrow z\} \cup (z, v)$, poiché $(z, v) \in E(G)$ in ipotesi. Si noti che questa dimostrazione non esclude la possibilità che il cammino $u \rightarrow z$ sia passante per $v$; così fosse, poiché in ipotesi si ha che $(z, v) \in E(G)$, allora $(\{u \rightarrow z\} - \{u \rightarrow v\}) \cup (z, v)$ è un ciclo di $G$, e questo non è possibile perché $G$ è stato scelto aciclico in ipotesi $\lightning$.
+    Si noti che questa dimostrazione non esclude la possibilità che il cammino $u \rightarrow z$ sia passante per $v$; ma, se così fosse, poiché in ipotesi si ha che $(z, v) \in E(G)$, allora $(\{u \rightarrow z\} - \{u \rightarrow v\}) \cup (z, v)$ è un ciclo di $G$, e questo non è possibile perché $G$ è stato scelto aciclico in ipotesi $\lightning$. Inoltre, se si rimuovesse l'ipotesi per cui $G$ deve essere aciclico, allora la tesi non sarebbe necessariamente vera, poiché nel caso appena descritto, il percorso $u \rightarrow z$ passante per $v$ in realtà non è un cammino ma una passeggiata, e sarebbe dunque falsa l'implicazione.
 \end{proof}
 
 \begin{algorithm}[H]
@@ -3415,7 +3415,7 @@
 
                     \For{$(z, x) \in E(G)$} \Comment{$z$ è \underline{entrante} in $x$ ($G$ è diretto)}
                         \State $v := \texttt{T[}k-1\texttt{][}z\texttt{]} + w(z, x)$
-                        \If{$v > \texttt{T[}k\texttt{][}x\texttt{]}$ TODO RICONTROLLA QUESTA RIGA}
+                        \If{$v > \texttt{T[}k\texttt{][}x\texttt{]}$}
                             \State $\texttt{T[}k\texttt{][}x\texttt{]} = v$
                         \EndIf
                     \EndFor
