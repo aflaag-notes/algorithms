@@ -40,3 +40,5 @@ Questi sono i miei [appunti](https://raw.githubusercontent.com/ph04/algorithms/m
 - pagina 17
 
 - pagina 18
+
+- FINISCI L'ALGORITMO DI QUANDO TE NE SEI ANDATO PRIMA
