@@ -1595,7 +1595,7 @@
 
     inoltre, sia $$T_6 = (\{6, 5, 1, 2, 3, 4\}, \{(6, 5), (5, 1), (1, 2), (1, 3), (1, 4)\})$$ l'albero di visita in DFS del grafo, partendo dal vertice $6$; allora, si avranno $$\texttt{t} = \texttt{[}3, 4, 5, 6, 2, 1\texttt{]}$$ $$\texttt{parents} = \texttt{[}5, 1, 1, 1, 6, 6\texttt{]}$$ $$\texttt{back} = \texttt{[}1, 4, 5, 1, 1, 1\texttt{]}$$
 
-    allora, al termine del ciclo \texttt{for} della riga $27$, si avrà $$\texttt{bridges} = \verb|{| (\texttt{parents[}2\texttt{]}, 2), (\texttt{parents[}3\texttt{]}, 3)\verb|}|$$ ovvero $$\texttt{bridges} = \verb|{| (1, 2), (1, 3)\verb|}|$$ poiché $\texttt{back[}2\texttt{]} = \texttt{t[}2\texttt{]} = 4$ e $\texttt{back[}3\texttt{]} = \texttt{t[}3\texttt{]} = 5$; infine, si noti che $\texttt{back[}6\texttt{]} = \texttt{back[}6\texttt{]} = 1$, ma $6 \notin \texttt{bridges}$ poiché $\texttt{parents[}6\texttt{]} = 6$, e infatti $T_6$ è proprio radicato in $6$.
+    allora, al termine del ciclo \texttt{for} della riga $27$, si avrà $$\texttt{bridges} = \verb|{| (\texttt{parents[}2\texttt{]}, 2), (\texttt{parents[}3\texttt{]}, 3)\verb|}|$$ ovvero $$\texttt{bridges} = \verb|{| (1, 2), (1, 3)\verb|}|$$ poiché $\texttt{back[}2\texttt{]} = \texttt{t[}2\texttt{]} = 4$ e $\texttt{back[}3\texttt{]} = \texttt{t[}3\texttt{]} = 5$; infine, si noti che $\texttt{back[}6\texttt{]} = \texttt{back[}6\texttt{]} = 1$, ma $6 \notin \texttt{bridges}$ poiché $\texttt{parents[}6\texttt{]} = 6$, ed infatti $T_6$ è proprio radicato in $6$.
 \end{remark}
 
 \begin{remark}[Costo dell'algoritmo]
@@ -2356,7 +2356,7 @@
         \caption{Un grafo indiretto.}
     \end{figure}
 
-    allora, si noti che $$E(G - T) = \{(4, 7), (6, 7)\}$$ e infatti si ha che $$\mathrm{dist}(3, 7) = 2 = 1 + 1 = \mathrm{dist}(3, 4) + 1$$ $$\mathrm{dist}(3, 6) = 2 = \mathrm{dist}(3, 7)$$
+    allora, si noti che $$E(G - T) = \{(4, 7), (6, 7)\}$$ ed infatti si ha che $$\mathrm{dist}(3, 7) = 2 = 1 + 1 = \mathrm{dist}(3, 4) + 1$$ $$\mathrm{dist}(3, 6) = 2 = \mathrm{dist}(3, 7)$$
 \end{example}
 
 \subsection{Trovare il numero di cammini minimi}
@@ -3198,7 +3198,7 @@
 
     Allora, l'equazione di ricorrenza che rappresenta il costo dell'algoritmo è la seguente $$\left \{ \begin{array}{l} T(n) = T\left(\dfrac{n}{2}\right) + \Theta(n) \\ T(1) = \Theta(1) \end{array} \right .$$
 
-    Si noti che questa è un'equazione che è possibile risolvere utilizzando il \cref{master theorem}, in quanto $$\left . \begin{array}{l} \alpha = 2 \\ \beta = 2 \end{array} \right \} \implies n ^ {\log_{2}{2}} = n^1 = n$$ e poiché $f(n) = \Theta(n)$, allora ci si trova nel secondo caso del Master theorem, e infatti ponendo $k = 0$ si ha $$f(n) = \Theta(n) = \Theta(n \log^0 n)$$ e dunque si ha che $$T(n) = \Theta(n ^{\log_{2}{2}} \log ^ {0 + 1}n) = \Theta(n \log n)$$
+    Si noti che questa è un'equazione che è possibile risolvere utilizzando il \cref{master theorem}, in quanto $$\left . \begin{array}{l} \alpha = 2 \\ \beta = 2 \end{array} \right \} \implies n ^ {\log_{2}{2}} = n^1 = n$$ e poiché $f(n) = \Theta(n)$, allora ci si trova nel secondo caso del Master theorem, ed infatti ponendo $k = 0$ si ha $$f(n) = \Theta(n) = \Theta(n \log^0 n)$$ e dunque si ha che $$T(n) = \Theta(n ^{\log_{2}{2}} \log ^ {0 + 1}n) = \Theta(n \log n)$$
 \end{remark}
 
 \chapter{Programmazione dinamica}
@@ -3379,7 +3379,7 @@
 \end{remark}
 
 \begin{remark}[Costo dell'algoritmo]
-    Poiché l'algoritmo è di fatto una sola generalizzazione dell'\cref{fileallocation}, e il codice è pressochè invariato, il costo è esattamente lo stesso, ovvero $O(n \cdot C)$, e infatti il problema resta NP-completo.
+    Poiché l'algoritmo è di fatto una sola generalizzazione dell'\cref{fileallocation}, e il codice è pressochè invariato, il costo è esattamente lo stesso, ovvero $O(n \cdot C)$, ed infatti il problema resta NP-completo.
 \end{remark}
 
 \subsection{Trovare il peso massimo di un cammino}
@@ -3397,13 +3397,14 @@
 
 \begin{algorithm}[H]
     \caption{
-        Dato un grafo $G$ diretto aciclico, pesato attraverso $w$ attraverso pesi sia positivi che negativi, e due suoi nodi $u, v \in V(G)$, l'algoritmo restituisce il peso massimo che un cammino della forma $u \rightarrow v$ può avere.\\
-        \textbf{Input}: $G$ grafo diretto aciclico; $w$ funzione dei pesi degli archi; $u, v \in V(G)$ due vertici di $G$.\\
-        \textbf{Output}: peso massimo di un cammino $u \rightarrow v$.
+        Dato un grafo $G$ diretto aciclico, pesato attraverso $w$ con pesi sia positivi che negativi, e due suoi nodi $u, v \in V(G)$, l'algoritmo restituisce il peso massimo che un cammino della forma $u \rightarrow y$ può avere.\\
+        \textbf{Input}: $G$ grafo diretto aciclico; $w$ funzione dei pesi degli archi; $u, y \in V(G)$ due vertici di $G$.\\
+        \textbf{Output}: peso massimo di un cammino $u \rightarrow y$.
     }
 
     \begin{algorithmic}[1]
-        \Function{maxWeightPaths}{$G$, $w$, $u$, $v$}
+        \label{maxWeightPaths}
+        \Function{maxWeightPaths}{$G$, $w$, $u$, $y$}
             \State $\texttt{T} := \texttt{[[}-1\texttt{]} * n \texttt{]} * n$
             \For{$x \in V(G)$}
                 \If{$x == u$}
@@ -3457,6 +3458,8 @@
     Allora, l'algoritmo effettua 2 cicli \texttt{for} annidati, nelle righe 10 e 11, per poter scorrere l'intera matrice, e come per l'\cref{fileallocation}, alla riga 12 viene posto come valore di default il primo argomento del $\max$ della formula discussa in precedenza; successivamente, viene effettuato un ulteriore ciclo \texttt{for}, alla riga 13, il quale per ogni arco $(z, x)$, con $z$ vertice adiacente entrante in $x$, aggiorna il valore della cella corrente con quello definito alla riga 14, se si verifica la condizione della riga 15, di fatto implementando i controlli per il secondo argomento del $\max$ della formula, assegnando a $\texttt{T[}k\texttt{][}x\texttt{]}$ sempre il valore maggiore corrente.
 
     Infine, l'algoritmo termina alla riga 21, restituendo $\texttt{T[}n - 1\texttt{][}v\texttt{]}$, poiché l'indicizzazione parte da $0$ e l'ultima riga della matrice è l'$(n - 1)$-esima, ritornando dunque il peso massimo di un cammino $u \rightarrow v$, avente al massimo $n - 1$ archi.
+
+    Per concludere, si noti che invertendo la condizione della riga 15, si ottiene il noto algoritmo di Bellman-Ford, grazie al quale è possibile trovare i pesi minimi che cammini tra due nodi di $G$ possono avere (di fatto, la loro distanza pesata).
 \end{remark}
 
 \begin{remark}[Costo dell'algoritmo]
@@ -3468,5 +3471,59 @@
 
     Il grafo $G$ in input, se rappresentato attraverso liste di adiacenza (salvando ad esempio i vertici adiacenti entranti per ogni nodo, facilitando le computazioni del ciclo \texttt{for} della riga 13), ha costo spaziale pari a $O(n + m)$, mentre il costo di $w$ è $O(m) = O(n - 1) = O(n)$, poiché è sufficiente ad esempio un array, che mappi ogni arco ad un peso. Allora, la dimensione dell'input è pari a $O(n + m) + O(n) = O(n + m)$, ma poiché il costo dell'algoritmo è $O(n \cdot (n + m))$, questo risulta dunque essere in P, poiché ha costo polinomiale rispetto alla dimensione del suo input.
 \end{remark}
+
+\begin{algorithm}[H]
+    \caption{
+        Dato un grafo $G$ diretto aciclico, pesato attraverso $w$ con pesi sia positivi che negativi, due suoi nodi $u, v \in V(G)$, e la matrice costruita attraverso la funzione \texttt{maxWeightPaths} dell'\cref{maxWeightPaths}, l'algoritmo restituisce un cammino, della forma $u \rightarrow y$, che realizza tale peso massimo.\\
+        \textbf{Input}: $G$ grafo diretto aciclico; $w$ funzione dei pesi degli archi; $u, y \in V(G)$ due vertici di $G$; \texttt{T} matrice prodotta precedentemente.\\
+        \textbf{Output}: cammino tale da massimizzare il peso di un cammino $u \rightarrow y$.
+    }
+
+    \begin{algorithmic}[1]
+        \Function{maxWeightPath}{$G$, $w$, $u$, $y$, \texttt{T}}
+            \State $\texttt{Sol} := \varnothing$
+            \State $v := y$
+            \State $k := n -1$
+            \While{$v \neq u$}
+                \If{$\texttt{T[}k\texttt{][}v\texttt{]} == \texttt{T[} k - 1\texttt{][}v \texttt{]}$}
+                    \State $k \ -= 1$
+                \Else
+                    \For{$(z, v) \in E(G)$} \Comment{$z$ è \underline{entrante} in $v$ ($G$ è diretto)}
+                        \If{$\texttt{T[}k - 1\texttt{][}z\texttt{]} + w(z, v) == \texttt{T[}k - 1\texttt{][}v\texttt{]}$}
+                            \State $\texttt{Sol} = \texttt{Sol} \cup \{(z, v)\}$
+                            \State $v := z$
+                            \State $k \ -= 1$
+                            \State \textbf{break}
+                        \EndIf
+                    \EndFor
+                \EndIf
+            \EndWhile
+            \State \textbf{return} \texttt{Sol}
+        \EndFunction
+    \end{algorithmic}
+\end{algorithm}
+
+\begin{remark}[Correttezza dell'algoritmo]
+    L'algoritmo inizia definendo un insieme \texttt{Sol}, alla riga 2, che conterrà l'insieme degli archi che compongono uno dei cammini tali da realizzare il peso massimo di un cammino della forma $u \rightarrow y$; alla riga 2, viene inoltre definito un vertice $v$, posto inizialmente pari ad $y$, per poter iterare, ed alla riga 3 si ha $k$ posto pari ad $n - 1$, che servirà per puntare alla riga corrente della matrice \texttt{T} (partendo dunque dall'ultima riga).
+
+    Nella riga 5, viene istanziato un ciclo \texttt{while}, il quale, fintanto che $v$ non diventa il vertice di partenza del cammino, ovvero $u$, visiterà la matrice \texttt{T}; si noti che la matrice viene attraversata dal basso verso l'alto, poiché TODO
+
+    Se la condizione della riga 6 è verificata, allora TODO DA FINIRE
+\end{remark}
+
+\begin{remark}[Costo dell'algoritmo]
+    TODO
+\end{remark}
+
+\subsection{Sistemi di vincoli di differenza}
+
+\begin{definition}[Vincolo di differenza]
+    Un \textit{vincolo di differenza} è un vincolo esprimibile nella seguente forma: $$x_i - x_j \le b$$ per qualche $b \in \mathbb{R}$.
+\end{definition}
+
+\begin{definition}[Sistema di vincoli di differenza]
+    Un \textit{sistema} di vincoli di differenza è un sistema di disequazioni della forma seguente: $$\left\{\begin{array}{c} x_2 - x_1 \le b_1 \\ \vdots \\ x_n - x_{n - 1} \le b_{n - 1}\end{array}\right.$$ per certi $b_1, \ldots, b_{n - 1} \in \mathbb{R}$ TODO CAPIRE SE QUESTA ROBA VADA SCRITTA O MENO
+\end{definition}
+
 
 \end{document}

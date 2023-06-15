@@ -49,3 +49,4 @@
 \contentsline {subsection}{\numberline {4.2.2}Trovare il massimo spazio allocabile}{91}{subsection.4.2.2}%
 \contentsline {subsection}{\numberline {4.2.3}Knapsack problem}{96}{subsection.4.2.3}%
 \contentsline {subsection}{\numberline {4.2.4}Trovare il peso massimo di un cammino}{97}{subsection.4.2.4}%
+\contentsline {subsection}{\numberline {4.2.5}Sistemi di vincoli di differenza}{102}{subsection.4.2.5}%

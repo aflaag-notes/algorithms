@@ -32,13 +32,13 @@ Questi sono i miei [appunti](https://raw.githubusercontent.com/ph04/algorithms/m
 
 - dimostrazione univocità MST
 
-- pagina 14
+- pagina 14 (capire se serve metterla)
 
-- pagina 16
-    - fare la parte di martedì
+- questa roba va vista con cautela
+    - pagina 16
+    - pagina 17
+    - pagina 18
 
-- pagina 17
+- esercitazione 2
+- esercitazione 3
 
-- pagina 18
-
-- FINISCI L'ALGORITMO DI QUANDO TE NE SEI ANDATO PRIMA
