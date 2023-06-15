@@ -2657,7 +2657,11 @@
 \end{algorithm}
 
 \begin{remark}[Correttezza dell'algoritmo]
-    TODO
+    L'algoritmo inizia alla riga 2, ponendo a $+ \infty$ l'array che, al termine dell'algoritmo, conterrà le distanze, pesate su $w$, tra $u$ ed ogni altro vertice di $G$; inoltre, alla riga 3 viene posta la distanza pesata $\mathrm{dist}_w(u, u) = 0$, ed alla riga 4 viene definito \texttt{H}, un min-heap. Successivamente, alla riga 5, viene istanziato un ciclo \texttt{for}, utilizzato per inizializzare il min-heap, ponendo in esso ogni vertice $v \in V(G)$, associando loro i valori $$\texttt{distancesW[}v\texttt{]} = \mathrm{dist}_w(u, v)$$
+
+    Alla riga 8, l'algoritmo inizia un ciclo \texttt{while}, che terminerà solamente quando il min-heap diventerà vuoto, ovvero quando ogni elemento al suo interno sarà stato analizzato; infatti, alla riga 9, con l'operazione $\texttt{H.extract\_min()}$, il vertice $v$ che attualmente minimizza la distanza pesata da $u$, viene \textit{rimosso} dal min-heap. Dopo averlo estratto, alla riga 10 ne viene aggiornato il valore all'interno di $\texttt{distancesW[}v\texttt{]}$ (si noti che il valore \textit{correntemente} noto della distanza pesata tra $u$ e $v$ è contenuto all'interno della chiave del min-heap, mentre l'array conterrà il valore finale). Alla riga 11, viene istanziato un ciclo \texttt{for}, il quale per ogni vertice $x$ uscente da $v$, ancora contenuto nel min-heap (e dunque ancora non esaminato), ne aggiorna la chiave all'interno di \texttt{H} (riga 14), se quest'ultima è maggiore di $\texttt{distancesW[}v \texttt{]} + w(v, x)$, ovvero $\mathrm{dist}_w(u, v)$ sommata al peso dell'arco $(v, x)$ stesso (righe 12 e 13).
+
+    L'algoritmo termina restituendo $\texttt{distancesW}$ alla riga 18.
 \end{remark}
 
 \begin{remark}[Costo dell'algoritmo]

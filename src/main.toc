@@ -32,21 +32,21 @@
 \contentsline {subsection}{\numberline {2.2.2}Algoritmo di Dijkstra}{65}{subsection.2.2.2}%
 \contentsline {section}{\numberline {2.3}Intervalli}{68}{section.2.3}%
 \contentsline {subsection}{\numberline {2.3.1}Trovare intervalli disgiunti}{68}{subsection.2.3.1}%
-\contentsline {subsection}{\numberline {2.3.2}Trovare insieme non disgiunto}{71}{subsection.2.3.2}%
-\contentsline {section}{\numberline {2.4}Minimum Spanning Tree (MST)}{73}{section.2.4}%
-\contentsline {subsection}{\numberline {2.4.1}Definizioni}{73}{subsection.2.4.1}%
-\contentsline {subsection}{\numberline {2.4.2}Algoritmo di Kruskal}{75}{subsection.2.4.2}%
-\contentsline {subsection}{\numberline {2.4.3}Algoritmo di Prim}{78}{subsection.2.4.3}%
-\contentsline {chapter}{\numberline {3}Algoritmi Divide et Impera}{85}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Algoritmi Divide et Impera}{85}{section.3.1}%
-\contentsline {subsection}{\numberline {3.1.1}Definizioni}{85}{subsection.3.1.1}%
-\contentsline {subsection}{\numberline {3.1.2}Trovare la somma massima dei sotto-array}{87}{subsection.3.1.2}%
-\contentsline {chapter}{\numberline {4}Programmazione dinamica}{90}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Programmazione dinamica}{90}{section.4.1}%
-\contentsline {subsection}{\numberline {4.1.1}Definizioni}{90}{subsection.4.1.1}%
-\contentsline {section}{\numberline {4.2}Memoizzazione}{91}{section.4.2}%
-\contentsline {subsection}{\numberline {4.2.1}Definizioni}{91}{subsection.4.2.1}%
-\contentsline {subsection}{\numberline {4.2.2}Trovare il massimo spazio allocabile}{91}{subsection.4.2.2}%
-\contentsline {subsection}{\numberline {4.2.3}Knapsack problem}{96}{subsection.4.2.3}%
-\contentsline {subsection}{\numberline {4.2.4}Trovare il peso massimo di un cammino}{97}{subsection.4.2.4}%
-\contentsline {subsection}{\numberline {4.2.5}Sistemi di vincoli di differenza}{102}{subsection.4.2.5}%
+\contentsline {subsection}{\numberline {2.3.2}Trovare insieme non disgiunto}{72}{subsection.2.3.2}%
+\contentsline {section}{\numberline {2.4}Minimum Spanning Tree (MST)}{74}{section.2.4}%
+\contentsline {subsection}{\numberline {2.4.1}Definizioni}{74}{subsection.2.4.1}%
+\contentsline {subsection}{\numberline {2.4.2}Algoritmo di Kruskal}{76}{subsection.2.4.2}%
+\contentsline {subsection}{\numberline {2.4.3}Algoritmo di Prim}{79}{subsection.2.4.3}%
+\contentsline {chapter}{\numberline {3}Algoritmi Divide et Impera}{86}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Algoritmi Divide et Impera}{86}{section.3.1}%
+\contentsline {subsection}{\numberline {3.1.1}Definizioni}{86}{subsection.3.1.1}%
+\contentsline {subsection}{\numberline {3.1.2}Trovare la somma massima dei sotto-array}{88}{subsection.3.1.2}%
+\contentsline {chapter}{\numberline {4}Programmazione dinamica}{91}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Programmazione dinamica}{91}{section.4.1}%
+\contentsline {subsection}{\numberline {4.1.1}Definizioni}{91}{subsection.4.1.1}%
+\contentsline {section}{\numberline {4.2}Memoizzazione}{92}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Definizioni}{92}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.2.2}Trovare il massimo spazio allocabile}{92}{subsection.4.2.2}%
+\contentsline {subsection}{\numberline {4.2.3}Knapsack problem}{97}{subsection.4.2.3}%
+\contentsline {subsection}{\numberline {4.2.4}Trovare il peso massimo di un cammino}{98}{subsection.4.2.4}%
+\contentsline {subsection}{\numberline {4.2.5}Sistemi di vincoli di differenza}{103}{subsection.4.2.5}%
