@@ -286,7 +286,7 @@
 \begin{proof}
     \hspace{0.7cm}
     \begin{itemize}
-        \item[] \textit{Prima implicazione.} Sia $u \rightarrow v$ una passeggiata da $u$ a $v$; allora, per trovare il cammino $u \rightarrow v$, è sufficiente considerare il sottoinsieme minore, di vertici ed archi, della passeggiata, tale che $u$ e $v$ siano connessi.
+        \item[] \textit{Prima implicazione.} Sia $u \rightarrow v$ una passeggiata da $u$ a $v$; allora, per trovare il cammino $u \rightarrow v$, è sufficiente considerare il sottoinsieme di cardinalità minore, di vertici ed archi, della passeggiata, tale da congiungere $u$ e $v$.
         \item[] \textit{Seconda implicazione.} Per definizione, una passeggiata è un qualsiasi percorso tra due vertici di un grafo, e in particolare un cammino è una passeggiata, e dunque il cammino $u \rightarrow v$ è anche un passeggiata.
     \end{itemize}
 \end{proof}
@@ -978,8 +978,8 @@
 \begin{remark}[Categorie di archi]
     Sia $G= (V, E)$ un grafo diretto, $\hat v \in V(G)$, e sia $A_{\hat v}$ la sua arborescenza; allora, è possibile classificare ogni arco $(u, v) \in E(G) - E(A_{\hat v})$, mediante $\mathrm{Int}(u)$ e $\mathrm{Int}(v)$:
     \begin{itemize}
-        \item $\mathrm{Int}(u) \subseteq \mathrm{Int}(v)$, allora l'arco $(u, v)$ è un \textit{backward edge}, ovvero in avanti: sono gli archi che congiungono due nodi dello stesso ramo di $A_{\hat v}$, nel caso in cui $v$ è più in profondità di $u$ nella visita DFS 
-        \item $\mathrm{Int}(v) \subseteq \mathrm{Int}(u)$, allora l'arco $(u, v)$ è un \textit{forward edge}, ovvero all'indietro: sono gli archi che congiungono due nodi dello stesso ramo di $A_{\hat v}$, nel caso in cui $u$ è più in profondità di $v$ nella visita DFS
+        \item $\mathrm{Int}(u) \subseteq \mathrm{Int}(v)$, allora l'arco $(u, v)$ è un \textit{backward edge}, ovvero all'indietro: sono gli archi che congiungono due nodi dello stesso ramo di $A_{\hat v}$, nel caso in cui $u$ è più in profondità di $v$ nella visita DFS 
+        \item $\mathrm{Int}(v) \subseteq \mathrm{Int}(u)$, allora l'arco $(u, v)$ è un \textit{forward edge}, ovvero in avanti: sono gli archi che congiungono due nodi dello stesso ramo di $A_{\hat v}$, nel caso in cui $v$ è più in profondità di $u$ nella visita DFS
         \item $\mathrm{Int}(v) \cap \mathrm{Int}(u) = \varnothing$, allora l'arco $(u, v)$ è un \textit{cross edge}, detto \textit{arco di attraversamento}: sono gli archi che congiungono due nodi di rami differenti dell'arborescenza $A_{\hat v}$
     \end{itemize}
 \end{remark}
@@ -2470,10 +2470,6 @@
     Un algoritmo è detto \textit{greedy}, se cerca una soluzione effettuando delle scelte di passo in passo, optando sempre per il passo più "appetibile" momentaneamente.
 \end{definition}
 
-\begin{example}[Algoritmi greedy]
-    TODO
-\end{example}
-
 \section{Distanza pesata}
 
 \subsection{Archi pesati}
@@ -2665,7 +2661,15 @@
 \end{remark}
 
 \begin{remark}[Costo dell'algoritmo]
-    TODO $O(\log n(n + m))$
+    TODO RILEGGERE
+
+    Il primo ciclo \texttt{for}, della riga 5, ha costo $O(n \log n)$, poiché contiene la riga 6, all'interno della quale viene utilizzata la funzione \texttt{H.insert()}, che ha costo $O(\log n)$.
+
+    Il ciclo \texttt{for} della riga 11, contiene le righe 13, all'interno della quale viene utilizzata la funzione \texttt{H.get\_key()}, e 14, in cui viene usata la funzione \texttt{H.set\_key()}, che hanno entrambi costo $O(n \log n)$; inoltre, tale ciclo viene effettuato per ognuno dei vertici adiacenti uscenti da $x$, e dunque il suo costo è pari a $\displaystyle O \left( \sum_{x \in N(v)} 2 \log n \right) = \deg(v) \cdot O(\log n)$ (dove con $N(v)$ si sta indicando l'insieme $$N (v) := \{x \in V(G) : (v, x) \in E(G)\}$$ degli archi adiacenti uscenti da $v$).
+
+    Infine, il ciclo \texttt{while} della riga 8, poiché contiene le rige 9 e 10, che utilizzano rispettivamente le funzioni \texttt{H.extract\_min()} ed \texttt{H.get\_key()}, aventi entrambe costo $O(n \log n)$, ha costo pari a $\displaystyle O \left( \sum_{v \in V(G)} 2 \log n + \deg(v) \cdot \log n \right) = O \left( \sum_{v \in V(G)} \log n \right) + O \left ( \sum_{v \in V(G)} \deg(v) \cdot \log n \right) = O(n \log n) + \log n \cdot O (m )$.
+
+    Dunquek il costo dell'algoritmo è pari a $O (\log n (n + m))$.
 \end{remark}
 
 \section{Intervalli}
@@ -3123,10 +3127,6 @@
     \end{itemize}
 \end{definition}
 
-\begin{example}[Divide et Impera]
-    TODO
-\end{example}
-
 \begin{theorem}[Master theorem - Teorema principale]
     \label{master theorem}
     Siano $\alpha, \beta \ge 1$ tali da descrivere la seguente equazione di ricorrenza: $$\left \{ \begin{array}{l} T(n) = \alpha \cdot T\left(\dfrac{n}{\beta}\right) + f(n) \\ T(1) = \Theta(1) \end{array} \right.$$ allora, si ha che
@@ -3493,7 +3493,7 @@
                     \State $k \ -= 1$
                 \Else
                     \For{$(z, v) \in E(G)$} \Comment{$z$ è \underline{entrante} in $v$ ($G$ è diretto)}
-                        \If{$\texttt{T[}k - 1\texttt{][}z\texttt{]} + w(z, v) == \texttt{T[}k - 1\texttt{][}v\texttt{]}$}
+                        \If{$\texttt{T[}k - 1\texttt{][}z\texttt{]} + w(z, v) == \texttt{T[}k\texttt{][}v\texttt{]}$}
                             \State $\texttt{Sol} = \texttt{Sol} \cup \{(z, v)\}$
                             \State $v := z$
                             \State $k \ -= 1$
@@ -3508,15 +3508,19 @@
 \end{algorithm}
 
 \begin{remark}[Correttezza dell'algoritmo]
-    L'algoritmo inizia definendo un insieme \texttt{Sol}, alla riga 2, che conterrà l'insieme degli archi che compongono uno dei cammini tali da realizzare il peso massimo di un cammino della forma $u \rightarrow y$; alla riga 2, viene inoltre definito un vertice $v$, posto inizialmente pari ad $y$, per poter iterare, ed alla riga 3 si ha $k$ posto pari ad $n - 1$, che servirà per puntare alla riga corrente della matrice \texttt{T} (partendo dunque dall'ultima riga).
+    L'algoritmo inizia definendo un insieme \texttt{Sol}, alla riga 2, che conterrà l'insieme degli archi che compongono uno dei cammini tali da realizzare il peso massimo di un cammino della forma $u \rightarrow y$; alla riga 3, viene inoltre definito un vertice $v$, posto inizialmente pari ad $y$, per poter iterare successivamente, ed alla riga 3 si ha $k$, posto pari ad $n - 1$, che servirà per puntare alla riga corrente della matrice \texttt{T} (partendo dunque dall'ultima riga).
 
-    Nella riga 5, viene istanziato un ciclo \texttt{while}, il quale, fintanto che $v$ non diventa il vertice di partenza del cammino, ovvero $u$, visiterà la matrice \texttt{T}; si noti che la matrice viene attraversata dal basso verso l'alto, poiché TODO
+    Nella riga 5, viene istanziato un ciclo \texttt{while}, il quale, fintanto che $v$ non diventa il vertice di partenza del cammino, ovvero $u$, visiterà la matrice \texttt{T}; si noti che la matrice viene attraversata dal basso verso l'alto, analogamente all'\cref{fileallocation2}.
 
-    Se la condizione della riga 6 è verificata, allora TODO DA FINIRE
+    Se la condizione della riga 6 è verificata, allora aver aggiunto un arco ai $k - 1$ archi già presenti nel cammino $u \rightarrow v$ non ha contribuito al massimo peso possibile per un tale cammino; dunque, è sufficiente aggiornare $k$, per andare ad esaminare la riga superiore nella matrice. Al contrario, se il controllo della riga 6 è falso, allora viene istanziato, alla riga 9, un ciclo \texttt{for}, il quale per ogni vertice $z$ entrante in $v$ (si noti che $G$ è diretto), controlla se $\texttt{T[}k - 1\texttt{][}z\texttt{]} + w(z, v)$ è proprio pari a $\texttt{T[}k\texttt{][}v\texttt{]}$, ed in tal caso: l'arco $(z, v)$ viene aggiunto a \texttt{Sol} (riga 11), $v$ viene aggiornato con il nuovo vertice corrente, ovvero $z$ (si sta percorrendo il cammino da $y$ verso $u$), $k$ viene decrementato di $1$ (riga 13, per andare alla riga superiore di \texttt{T}), ed infine viene effettuato un \texttt{break} del ciclo \texttt{for}; di conseguenza, lo scopo del loop è quello di trovare, tra gli archi entranti in $v$, quello che realizzava il peso del cammino $u \rightarrow v$ avente al massimo $k$ archi.
+
+    Al termine del ciclo \texttt{while}, l'algoritmo restituisce l'insieme di archi contenuto in \texttt{Sol}, che comporranno dunque un cammino della forma $u \rightarrow y$, avente il peso massimo cercato.
 \end{remark}
 
 \begin{remark}[Costo dell'algoritmo]
-    TODO
+    Partendo dal ciclo \texttt{for} della riga 9, esso controlla tutti i nodi adiacenti entranti in $v$, e nel caso peggiore vanno visitati tutti; inoltre, poiché al suo interno vi sono esclusivamente operazioni in tempo costante, il ciclo ha costo $O(\deg^{in}(v))$.
+
+    Infine, tenendo in considerazione la riga 6, che ha costo $O(1)$, si ha che il costo del ciclo \texttt{while} della riga 5 è pari a $\displaystyle O\left(\sum_{v \in V(G)}{\deg^{in}(v) + 1} \right) = O(n + m)$.
 \end{remark}
 
 \subsection{Sistemi di vincoli di differenza}

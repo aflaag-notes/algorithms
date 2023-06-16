@@ -19,7 +19,6 @@ Questi sono i miei [appunti](https://raw.githubusercontent.com/ph04/algorithms/m
 
 - pagina 12
     - algoritmo dijkstra 2
-        - correttezza
         - costo
 
 - esercitazione di andrea
