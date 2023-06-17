@@ -17,11 +17,7 @@ Questi sono i miei [appunti](https://raw.githubusercontent.com/ph04/algorithms/m
 - pagina 8/43
     - scrivere proposizione e roba dell'algoritmo
 
-- pagina 12
-    - algoritmo dijkstra 2
-        - costo
-
-- esercitazione di andrea
+- esercitazione di andrea (boh?)
 
 - pagina 13
     - algoritmo di kruskal

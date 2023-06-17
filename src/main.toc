@@ -18,35 +18,36 @@
 \contentsline {subsection}{\numberline {1.4.4}Trovare un pozzo universale}{31}{subsection.1.4.4}%
 \contentsline {subsection}{\numberline {1.4.5}Trovare i ponti}{33}{subsection.1.4.5}%
 \contentsline {subsection}{\numberline {1.4.6}Trovare le componenti}{37}{subsection.1.4.6}%
-\contentsline {subsection}{\numberline {1.4.7}Trovare un ciclo}{46}{subsection.1.4.7}%
-\contentsline {section}{\numberline {1.5}Breadth-first Search (BFS)}{48}{section.1.5}%
-\contentsline {subsection}{\numberline {1.5.1}Distanza}{48}{subsection.1.5.1}%
-\contentsline {subsection}{\numberline {1.5.2}Visita in BFS}{53}{subsection.1.5.2}%
-\contentsline {subsection}{\numberline {1.5.3}Trovare il numero di cammini minimi}{57}{subsection.1.5.3}%
-\contentsline {subsection}{\numberline {1.5.4}Distanza tra insiemi di vertici}{58}{subsection.1.5.4}%
-\contentsline {chapter}{\numberline {2}Algoritmi greedy}{61}{chapter.2}%
-\contentsline {section}{\numberline {2.1}Algoritmi greedy}{61}{section.2.1}%
-\contentsline {subsection}{\numberline {2.1.1}Definizioni}{61}{subsection.2.1.1}%
-\contentsline {section}{\numberline {2.2}Distanza pesata}{61}{section.2.2}%
-\contentsline {subsection}{\numberline {2.2.1}Archi pesati}{61}{subsection.2.2.1}%
-\contentsline {subsection}{\numberline {2.2.2}Algoritmo di Dijkstra}{65}{subsection.2.2.2}%
-\contentsline {section}{\numberline {2.3}Intervalli}{69}{section.2.3}%
-\contentsline {subsection}{\numberline {2.3.1}Trovare intervalli disgiunti}{69}{subsection.2.3.1}%
-\contentsline {subsection}{\numberline {2.3.2}Trovare insieme non disgiunto}{72}{subsection.2.3.2}%
-\contentsline {section}{\numberline {2.4}Minimum Spanning Tree (MST)}{74}{section.2.4}%
-\contentsline {subsection}{\numberline {2.4.1}Definizioni}{74}{subsection.2.4.1}%
-\contentsline {subsection}{\numberline {2.4.2}Algoritmo di Kruskal}{76}{subsection.2.4.2}%
-\contentsline {subsection}{\numberline {2.4.3}Algoritmo di Prim}{79}{subsection.2.4.3}%
-\contentsline {chapter}{\numberline {3}Algoritmi Divide et Impera}{86}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Algoritmi Divide et Impera}{86}{section.3.1}%
-\contentsline {subsection}{\numberline {3.1.1}Definizioni}{86}{subsection.3.1.1}%
-\contentsline {subsection}{\numberline {3.1.2}Trovare la somma massima dei sotto-array}{88}{subsection.3.1.2}%
-\contentsline {chapter}{\numberline {4}Programmazione dinamica}{91}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Programmazione dinamica}{91}{section.4.1}%
-\contentsline {subsection}{\numberline {4.1.1}Definizioni}{91}{subsection.4.1.1}%
-\contentsline {section}{\numberline {4.2}Memoizzazione}{92}{section.4.2}%
-\contentsline {subsection}{\numberline {4.2.1}Definizioni}{92}{subsection.4.2.1}%
-\contentsline {subsection}{\numberline {4.2.2}Trovare il massimo spazio allocabile}{92}{subsection.4.2.2}%
-\contentsline {subsection}{\numberline {4.2.3}Knapsack problem}{97}{subsection.4.2.3}%
-\contentsline {subsection}{\numberline {4.2.4}Trovare il peso massimo di un cammino}{98}{subsection.4.2.4}%
-\contentsline {subsection}{\numberline {4.2.5}Sistemi di vincoli di differenza}{103}{subsection.4.2.5}%
+\contentsline {subsection}{\numberline {1.4.7}Algoritmo di Tarjan}{42}{subsection.1.4.7}%
+\contentsline {subsection}{\numberline {1.4.8}Trovare un ciclo}{46}{subsection.1.4.8}%
+\contentsline {section}{\numberline {1.5}Breadth-first Search (BFS)}{49}{section.1.5}%
+\contentsline {subsection}{\numberline {1.5.1}Distanza}{49}{subsection.1.5.1}%
+\contentsline {subsection}{\numberline {1.5.2}Visita in BFS}{54}{subsection.1.5.2}%
+\contentsline {subsection}{\numberline {1.5.3}Trovare il numero di cammini minimi}{58}{subsection.1.5.3}%
+\contentsline {subsection}{\numberline {1.5.4}Distanza tra insiemi di vertici}{59}{subsection.1.5.4}%
+\contentsline {chapter}{\numberline {2}Algoritmi greedy}{62}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Algoritmi greedy}{62}{section.2.1}%
+\contentsline {subsection}{\numberline {2.1.1}Definizioni}{62}{subsection.2.1.1}%
+\contentsline {section}{\numberline {2.2}Distanza pesata}{62}{section.2.2}%
+\contentsline {subsection}{\numberline {2.2.1}Archi pesati}{62}{subsection.2.2.1}%
+\contentsline {subsection}{\numberline {2.2.2}Algoritmo di Dijkstra}{66}{subsection.2.2.2}%
+\contentsline {section}{\numberline {2.3}Intervalli}{70}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1}Trovare intervalli disgiunti}{70}{subsection.2.3.1}%
+\contentsline {subsection}{\numberline {2.3.2}Trovare insieme non disgiunto}{73}{subsection.2.3.2}%
+\contentsline {section}{\numberline {2.4}Minimum Spanning Tree (MST)}{75}{section.2.4}%
+\contentsline {subsection}{\numberline {2.4.1}Definizioni}{75}{subsection.2.4.1}%
+\contentsline {subsection}{\numberline {2.4.2}Algoritmo di Kruskal}{77}{subsection.2.4.2}%
+\contentsline {subsection}{\numberline {2.4.3}Algoritmo di Prim}{80}{subsection.2.4.3}%
+\contentsline {chapter}{\numberline {3}Algoritmi Divide et Impera}{87}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Algoritmi Divide et Impera}{87}{section.3.1}%
+\contentsline {subsection}{\numberline {3.1.1}Definizioni}{87}{subsection.3.1.1}%
+\contentsline {subsection}{\numberline {3.1.2}Trovare la somma massima dei sotto-array}{89}{subsection.3.1.2}%
+\contentsline {chapter}{\numberline {4}Programmazione dinamica}{92}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Programmazione dinamica}{92}{section.4.1}%
+\contentsline {subsection}{\numberline {4.1.1}Definizioni}{92}{subsection.4.1.1}%
+\contentsline {section}{\numberline {4.2}Memoizzazione}{93}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Definizioni}{93}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.2.2}Trovare il massimo spazio allocabile}{93}{subsection.4.2.2}%
+\contentsline {subsection}{\numberline {4.2.3}Knapsack problem}{98}{subsection.4.2.3}%
+\contentsline {subsection}{\numberline {4.2.4}Trovare il peso massimo di un cammino}{99}{subsection.4.2.4}%
+\contentsline {subsection}{\numberline {4.2.5}Sistemi di vincoli di differenza}{104}{subsection.4.2.5}%
