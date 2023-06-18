@@ -4,36 +4,4 @@ Questi sono i miei [appunti](https://raw.githubusercontent.com/ph04/algorithms/m
 
 ## TODO
 
-- pagina 3
-    - finire la dimostrazione
-
-- pagina 5
-    - inserisci algoritmo vedere se arco in ciclo
-
-- pagina 7/39
-    - scrivere l'algoritmo per trovare cicli in costo O(n + m)
-    - scrivere il costo totale dell'algoritmo
-
-- pagina 8/43
-    - scrivere proposizione e roba dell'algoritmo
-
-- esercitazione di andrea (boh?)
-
-- pagina 13
-    - algoritmo di kruskal
-        - costo
-    - algoritmo di prim2
-        - costo
-
-- dimostrazione univocità MST
-
-- pagina 14 (capire se serve metterla)
-
-- questa roba va vista con cautela
-    - pagina 16
-    - pagina 17
-    - pagina 18
-
-- esercitazione 2
-- esercitazione 3
-
+- capire se le cose da pagina 16 (degli appunti) in poi vanno inserite

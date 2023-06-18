@@ -1276,7 +1276,7 @@
 \begin{proof}
     \hspace{0.7cm}
     \begin{itemize}
-        \item[] \textit{Prima implicazione.} TODO
+        \item[] \textit{Prima implicazione.} Omessa.
         \item[] \textit{Seconda implicazione.} Sia $G$ un grafo diretto fortemente connesso, e sia $\hat v \in V(G)$ tale che la sua arborescenza $A_{\hat v}$ contenga un backward edge $(u, v) \in E(G) - E(A_{\hat v})$. Allora, poiché $u, v \in V(A_{\hat v})$, e $(u, v)$ è un backward edge, è sufficiente considerare il cammino tale che $u \rightarrow v$, che esiste poiché $A_{\hat v}$ è un arborescenza, e dunque $\{u \rightarrow v\} \cup (u, v)$ è un ciclo di $G$. Si noti che il fatto che $G$ sia fortemente connesso garantisce di poter considerare un $\hat v \in V(G)$ qualsiasi.
     \end{itemize}
 \end{proof}
@@ -1848,7 +1848,13 @@
 \end{remark}
 
 \begin{remark}[Costo dell'algoritmo]
-    TODO O(n(n + m))
+    La funzione \texttt{findCycle} della riga 2 ha costo $O(n + m)$, ed utilizza la funzione dell'\cref{findCycleDir}. Allora, poiché la riga 4 ha costo pari a $O(n)$, dovendo scorrere tutti i vertici dell'attuale $G$ (che nel caso peggiore, contiene ogni vertice del grafo di partenza), il caso base ha costo $O(n+ m)$.
+
+    L'operazione di contrazione, alla riga 6, ha costo $O(n+m)$, in quanto contrarre un grafo, nel caso peggiore, implica contrarne ogni vertice, e dunque modificarne ogni arco e nodo presente; inoltre, il ciclo \texttt{for} della riga 9 esegue un loop sulle componenti trovate alla riga 7 dalla chiamata ricorsiva, ed il suo costo dipende dunque dal numero di componenti che nel caso peggiore possono essere trovate, ovvero $n - 1$, dunque $O(n)$, poiché un ciclo è costituito da minimo 2 nodi.
+
+    Allora, il costo dell'algoritmo è $O(n \cdot (n + m))$, poiché nel caso peggiore si hanno $n - 1$ contrazioni (chiamate ricorsive), ovvvero $O(n)$, ed in ogni chiamata ricorsiva si effettuano operazioni in $O(n + m)$.
+
+    Si noti che questa stima è particolarmente approssimativa, e sarebbe necessario risolvere l'equazione di ricorrenza associata all'algoritmo per giustificarne completamente il costo dell'algoritmo, ma è omesso tale calcolo per semplicità.
 \end{remark}
 
 \subsection{Algoritmo di Tarjan}
@@ -1918,6 +1924,7 @@
 \end{example}
 
 \begin{theorem}[C-radici]
+    \label{cradiciteorema}
     Sia $G$ un grafo diretto, sia $\hat v \in V(G)$ un suo vertice, e sia $A_{\hat v}$ l'arborescenza di $\hat v$ in $G$; sia $u$ la c-radice di $\mathrm{comp}(u)$ in $A_{\hat v}$; allora si verificano le seguenti proposizioni:
 
     \begin{enumerate}[i)]
@@ -1962,7 +1969,7 @@
             \State $\texttt{components[}u\texttt{]} = - \texttt{c}$ \Comment{i valori negativi indicano i tempi di visita}
             \State $\texttt{S.push(}u\texttt{)}$
             \State $b := \texttt{c}$
-            \For{$v \in V(G) : v \sim u$}
+            \For{$v \in V(G) : (u, v) \in E(G)$}
                 \If{$\texttt{components[}v\texttt{]}= = 0$}
                     \State $b' := \texttt{DFS(}G, v, \texttt{components}, \texttt{S}, \texttt{c}, \texttt{cc)}$
                     \State $b = \min(b, b')$
@@ -1996,11 +2003,21 @@
 \end{algorithm}
 
 \begin{remark}[Correttezza dell'algoritmo]
-    Sia $G$ un grafo diretto, sia $\hat v \in V(G)$ un suo vertice, e sia $A_{\hat v}$ l'arborescenza di $\hat v$ in $G$; allora, un vertice $u \in V(G)$ è una c-radice in $A_{\hat v}$, se e solo se TODO DA FINIRE
+    L'algoritmo inizia alla riga 25, definendo un array \texttt{components}, attraverso il quale verranno trovate le varie componenti del grafo $G$ in input; in particolare, alla riga 26 viene definito un contatore \texttt{cc}, affinché l'array \texttt{components} contenga, per ogni vertice $v \in V(G)$, un valore $\texttt{components[}v\texttt{]}$ pari a \texttt{cc}, se $v$ fa parte della \texttt{cc}-esima componente trovata dall'algoritmo; infine, alla riga 27 viene definito il contatore \texttt{c}, utilizzato per i tempi di visita dei vertici, ed alla riga 28 si ha uno stack \texttt{S}, che verrà utilizzato per trovare i vertici facenti parte della \texttt{cc}-esima componente.
+    
+    Alla riga 29, l'algoritmo inizializza un ciclo \texttt{for}, che per ognuno dei vertici $u \in V(G)$, effettuerà una chiamata ricorsiva alla funzione \texttt{DFS} (riga 31), solo se $u$ non era ancora stato visitato (riga 30).
+
+    Alla riga 2, l'algoritmo incrementa il contatore dei tempi di visita, per poterne utilizzare il valore correttamente (si noti che alla riga 27 viene inizializzato a 0, e poiché canonicamente il primo vertice ha tempo di visita pari ad 1, il contatore viene incrementato prima di essere utilizzato). Alla riga 3, l'opposto del valore di tale contatore viene inserito all'interno di $\texttt{compontents[}u\texttt{]}$: questa tecnica permette di ridurre spazio, utilizzando solamente un array per salvare sia i tempi di visita dell'algoritmo, sia le componenti da restituire in output; infatti per ogni $u \in V(G)$, se $\texttt{components[}u\texttt{]}$ è negativo, allora si sta salvando $-t(u)$, se il valore è nullo, allora $u$ non è ancora stato visitato, e se è positivo, allora $u$ appartiene alla $\texttt{components[}u\texttt{]}$-esima componente; infine, $u$ viene inserito all'interno dello stack, nella riga 4, e viene definito $b$, alla riga 5, che rappresenta il nodo più all'indietro che è possibile raggiungere da $u$ stesso, e da uno qualsiasi dei suoi discendenti (cfr. il ciclo \texttt{for} seguente).
+
+    Alla riga 6, la funzione ricorsiva inizializza un ciclo \texttt{for}, che per ogni vertice $v$, adiacente uscente da $u$, effettua una chiamata ricorsiva, radicata su di lui, se quest'ultimo non era ancora stato visitato dall'algoritmo (riga 7), salvando il valore trovato dalla ricorsione in $b'$, ed aggiornando opportunamente il valore di $b$ alla riga 9; infatti, poichè $b$ deve rappresentare il nodo più all'indietro che è possibile raggiungere a partire da $u$, e da un suo qualsiasi discendente, allora $b$ deve necessariamente essere il minimo tra i $b'$ di tutte le chiamate ricorsive effettuate sui figli (incluso il valore iniziale); alla riga 10, se invece il valore salvato all'interno dell'array \texttt{components}, per $v$, era negativo, allora ne era noto il tempo di vista ma non la componente a cui faceva parte, e dunque viene solamente aggiornato $b$, utilizzando proprio il tempo $t(v)$, pari a $-\texttt{components[}v\texttt{]}$.
+
+    Nella riga 14, è presente una condizione che viene valutata vera, esclusivamente se $u$ è una c-radice della componente corrente: infatti, se $b$ è pari a $-\texttt{components[}u\texttt{]} = t(u)$, allora il nodo più all'indietro che è possibile raggiungere attraverso un discendente qualsiasi di $u$, è $u$ stesso, e dunque per il \cref{cradiciteorema} e per definizione di c-radice stessa, $u$ deve necessariamente essere una c-radice. Allora, se $u$ è c-radice, è sufficiente incrementare il contatore delle componenti, alla riga 15, ed aggiornare il valore di \texttt{components} di tutti i vertici accumulati all'interno dello stack durante le chiamate ricorsive effettuate più in profondità della chiamata corrente, con il valore di \texttt{cc}: infatti, lo stack viene utilizzato dall'algoritmo per salvare i vertici nello stesso ordine in cui sono visitati dalle chiamate ricorsive, e facendo \texttt{S.pop()} (riga 17), si è certi di preservare l'ordine di attraversamento del grafo $G$; si noti che tale operazione termina non appena viene eseguita la rimozione di $u$ stessa dallo stack, poiché sarà esso l'ultimo vertice della \texttt{cc}-esima componente.
+
+    La funzione ricorsiva termina alla riga 21, restituendo al chiamante il valore $b$ della chiamata ricorsiva corrente. Infine, l'algoritmo termina alla riga 34, restituendo tutte le componenti di $G$.
 \end{remark}
 
 \begin{remark}[Costo dell'algoritmo]
-    TODO $O(n + m)$
+    Poiché l'algoritmo effettua esclusivamente una visita in DFS del grafo $G$ in input, e lo stack \texttt{S} conterrà $n$ nodi nel caso peggiore (all'interno della chiamata ricorsiva più profonda della visita in DFS), l'algoritmo ha costo $O(n + m)$.
 \end{remark}
 
 \subsection{Trovare un ciclo}
@@ -2013,6 +2030,7 @@
     }
 
     \begin{algorithmic}[1]
+        \label{findCycleNonDir}
         \Function{DFS}{$G, u, \texttt{parents}, \texttt{visited}$}
             \State $\texttt{visited[}u\texttt{]} = 1$
             \For{$v \in V(G): v \sim u$}
@@ -2059,17 +2077,15 @@
 \end{nocaptionalg}
 
 \begin{remark}[Correttezza dell'algoritmo]
-    TODO RILEGGI TUTTO PER LA COSA DEI PARENTS CHE PALLE
-
-    L'algoritmo inizia effettuando un ciclo \texttt{for}, alla riga $25$, su ogni vertice $v \in V(G)$; in particolare, se $v$ non è stato ancora visitato (riga $26$), viene effettuata una visita ricorsiva in DFS di $G$, partendo da $v$.
+    L'algoritmo inizia effettuando un ciclo \texttt{for}, alla riga $25$, su ogni vertice $v \in V(G)$; in particolare, se $v$ non è stato ancora visitato (riga $26$), viene effettuata una visita ricorsiva in DFS di $G$, partendo da $v$. Si noti che il ciclo \texttt{for} permette di gestire il caso in cui $G$ non sia connesso; inoltre, alla riga 27 viene posto $\texttt{parents[}v\texttt{]} = v$, di fatto definendo più alberi di visita sullo stesso grafo, poiché se $G$ non fosse connesso, si avrebbero necessariamente molteplici visite in DFS, e di conseguenza molteplici alberi di visita.
 
     La funzione che effettua la visita ricorsiva in DFS, inizia con un ciclo \texttt{for}, alla riga $3$, all'interno del quale, per ogni vertice $v \in V(G)$ adiacente a $u$ in input non ancora visitato, viene marcato come tale (riga $5$), ne viene aggiornato il nodo padre in \texttt{parents} (riga $6$), e viene effettuata una chiamata ricorsiva radicata su $v$ stesso, per far si che la visita sia in DFS.
 
     Al termine della chiamata ricorsiva della riga 7, viene esaminato il valore restituito dalla funzione \texttt{DFS}, che può essere un ciclo di $G$, oppure \texttt{None}; se ci si trova nel primo caso, e dunque si è trovato un output richiesto dall'algoritmo, sarà sufficiente restituire il risultato di ricorsione in ricorsione a ritroso, ritornando \texttt{output} stesso, alla riga $9$.
 
-    Se invece il vertice $v$ era già stato visitato, è necessario eseguire un controllo, poiché ci si potrebbe trovare all'interno di un ciclo; si noti che il ciclo \texttt{for} della riga 3, trova tutti i vertici adiacenti ad $u$, compreso il nodo padre di $u$ stesso, ma naturalmente non deve essere di interesse per la ricerca di un ciclo in $G$. Allora, se $u$ non è il nodo padre di $v$, né $v$ è il nodo padre di $u$ (si noti che l'array \texttt{parents} è diretto, anche se $G$ non lo è, dunque non è sufficiente controllare solo uno dei due casi), l'unico caso in cui può capitare di rivisitare un nodo è se ci si trova all'interno di un ciclo; di conseguenza, in tale circostanza, l'algoritmo istanzia un insieme \texttt{output}, alla riga 12, all'interno del quale vengono inseriti tutti i vertici che vengono trovati, risalendo la catena di padri, costruitasi in \texttt{parents}, partendo da $u$ stesso, fino a ritornare proprio su $v$; infine, viene restituito tale insieme, alla riga 17, che verrà propagato fino alla riga 27.
+    Se invece il vertice $v$ era già stato visitato, è necessario eseguire un controllo, poiché ci si potrebbe trovare all'interno di un ciclo; si noti che il ciclo \texttt{for} della riga 3, trova tutti i vertici adiacenti ad $u$, compreso il nodo padre di $u$ stesso, ma naturalmente non deve essere di interesse per la ricerca di un ciclo in $G$. Allora, se $u$ non è il nodo padre di $v$, né $v$ è il nodo padre di $u$ (si noti che l'array \texttt{parents} è diretto, anche se $G$ non lo è, dunque non è sufficiente controllare solo uno dei due casi), l'unico caso in cui può capitare di rivisitare un nodo è se ci si trova all'interno di un ciclo; di conseguenza, in tale circostanza, l'algoritmo istanzia un insieme \texttt{output}, alla riga 12, all'interno del quale vengono inseriti tutti i vertici che vengono trovati, risalendo la catena di padri, costruitasi in \texttt{parents}, partendo da $u$ stesso, fino a ritornare proprio su $v$; infine, viene restituito tale insieme, alla riga 17, che verrà propagato fino alla riga 28.
 
-    Nel controllo della riga 28, ci si accerta che non sia ancora stato trovato alcun ciclo, e non appena ne viene trovato uno, viene restituito dall'algoritmo, troncando il loop \texttt{for}.
+    Nel controllo della riga 29, ci si accerta che non sia ancora stato trovato alcun ciclo, e non appena ne viene trovato uno, viene restituito dall'algoritmo, troncando il loop \texttt{for}.
 \end{remark}
 
 \begin{remark}[Costo dell'algoritmo]
@@ -2086,8 +2102,9 @@
     }
 
     \begin{algorithmic}[1]
+        \label{findCycleDir}
         \Function{DFS}{$G, x, \texttt{t}, \texttt{T}, \texttt{S}, \texttt{c}$}
-            \For{$(x, y) \in E(G)$}
+            \For{$y \in V(G) : (x, y) \in E(G)$}
                 \If{$\texttt{t[}y\texttt{]} == 0$}
                     \State $\texttt{t[}y\texttt{]} = \texttt{c}$
                     \State \texttt{c.increment()}
@@ -2750,7 +2767,7 @@
     \begin{algorithmic}[1]
         \label{intervalli1}
         \Function{findIntervals}{$I$}
-            \State $I\texttt{.sort(key=}\lambda (i) \rightarrow i\texttt{.right())}$ \Comment{$I$ ordinato sugli estremi destri}
+            \State $I\texttt{.sort(key=}\lambda (i): i \rightarrow i\texttt{.right())}$ \Comment{$I$ ordinato sugli estremi destri}
             \State $\texttt{Sol}:= \texttt{[]}$
             \For{$i \in I$}
                 \State $b_f := \texttt{Sol.last().right()}$ \Comment{estremo destro di \texttt{Sol.last()}}
@@ -2832,7 +2849,7 @@
 
     \begin{algorithmic}[1]
         \Function{findIntersectionPoints}{$I$}
-            \State $I\texttt{.sort(key=}\lambda (i) \rightarrow i\texttt{.right())}$ \Comment{$I$ ordinato sugli estremi destri}
+            \State $I\texttt{.sort(key=}\lambda (i) : i \rightarrow i\texttt{.right())}$ \Comment{$I$ ordinato sugli estremi destri}
             \State $\texttt{Sol}:= \varnothing$
             \For{$i \in I$}
                 \State $b_f := \texttt{Sol.last().right()}$ \Comment{estremo destro di \texttt{Sol.last()}}
@@ -2955,19 +2972,11 @@
 \end{proof}
 
 \begin{lemma}[Unicità dell'MST]
-    TODO RILEGGI
-
-    Sia $G$ un grafo indiretto conneso, pesato attraverso una funzione $w$ che associa un peso ad ogni arco, tale che $w$ sia iniettiva; allora, esiste un unico MST di $G$.
+    Sia $G$ un grafo indiretto connesso, pesato attraverso una funzione $w$ che associa un peso ad ogni arco, tale che $w$ sia iniettiva; allora, esiste un unico MST di $G$.
 \end{lemma}
 
 \begin{proof}
-    TODO RILEGGI
-
-    Per ipotesi, $w$ è iniettiva, e dunque per definizione $$\forall e_1, e_2 \in E(G) \mid e_1 \neq e_2 \implies w(e_1) \neq w(e_2)$$. Per assurdo, siano $T, T'$ due MST di $G$, il quale è pesato attraverso $w$, e sono tali che $T \neq T'$; sia $(x, y)$ l'arco di peso minore nell'unione delle regioni non in comune tra $T$ e $T'$, a loro interne; in simboli: $$(x, y) \in \argmin_{(a, b) \in E((T - T') \cup (T' - T))}{w(a, b)}$$
-
-    Si supponga $(x, y) \in E(T - T')$, e in particolare $(x, y) \notin E(T')$; poiché $T'$ è un MST, per definizione $V(T') = V(G)$, e dunque $(x, y) \notin E(T')$ implica che esiste un cammino della forma $x \rightarrow y$ all'interno di $T'$. Inoltre, si noti che per definizione $T'$ è un albero, dunque aciclico; allora necessariamente $\{(x, y)\} \cup T'$ è un ciclo; sia quest'ultimo $C$.
-
-    Si noti che, poiché $C$ è un ciclo, deve esistere un arco $(z, y)$ TODO DA FINIRE
+    Omessa.
 \end{proof}
 
 \subsection{Algoritmo di Kruskal}
@@ -2981,7 +2990,7 @@
 
     \begin{algorithmic}[1]
         \Function{Kruskal}{$G$, $w$}
-            \State $E(G)\texttt{.sort(key=}\lambda (e) \rightarrow w(e)\texttt{)}$ \Comment{$E(G)$ ordinato sui pesi di $w$}
+            \State $E(G)\texttt{.sort(key=}\lambda (e): e \rightarrow w(e)\texttt{)}$ \Comment{$E(G)$ ordinato sui pesi di $w$}
             \State $\texttt{Sol}:= \varnothing$
             \For{$e \in E(G)$}
             \If{$\texttt{findCycle(}\texttt{Sol} \cup \{e\}\texttt{)} == \texttt{None}$} \Comment{se non contiene cicli}
@@ -3038,7 +3047,11 @@
 \end{remark}
 
 \begin{remark}[Costo dell'algoritmo]
-    TODO $O(n(n + m))$
+    Alla riga 2, gli archi di $G$ vengono ordinati attraverso i pesi forniti dalla funzione $w$, e dunque il costo dell'operazione è pari a $O(m \log m)$. Si noti però che, nel caso peggiore, $G$ ha ogni vertice connesso con ogni altro vertice, e dunque $m = n\cdot ( n - 1) = n^2 - n$, ed è dunque possibile riscrivere il costo dell'operazione nel caso peggiore come segue: $$O (m \log m) = O(m \log (n^2 - n)) = O(m \log n^2) - O(m \log n) =$$ $$= O(m \log n^2) = O(m \cdot 2 \log n) = O(m \log n)$$
+
+    Alla riga 4, viene istanziato un ciclo \texttt{for}, che per ognuno degli archi, effettua operazioni in tempo $O(n)$ (si veda l'\cref{findCycleNonDir} per la funzione \texttt{findCycle}), e dunque ha costo $m \cdot O(n) = O(n \cdot m)$.
+
+    Allora, l'algoritmo ha costo $O(m \log n) + O(n \cdot m) = O(n \cdot m)$.
 \end{remark}
 
 \subsection{Algoritmo di Prim}
@@ -3169,11 +3182,15 @@
 \end{remark}
 
 \begin{remark}[Costo dell'algoritmo]
-    Si noti che il costo di inserimento di un nodo all'interno di un heap è pari a $O(\log n)$, e dunque il costo del ciclo \texttt{for} alla riga 5 è pari a $O (n \log n)$, poichè viene inserito ogni nodo in $V(G) - \{v\}$ all'interno di \texttt{H}, e $O(|V(G) - \{v\}|) = O(n - 1) = O(n)$.
+    Si noti che il costo di inserimento di un nodo all'interno di un heap è pari a $O(\log n)$, e dunque il costo del ciclo \texttt{for} alla riga 6 è pari a $O (n \log n)$, poichè viene inserito ogni nodo in $V(G) - \{v\}$ all'interno di \texttt{H}, e $O(|V(G) - \{v\}|) = O(n - 1) = O(n)$. Inoltre, la creazione dell'array \texttt{parents}, alla riga 9, ha costo $O(n)$.
 
-    Inoltre, il costo di aggiornamento di una chiave all'interno di un heap è pari anch'esso a $O(\log n)$, e dunque la complessità del ciclo \texttt{for} della riga 10 è pari a $\deg(v) \cdot O(\log n) = O(\deg(v) \cdot \log n) = O(n \log n)$ (nel caso peggiore, $\deg(v) = n - 1$).
+    Il costo di aggiornamento di una chiave all'interno di un heap è pari anch'esso a $O(\log n)$, e dunque la complessità del ciclo \texttt{for} della riga 11 è pari a $\deg(v) \cdot O(\log n)$, per via della riga 13.
 
-    L'operazione di estrazione del minimo dall'heap, alla riga 15, ha anch'essa costo pari a $O(\log n)$; inoltre, il controllo della riga 19 ha costo pari a TODO DA RILEGGERE E FINIRE
+    L'operazione di estrazione del minimo dal min-heap, alla riga 16, ha anch'essa costo pari a $O(\log n)$, esattamente come il controllo della riga 20, e l'operazione di aggiornamento della chiave di $x$ nella riga 22; allora, il ciclo \texttt{for} della riga 19 ha costo $\deg(y) \cdot O(\log n)$, mentre il costo del ciclo \texttt{while} della riga 15 è pari a $$\displaystyle O\left(\sum_{y \in V(G) - \{v\}}{\log n + \deg(y) \cdot \log n}\right)$$
+
+    Allora, accorpando il costo del ciclo \texttt{for} della riga 11, all'interno del costo del ciclo \texttt{while} della riga 15, è possibile riscrivere l'equazione precedente come segue: $$\displaystyle O\left(\sum_{y \in V(G)} {\log n}\right) + O \left(\sum_{y \in V(G)}{\deg(y) \cdot \log n}\right) = $$ $$= O(n \log n ) + O(m \log n) = O(\log n \cdot( n + m))$$
+
+    Dunque, il costo dell'algoritmo è pari a $O(n \log n) + O(n) + O(\log n \cdot (n + m)) = O(\log n \cdot (n + m))$.
 \end{remark}
 
 \chapter{Algoritmi Divide et Impera}
