@@ -2307,7 +2307,7 @@
             \State $\texttt{distances}:=\texttt{[}0\texttt{]} * n$
             \State $\texttt{Queue Q} := \texttt{[}u\texttt{]}$
             \While{!$\texttt{Q.isEmpty()}$}
-                \State $v = \texttt{Q.deque()}$
+                \State $v := \texttt{Q.dequeue()}$
                 \For{$x \in V(G) : x \sim v$}
                 \If{$\left \{ \begin{array}{l} \texttt{distances[}x\texttt{]}= = 0 \\ \texttt{parents[}x\texttt{]} \neq x\end{array} \right .$}
                     \State $\texttt{parents[}x\texttt{]} = v$
@@ -2460,7 +2460,7 @@
             \State $\texttt{distances}:=\texttt{[}0\texttt{]} * n$
             \State $\texttt{Queue Q} := \texttt{[}u\texttt{]}$
             \While{!$\texttt{Q.isEmpty()}$}
-                \State $v = \texttt{Q.deque()}$
+                \State $v := \texttt{Q.dequeue()}$
                 \For{$y \in V(G) : y \sim v$}
                     \If{$\texttt{parents[}y\texttt{]}== -1$} \Comment{se non è stato ancora visitato}
                         \State $\texttt{parents[}y\texttt{]} = v$
@@ -2514,7 +2514,7 @@
                 \State $\texttt{distances[}x\texttt{]} = 0$ \Comment{i vertici $x \in X$ sono a distanza 0 da $X$}
             \EndFor
             \While{!$\texttt{Q.isEmpty()}$}
-                \State $v = \texttt{Q.deque()}$
+                \State $v := \texttt{Q.dequeue()}$
                 \For{$u \in V(G) : u \sim v$}
                     \If{$\texttt{distances[}u\texttt{]}== -1$} \Comment{se non è stato ancora visitato}
                         \State $\texttt{distances[}u\texttt{]}=\texttt{distances[}v\texttt{]} + 1$
@@ -2528,7 +2528,7 @@
                     \State $d = \texttt{distances[}y\texttt{]}$
                 \EndIf
             \EndFor
-            \State \textbf{return} \texttt{count}
+            \State \textbf{return} $d$
         \EndFunction
     \end{algorithmic}
 \end{algorithm}
