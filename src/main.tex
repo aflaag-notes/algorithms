@@ -907,7 +907,7 @@
 \end{lemma}
 
 \begin{proof}
-    La tesi equivale a dimostrare che non può verificarsi il caso in cui c'è intersezione non vuota tra i due intervalli, e dunque non è possibile che $\mathrm{Int}(u) \cap \mathrm{Int}(v) \neq \varnothing$, ovvero $t(u) < t(v) < T(u) < T(v)$, allora:
+    La tesi equivale a dimostrare che non può verificarsi il caso in cui c'è intersezione \textit{propria} non vuota tra i due intervalli, e dunque non è possibile che $\mathrm{Int}(u) \cap \mathrm{Int}(v) \neq \varnothing$, ovvero $t(u) < t(v) < T(u) < T(v)$, allora:
 
     \begin{itemize}
         \item $t(u) < t(v) \implies u$ inserito nello stack prima di $v$
@@ -2114,7 +2114,7 @@
                         \State \textbf{return} \texttt{output}
                     \EndIf
                 \ElsIf{$\texttt{T[}y\texttt{]} == 0$}
-                    \State $\texttt{output} := \verb|{| \verb|}|$
+                    \State $\texttt{output} := \verb|{| y \verb|}|$ \Comment{altrimenti $y$ non verrebbe preso}
                     \While{$x \neq y$}
                         \State $\texttt{output.add(}x\texttt{)}$
                         \State $x = \texttt{S.pop()}$
@@ -2152,11 +2152,11 @@
 \end{nocaptionalg}
 
 \begin{remark}[Correttezza dell'algoritmo]
-    TODO
+    Omessa.
 \end{remark}
 
 \begin{remark}[Costo dell'algoritmo]
-    TODO
+    Poiché l'algoritmo effettua esclusivamente una visita in DFS del grafo $G$ in input, il suo costo è pari a $O(n + m)$; si noti che, nel caso peggiore, l'intero grafo descrive un ciclo, e dunque il ciclo \texttt{while} della riga 13 ha costo $O(n)$.
 \end{remark}
 
 \section{Breadth-first Search (BFS)}
@@ -3153,7 +3153,7 @@
             \EndFor
             \While{$R \neq V(G)$}
                 \State $y := \texttt{H.extract\_min()}$ \Comment{l'elemento viene \underline{rimosso}}
-                    \State $\texttt{Sol} = \texttt{Sol} \cup \{ (y, \texttt{parents[}y\texttt{]}) \}$
+                    \State $\texttt{Sol} = \texttt{Sol} \cup \{ (\texttt{parents[}y\texttt{]}, y) \}$
                 \State $R = R \cup \{y\}$
                 \For{$x \in V(G) - R : x \sim y$}
                     \If{$\texttt{H.get\_key(}x\texttt{)} > w(x, y)$}
@@ -3174,7 +3174,7 @@
 
     Il ciclo \texttt{for} della riga 11, per ogni vertice $y$ adiacente a $v$ di partenza, inizializza $\texttt{parents[}y\texttt{]} = v$ alla riga 12, ed alla riga 13 viene aggiornato il valore della chiave di $y$ all'interno del min-heap, attraverso proprio il peso dell'arco $(v, y)$.
 
-    La procedura dell'algoritmo inizia dunque alla riga 15, definendo un ciclo \texttt{while} che termina se $R$ contiene tutti i vertici in $V(G)$, garantendo dunque che l'output \texttt{Sol} sarà un grafo di copertura; alla riga 16 viene salvato $y$, definito come l'elemento minore del min-heap (\textit{si noti che l'operazione} \texttt{H.extract\_min()} \textit{rimuove il minimo dal min-heap}); inoltre, per definizione di $y$, per le chiavi usate nel min-heap, e per come \texttt{parents} è stato definito, è garantito che l'arco $(y, \texttt{parents[}y\texttt{]})$ minimizza il peso, e dunque nella riga 17 quest'ultimo arco viene inserito in \texttt{Sol}, ed $y$ viene aggiunto ad $R$ alla riga seguente (si noti che questo assicura che l'algoritmo scelga un insieme di archi minimale rispetto al peso di $w$).
+    La procedura dell'algoritmo inizia dunque alla riga 15, definendo un ciclo \texttt{while} che termina se $R$ contiene tutti i vertici in $V(G)$, garantendo dunque che l'output \texttt{Sol} sarà un grafo di copertura; alla riga 16 viene salvato $y$, definito come l'elemento minore del min-heap (\textit{si noti che l'operazione} \texttt{H.extract\_min()} \textit{rimuove il minimo dal min-heap}); inoltre, per definizione di $y$, per le chiavi usate nel min-heap, e per come \texttt{parents} è stato definito, è garantito che l'arco $(\texttt{parents[}y\texttt{]}, y)$ minimizza il peso, e dunque nella riga 17 quest'ultimo arco viene inserito in \texttt{Sol}, ed $y$ viene aggiunto ad $R$ alla riga seguente (si noti che questo assicura che l'algoritmo scelga un insieme di archi minimale rispetto al peso di $w$).
 
     Successivamente, alla riga 19 viene istanziato un ulteriore ciclo \texttt{for}, il quale per ogni vertice $x$ non contenuto in $R$ (dunque ancora non visitato dall'algoritmo), adiacente all'attuale $y$, effettua un aggiornamento simile a quello eseguito dal ciclo \texttt{for} della riga 11: infatti, la riga 20 controlla che il peso dell'arco $(x, y)$ sia minore della chiave di $x$, attualmente in \texttt{H}, poiché in tal caso è necessario aggiornare quest'ultima con $w(x, y)$, dunque minimizzando sempre il peso associato ad $x$ nel min-heap; inoltre, in tal caso va anche aggiornato il padre di $x$ con $y$, salvando dunque all'interno di $\texttt{parents[}x\texttt{]}$ il padre di $x$ tale da minimizzare il peso dell'arco tra padre e figlio.
 
@@ -3531,7 +3531,7 @@
         }
     \end{equation*}
 
-    Partendo da $k$, si può notare che tale variabile è definita nell'intervallo $[1, n - 1]$, esattamente come procede l'algoritmo per il ciclo \texttt{for} della riga 10; infatti il numero di righe della matrice creata è $n$ (riga 2), e la prima è già stata riempita come discusso precedentemente, ma il motivo per cui sono sufficienti esattamente $n$ righe, è che $k$ rappresenta il numero massimo di archi di un cammino da $u$ ad ognuno dei nodi della $k$-esima riga, e poiché sono cammini, e dunque per definizione in essi non è possibile ripercorrere vertici o archi più di una volta, allora segue che il massimo numero di archi che ognuno dei cammini può percorrere è $m$, ma poiché $G$ è stato scelto aciclico in ipotesi, allora $m = n - 1$, e dunque è sufficiente avere $n$ righe, nell'intervallo $[0, n - 1]$.
+    Partendo da $k$, si può notare che tale variabile è definita nell'intervallo $[1, n - 1]$, esattamente come procede l'algoritmo per il ciclo \texttt{for} della riga 10; infatti il numero di righe della matrice creata è $n$ (riga 2), e la prima è già stata riempita come discusso precedentemente, ma il motivo per cui sono sufficienti esattamente $n$ righe, è che $k$ rappresenta il numero massimo di archi di un cammino da $u$ ad ognuno dei nodi della $k$-esima riga, e poiché sono cammini, e dunque per definizione in essi non è possibile ripercorrere vertici o archi più di una volta, allora segue che il massimo numero di archi che ognuno dei cammini può avere è $n - 1$, e dunque è sufficiente avere $n$ righe, nell'intervallo $[0, n - 1]$.
 
     Inoltre, la formula definisce che la cella generica, che rappresenta il peso massimo che un cammino $u \rightarrow x$ avente al massimo $k$ archi può avere, è pari al valore massimo tra i seguenti:
 
@@ -3603,16 +3603,5 @@
 
     Infine, tenendo in considerazione la riga 6, che ha costo $O(1)$, si ha che il costo del ciclo \texttt{while} della riga 5 è pari a $\displaystyle O\left(\sum_{v \in V(G)}{\deg^{in}(v) + 1} \right) = O(n + m)$.
 \end{remark}
-
-\subsection{Sistemi di vincoli di differenza}
-
-\begin{definition}[Vincolo di differenza]
-    Un \textit{vincolo di differenza} è un vincolo esprimibile nella seguente forma: $$x_i - x_j \le b$$ per qualche $b \in \mathbb{R}$.
-\end{definition}
-
-\begin{definition}[Sistema di vincoli di differenza]
-    Un \textit{sistema} di vincoli di differenza è un sistema di disequazioni della forma seguente: $$\left\{\begin{array}{c} x_2 - x_1 \le b_1 \\ \vdots \\ x_n - x_{n - 1} \le b_{n - 1}\end{array}\right.$$ per certi $b_1, \ldots, b_{n - 1} \in \mathbb{R}$ TODO CAPIRE SE QUESTA ROBA VADA SCRITTA O MENO
-\end{definition}
-
 
 \end{document}
