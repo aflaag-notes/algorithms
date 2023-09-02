@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Arch Linux) (preloaded format=pdflatex 2023.7.8)  8 JUL 2023 12:10
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Arch Linux) (preloaded format=pdflatex 2023.8.30)  2 SEP 2023 18:43
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -882,7 +882,7 @@ Package rerunfilecheck Info: File `main.out' has not changed.
  ) 
 Here is how much of TeX's memory you used:
  26407 strings out of 477974
- 493254 string characters out of 5839631
+ 493254 string characters out of 5839630
  1869388 words of memory out of 5000000
  45774 multiletter control sequences out of 15000+600000
  521064 words of font info for 65 fonts, out of 8000000 for 9000
