@@ -1,8 +1,8 @@
 PWD /home/aless/Desktop/notes/algorithms/src
 INPUT /usr/share/texmf-dist/web2c/texmf.cnf
 INPUT /var/lib/texmf/web2c/pdftex/pdflatex.fmt
-INPUT main.tex
-OUTPUT main.log
+INPUT Progettazione di Algoritmi.tex
+OUTPUT Progettazione di Algoritmi.log
 INPUT /usr/share/texmf-dist/tex/latex/extsizes/extreport.cls
 INPUT /usr/share/texmf-dist/tex/latex/extsizes/extreport.cls
 INPUT /usr/share/texmf-dist/tex/latex/extsizes/extreport.cls
@@ -914,23 +914,23 @@ INPUT /usr/share/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 INPUT /usr/share/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 INPUT /usr/share/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 INPUT /usr/share/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
-INPUT ./main.aux
-INPUT main.aux
-INPUT main.aux
-OUTPUT main.aux
+INPUT ./Progettazione di Algoritmi.aux
+INPUT Progettazione di Algoritmi.aux
+INPUT Progettazione di Algoritmi.aux
+OUTPUT Progettazione di Algoritmi.aux
 INPUT /usr/share/texmf-dist/tex/latex/graphics/color.sty
-INPUT ./main.out
-INPUT main.out
-INPUT ./main.out
-INPUT main.out
-INPUT ./main.out
-INPUT main.out
-INPUT ./main.out
-INPUT main.out
-OUTPUT main.pdf
-INPUT ./main.out
-INPUT ./main.out
-OUTPUT main.out
+INPUT ./Progettazione di Algoritmi.out
+INPUT Progettazione di Algoritmi.out
+INPUT ./Progettazione di Algoritmi.out
+INPUT Progettazione di Algoritmi.out
+INPUT ./Progettazione di Algoritmi.out
+INPUT Progettazione di Algoritmi.out
+INPUT ./Progettazione di Algoritmi.out
+INPUT Progettazione di Algoritmi.out
+OUTPUT Progettazione di Algoritmi.pdf
+INPUT ./Progettazione di Algoritmi.out
+INPUT ./Progettazione di Algoritmi.out
+OUTPUT Progettazione di Algoritmi.out
 INPUT /usr/share/texmf-dist/tex/latex/graphics/graphicx.sty
 INPUT /usr/share/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 INPUT /usr/share/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
@@ -959,9 +959,9 @@ INPUT /usr/share/texmf-dist/fonts/tfm/public/cm/cmr17.tfm
 INPUT /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map
 INPUT /usr/share/texmf-dist/fonts/tfm/public/cm/cmr17.tfm
 INPUT /usr/share/texmf-dist/fonts/tfm/public/cm/cmbx12.tfm
-INPUT ./main.toc
-INPUT main.toc
-INPUT main.toc
+INPUT ./Progettazione di Algoritmi.toc
+INPUT Progettazione di Algoritmi.toc
+INPUT Progettazione di Algoritmi.toc
 INPUT /usr/share/texmf-dist/fonts/tfm/public/cm/cmmi12.tfm
 INPUT /usr/share/texmf-dist/fonts/tfm/public/cm/cmsy10.tfm
 INPUT /usr/share/texmf-dist/fonts/tfm/public/cm/cmex10.tfm
@@ -987,7 +987,7 @@ INPUT /usr/share/texmf-dist/tex/latex/stmaryrd/Ustmry.fd
 INPUT /usr/share/texmf-dist/fonts/tfm/public/stmaryrd/stmary10.tfm
 INPUT /usr/share/texmf-dist/fonts/tfm/public/stmaryrd/stmary10.tfm
 INPUT /usr/share/texmf-dist/fonts/tfm/public/stmaryrd/stmary7.tfm
-OUTPUT main.toc
+OUTPUT Progettazione di Algoritmi.toc
 INPUT /usr/share/texmf-dist/fonts/tfm/public/cm/cmr17.tfm
 INPUT /usr/share/texmf-dist/fonts/tfm/public/cm/cmr17.tfm
 INPUT /usr/share/texmf-dist/fonts/tfm/public/cm/cmbx12.tfm
@@ -1001,9 +1001,9 @@ INPUT /usr/share/texmf-dist/fonts/tfm/jknappen/ec/tcrm1440.tfm
 INPUT /usr/share/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc
 INPUT /usr/share/texmf-dist/fonts/tfm/public/cm/cmss12.tfm
 INPUT /usr/share/texmf-dist/fonts/tfm/jknappen/ec/tcti1440.tfm
-INPUT main.aux
-INPUT ./main.out
-INPUT ./main.out
+INPUT Progettazione di Algoritmi.aux
+INPUT ./Progettazione di Algoritmi.out
+INPUT ./Progettazione di Algoritmi.out
 INPUT /usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
 INPUT /usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb
 INPUT /usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb

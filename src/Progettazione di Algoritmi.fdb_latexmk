@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1693672995 "main.tex" "main.pdf" "main" 1693672998 0
+["pdflatex"] 1695668006 "Progettazione di Algoritmi.tex" "Progettazione di Algoritmi.pdf" "Progettazione di Algoritmi" 1695668009 0
   "/usr/share/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1689853683 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/share/texmf-dist/fonts/map/fontname/texfonts.map" 1689853683 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texmf-dist/fonts/tfm/jknappen/ec/tcrm1440.tfm" 1689853683 1536 3290a75021d32d016616fe527bc9884c ""
@@ -187,14 +187,14 @@
   "/usr/share/texmf-dist/web2c/texmf.cnf" 1689853683 40684 9b9ec0b4288972636ff6a3b9c4238efc ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1693381028 4483110 adb1e1d04498b9576f1f17c4219c5e03 ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1693380976 6769488 5b7e4d8b8dc08b722ee96f876127df85 ""
-  "main.aux" 1693672998 32858 9da5873729601b0f115e5f9c7f7edb3b "pdflatex"
-  "main.out" 1693672998 8222 9a1937234150234d863ca69bdae30d63 "pdflatex"
-  "main.tex" 1689012657 260247 114a409deed84c26ebdaa4702c50b62a ""
-  "main.toc" 1693672998 4428 1f526bb175b6291fbd8e652e025d5531 "pdflatex"
+  "Progettazione di Algoritmi.aux" 1695668008 32858 9da5873729601b0f115e5f9c7f7edb3b "pdflatex"
+  "Progettazione di Algoritmi.out" 1695668008 8222 9a1937234150234d863ca69bdae30d63 "pdflatex"
+  "Progettazione di Algoritmi.tex" 1694794913 260247 114a409deed84c26ebdaa4702c50b62a ""
+  "Progettazione di Algoritmi.toc" 1695668008 4428 1f526bb175b6291fbd8e652e025d5531 "pdflatex"
   (generated)
-  "main.aux"
-  "main.log"
-  "main.out"
-  "main.pdf"
-  "main.toc"
+  "Progettazione di Algoritmi.aux"
+  "Progettazione di Algoritmi.log"
+  "Progettazione di Algoritmi.out"
+  "Progettazione di Algoritmi.pdf"
+  "Progettazione di Algoritmi.toc"
   (rewritten before read)
