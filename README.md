@@ -11,4 +11,6 @@ Questi sono i miei [appunti](<https://raw.githubusercontent.com/ph-notes/algorit
 - fixa algoritmi
 - rendi breakable (probabilmente dopo aver fatto quelle obs come dim penso che servirà solo per gli alg)
 - controlla se c'è altro da fare
+- inverti i nomi delle cartelle src e src2 (dunque il link rimane invariato)
+- considera di fare le cose in grassetto? (quelle che ora nelle defn sono in corsivo)
 
