@@ -101,7 +101,7 @@
     \subsection{Definizioni}
 
     \begin{frameddefn}{Grafo}
-        Un \tit{grafo} è una struttura matematica descritta da vertici, collegati da archi. Un grafo viene descritto formalmente come $G=(V, E)$, dove i $v \in V$ sono i \textit{vertici} o \textit{nodi} del grafo, mentre gli $e \in E$ sono gli \textit{archi} (dall'inglese \textit{edges}). In particolare, $V(G)$ è l'insieme dei vertici di $G$, comunemente indicato con $n$, mentre $E(G)$ è l'insieme degli archi di $G$, comunemente indicato con $m$. Presi due vertici $v_1,v_2 \in V(G)$, allora $(v_1, v_2) \in E(G)$ è l'arco che li collega.
+        Un \tit{grafo} è una struttura matematica descritta da vertici, collegati da archi. Un grafo viene descritto formalmente come $G=(V, E)$, dove i $v \in V$ sono i \tbf{vertici} o \tbf{nodi} del grafo, mentre gli $e \in E$ sono gli \tbf{archi} (dall'inglese \tit{edges}). In particolare, $V(G)$ è l'insieme dei vertici di $G$, comunemente indicato con $n$, mentre $E(G)$ è l'insieme degli archi di $G$, comunemente indicato con $m$. Presi due vertici $v_1,v_2 \in V(G)$, allora $(v_1, v_2) \in E(G)$ è l'arco che li collega.
     \end{frameddefn}
 
     \begin{framedobs}{Relazione tra vertici ed archi}
@@ -109,7 +109,7 @@
     \end{framedobs}
 
     \begin{frameddefn}{Vertici adiacenti}
-        $v_1, v_2 \in V(G)$ sono detti \textit{adiacenti} se $(v_1, v_2) \in E(G)$; in tal caso, si usa la notazione $v_1 \sim v_2$.
+        Dato un grafo $G$, due suoi vertici $v_1, v_2 \in V(G)$ sono detti \tbf{adiacenti} se $(v_1, v_2) \in E(G)$; in tal caso, si usa la notazione $$v_1 \sim v_2$$
     \end{frameddefn}
 
     \begin{frameddefn}{Sottografo}
@@ -117,7 +117,7 @@
     \end{frameddefn}
 
     \begin{frameddefn}{Grafo indiretto}
-        Un grafo è detto \textit{indiretto} se gli archi non hanno direzione, o equivalentemente $$\forall v_1, v_2 \in V(G) \quad (v_1, v_2) = (v_2, v_1) \in E(G)$$
+        Un grafo è detto \tbf{indiretto} se gli archi non hanno direzione, o equivalentemente $$\forall v_1, v_2 \in V(G) \quad (v_1, v_2) = (v_2, v_1) \in E(G)$$
     \end{frameddefn}
 
     \begin{example}[Grafo indiretto]
@@ -151,7 +151,7 @@
     \end{example}
 
     \begin{frameddefn}{Grafo diretto}
-        Un grafo è detto \textit{diretto} se gli archi hanno direzione, o equivalentemente $$\forall v_1, v_2 \in V(G) \quad (v_1, v_2) \neq (v_2, v_1) \in E(G)$$
+        Un grafo è detto \tbf{diretto} se gli archi hanno direzione, o equivalentemente $$\forall v_1, v_2 \in V(G) \quad (v_1, v_2) \neq (v_2, v_1) \in E(G)$$
     \end{frameddefn}
 
     \begin{example}[Grafo diretto]
@@ -185,7 +185,7 @@
     \end{example}
 
     \begin{frameddefn}{Grado}
-        Il \textit{grado} di un vertice $v \in V(G)$ è il numero di archi incidenti su $v$, indicato con $\deg(v)$; all'interno di questi appunti, nel caso di grafi diretti, con $\deg(v)$ verrà inteso il numero di archi uscenti da $v$, mentre con $\deg^{in}(v)$ il numero di archi entranti in $v$.
+        Il \tbf{grado} di un vertice $v \in V(G)$ è il numero di archi incidenti su $v$, indicato con $\deg(v)$; all'interno di questi appunti, nel caso di grafi diretti, con $\deg(v)$ verrà inteso il numero di archi uscenti da $v$, mentre con $\deg^{in}(v)$ il numero di archi entranti in $v$.
     \end{frameddefn}
 
     \begin{framedlem}[label={Somma dei gradi}]{Somma dei gradi}
@@ -197,7 +197,7 @@
     \end{proof}
 
     \begin{frameddefn}{Cappio}
-        Un arco con estremi coincidenti è detto \textit{cappio}.
+        Un arco con estremi coincidenti è detto \tbf{cappio}.
     \end{frameddefn}
 
     \begin{example}[Grafo con cappio]
@@ -222,19 +222,19 @@
     \end{example}
 
     \begin{frameddefn}{Grafo semplice}
-        Un grafo è detto \textit{semplice} se non contiene cappi, né lati multipli, ovvero più archi per due vertici.
+        Un grafo è detto \tbf{semplice} se non contiene cappi, né lati multipli, ovvero più archi per due vertici.
 
         All'interno di questi appunti, a meno di esplicita specifica, si assume che ogni grafo trattato sia semplice.
     \end{frameddefn}
 
     \begin{frameddefn}{Multigrafo}
-        Un grafo è detto \textit{multigrafo}, se non è un grafo semplice.
+        Un grafo è detto \tbf{multigrafo}, se non è un grafo semplice.
     \end{frameddefn}
 
     \subsection{Visite}
 
     \begin{frameddefn}{Passeggiata}
-        Una \textit{passeggiata} è una sequenza di vertici ed archi, della forma $$\{v_0, e_1, v_1, e_2, \ldots , e_{k - 1}, v_{k - 1}, e_k, v_k\}$$ dove $e_i=(v_{i - 1}, v_i)$. È la visita di un grafo più generale, ed è possibile ripercorrere ogni arco ed ogni vertice.
+        Una \tbf{passeggiata} è una sequenza di vertici ed archi, della forma $$\{v_0, e_1, v_1, e_2, \ldots , e_{k - 1}, v_{k - 1}, e_k, v_k\}$$ dove $e_i=(v_{i - 1}, v_i)$. È la visita di un grafo più generale, ed è possibile ripercorrere ogni arco ed ogni vertice.
     \end{frameddefn}
 
     \begin{framedobs}{Lunghezza massima di una passeggiata}
@@ -242,11 +242,11 @@
     \end{framedobs}
 
     \begin{frameddefn}{Passeggiata chiusa}
-        Una passeggiata si dice \textit{chiusa} se è della forma $$\{v_0, e_1, v_1, e_2, \ldots , e_{k - 1}, v_{k - 1}, e_k, v_0\}$$ dunque il primo e l'ultimo vertice coincidono. 
+        Una passeggiata si dice \tbf{chiusa} se è della forma $$\{v_0, e_1, v_1, e_2, \ldots , e_{k - 1}, v_{k - 1}, e_k, v_0\}$$ dunque il primo e l'ultimo vertice coincidono. 
     \end{frameddefn}
 
     \begin{frameddefn}{Traccia}
-        Una \textit{traccia} è una passeggiata aperta, in cui non è possibile ripercorrere gli archi, ma è possibile ripercorrere i vertici.
+        Una \tbf{traccia} è una passeggiata aperta, in cui non è possibile ripercorrere gli archi, ma è possibile ripercorrere i vertici.
     \end{frameddefn}
 
     \begin{example}[Traccia di un grafo]
@@ -279,11 +279,11 @@
     \end{example}
 
     \begin{frameddefn}{Circuito}
-        Un \textit{circuito} è una traccia chiusa.
+        Un \tbf{circuito} è una traccia chiusa.
     \end{frameddefn}
 
     \begin{frameddefn}{Cammino}
-        Un \textit{cammino} è una traccia aperta, in cui non è possibile ripercorrere i vertici. In simboli, dati $v, v' \in V(G)$, con $v \rightarrow v'$ si indica che è possibile raggiungere $v'$, partendo da $v$, attraverso un cammino; inoltre, è possibile estendere tale sintassi anche agli archi.
+        Un \tbf{cammino} è una traccia aperta, in cui non è possibile ripercorrere i vertici. In simboli, dati $v, v' \in V(G)$, con $v \rightarrow v'$ si indica che è possibile raggiungere $v'$, partendo da $v$, attraverso un cammino; inoltre, è possibile estendere tale sintassi anche agli archi.
     \end{frameddefn}
 
     \begin{framedobs}{Archi di cammini}
@@ -297,13 +297,13 @@
     \begin{proof}
         \hspace{0.7cm}
         \begin{itemize}
-            \item[] \textit{Prima implicazione.} Sia $u \rightarrow v$ una passeggiata da $u$ a $v$; allora, per trovare il cammino $u \rightarrow v$, è sufficiente considerare il sottoinsieme di cardinalità minore, di vertici ed archi, della passeggiata, tale da congiungere $u$ e $v$.
-            \item[] \textit{Seconda implicazione.} Per definizione, una passeggiata è un qualsiasi percorso tra due vertici di un grafo, e in particolare un cammino è una passeggiata, e dunque il cammino $u \rightarrow v$ è anche un passeggiata.
+            \item[] \tit{Prima implicazione.} Sia $u \rightarrow v$ una passeggiata da $u$ a $v$; allora, per trovare il cammino $u \rightarrow v$, è sufficiente considerare il sottoinsieme di cardinalità minore, di vertici ed archi, della passeggiata, tale da congiungere $u$ e $v$.
+            \item[] \tit{Seconda implicazione.} Per definizione, una passeggiata è un qualsiasi percorso tra due vertici di un grafo, e in particolare un cammino è una passeggiata, e dunque il cammino $u \rightarrow v$ è anche un passeggiata.
         \end{itemize}
     \end{proof}
 
     \begin{frameddefn}{Ciclo}
-        Un \textit{ciclo} è un cammino chiuso.
+        Un \tbf{ciclo} è un cammino chiuso.
     \end{frameddefn}
 
     \begin{example}[Cicli di un grafo]
@@ -332,7 +332,7 @@
     \end{example}
 
     \begin{frameddefn}{Ordinamento topologico}
-        I vertici di un grafo diretto si definiscono \textit{ordinati topologicamente}, se disposti in modo tale che ogni vertice viene prima di tutti i vertici collegati ai suoi archi uscenti.
+        I vertici di un grafo diretto si definiscono \tbf{ordinati topologicamente}, se disposti in modo tale che ogni vertice viene prima di tutti i vertici collegati ai suoi archi uscenti.
     \end{frameddefn}
 
     \begin{example}[Ordinamento topologico]
@@ -373,8 +373,8 @@
     \begin{proof}
         \hspace{0.7cm}
         \begin{itemize}
-            \item[] \textit{Prima implicazione.} Per assurdo, sia $G$ un grafo diretto, con un ordinamento topologico, e ciclico, avente dunque almeno un ciclo, e siano $\{v_0, \ldots , v_{k - 1}, v_0\}$ i vertici che costituiscono uno dei cicli di $G$; allora, si ha che $$v_0 \rightarrow v_1 \rightarrow \ldots \rightarrow v_{k - 1} \rightarrow v_0$$ e dunque all'interno dell'ordinamento topologico $v_0$ dovrebbe essere posto contemporaneamente prima e dopo $v_1, \ldots, v_{k - 1} \ \lightning$.
-            \item[] \textit{Seconda implicazione.} Sia $G$ un grafo aciclico; allora per definizione, all'interno di esso non esistono cicli, ed è dunque possibile enumerare in sequenza ogni vertice $G$, senza creare dipendenze circloari, per poter trovare un ordinamento topologico del grafo.
+            \item[] \tit{Prima implicazione.} Per assurdo, sia $G$ un grafo diretto, con un ordinamento topologico, e ciclico, avente dunque almeno un ciclo, e siano $\{v_0, \ldots , v_{k - 1}, v_0\}$ i vertici che costituiscono uno dei cicli di $G$; allora, si ha che $$v_0 \rightarrow v_1 \rightarrow \ldots \rightarrow v_{k - 1} \rightarrow v_0$$ e dunque all'interno dell'ordinamento topologico $v_0$ dovrebbe essere posto contemporaneamente prima e dopo $v_1, \ldots, v_{k - 1} \ \lightning$.
+            \item[] \tit{Seconda implicazione.} Sia $G$ un grafo aciclico; allora per definizione, all'interno di esso non esistono cicli, ed è dunque possibile enumerare in sequenza ogni vertice $G$, senza creare dipendenze circloari, per poter trovare un ordinamento topologico del grafo.
         \end{itemize}
     \end{proof}
 
@@ -387,11 +387,11 @@
     \end{proof}
 
     \begin{frameddefn}{Arborescenza}
-        Sia $G$ un grafo diretto, e $r$ un suo vertice; $G$ è detto \textit{arborescenza} se e solo se, per ogni vertice $v \in V(G) - \{r\}$, esiste uno ed un solo cammino diretto $r \rightarrow v$; in tal caso, $r$ prende il nome di \textit{radice}.
+        Sia $G$ un grafo diretto, e $r$ un suo vertice; $G$ è detto \tbf{arborescenza} se e solo se, per ogni vertice $v \in V(G) - \{r\}$, esiste uno ed un solo cammino diretto $r \rightarrow v$; in tal caso, $r$ prende il nome di \tbf{radice}.
     \end{frameddefn}
 
     \begin{framedobs}{Arborescenza}
-        Sia $G$ un grafo diretto, e $v$ un suo vertice; allora, l'insieme degli archi raggiungibili da $v$ formano l'\textit{arborescenza di $v$} in $G$, e $v$ prende il nome di \textit{radice}. In simboli $$A_v := \{(v', v'') \in E(G) : v \rightarrow (v', v'')\} \subseteq E(G)$$ è l'arborescenza di $v$ in $G$. Si noti che, spesso, il sottografo generato dall'arborescenza di $v$ viene identificato con l'arborescenza stessa.
+        Sia $G$ un grafo diretto, e $v$ un suo vertice; allora, l'insieme degli archi raggiungibili da $v$ formano l'\tbf{arborescenza di $v$} in $G$, e $v$ prende il nome di \tbf{radice}. In simboli $$A_v := \{(v', v'') \in E(G) : v \rightarrow (v', v'')\} \subseteq E(G)$$ è l'arborescenza di $v$ in $G$. Si noti che, spesso, il sottografo generato dall'arborescenza di $v$ viene identificato con l'arborescenza stessa.
     \end{framedobs}
 
     \begin{example}[Arborescenza]
@@ -444,7 +444,7 @@
     \end{example}
 
     \begin{frameddefn}{Grafo connesso}
-        Un grafo è detto \textit{connesso} se per ogni $v_1, v_2 \in V(G)$ esiste un cammino che li collega. Nel caso dei grafi indiretti, è sufficiente avere $v_1 \rightarrow v_2$, oppure $v_2 \rightarrow v_1$.
+        Un grafo è detto \tbf{connesso} se per ogni $v_1, v_2 \in V(G)$ esiste un cammino che li collega. Nel caso dei grafi indiretti, è sufficiente avere $v_1 \rightarrow v_2$, oppure $v_2 \rightarrow v_1$.
     \end{frameddefn}
 
     \begin{example}[Grafo non connesso]
@@ -479,7 +479,7 @@
     \end{example}
 
     \begin{frameddefn}{Albero}
-        Un grafo indiretto è detto \textit{albero} se è connesso ed aciclico.
+        Un grafo indiretto è detto \tbf{albero} se è connesso ed aciclico.
     \end{frameddefn}
 
     \begin{example}[Albero]
@@ -506,7 +506,7 @@
     \end{example}
 
     \begin{frameddefn}{Grafo fortemente connesso}
-        Un grafo diretto è detto \textit{fortemente connesso} se per ogni $v_1, v_2 \in V(G)$ esistono due cammini diretti, che li collegano in entrambe i versi; allora, è necessario avere $v_1 \rightarrow v_2$ e $v_2 \rightarrow v_1$. Si noti che ogni grafo indiretto connesso è anche fortemente connesso, poiché gli archi non hanno direzione.
+        Un grafo diretto è detto \tbf{fortemente connesso} se per ogni $v_1, v_2 \in V(G)$ esistono due cammini diretti, che li collegano in entrambe i versi; allora, è necessario avere $v_1 \rightarrow v_2$ e $v_2 \rightarrow v_1$. Si noti che ogni grafo indiretto connesso è anche fortemente connesso, poiché gli archi non hanno direzione.
     \end{frameddefn}
 
     \begin{example}[Grafo fortemente connesso]
@@ -538,13 +538,13 @@
     \begin{proof}
         \hspace{0.7cm}
         \begin{itemize}
-            \item[] \textit{Prima implicazione.} L'implicazione è vera per definizione di grafo diretto fortemente connesso.
-            \item[] \textit{Seconda implicazione.} Siano $x, y \in V(G)$; allora, per ipotesi, esistono cammini $x \rightarrow u$, $u \rightarrow x$, $y \rightarrow u$ e $u \rightarrow y$; inoltre, per definizione, tali cammini sono anche passeggiate. In particolare, poiché le passeggiate non hanno vincoli di attraversamento di vertici ed archi, allora è possibile utilizzare la proprietà transitiva, e dunque esistono passeggiate $x \rightarrow u \rightarrow y \implies x \rightarrow y$, e $y \rightarrow u \rightarrow x \implies y \rightarrow x$; allora, per il \cref{cammini e passeggiate}, esistono anche dei cammini $x \rightarrow y$ e $y \rightarrow x$. Allora, per definizione, per ogni coppia di vertici esistono due cammini in entrambe le direzioni, e dunque $G$ è fortemente connesso.
+            \item[] \tit{Prima implicazione.} L'implicazione è vera per definizione di grafo diretto fortemente connesso.
+            \item[] \tit{Seconda implicazione.} Siano $x, y \in V(G)$; allora, per ipotesi, esistono cammini $x \rightarrow u$, $u \rightarrow x$, $y \rightarrow u$ e $u \rightarrow y$; inoltre, per definizione, tali cammini sono anche passeggiate. In particolare, poiché le passeggiate non hanno vincoli di attraversamento di vertici ed archi, allora è possibile utilizzare la proprietà transitiva, e dunque esistono passeggiate $x \rightarrow u \rightarrow y \implies x \rightarrow y$, e $y \rightarrow u \rightarrow x \implies y \rightarrow x$; allora, per il \cref{cammini e passeggiate}, esistono anche dei cammini $x \rightarrow y$ e $y \rightarrow x$. Allora, per definizione, per ogni coppia di vertici esistono due cammini in entrambe le direzioni, e dunque $G$ è fortemente connesso.
         \end{itemize}
     \end{proof}
 
     \begin{frameddefn}{Passeggiata euleriana}
-        Una passeggiata si dice \textit{euleriana} se attraversa ogni arco del grafo, senza ripercorrerne nessuno.
+        Una passeggiata si dice \tbf{euleriana} se attraversa ogni arco del grafo, senza ripercorrerne nessuno.
     \end{frameddefn}
 
     \begin{framedobs}{Passeggiate euleriane}
@@ -579,13 +579,13 @@
     \begin{proof}
         \hspace{0.7cm}
         \begin{itemize}
-            \item[] \textit{Prima implicazione.} Sia $G$ un grafo avente un circuito euleriano; per assurdo, sia $v \in V(G) : \deg(v)$ non sia pari. Allora, percorrendo $G$ secondo il circuito euleriano, giungendo a $v$ non si potrebbe più lasciare tale vertice senza riattraversare uno degli archi gia visitati $\lightning$. Inoltre, se $G$ non fosse connesso, il circuito non potrebbe essere euleriano poiché non potrebbe attraversare tutti gli archi di $G$.
-            \item[] \textit{Seconda implicazione.} Omessa.
+            \item[] \tit{Prima implicazione.} Sia $G$ un grafo avente un circuito euleriano; per assurdo, sia $v \in V(G) : \deg(v)$ non sia pari. Allora, percorrendo $G$ secondo il circuito euleriano, giungendo a $v$ non si potrebbe più lasciare tale vertice senza riattraversare uno degli archi gia visitati $\lightning$. Inoltre, se $G$ non fosse connesso, il circuito non potrebbe essere euleriano poiché non potrebbe attraversare tutti gli archi di $G$.
+            \item[] \tit{Seconda implicazione.} Omessa.
         \end{itemize}
     \end{proof}
 
     \begin{frameddefn}{Passeggiata hamiltoniana}
-        Una passeggiata si dice \textit{hamiltoniana} se attraversa ogni nodo del grafo, senza ripercorrerne nessuno.
+        Una passeggiata si dice \tbf{hamiltoniana} se attraversa ogni nodo del grafo, senza ripercorrerne nessuno.
     \end{frameddefn}
 
     \begin{framedobs}{Passeggiate hamiltoniane}
@@ -747,7 +747,7 @@
     \subsection{Visita in DFS}
 
     \begin{frameddefn}{DFS}
-        Con DFS si indica un criterio di visita di un grafo; in particolare, DFS sta per \textit{Depth-first Search}, dunque la visita del grafo avviene procendendo sempre più in profondità, retrocedendo esclusivamente se non è più possibile avanzare.
+        Con DFS si indica un criterio di visita di un grafo; in particolare, DFS sta per \tit{Depth-first Search}, dunque la visita del grafo avviene procendendo sempre più in profondità, retrocedendo esclusivamente se non è più possibile avanzare.
     \end{frameddefn}
 
     \begin{algorithm}[H]
@@ -890,9 +890,9 @@
     \subsection{Definizioni}
 
     \begin{frameddefn}{Tempo di visita e di chiusura}
-        All'interno degli algoritmi che visitano grafi secondo DFS, è possibile introdurre un \texttt{counter} inizializzato ad $1$, ed incrementato ogni volta che viene attraversato un \textit{nuovo} vertice.
+        All'interno degli algoritmi che visitano grafi secondo DFS, è possibile introdurre un \texttt{counter} inizializzato ad $1$, ed incrementato ogni volta che viene attraversato un \tit{nuovo} vertice.
 
-        Allora, per ogni vertice $v$ del grafo diretto in input, si definiscono $t(v)$, detto \textit{tempo di visita di $v$}, pari al valore del \texttt{counter} la prima volta che $v$ viene visitato, e $T(v)$, detto \textit{tempo di chiusura di $v$}, pari al valore del \texttt{counter} nel momento in cui $v$ viene rimosso dallo stack.
+        Allora, per ogni vertice $v$ del grafo diretto in input, si definiscono $t(v)$, detto \tbf{tempo di visita di $v$}, pari al valore del \texttt{counter} la prima volta che $v$ viene visitato, e $T(v)$, detto \tbf{tempo di chiusura di $v$}, pari al valore del \texttt{counter} nel momento in cui $v$ viene rimosso dallo stack.
 
         Inoltre, si definisce $\mathrm{Int}(v) := [t(v), T(v)]$.
     \end{frameddefn}
@@ -913,7 +913,7 @@
     \end{framedlem}
 
     \begin{proof}
-        La tesi equivale a dimostrare che non può verificarsi il caso in cui c'è intersezione \textit{propria} non vuota tra i due intervalli, e dunque non è possibile che $\mathrm{Int}(u) \cap \mathrm{Int}(v) \neq \varnothing$, ovvero $t(u) < t(v) < T(u) < T(v)$, allora:
+        La tesi equivale a dimostrare che non può verificarsi il caso in cui c'è intersezione \tbf{propria} non vuota tra i due intervalli, e dunque non è possibile che $\mathrm{Int}(u) \cap \mathrm{Int}(v) \neq \varnothing$, ovvero $t(u) < t(v) < T(u) < T(v)$, allora:
 
         \begin{itemize}
             \item $t(u) < t(v) \implies u$ inserito nello stack prima di $v$
@@ -981,18 +981,18 @@
 
     \subsection{Categorie di archi}
 
-    \begin{framedobs}{Categorie di archi}
+    \begin{frameddefn}{Categorie di archi}
         Sia $G= (V, E)$ un grafo diretto, $\hat v \in V(G)$, e sia $A_{\hat v}$ la sua arborescenza; allora, è possibile classificare ogni arco $(u, v) \in E(G) - E(A_{\hat v})$, mediante $\mathrm{Int}(u)$ e $\mathrm{Int}(v)$:
         \begin{itemize}
-            \item $\mathrm{Int}(u) \subseteq \mathrm{Int}(v)$, allora l'arco $(u, v)$ è un \textit{backward edge}, ovvero all'indietro: sono gli archi che congiungono due nodi dello stesso ramo di $A_{\hat v}$, nel caso in cui $u$ è più in profondità di $v$ nella visita DFS 
-            \item $\mathrm{Int}(v) \subseteq \mathrm{Int}(u)$, allora l'arco $(u, v)$ è un \textit{forward edge}, ovvero in avanti: sono gli archi che congiungono due nodi dello stesso ramo di $A_{\hat v}$, nel caso in cui $v$ è più in profondità di $u$ nella visita DFS
-            \item $\mathrm{Int}(v) \cap \mathrm{Int}(u) = \varnothing$, allora l'arco $(u, v)$ è un \textit{cross edge}, detto \textit{arco di attraversamento}: sono gli archi che congiungono due nodi di rami differenti dell'arborescenza $A_{\hat v}$
+            \item $\mathrm{Int}(u) \subseteq \mathrm{Int}(v)$, allora l'arco $(u, v)$ è un \tbf{backward edge}, ovvero all'indietro: sono gli archi che congiungono due nodi dello stesso ramo di $A_{\hat v}$, nel caso in cui $u$ è più in profondità di $v$ nella visita DFS 
+            \item $\mathrm{Int}(v) \subseteq \mathrm{Int}(u)$, allora l'arco $(u, v)$ è un \tbf{forward edge}, ovvero in avanti: sono gli archi che congiungono due nodi dello stesso ramo di $A_{\hat v}$, nel caso in cui $v$ è più in profondità di $u$ nella visita DFS
+            \item $\mathrm{Int}(v) \cap \mathrm{Int}(u) = \varnothing$, allora l'arco $(u, v)$ è un \tbf{cross edge}, detto \tbf{arco di attraversamento}: sono gli archi che congiungono due nodi di rami differenti dell'arborescenza $A_{\hat v}$
         \end{itemize}
-    \end{framedobs}
+    \end{frameddefn}
 
-    \begin{framedobs}{Categorie di archi}
-        Sia $G=(V, E)$ un grafo indiretto, $\hat v \in V(G)$, e sia $T_{\hat v}$ il suo albero; allora, ogni arco $(u, v) \in E(G) - E(T_{\hat v})$ viene classificato come \textit{backward edge}.
-    \end{framedobs}
+    \begin{frameddefn}{Categorie di archi}
+        Sia $G=(V, E)$ un grafo indiretto, $\hat v \in V(G)$, e sia $T_{\hat v}$ il suo albero; allora, ogni arco $(u, v) \in E(G) - E(T_{\hat v})$ viene classificato come \tbf{backward edge}.
+    \end{frameddefn}
 
     \begin{example}
         Ad esempio, si consideri il seguente multigrafo diretto $G$:
@@ -1101,11 +1101,11 @@
         \begin{center}
             \begin{tabular}{c||c c} 
                  \hline
-                 \textit{backward} & $\{(2, 1), (4, 1), (5, 7), (7, 1)\}$ \\
+                 \tbf{backward} & $\{(2, 1), (4, 1), (5, 7), (7, 1)\}$ \\
                  \hline
-                 \textit{forward} & $\{(1, 5), (2, 4), (7, 10)\}$\\ 
+                 \tbf{forward} & $\{(1, 5), (2, 4), (7, 10)\}$\\ 
                  \hline
-                 \textit{cross} & $\{(7, 6), (8, 4)\}$\\
+                 \tbf{cross} & $\{(7, 6), (8, 4)\}$\\
                  \hline
             \end{tabular}
         \end{center}
@@ -1118,8 +1118,8 @@
     \begin{proof}
         \hspace{0.7cm}
         \begin{itemize}
-            \item[] \textit{Prima implicazione.} Per assurdo, sia $G$ un grafo indiretto, in cui è presente almeno un ciclo, e non sono presenti backward edge; inoltre, sia $\hat v \in V(G)$, e sia $T_{\hat v}$ il suo albero. Allora, poiché $G$ non ha backward edge, necessariamente gli unici suoi archi sono quelli che compongono $T_{\hat v}$, e dunque si ha che $E(G) = E(T_{\hat v}) \implies G = T_{\hat v} \implies G$ è un albero, e di conseguenza $G$ non ha cicli $\lightning$.
-            \item[] \textit{Seconda implicazione.} Sia $G$ un grafo indiretto connesso, sia $\hat v \in V(G)$, sia $T_{\hat v}$ il suo albero, e sia $(u, v) \in E(G) - E(T_{\hat v})$ un backward edge. Allora, poiché $u, v \in V(T_{\hat v})$, è sufficiente considerare il cammino tale che $u \rightarrow v$, che esiste poiché $T_{\hat v}$ è un albero, e dunque $\{u \rightarrow v\} \cup (u, v)$ è un ciclo di $G$.
+            \item[] \tit{Prima implicazione.} Per assurdo, sia $G$ un grafo indiretto, in cui è presente almeno un ciclo, e non sono presenti backward edge; inoltre, sia $\hat v \in V(G)$, e sia $T_{\hat v}$ il suo albero. Allora, poiché $G$ non ha backward edge, necessariamente gli unici suoi archi sono quelli che compongono $T_{\hat v}$, e dunque si ha che $E(G) = E(T_{\hat v}) \implies G = T_{\hat v} \implies G$ è un albero, e di conseguenza $G$ non ha cicli $\lightning$.
+            \item[] \tit{Seconda implicazione.} Sia $G$ un grafo indiretto connesso, sia $\hat v \in V(G)$, sia $T_{\hat v}$ il suo albero, e sia $(u, v) \in E(G) - E(T_{\hat v})$ un backward edge. Allora, poiché $u, v \in V(T_{\hat v})$, è sufficiente considerare il cammino tale che $u \rightarrow v$, che esiste poiché $T_{\hat v}$ è un albero, e dunque $\{u \rightarrow v\} \cup (u, v)$ è un ciclo di $G$.
         \end{itemize}
     \end{proof}
 
@@ -1203,7 +1203,7 @@
             \item alla riga 27 viene aggiornato il tempo di chiusura di $v_{top}$, che sarà pari al valore di \texttt{c} corrente, poiché il contatore deve aumentare esclusivamente quando si incontrano vertici non ancora visitati.
         \end{itemize}
 
-        Alle righe 30, 31 e 32 vengono definite 3 liste, che conterranno tutti gli archi del grafo, non facenti parte della visita di $G$ in DFS appena realizzata dall'algoritmo, categorizzati opportunamente grazie ai cicli \texttt{for} delle righe 33 e 34. In particolare, per ogni vertice $x \in V(G)$ del grafo, vengono esaminati tutti i vertici $u$, che siano \textit{adiacenti entranti} ad $x$, controllando di fatto l'arco $(u, x)$:
+        Alle righe 30, 31 e 32 vengono definite 3 liste, che conterranno tutti gli archi del grafo, non facenti parte della visita di $G$ in DFS appena realizzata dall'algoritmo, categorizzati opportunamente grazie ai cicli \texttt{for} delle righe 33 e 34. In particolare, per ogni vertice $x \in V(G)$ del grafo, vengono esaminati tutti i vertici $u$, che siano \tbf{adiacenti entranti} ad $x$, controllando di fatto l'arco $(u, x)$:
 
         \begin{itemize}
             \item se il nodo padre di $x$ è proprio $u$ (riga 35), allora necessariamente l'arco è stato visitato dall'algoritmo nella prima fase, poiché si trova all'interno di \texttt{parents} stesso, e dunque fa parte della visita del grafo, ed è possibile ignorarlo;
@@ -1288,8 +1288,8 @@
     \begin{proof}
         \hspace{0.7cm}
         \begin{itemize}
-            \item[] \textit{Prima implicazione.} Omessa.
-            \item[] \textit{Seconda implicazione.} Sia $G$ un grafo diretto fortemente connesso, e sia $\hat v \in V(G)$ tale che la sua arborescenza $A_{\hat v}$ contenga un backward edge $(u, v) \in E(G) - E(A_{\hat v})$. Allora, poiché $u, v \in V(A_{\hat v})$, e $(u, v)$ è un backward edge, è sufficiente considerare il cammino tale che $u \rightarrow v$, che esiste poiché $A_{\hat v}$ è un arborescenza, e dunque $\{u \rightarrow v\} \cup (u, v)$ è un ciclo di $G$. Si noti che il fatto che $G$ sia fortemente connesso garantisce di poter considerare un $\hat v \in V(G)$ qualsiasi.
+            \item[] \tit{Prima implicazione.} Omessa.
+            \item[] \tit{Seconda implicazione.} Sia $G$ un grafo diretto fortemente connesso, e sia $\hat v \in V(G)$ tale che la sua arborescenza $A_{\hat v}$ contenga un backward edge $(u, v) \in E(G) - E(A_{\hat v})$. Allora, poiché $u, v \in V(A_{\hat v})$, e $(u, v)$ è un backward edge, è sufficiente considerare il cammino tale che $u \rightarrow v$, che esiste poiché $A_{\hat v}$ è un arborescenza, e dunque $\{u \rightarrow v\} \cup (u, v)$ è un ciclo di $G$. Si noti che il fatto che $G$ sia fortemente connesso garantisce di poter considerare un $\hat v \in V(G)$ qualsiasi.
         \end{itemize}
     \end{proof}
 
@@ -1370,7 +1370,7 @@
     \subsection{Trovare un pozzo universale}
 
     \begin{frameddefn}{Pozzo universale}
-        Sia $G$ un grafo diretto; $v \in V(G)$ è detto \textit{pozzo universale} se ha $n - 1$ archi entranti, e nessun arco uscente.
+        Sia $G$ un grafo diretto; $v \in V(G)$ è detto \tbf{pozzo universale} se ha $n - 1$ archi entranti, e nessun arco uscente.
     \end{frameddefn}
 
     \begin{example}[Pozzo universale]
@@ -1463,7 +1463,7 @@
     \subsection{Trovare i ponti}
 
     \begin{frameddefn}{Ponte}
-        Sia $G$ un grafo, e sia $(u, v) \in E(G)$ un suo arco; allora, $(u, v)$ è detto \textit{ponte} se e solo se non è contenuto in nessun ciclo di $G$.
+        Sia $G$ un grafo, e sia $(u, v) \in E(G)$ un suo arco; allora, $(u, v)$ è detto \tbf{ponte} se e solo se non è contenuto in nessun ciclo di $G$.
     \end{frameddefn}
 
     \begin{example}[Ponte]
@@ -1504,9 +1504,9 @@
     \begin{proof}
         \hspace{0.7cm}
         \begin{itemize}
-            \item[] \textit{Prima implicazione.} Si noti che, poiché $G$ è indiretto e connesso, per qualsiasi $r \in V(G)$, $V(T_r) = V(G)$, dunque la visita in DFS è sempre in grado di raggiungere ogni nodo del grafo $G$.
+            \item[] \tit{Prima implicazione.} Si noti che, poiché $G$ è indiretto e connesso, per qualsiasi $r \in V(G)$, $V(T_r) = V(G)$, dunque la visita in DFS è sempre in grado di raggiungere ogni nodo del grafo $G$.
                 Per definizione $T_y$ è connesso ed aciclico, e dunque esiste uno ed un solo cammino $y \rightarrow u$; inoltre, per ragionamento analogo, esiste uno ed un solo cammino $v \rightarrow x$. Allora, se esiste un arco $(u, v) \in E(G)$, viene creato un ciclo in $G$ della forma $v \rightarrow x \rightarrow y \rightarrow u \rightarrow v$, poiché esiste l'arco $(x, y) \in E(G)$ in ipotesi, che sarà dunque necessariamente contenuto in tale ciclo.
-            \item[] \textit{Seconda implicazione.}  Se $(x, y)$ è incluso in almeno un ciclo di $G$, deve necessariamente esistere un cammino $x \rightarrow y$ non passante per $(x, y)$, il quale deve contenere un arco $(u, v)$, in cui $u \in V(T_y)$, e $v \in V(T - T_x)$, poiché $(x, y) \in E(G)$ è un arco.
+            \item[] \tit{Seconda implicazione.}  Se $(x, y)$ è incluso in almeno un ciclo di $G$, deve necessariamente esistere un cammino $x \rightarrow y$ non passante per $(x, y)$, il quale deve contenere un arco $(u, v)$, in cui $u \in V(T_y)$, e $v \in V(T - T_x)$, poiché $(x, y) \in E(G)$ è un arco.
 
         \end{itemize}
     \end{proof}
@@ -1570,7 +1570,7 @@
 
         Infine, prima di iniziare una visita in DFS ricorsiva dell'albero, viene istanziato un oggetto contatore \texttt{c}, utilizzato per salvare i tempi di visita in \texttt{t}.
 
-        L'esecuzione procede all'interno della funzione ricorsiva \texttt{DFS}, che ha lo scopo di popolare i valori degli array precedentemente definiti. La funzione inizia aggiornando il contatore, e inserendo il relativo valore del tempo di visita del vertice corrente; inoltre, di quest'ultimo viene inizializzato il valore corrisopndente in \texttt{back}, pari al suo stesso tempo di visita. Tale valore servirà come \textit{sentinel value}, e verrà utilizzato successivamente dall'algoritmo per stabilire quali archi del grafo sono ponti.
+        L'esecuzione procede all'interno della funzione ricorsiva \texttt{DFS}, che ha lo scopo di popolare i valori degli array precedentemente definiti. La funzione inizia aggiornando il contatore, e inserendo il relativo valore del tempo di visita del vertice corrente; inoltre, di quest'ultimo viene inizializzato il valore corrisopndente in \texttt{back}, pari al suo stesso tempo di visita. Tale valore servirà come \tbf{sentinel value}, e verrà utilizzato successivamente dall'algoritmo per stabilire quali archi del grafo sono ponti.
 
         Successivamente, viene istanziato un ciclo \texttt{for}, alla riga $5$, in cui per ogni vertice $z$, adiacente al vertice $y$ corrente:
 
@@ -1617,7 +1617,7 @@
     \subsection{Trovare le componenti}
 
     \begin{frameddefn}{Componenti indirette}
-        Sia $G$ un grafo indiretto, non necessariamente connesso; si definisce \textit{componente} un sottografo di $G$, connesso, non ulteriormente estendibile. Più rigorosamente, sia $H \subseteq G$ un sottografo di $G$; esso è una componente di $G$, se e solo se non esiste $H' \subseteq G$, sottografo connesso di $G$, tale che $H \subsetneq H'$. Le componenti sono anche definite come sottografi \textit{massimalmente connessi}.
+        Sia $G$ un grafo indiretto, non necessariamente connesso; si definisce \tbf{componente} un sottografo di $G$, connesso, non ulteriormente estendibile. Più rigorosamente, sia $H \subseteq G$ un sottografo di $G$; esso è una componente di $G$, se e solo se non esiste $H' \subseteq G$, sottografo connesso di $G$, tale che $H \subsetneq H'$. Le componenti sono anche definite come sottografi \tbf{massimalmente connessi}.
 
         In simboli, dato un vertice $v \in V(G)$, $\mathrm{comp}(v)$ è la componente contenente $v$.
     \end{frameddefn}
@@ -1653,7 +1653,7 @@
     \end{example}
 
     \begin{frameddefn}{Componenti dirette}
-        Sia $G$ un grafo diretto, non necessariamente connesso; allora, si definisce \textit{componente} un sottografo di $G$, fortemente e massimalmente connesso.
+        Sia $G$ un grafo diretto, non necessariamente connesso; allora, si definisce \tbf{componente} un sottografo di $G$, fortemente e massimalmente connesso.
     \end{frameddefn}
 
     \begin{example}[Componenti dirette]
@@ -1699,7 +1699,7 @@
     \end{proof}
 
     \begin{frameddefn}{Contrazione}
-        Sia $G$ un grafo, e $H \subseteq G$ un suo sottografo; si definisce \textit{contrazione di $H$ in $G$}, l'operazione che rimuove vertici (ed archi) di $H$ da $G$, e al suo posto inserisce un vertice, generalmente denotato con $v_H$, che viene connesso con $G - H$ dagli archi che precedentemente connettevano $H$ con $G$. In simboli, il grafo $G$, contratto su $H$, verrà indicato con $\mathrm{contr}(G, H)$.
+        Sia $G$ un grafo, e $H \subseteq G$ un suo sottografo; si definisce \tbf{contrazione di $H$ in $G$}, l'operazione che rimuove vertici (ed archi) di $H$ da $G$, e al suo posto inserisce un vertice, generalmente denotato con $v_H$, che viene connesso con $G - H$ dagli archi che precedentemente connettevano $H$ con $G$. In simboli, il grafo $G$, contratto su $H$, verrà indicato con $\mathrm{contr}(G, H)$.
     \end{frameddefn}
 
     \begin{example}[Contrazione di un grafo diretto]
@@ -1869,7 +1869,7 @@
     \subsection{Algoritmo di Tarjan}
 
     \begin{frameddefn}{C-radici}
-        Sia $G$ un grafo diretto, sia $\hat v \in V(G)$ un suo vertice, e sia $A_{\hat v}$ l'arborescenza di $\hat v$ in $G$; $v \in A_{\hat v}$ è detto \textit{c-radice} di $\mathrm{comp}(v)$ in $A_{\hat v}$, se e solo se è il primo vertice visitato in $\mathrm{comp}(v)$.
+        Sia $G$ un grafo diretto, sia $\hat v \in V(G)$ un suo vertice, e sia $A_{\hat v}$ l'arborescenza di $\hat v$ in $G$; $v \in A_{\hat v}$ è detto \tbf{c-radice} di $\mathrm{comp}(v)$ in $A_{\hat v}$, se e solo se è il primo vertice visitato in $\mathrm{comp}(v)$.
     \end{frameddefn}
 
     \begin{example}[C-radici]
@@ -2049,7 +2049,7 @@
                         \If{$\texttt{output} \neq \texttt{None}$}
                             \State \textbf{return} \texttt{output}
                         \EndIf
-                    \ElsIf{$\left \{ \begin{array}{l} \texttt{parents[}u\texttt{]} \neq v \\ \texttt{parents[}v\texttt{]} \neq u \end{array} \right.$} \Comment{l'array \texttt{parents} è \textit{diretto}}
+                    \ElsIf{$\left \{ \begin{array}{l} \texttt{parents[}u\texttt{]} \neq v \\ \texttt{parents[}v\texttt{]} \neq u \end{array} \right.$} \Comment{l'array \texttt{parents} è \tbf{diretto}}
                         \State $\texttt{output} := \verb|{| \verb|}|$
                         \While{$u \neq v$}
                             \State $\texttt{output.add(}u\texttt{)}$
@@ -2172,7 +2172,7 @@
     \subsection{Distanza}
 
     \begin{frameddefn}[label={distanza}]{Distanza}
-        Sia $G$ un grafo, e siano $x, y \in V(G)$ due suoi vertici; si definisce \textit{distanza tra $x$ e $y$}, il numero minimo di archi che costituiscono un cammino $x \rightarrow y$. In simboli, sia $\mathcal{C}$ l'insieme dei cammini $x \rightarrow y$ in $G$; allora $$\mathrm{dist}(x, y) := \min_{c \in \mathcal{C}}{\left |E(c) \right|}$$
+        Sia $G$ un grafo, e siano $x, y \in V(G)$ due suoi vertici; si definisce \tbf{distanza tra $x$ e $y$}, il numero minimo di archi che costituiscono un cammino $x \rightarrow y$. In simboli, sia $\mathcal{C}$ l'insieme dei cammini $x \rightarrow y$ in $G$; allora $$\mathrm{dist}(x, y) := \min_{c \in \mathcal{C}}{\left |E(c) \right|}$$
     \end{frameddefn}
 
     \begin{algorithm}[H]
@@ -2280,7 +2280,7 @@
 
         Successivamente, viene istanziato un ciclo \texttt{for}, alla riga 20, che per ogni vertice $v \in V(G)$ non ancora visitato dall'algoritmo (contrassegnato con $\texttt{distances[}v\texttt{]} = -1$), effettua una chiamata ricorsiva alla funzione \texttt{updateDistances}.
 
-        All'interno di $\texttt{updateDistances}$, alla riga 2, viene controllato se la distanza del padre del vertice $v$ corrente, dalla radice di \texttt{parents}, non sia nota, e in tal caso viene effettuata una chiamata ricorsiva radicata proprio nel padre; questo, di fatto, ha l'effetto di "risalire" l'albero rappresentato da \texttt{parents}, di padre in padre, fintanto che non viene trovato un vertice la cui distanza dalla radice è nota; si noti che, inizialmente, l'unico vertice la cui distanza è nota è la radice stessa, e dunque la riga 19 funge da \textit{caso base} della ricorsione. Infine, una volta risalito l'albero fino alla radice, vengono rimosse le chiamate ricorsive dallo stack-call, aggiornando i valori delle distanze, ora note, dalla radice, secondo la legge $$\texttt{distances[}v\texttt{]} = \texttt{distances[parents[}v\texttt{]]} + 1$$ alla riga 5, poiché naturalmente ogni figlio $v$ sarà ad una distanza, dalla radice $r$, pari alla distanza del proprio padre + 1, quest'ultimo dato dall'arco $(\texttt{parents[}v\texttt{]}, v)$ stesso.
+        All'interno di $\texttt{updateDistances}$, alla riga 2, viene controllato se la distanza del padre del vertice $v$ corrente, dalla radice di \texttt{parents}, non sia nota, e in tal caso viene effettuata una chiamata ricorsiva radicata proprio nel padre; questo, di fatto, ha l'effetto di "risalire" l'albero rappresentato da \texttt{parents}, di padre in padre, fintanto che non viene trovato un vertice la cui distanza dalla radice è nota; si noti che, inizialmente, l'unico vertice la cui distanza è nota è la radice stessa, e dunque la riga 19 funge da \tbf{caso base} della ricorsione. Infine, una volta risalito l'albero fino alla radice, vengono rimosse le chiamate ricorsive dallo stack-call, aggiornando i valori delle distanze, ora note, dalla radice, secondo la legge $$\texttt{distances[}v\texttt{]} = \texttt{distances[parents[}v\texttt{]]} + 1$$ alla riga 5, poiché naturalmente ogni figlio $v$ sarà ad una distanza, dalla radice $r$, pari alla distanza del proprio padre + 1, quest'ultimo dato dall'arco $(\texttt{parents[}v\texttt{]}, v)$ stesso.
     \end{proof}
 
     \begin{proof}[Costo dell'algoritmo.]
@@ -2294,7 +2294,7 @@
     \subsection{Visita in BFS}
 
     \begin{frameddefn}{BFS}
-        Con BFS si indica un criterio di visita di un grafo; in particolare, BFS sta per \textit{Breadth-first Search}, dunque la visita del grafo avviene controllando, prima di procedere al prossimo livello, tutti i vertici adiacenti al nodo del livello corrente.
+        Con BFS si indica un criterio di visita di un grafo; in particolare, BFS sta per \tit{Breadth-first Search}, dunque la visita del grafo avviene controllando, prima di procedere al prossimo livello, tutti i vertici adiacenti al nodo del livello corrente.
     \end{frameddefn}
 
     \begin{algorithm}[H]
@@ -2333,15 +2333,15 @@
         dove $u$ è la radice in input. La dimostrazione procede dunque per induzione sull'array \texttt{distances}, come segue:
 
         \begin{itemize}
-            \item \textit{caso base}
+            \item \tit{caso base}
                 \begin{itemize}
                     \item $\texttt{distances[}u\texttt{]} = 0$ e questo è garantito dalla riga 4, all'interno della quale vengono inizializzate tutte le distanze dei vertici del grafo, dalla radice $u$, a 0; si noti che l'algoritmo si assicura di non modificare la radice ulteriormente, grazie al controllo della riga 9, che procede solo se il vertice correntemente in esame non è la radice
                 \end{itemize}
-            \item \textit{ipotesi induttiva forte}
+            \item \tit{ipotesi induttiva forte}
                 \begin{itemize}
                     \item $\forall v \in V(G) \mid \mathrm{dist}(u, v) =: k \quad \texttt{distances[}v\texttt{]} = k$
                 \end{itemize}
-            \item \textit{passo induttivo}
+            \item \tit{passo induttivo}
                 \begin{itemize}
                     \item è necessario dimostrare che $$\forall v \in V(G) \mid \mathrm{dist}(u, v) =: k + 1 \quad \texttt{distances[}v\texttt{]} = k + 1$$
                     \item per la \cref{distanza}, $\forall x, y \in V(G) \quad \mathrm{dist}(x, y)$ è il numero minimo di archi che costituiscono un cammino $x \rightarrow y$; allora, affinché $v$ sia a distanza $k + 1$ dalla radice $u$, deve necessariamente esistere un cammino $u \rightarrow v$ contenente esattamente $k + 1$ archi, per definizione
@@ -2501,7 +2501,7 @@
     \subsection{Distanza tra insiemi di vertici}
 
     \begin{frameddefn}{Distanza tra insiemi di vertici}
-        Sia $G$ un grafo, e $X, Y \subseteq V(G)$ due sottoinsiemi di vertici di $G$; allora, si definisce \textit{distanza tra $X$ e $Y$} la distanza minima tra due vertici di $X$ e $Y$; in simboli $$\mathrm{dist}(X, Y) := \min_{x \in X, y \in Y}{\mathrm{dist}(x, y)}$$
+        Sia $G$ un grafo, e $X, Y \subseteq V(G)$ due sottoinsiemi di vertici di $G$; allora, si definisce \tbf{distanza tra $X$ e $Y$} la distanza minima tra due vertici di $X$ e $Y$; in simboli $$\mathrm{dist}(X, Y) := \min_{x \in X, y \in Y}{\mathrm{dist}(x, y)}$$
     \end{frameddefn}
 
     \begin{algorithm}[H]
@@ -2556,7 +2556,7 @@
     \subsection{Definizioni}
 
     \begin{frameddefn}{Algoritmi greedy}
-        Un algoritmo è detto \textit{greedy}, se cerca una soluzione effettuando delle scelte di passo in passo, optando sempre per il passo più "appetibile" momentaneamente.
+        Un algoritmo è detto \tbf{greedy}, se cerca una soluzione effettuando delle scelte di passo in passo, optando sempre per il passo più "appetibile" momentaneamente.
     \end{frameddefn}
 
     \section{Distanza pesata}
@@ -2564,7 +2564,7 @@
     \subsection{Archi pesati}
 
     \begin{frameddefn}{Archi pesati}
-        Sia $G$ un grafo; su esso, è possibile definire una funzione $$w: E(G) \rightarrow \mathbb{R}^+$$ che, ad ogni arco, associa un valore reale positivo detto \textit{peso}.
+        Sia $G$ un grafo; su esso, è possibile definire una funzione $$w: E(G) \rightarrow \mathbb{R}^+$$ che, ad ogni arco, associa un valore reale positivo detto \tbf{peso}.
     \end{frameddefn}
 
     \begin{example}[Grafo indiretto pesato]
@@ -2593,11 +2593,11 @@
     \end{example}
 
     \begin{frameddefn}{Peso di un cammino}
-        Sia $G$ un grafo, e $c$ un cammino in $G$; si definisce \textit{peso di $c$} la somma dei pesi degli archi che lo compongono. In simboli, sia $\mathcal {C}$ l'insieme dei cammini su $G$; allora, è possibile definire la funzione seguente $$w_p : \mathcal{C} \rightarrow \mathbb{R}^+: c \rightarrow \displaystyle \sum_{e \in E(c)}{w(e)}$$ che associa un cammino $c$ al suo peso $w_p(c)$.
+        Sia $G$ un grafo, e $c$ un cammino in $G$; si definisce \tbf{peso di $c$} la somma dei pesi degli archi che lo compongono. In simboli, sia $\mathcal {C}$ l'insieme dei cammini su $G$; allora, è possibile definire la funzione seguente $$w_p : \mathcal{C} \rightarrow \mathbb{R}^+: c \rightarrow \displaystyle \sum_{e \in E(c)}{w(e)}$$ che associa un cammino $c$ al suo peso $w_p(c)$.
     \end{frameddefn}
 
     \begin{frameddefn}{Distanza pesata}
-        Sia $G$ un grafo pesato, e $x, y \in V(G)$ due suoi vertici; si definisce \textit{distanza pesata tra $x$ e $y$} il peso del cammino $x \rightarrow y$ di peso minimo. In simboli, sia $\mathcal{C}$ l'insieme dei cammini $x \rightarrow y$ in $G$; allora $$\mathrm{dist}_w(x, y) := \min_{c \in \mathcal{C}}{w_p(c)}$$
+        Sia $G$ un grafo pesato, e $x, y \in V(G)$ due suoi vertici; si definisce \tbf{distanza pesata tra $x$ e $y$} il peso del cammino $x \rightarrow y$ di peso minimo. In simboli, sia $\mathcal{C}$ l'insieme dei cammini $x \rightarrow y$ in $G$; allora $$\mathrm{dist}_w(x, y) := \min_{c \in \mathcal{C}}{w_p(c)}$$
     \end{frameddefn}
 
     \begin{example}[Grafo indiretto pesato]
@@ -2740,7 +2740,7 @@
     \begin{proof}[Correttezza dell'algoritmo.]
         L'algoritmo inizia alla riga 2, ponendo a $+ \infty$ l'array che, al termine dell'algoritmo, conterrà le distanze, pesate su $w$, tra $u$ ed ogni altro vertice di $G$; inoltre, alla riga 3 viene posta la distanza pesata $\mathrm{dist}_w(u, u) = 0$, ed alla riga 4 viene definito \texttt{H}, un min-heap. Successivamente, alla riga 5, viene istanziato un ciclo \texttt{for}, utilizzato per inizializzare il min-heap, ponendo in esso ogni vertice $v \in V(G)$, associando loro i valori $$\texttt{distancesW[}v\texttt{]} = \mathrm{dist}_w(u, v)$$
 
-        Alla riga 8, l'algoritmo inizia un ciclo \texttt{while}, che terminerà solamente quando il min-heap diventerà vuoto, ovvero quando ogni elemento al suo interno sarà stato analizzato; infatti, alla riga 9, con l'operazione $\texttt{H.extract\_min()}$, il vertice $v$ che attualmente minimizza la distanza pesata da $u$, viene \textit{rimosso} dal min-heap. Dopo averlo estratto, alla riga 10 ne viene aggiornato il valore all'interno di $\texttt{distancesW[}v\texttt{]}$ (si noti che il valore \textit{correntemente} noto della distanza pesata tra $u$ e $v$ è contenuto all'interno della chiave del min-heap, mentre l'array conterrà il valore finale). Alla riga 11, viene istanziato un ciclo \texttt{for}, il quale per ogni vertice $x$ uscente da $v$, ancora contenuto nel min-heap (e dunque ancora non esaminato), ne aggiorna la chiave all'interno di \texttt{H} (riga 14), se quest'ultima è maggiore di $\texttt{distancesW[}v \texttt{]} + w(v, x)$, ovvero $\mathrm{dist}_w(u, v)$ sommata al peso dell'arco $(v, x)$ stesso (righe 12 e 13).
+        Alla riga 8, l'algoritmo inizia un ciclo \texttt{while}, che terminerà solamente quando il min-heap diventerà vuoto, ovvero quando ogni elemento al suo interno sarà stato analizzato; infatti, alla riga 9, con l'operazione $\texttt{H.extract\_min()}$, il vertice $v$ che attualmente minimizza la distanza pesata da $u$, viene \tbf{rimosso} dal min-heap. Dopo averlo estratto, alla riga 10 ne viene aggiornato il valore all'interno di $\texttt{distancesW[}v\texttt{]}$ (si noti che il valore \tbf{correntemente} noto della distanza pesata tra $u$ e $v$ è contenuto all'interno della chiave del min-heap, mentre l'array conterrà il valore finale). Alla riga 11, viene istanziato un ciclo \texttt{for}, il quale per ogni vertice $x$ uscente da $v$, ancora contenuto nel min-heap (e dunque ancora non esaminato), ne aggiorna la chiave all'interno di \texttt{H} (riga 14), se quest'ultima è maggiore di $\texttt{distancesW[}v \texttt{]} + w(v, x)$, ovvero $\mathrm{dist}_w(u, v)$ sommata al peso dell'arco $(v, x)$ stesso (righe 12 e 13).
 
         L'algoritmo termina restituendo $\texttt{distancesW}$ alla riga 18.
     \end{proof}
@@ -2785,16 +2785,16 @@
     \begin{proof}
         Siano $\texttt{Sol}_0, \ldots, \texttt{Sol}_n$ gli stati di $\texttt{Sol}_k$, ad ogni iterazione $k \in [1, n]$ dell'algoritmo; allora, l'algoritmo funziona correttamente se e solo se $\exists \texttt{Sol}^*$ soluzione ottimale $\mid \texttt{Sol}^* = \texttt{Sol}_n$.
         \begin{itemize}
-            \item[] \textit{Prima implicazione.} $\exists \texttt{Sol}^*$ soluzione ottimale $\mid \texttt{Sol}_n \subseteq \texttt{Sol}^*$
-            \item \textit{caso base}
+            \item[] \tit{Prima implicazione.} $\exists \texttt{Sol}^*$ soluzione ottimale $\mid \texttt{Sol}_n \subseteq \texttt{Sol}^*$
+            \item \tit{caso base}
                 \begin{itemize}
                     \item $k = 0 \implies \texttt{Sol}_0 := \varnothing \implies \forall \texttt{Sol}^*$ soluzione ottimale $\quad \texttt{Sol}_0 \subseteq \texttt{Sol}^*$
                 \end{itemize}
-            \item \textit{ipotesi induttiva}
+            \item \tit{ipotesi induttiva}
                 \begin{itemize}
                     \item $\exists \texttt{Sol}^*$ soluzione ottimale $\mid \texttt{Sol}_k \subseteq \texttt{Sol}^*$
                 \end{itemize}
-            \item \textit{passo induttivo}
+            \item \tit{passo induttivo}
                 \begin{itemize}
                     \item è necessario dimostrare che $\exists \texttt{Sol}^*$ soluzione ottimale $\mid \texttt{Sol}_{k + 1} \subseteq \texttt{Sol}^*$
                     \item si noti che, per via della riga 7, per ogni $k \in [1, n)$ si verifica che
@@ -2815,7 +2815,7 @@
                     \item inoltre, per definizione $[a_h, b_h] \in \texttt{Sol}^* \iff \forall [a_i, b_i] \in \texttt{Sol}^* \quad [a_h, b_h] \cap [a_i, b_i] = \varnothing$, e poiché $[a_j,b_j] \in \texttt{Sol}^*$, in particolare si ha che $[a_h, b_h] \cap [a_j, b_j] = \varnothing$; allora, poiché $b_h > b_{k + 1} \in (a_j, b_j)$, necessariamente $$a_j < b_{k +1} < b_j < a_h < b_h$$ e in particolare, $b_{k + 1} < a_h \implies [a_{k +1}, b_{k +1}] \cap [a_h, b_h] = \varnothing$
                     \item questo dimostra che ogni intervallo $[a_h, b_h] \in \texttt{Sol}^* - \texttt{Sol}_k$, che non sia proprio $[a_j, b_j]$, è disgiunto con $[a_{k +1}, b_{k +1}]$; allora, per trovare un insieme $\texttt{Sol}^*$ soluzione ottimale, tale per cui $\texttt{Sol}_{k + 1} \subseteq \texttt{Sol}^*$, è sufficiente considerare l'insieme $$\left(\texttt{Sol}^* - \{[a_j, b_j]\}\right) \cup \{[a_{k +1}, b_{k +1}]\}$$ in quanto $\texttt{Sol}_k \subseteq \texttt{Sol}^*$ per ipotesi induttiva, e $\texttt{Sol}_{k + 1} = \texttt{Sol}_k \cup \{[a_{k +1}, b_{k + 1}]\}$ per osservazione precedente.
                 \end{itemize}
-                \item[] \textit{Seconda implicazione.} $\exists \texttt{Sol}^*$ soluzione ottimale $\mid \texttt{Sol}^* \subseteq \texttt{Sol}_n$. Per assurdo, si assuma che $\nexists \texttt{Sol}^*$ soluzione ottimale $\mid \texttt{Sol}^* \subseteq \texttt{Sol}_n \iff \forall \texttt{Sol}^*$ soluzione ottimale $\quad \texttt{Sol}^* \not \subseteq \texttt{Sol}_n \iff$ per ogni soluzione ottimale $\texttt{Sol}^*$ si verifica una delle seguenti:
+                \item[] \tit{Seconda implicazione.} $\exists \texttt{Sol}^*$ soluzione ottimale $\mid \texttt{Sol}^* \subseteq \texttt{Sol}_n$. Per assurdo, si assuma che $\nexists \texttt{Sol}^*$ soluzione ottimale $\mid \texttt{Sol}^* \subseteq \texttt{Sol}_n \iff \forall \texttt{Sol}^*$ soluzione ottimale $\quad \texttt{Sol}^* \not \subseteq \texttt{Sol}_n \iff$ per ogni soluzione ottimale $\texttt{Sol}^*$ si verifica una delle seguenti:
                 \begin{itemize}
                     \item $\texttt{Sol}^* \cap \texttt{Sol}_n = \varnothing$
                     \item $\texttt{Sol}^* \cap \texttt{Sol}_n \neq \varnothing \land \texttt{Sol}^* \not \subseteq \texttt{Sol}_n \land \texttt{Sol}_n \not \subseteq \texttt{Sol}^*$
@@ -2868,8 +2868,8 @@
         La struttura della dimostrazione di questo algoritmo è analoga a quella dell'\cref{intervalli1}; è dunque omessa la premessa iniziale, e la dimostrazione procede assumendo le stesse condizioni di partenza per l'induzione.
 
         \begin{itemize}
-            \item[] \textit{Prima implicazione.} È riportata di seguito la dimostrazione a partire dal passo induttivo. 
-            \item \textit{passo induttivo}
+            \item[] \tit{Prima implicazione.} È riportata di seguito la dimostrazione a partire dal passo induttivo. 
+            \item \tit{passo induttivo}
                 \begin{itemize}
                     \item è necessario dimostrare che $\exists \texttt{Sol}^*$ soluzione ottimale $\mid \texttt{Sol}_{k + 1} \subseteq \texttt{Sol}^*$
                     \item si noti che, per via della riga 6, si ha che $$\forall k \in [1, n) \quad \texttt{Sol}_{k +1} = \left \{ \begin{array}{ll} \texttt{Sol}_k & \texttt{Sol}_k \cap [a_{k +1}, b_{k+1}] \neq \varnothing \\ \texttt{Sol}_k \cup \{b_{k +1}\} & \texttt{Sol}_k \cap [a_{k +1}, b_{k +1}] = \varnothing \end{array} \right.$$
@@ -2883,7 +2883,7 @@
                             \item $j > k + 1 \implies b_j > b_{k +1}$; si noti inoltre che l'intervallo $[a_j, b_j]$ è stato scelto tale che $x \in [a_j, b_j]$, e poiché $x \in [a_{k +1}, b_{k +1}]$ per sua definizione, si verifica necessariamente che $$\left .\begin{array}{r} x \in [a_j , b_j] \cap [a_{k + 1}, b_{k +1}] \neq \varnothing \\ b_j > b_{k +1} \end{array} \right \} \implies a_j \le x \le b_{k +1} \le b_j$$ in particolare, si noti che $b_{k +1} \in [a_j, b_j]$, e poiché la dimostrazione non dipende dalla scelta di $x \in \texttt{Sol}^* - \texttt{Sol}_k$, né da $j \in [1, n)$, si ha che $b_{k +1}$ copre ogni intervallo coperto da $x$; allora, per far si che esista soluzione ottimale $\texttt{Sol}^*$ tale da contenere $\texttt{Sol}_{k +1} = \texttt{Sol}_k \cup \{b_{k +1}\}$, è sufficiente considerare $$(\texttt{Sol}^* - \{x\}) \cup \{b_{k +1}\}$$
                         \end{itemize}
                 \end{itemize}
-            \item[] \textit{Seconda implicazione.} $\exists \texttt{Sol}^*$ soluzione ottimale $\mid \texttt{Sol}^* \subseteq \texttt{Sol}_n$. La dimostrazione è analoga a quella dell'\cref{intervalli1}, ed è dunque omessa.
+            \item[] \tit{Seconda implicazione.} $\exists \texttt{Sol}^*$ soluzione ottimale $\mid \texttt{Sol}^* \subseteq \texttt{Sol}_n$. La dimostrazione è analoga a quella dell'\cref{intervalli1}, ed è dunque omessa.
         \end{itemize}
     \end{proof}
 
@@ -2906,7 +2906,7 @@
     \subsection{Definizioni}
 
     \begin{frameddefn}{MST}
-        Sia $G$ un grafo indiretto pesato; allora, si definisce \textit{MST (Minimum Spanning Tree)} un sottografo di $G$, connesso, di peso minimo, contenente ogni vertice di $G$.
+        Sia $G$ un grafo indiretto pesato; allora, si definisce \tbf{MST} (\tit{Minimum Spanning Tree}) un sottografo di $G$, connesso, di peso minimo, contenente ogni vertice di $G$.
     \end{frameddefn}
 
     \begin{example}[MST]
@@ -3021,8 +3021,8 @@
         La struttura della dimostrazione per garantire che $\texttt{Sol}_m$ sia un albero di copertura minimale, è analoga a quella dell'\cref{intervalli1}, con la sola differenza che le iterazioni del ciclo sono $m$ e non $n$ (si noti il ciclo \texttt{for} della riga 4); è dunque omessa la premessa iniziale, e la dimostrazione procede assumendo le stesse condizioni di partenza per l'induzione.
 
         \begin{itemize}
-            \item[] \textit{Prima implicazione.} È riportata di seguito la dimostrazione a partire dal passo induttivo. 
-            \item \textit{passo induttivo}
+            \item[] \tit{Prima implicazione.} È riportata di seguito la dimostrazione a partire dal passo induttivo. 
+            \item \tit{passo induttivo}
                 \begin{itemize}
                     \item è necessario dimostrare che $\exists \texttt{Sol}^*$ soluzione ottimale $\mid \texttt{Sol}_{k + 1} \subseteq \texttt{Sol}^*$
                     \item si noti che, per via della riga 5, si ha che per ogni $k \in [1, m)$ si ha che $$\texttt{Sol}_{k +1} = \left \{ \begin{array}{ll} \texttt{Sol}_k & \texttt{findCycle(Sol} \cup \{e_{k +1}\} \texttt{)} \neq \texttt{None} \\ \texttt{Sol}_k \cup \{e_{k +1}\} & \texttt{findCycle(Sol} \cup \{e_{k +1}\} \texttt{)} = \texttt{None} \end{array} \right.$$
@@ -3034,7 +3034,7 @@
                     \item si noti che, considerando l'insieme di archi $(\texttt{Sol}^* \cup \{e_{k +1}\}) - \{e_j\}$, il vertice $y$ resta coperto
                     \item si noti che l'arco $e_j$ non è in $\texttt{Sol}_{k +1}$, e dunque $k + 1 < j$; allora, per via dell'ordinamento degli archi alla riga $2$, necessariamente $w(e_{k +1}) \le w(e_j)$; dunque, si ha che $$\displaystyle \sum_{e \in ((\texttt{Sol}^* \cup \{e_{k +1}\}) - \{e_j\})}{w(e)} \le \sum_{e \in \texttt{Sol}^*}{w(e)}$$ ma poiché $\texttt{Sol}^*$, per definizione, è soluzione ottimale, non è possibile trovare una soluzione con peso inferiore, e dunque necessariamente $$(\texttt{Sol}^* \cup \{e_{k +1}\}) - \{e_j\}$$ ha lo stesso peso di $\texttt{Sol}^*$, che costituisce un MST di $G$; allora, tale insieme di archi è una soluzione ottimale, contenente $\texttt{Sol}_{k +1}$ per definizione.
                 \end{itemize}
-            \item[] \textit{Seconda implicazione.} $\exists \texttt{Sol}^*$ soluzione ottimale $\mid \texttt{Sol}^* \subseteq \texttt{Sol}_m$. Si noti che, per implicazione precedente, esiste una soluzione ottimale $\texttt{Sol}^\#$ tale che $\texttt{Sol}_m \subseteq \texttt{Sol}^\#$; allora, poichè $\texttt{Sol}_m$ è stato dimostrato essere un MST, e $\texttt{Sol}^\#$ è un MST per definizione, si ha che $$\texttt{Sol}_m \subseteq \texttt{Sol}^\# \implies \texttt{Sol}_m = \texttt{Sol}^*$$
+            \item[] \tit{Seconda implicazione.} $\exists \texttt{Sol}^*$ soluzione ottimale $\mid \texttt{Sol}^* \subseteq \texttt{Sol}_m$. Si noti che, per implicazione precedente, esiste una soluzione ottimale $\texttt{Sol}^\#$ tale che $\texttt{Sol}_m \subseteq \texttt{Sol}^\#$; allora, poichè $\texttt{Sol}_m$ è stato dimostrato essere un MST, e $\texttt{Sol}^\#$ è un MST per definizione, si ha che $$\texttt{Sol}_m \subseteq \texttt{Sol}^\# \implies \texttt{Sol}_m = \texttt{Sol}^*$$
         \end{itemize}
     \end{proof}
 
@@ -3097,8 +3097,8 @@
         La struttura della dimostrazione per garantire che $\texttt{Sol}_n$ sia un albero di copertura minimale, è analoga a quella dell'\cref{intervalli1}; è dunque omessa la premessa iniziale, e la dimostrazione procede assumendo le stesse condizioni di partenza per l'induzione.
 
         \begin{itemize}
-            \item[] \textit{Prima implicazione.} È riportata di seguito la dimostrazione a partire dal passo induttivo. 
-            \item \textit{passo induttivo}
+            \item[] \tit{Prima implicazione.} È riportata di seguito la dimostrazione a partire dal passo induttivo. 
+            \item \tit{passo induttivo}
                 \begin{itemize}
                     \item è necessario dimostrare che $\exists \texttt{Sol}^*$ soluzione ottimale $\mid \texttt{Sol}_{k + 1} \subseteq \texttt{Sol}^*$
                     \item si noti che, per via della riga 7, si ha che $$\forall k \in [1, n) \quad \texttt{Sol}_{k +1} = \texttt{Sol}_k \cup \{e_{k +1}\}$$
@@ -3109,7 +3109,7 @@
                     \item allora, dalla formula precedente segue che $$\displaystyle \sum_{e \in ((\texttt{Sol}^* \cup \{e_{k +1}\} )- \{\hat e\} )}{w(e)}  = \sum_{e \in \texttt{Sol}^*}{w(e)} + w(e_{k +1}) - w(\hat e) \le \sum_{e \in \texttt{Sol}^*}{w(e)}$$ e dunque, e possibile considerare l'insieme di archi $$(\texttt{Sol}^* \cup \{e_{k+1}\}) - \{\hat e\}$$ per ottenere una soluzione ottimale tale da contenere $\texttt{Sol}_{k + 1}$.
                 \end{itemize}
 
-            \item[] \textit{Seconda implicazione.} $\exists \texttt{Sol}^*$ soluzione ottimale $\mid \texttt{Sol}^* \subseteq \texttt{Sol}_m$. Si noti che, per implicazione precedente, esiste una soluzione ottimale $\texttt{Sol}^\#$ tale che $\texttt{Sol}_m \subseteq \texttt{Sol}^\#$; allora, poichè $\texttt{Sol}_m$ è stato dimostrato essere un MST, e $\texttt{Sol}^\#$ è un MST per definizione, si ha che $$\texttt{Sol}_m \subseteq \texttt{Sol}^\# \implies \texttt{Sol}_m = \texttt{Sol}^*$$
+            \item[] \tit{Seconda implicazione.} $\exists \texttt{Sol}^*$ soluzione ottimale $\mid \texttt{Sol}^* \subseteq \texttt{Sol}_m$. Si noti che, per implicazione precedente, esiste una soluzione ottimale $\texttt{Sol}^\#$ tale che $\texttt{Sol}_m \subseteq \texttt{Sol}^\#$; allora, poichè $\texttt{Sol}_m$ è stato dimostrato essere un MST, e $\texttt{Sol}^\#$ è un MST per definizione, si ha che $$\texttt{Sol}_m \subseteq \texttt{Sol}^\# \implies \texttt{Sol}_m = \texttt{Sol}^*$$
         \end{itemize}
     \end{proof}
 
@@ -3174,7 +3174,7 @@
 
         Il ciclo \texttt{for} della riga 11, per ogni vertice $y$ adiacente a $v$ di partenza, inizializza $\texttt{parents[}y\texttt{]} = v$ alla riga 12, ed alla riga 13 viene aggiornato il valore della chiave di $y$ all'interno del min-heap, attraverso proprio il peso dell'arco $(v, y)$.
 
-        La procedura dell'algoritmo inizia dunque alla riga 15, definendo un ciclo \texttt{while} che termina se $R$ contiene tutti i vertici in $V(G)$, garantendo dunque che l'output \texttt{Sol} sarà un grafo di copertura; alla riga 16 viene salvato $y$, definito come l'elemento minore del min-heap (\textit{si noti che l'operazione} \texttt{H.extract\_min()} \textit{rimuove il minimo dal min-heap}); inoltre, per definizione di $y$, per le chiavi usate nel min-heap, e per come \texttt{parents} è stato definito, è garantito che l'arco $(\texttt{parents[}y\texttt{]}, y)$ minimizza il peso, e dunque nella riga 17 quest'ultimo arco viene inserito in \texttt{Sol}, ed $y$ viene aggiunto ad $R$ alla riga seguente (si noti che questo assicura che l'algoritmo scelga un insieme di archi minimale rispetto al peso di $w$).
+        La procedura dell'algoritmo inizia dunque alla riga 15, definendo un ciclo \texttt{while} che termina se $R$ contiene tutti i vertici in $V(G)$, garantendo dunque che l'output \texttt{Sol} sarà un grafo di copertura; alla riga 16 viene salvato $y$, definito come l'elemento minore del min-heap (\tbf{si noti che l'operazione} \texttt{H.extract\_min()} \tbf{rimuove il minimo dal min-heap}); inoltre, per definizione di $y$, per le chiavi usate nel min-heap, e per come \texttt{parents} è stato definito, è garantito che l'arco $(\texttt{parents[}y\texttt{]}, y)$ minimizza il peso, e dunque nella riga 17 quest'ultimo arco viene inserito in \texttt{Sol}, ed $y$ viene aggiunto ad $R$ alla riga seguente (si noti che questo assicura che l'algoritmo scelga un insieme di archi minimale rispetto al peso di $w$).
 
         Successivamente, alla riga 19 viene istanziato un ulteriore ciclo \texttt{for}, il quale per ogni vertice $x$ non contenuto in $R$ (dunque ancora non visitato dall'algoritmo), adiacente all'attuale $y$, effettua un aggiornamento simile a quello eseguito dal ciclo \texttt{for} della riga 11: infatti, la riga 20 controlla che il peso dell'arco $(x, y)$ sia minore della chiave di $x$, attualmente in \texttt{H}, poiché in tal caso è necessario aggiornare quest'ultima con $w(x, y)$, dunque minimizzando sempre il peso associato ad $x$ nel min-heap; inoltre, in tal caso va anche aggiornato il padre di $x$ con $y$, salvando dunque all'interno di $\texttt{parents[}x\texttt{]}$ il padre di $x$ tale da minimizzare il peso dell'arco tra padre e figlio.
 
@@ -3200,15 +3200,15 @@
     \subsection{Definizioni}
 
     \begin{frameddefn}{Divide et Impera}
-        Con la locuzione latina \textit{divide et impera}, ci si riferisce ad una tecnica di risoluzione dei problemi, basata sull'induzione, attraverso la quale:
+        Con la locuzione latina \tbf{divide et impera}, ci si riferisce ad una tecnica di risoluzione dei problemi, basata sull'induzione, attraverso la quale:
 
         \begin{itemize} 
-            \item il problema di partenza viene inizialmente scomposto in sotto-problemi di dimensione inferiore, ricorsivamente (la fase del \textit{divide});
-            \item successivamente, una volta raggiunto un caso base della ricorsione, per il quale è nota la soluzione, l'algoritmo procede a combinare le soluzioni dei sotto-problemi, per trovare la soluzione del problema di partenza (la fase dell'\textit{impera}).
+            \item il problema di partenza viene inizialmente scomposto in sotto-problemi di dimensione inferiore, ricorsivamente (la fase del \tit{divide});
+            \item successivamente, una volta raggiunto un caso base della ricorsione, per il quale è nota la soluzione, l'algoritmo procede a combinare le soluzioni dei sotto-problemi, per trovare la soluzione del problema di partenza (la fase dell'\tit{impera}).
         \end{itemize}
     \end{frameddefn}
 
-    \begin{framedthm}[label={master theorem}]{Master theorem - Teorema principale}
+    \begin{framedthm}[label={master theorem},breakable]{Master theorem - Teorema principale}
         Siano $\alpha, \beta \ge 1$ tali da descrivere la seguente equazione di ricorrenza: $$\left \{ \begin{array}{l} T(n) = \alpha \cdot T\left(\dfrac{n}{\beta}\right) + f(n) \\ T(1) = \Theta(1) \end{array} \right.$$ allora, si ha che
         \begin{itemize}
             \item se $f(n) = \Theta(n^c)$, con $c < \log_{\beta}{\alpha}$, allora $$T(n) = \Theta(n^{\log_{\beta}{\alpha}})$$
@@ -3267,7 +3267,7 @@
 
         La funzione ricorsiva inizia controllando se $a$ e $b$ in input sono uguali: questo infatti è il caso base della ricorsione, poiché per tale condizione l'array della chiamata ricorsiva corrente è lungo 1, e dunque ha esattamente 1 elemento; allora, in tal caso è sufficiente restituire $\texttt{A[}a\texttt{]}$ stesso, se quest'ultimo fosse positivo, mentre se dovesse essere negativo, è necessario restituire 0. Questo, in quanto, nel caso peggiore, \texttt{A} è costituito esclusivamente da interi negativi, e dunque il sotto-array contiguo di \texttt{A} con somma maggiore risulta essere l'array nullo, che ha sempre somma 0, e dunque la riga 6 garantisce tale risultato in questo caso particolare (per la precisione, si noti che le righe 15 e 22, discusse nella sezione successiva, già garantiscono che il risultato sia 0 nel caso in cui \texttt{A} contenesse eslcusivamente interi negativi, con la sola eccezione in cui \texttt{A} è costituito da un solo intero, negativo, nel qual caso la ricosione non verrebbe effettuata, e dunque la riga 6 garantisce di restituire 0 ugualmente).
 
-        Se invece $a \neq b$, allora non si entra nel caso base, poiché gli estremi del sotto-array da controllare non coincidono; alla riga 9 viene dunque calcolato il punto medio $m$ tra $a$ e $b$, arrotondato per eccesso, per poter effettuare 2 chiamate ricorsive, nelle righe 10 e 11, grazie alle quali vengono rispettivamente restituiti $M_s$ ed $M_d$, che costituiscono il primo la somma massima tra i sotto-array compresi in $\texttt{A[}a\texttt{:}m\texttt{]}$, ed il secondo la somma massima tra i sotto-array compresi in $\texttt{A[}m + 1\texttt{:}b\texttt{]}$ (considerando la notazione degli \textit{slice} inclusiva su entrambe gli estremi).
+        Se invece $a \neq b$, allora non si entra nel caso base, poiché gli estremi del sotto-array da controllare non coincidono; alla riga 9 viene dunque calcolato il punto medio $m$ tra $a$ e $b$, arrotondato per eccesso, per poter effettuare 2 chiamate ricorsive, nelle righe 10 e 11, grazie alle quali vengono rispettivamente restituiti $M_s$ ed $M_d$, che costituiscono il primo la somma massima tra i sotto-array compresi in $\texttt{A[}a\texttt{:}m\texttt{]}$, ed il secondo la somma massima tra i sotto-array compresi in $\texttt{A[}m + 1\texttt{:}b\texttt{]}$ (considerando la notazione degli \tbf{slice} inclusiva su entrambe gli estremi).
 
         Successivamente, dalla riga 12 alla riga 18, viene effettuato un ciclo \texttt{for}, che calcola la somma massima della prima metà del sotto-array del livello di ricorsione corrente, dunque partendo dal centro muovendosi verso sinistra; viceversa, il ciclo \texttt{for} delle righe successive (dalla 19 fino alla 25), effettua il calcolo della somma massima della seconda metà del sotto-array del livello di ricosione corrente, dunque partendo dal centro muovendosi verso destra. Questo, poiché se entrambe i cicli si muovessero con indici crescenti (dunque da sinistra verso destra), di fatto i due \texttt{for} starebbero controllando 2 sotto-array diversi nel livello di ricorsione corrente, e non lo stesso; per ovviare a questo problema, è sufficiente realizzare i cicli come appena descritto. Si noti che all'interno di questi, viene semplicemente istanziato un accumulatore $t$, che viene aggiornato ad ogni iterazione dei cicli (righe 14 e 21) con l'$i$-esimo elemento di \texttt{A}, e se $t$ diventa maggiore del totale massimo raggiunto correntemente (in un caso rappresentato da $s$, nell'altro rappresentato da $d$), lo si aggiorna col valore attuale di $t$. Si noti che questo garantisce che venga propagato 0 nel caso di array totalmente negativo, poiché $s$ e $d$ vengono aggiornati soltanto se $t$ diventa maggiore del loro valore corrente, e sono inizializzati entrambi a 0 nelle righe 12 e 19. Infine, si noti che $t$ alla riga 19 deve essere nuovamente inizializzato a 0 per funzionare correttamente.
 
@@ -3292,19 +3292,19 @@
     \subsection{Definizioni}
 
     \begin{frameddefn}{Programmazione dinamica}
-        Con \textit{programmazione dinamica}, si intende un processo di risoluzione dei problemi, in cui questi vengono risolti partendo da soluzioni delgli stessi, ma di dimensioni inferiori; si noti che tali sottoproblemi sono sovrapponibili, e questo rende l'approccio fondamentalmente differente rispetto al \textit{divide et impera}.
+        Con \tbf{programmazione dinamica}, si intende un processo di risoluzione dei problemi, in cui questi vengono risolti partendo da soluzioni delgli stessi, ma di dimensioni inferiori; si noti che tali sottoproblemi sono sovrapponibili, e questo rende l'approccio fondamentalmente differente rispetto al \tit{divide et impera}.
     \end{frameddefn}
 
     \begin{frameddefn}{Tempo polinomiale}
-        Un algoritmo è detto essere in \textit{tempo polinomiale} se il suo tempo di esecuzione è limitato superiormente da un'espressione polinomiale della dimensione del suo input.
+        Un algoritmo è detto essere in \tbf{tempo polinomiale} se il suo tempo di esecuzione è limitato superiormente da un'espressione polinomiale della dimensione del suo input.
     \end{frameddefn}
 
     \begin{frameddefn}{Insieme P}
-        L'\textit{insieme P} è costituito dalla categoria di problemi per i quali esiste un algoritmo deterministico in tempo polinomiale, rispetto alla dimensione del proprio input.
+        L'\tbf{insieme P} è costituito dalla categoria di problemi per i quali esiste un algoritmo deterministico in tempo polinomiale, rispetto alla dimensione del proprio input.
     \end{frameddefn}
 
     \begin{frameddefn}{NP-completezza}
-        Un problema è detto \textit{NP-completo}, se non è possibile risolverlo deterministicamente in tempo polinomiale, rispetto alla dimensione del suo input.
+        Un problema è detto \tbf{NP-completo}, se non è possibile risolverlo deterministicamente in tempo polinomiale, rispetto alla dimensione del suo input.
     \end{frameddefn}
 
     \begin{example}[Problema NP-completo]
@@ -3316,7 +3316,7 @@
     \subsection{Definizioni}
 
     \begin{frameddefn}{Memoizzazione}
-        La \textit{memoizzazione}, nota anche con il termine inglese \textit{memoization}, è una tecnica di programmazione che consiste nel salvare in memoria i valori restituiti da una funzione, in modo da averli nuovamente a disposizione per un uso successivo, senza aver bisogno di ricalcolarli; tale tecnica viene spesso utilizzata per risolvere problemi di programmazione dinamica.
+        La \tbf{memoizzazione}, nota anche con il termine inglese \tit{memoization}, è una tecnica di programmazione che consiste nel salvare in memoria i valori restituiti da una funzione, in modo da averli nuovamente a disposizione per un uso successivo, senza aver bisogno di ricalcolarli; tale tecnica viene spesso utilizzata per risolvere problemi di programmazione dinamica.
     \end{frameddefn}
 
     \subsection{Trovare il massimo spazio allocabile}
