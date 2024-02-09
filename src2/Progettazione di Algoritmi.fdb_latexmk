@@ -1,11 +1,11 @@
 # Fdb version 4
-["biber Progettazione di Algoritmi"] 1707497208 "Progettazione di Algoritmi.bcf" "Progettazione di Algoritmi.bbl" "Progettazione di Algoritmi" 1707498842 2
-  "Progettazione di Algoritmi.bcf" 1707498842 106652 37e852c976e785a4cd766daafd7c931b "pdflatex"
+["biber Progettazione di Algoritmi"] 1707497208 "Progettazione di Algoritmi.bcf" "Progettazione di Algoritmi.bbl" "Progettazione di Algoritmi" 1707503582 2
+  "Progettazione di Algoritmi.bcf" 1707503581 106652 37e852c976e785a4cd766daafd7c931b "pdflatex"
   (generated)
   "Progettazione di Algoritmi.bbl"
   "Progettazione di Algoritmi.blg"
   (rewritten before read)
-["pdflatex"] 1707498827 "Progettazione di Algoritmi.tex" "Progettazione di Algoritmi.pdf" "Progettazione di Algoritmi" 1707498842 0
+["pdflatex"] 1707503568 "Progettazione di Algoritmi.tex" "Progettazione di Algoritmi.pdf" "Progettazione di Algoritmi" 1707503582 0
   "../Nyx/logo.png" 1700819449 91419 8de48debf770a599a084520c83ce5d80 ""
   "../Nyx/nyx-frames.sty" 1703185977 2973 883cb1fed8020fcc44e590c7a78c1933 ""
   "../Nyx/nyx-macros.sty" 1707496720 9154 f3947a8426f05c7296b28704d72371ab ""
@@ -353,12 +353,12 @@
   "/usr/share/texmf-dist/web2c/texmf.cnf" 1704400182 40684 9b9ec0b4288972636ff6a3b9c4238efc ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1706774287 4483110 adb1e1d04498b9576f1f17c4219c5e03 ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1706774233 6769459 81b93e3770fa41b1fbccefd7d9671c17 ""
-  "Progettazione di Algoritmi.aux" 1707498842 33652 422def9328d190ba5cde0951518a4ab1 "pdflatex"
+  "Progettazione di Algoritmi.aux" 1707503581 33708 51d246b4e18ad10066d55e23743952ce "pdflatex"
   "Progettazione di Algoritmi.bbl" 0 -1 0 "biber Progettazione di Algoritmi"
-  "Progettazione di Algoritmi.out" 1707498842 8388 525add40e16369088b98c5d6ee35f0b1 "pdflatex"
-  "Progettazione di Algoritmi.run.xml" 1707498842 2433 f359ba09888bbc29402549ec96a7e40f "pdflatex"
-  "Progettazione di Algoritmi.tex" 1707498825 274137 2e48f121fd8145c6456e716ec9740b8f ""
-  "Progettazione di Algoritmi.toc" 1707498842 4840 ce55ca9bffcd5a6fe86a2103440ec649 "pdflatex"
+  "Progettazione di Algoritmi.out" 1707503581 8388 525add40e16369088b98c5d6ee35f0b1 "pdflatex"
+  "Progettazione di Algoritmi.run.xml" 1707503581 2433 f359ba09888bbc29402549ec96a7e40f "pdflatex"
+  "Progettazione di Algoritmi.tex" 1707503567 274176 a23010f8347306666fc556cbd188378e ""
+  "Progettazione di Algoritmi.toc" 1707503581 4840 ce55ca9bffcd5a6fe86a2103440ec649 "pdflatex"
   (generated)
   "Progettazione di Algoritmi.aux"
   "Progettazione di Algoritmi.bcf"

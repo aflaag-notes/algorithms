@@ -5,10 +5,10 @@ Questi sono i miei [appunti](<https://raw.githubusercontent.com/aflaag-notes/alg
 ## TODO list
 
 - fixa label
-- dai nomi ai box che mancano
-- fixa algoritmi
-- rendi breakable
-- controlla se c'è altro da fare
+    - fixare costo FRN2 (non capisco perché non funzioni)
+    - fixare label algoritmi (dopo aver fixato i box degli algoritmi)
+- fixa box algoritmi
+- rendi breakable (forse non serve)
 - inverti i nomi delle cartelle src e src2 (dunque il link rimane invariato)
-- considera di fare le cose in grassetto? (quelle che ora nelle defn sono in corsivo)
+- fai le cose in grassetto (quelle che ora nelle defn sono in corsivo)
 

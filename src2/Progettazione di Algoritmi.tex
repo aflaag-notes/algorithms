@@ -104,8 +104,8 @@
         Un \tit{grafo} è una struttura matematica descritta da vertici, collegati da archi. Un grafo viene descritto formalmente come $G=(V, E)$, dove i $v \in V$ sono i \textit{vertici} o \textit{nodi} del grafo, mentre gli $e \in E$ sono gli \textit{archi} (dall'inglese \textit{edges}). In particolare, $V(G)$ è l'insieme dei vertici di $G$, comunemente indicato con $n$, mentre $E(G)$ è l'insieme degli archi di $G$, comunemente indicato con $m$. Presi due vertici $v_1,v_2 \in V(G)$, allora $(v_1, v_2) \in E(G)$ è l'arco che li collega.
     \end{frameddefn}
 
-    \begin{framedobs}{}
-        Si noti che, per ogni grafo $G$, si verifica che $E(G) \subseteq V^2$.
+    \begin{framedobs}{Relazione tra vertici ed archi}
+        Si noti che, per ogni grafo $G$, si verifica che $E(G) \subseteq V(G)^2$.
     \end{framedobs}
 
     \begin{frameddefn}{Vertici adiacenti}
@@ -113,7 +113,7 @@
     \end{frameddefn}
 
     \begin{frameddefn}{Sottografo}
-        Dato un grafo $G = (V, E)$, un sottografo $G'$ di $G$ è un grafo della forma $G' = (V', E'): \left \{ \begin{array}{l} V' \subseteq V \\ E' \subseteq E \end{array} \right.$. Si noti che $G$ è sottografo di sè stesso.
+        Dato un grafo $G = (V, E)$, $G'=(V', E')$ è detto \tbf{sottografo di $G$} se è un grafo della forma $$\left \{ \begin{array}{l} V' \subseteq V \\ E' \subseteq E \end{array} \right.$$j Si noti ogni grafo è sottografo di sè stesso.
     \end{frameddefn}
 
     \begin{frameddefn}{Grafo indiretto}
@@ -237,7 +237,7 @@
         Una \textit{passeggiata} è una sequenza di vertici ed archi, della forma $$\{v_0, e_1, v_1, e_2, \ldots , e_{k - 1}, v_{k - 1}, e_k, v_k\}$$ dove $e_i=(v_{i - 1}, v_i)$. È la visita di un grafo più generale, ed è possibile ripercorrere ogni arco ed ogni vertice.
     \end{frameddefn}
 
-    \begin{framedobs}{}
+    \begin{framedobs}{Lunghezza massima di una passeggiata}
         La lunghezza massima di una passeggiata su un grafo è infinita.
     \end{framedobs}
 
@@ -286,7 +286,7 @@
         Un \textit{cammino} è una traccia aperta, in cui non è possibile ripercorrere i vertici. In simboli, dati $v, v' \in V(G)$, con $v \rightarrow v'$ si indica che è possibile raggiungere $v'$, partendo da $v$, attraverso un cammino; inoltre, è possibile estendere tale sintassi anche agli archi.
     \end{frameddefn}
 
-    \begin{framedobs}{}
+    \begin{framedobs}{Archi di cammini}
         In una passeggiata in cui non si ripercorrono i vertici, non è possibile ripercorrere gli archi.
     \end{framedobs}
 
@@ -366,8 +366,7 @@
         ad esempio, uno di questi è $\{2, 3, 1, 4, 5, 7, 6\}$.
     \end{example}
 
-    \begin{framedthm}{Ordinamento topologico}
-        \label{Ordinamento topologico}
+    \begin{framedthm}[label={Ordinamento topologico}]{Ordinamento topologico}
         Un grafo diretto ha un ordinamento topologico, se e solo se è aciclico.
     \end{framedthm}
 
@@ -379,8 +378,7 @@
         \end{itemize}
     \end{proof}
 
-    \begin{framedcor}{Vertici particolari}
-        \label{vertici particolari}
+    \begin{framedcor}[label={vertici particolari}]{Vertici particolari}
         In un grafo diretto aciclico, esiste almeno un vertice senza archi entranti, ed almeno un vertice senza archi uscenti.
     \end{framedcor}
 
@@ -549,7 +547,7 @@
         Una passeggiata si dice \textit{euleriana} se attraversa ogni arco del grafo, senza ripercorrerne nessuno.
     \end{frameddefn}
 
-    \begin{framedobs}{}
+    \begin{framedobs}{Passeggiate euleriane}
         Una passeggiata euleriana è una traccia passante per ogni arco del grafo.
     \end{framedobs}
 
@@ -590,7 +588,7 @@
         Una passeggiata si dice \textit{hamiltoniana} se attraversa ogni nodo del grafo, senza ripercorrerne nessuno.
     \end{frameddefn}
 
-    \begin{framedobs}{}
+    \begin{framedobs}{Passeggiate hamiltoniane}
         Una passeggiata hamiltoniana è un cammino.
     \end{framedobs}
 
@@ -715,7 +713,7 @@
         Si noti che, nella maggior parte dei linguaggi di programmazione, gli insiemi non hanno ordine, dunque non sarebbe possibile restituire uno slice di \texttt{visited}; allora, per semplicità, all'interno dello pseudocodice presentato, si assume si stia utilizzando una struttura dotata di hashing per l'univocità degli elementi, e di ordine per restituirne uno slice, ad esempio un \texttt{IndexSet}.
     \end{proof}
 
-    \begin{framedobs}{}
+    \begin{framedobs}{Porzione di \ttt{visited}}
         Si noti che \texttt{visited} contiene tutti i nodi visitati, dunque restituire interamente l'insieme potrebbe non fornire un ciclo, come nel seguente grafo
         \begin{figure}[H]
             \centering
@@ -736,7 +734,6 @@
         \end{figure}
 
         in cui, ad esempio partendo da $v= 4$, l'unico ciclo è $$\{4, (4, 3), 3, (3, 2), 2, (2, 4), 4\}$$ nonostante al termine dell'algoritmo si avrebbe $\texttt{visited}=[1, 4, 3, 2, 4]$, che non costituisce un ciclo.
-
     \end{framedobs}
 
     \begin{proof}[Costo dell'algoritmo.]
@@ -799,8 +796,7 @@
         Allora, il costo complessivo dell'algoritmo, indipendentemente dalla rappresentazione di $G$, è pari a $O(n) \cdot O(n) = O(n^2)$.
     \end{proof}
 
-    \begin{framedobs}{Albero}
-        \label{Sottografo di un grafo indiretto}
+    \begin{framedobs}[label={Sottografo di un grafo indiretto}]{Albero}
         Sia $G$ un grafo indiretto; considerando l'insieme di archi attraversati dall'algoritmo per trovare ogni vertice raggiungibile partendo da $v$, al termine della procedura si ottiene un sottografo indiretto di $G$ connesso ed aciclico: connesso, poiché l'algoritmo procede per adiacenza di vertici, ed aciclico, poiché l'algoritmo non visita lo stesso vertice più di una volta. Allora, per definizione, tale sottografo è un albero.
     \end{framedobs}
 
@@ -847,7 +843,7 @@
     \end{proof}
 
     \begin{proof}[Costo dell'algoritmo.]
-        \label{costo findReachableNodes2}
+        \label{costo FRN2}
         Poiché i nodi visitati vengono eliminati, il costo del ciclo \texttt{while} dipende da operazioni eseguite in tempo costante $O(1)$, e da quanti nodi vengono controllati per ogni iterazione del ciclo, ma poiché non si possono ricontrollare più volte gli stessi nodi, allora il costo del ciclo dipende solamente dalla dimensione delle liste di adiacenza, e dunque si ha $\displaystyle O\left( \sum_{v \in V(G)}{1 + \deg(v)}\right)=O\left(\sum_{v \in V(G)}{1}\right) + O\left(\sum_{v \in V(G)}{\deg(v)}\right) = O(n) + O(m) = O(n+ m)$, per il \cref{Somma dei gradi}.
     \end{proof}
 
@@ -905,8 +901,7 @@
         Si noti che per ogni foglia $v$ del grafo, ovvero i vertici per i quali non è più possibile scendere di profondità, si ha $t(v) = T(v)$, per definizione stessa dei tempi.
     \end{framedobs}
 
-    \begin{framedlem}{Proprietà degli intervalli}
-        \label{Intervalli diretto}
+    \begin{framedlem}[label={Intervalli diretto}]{Proprietà degli intervalli}
         Sia $G$ un grafo diretto, e $u, v \in V(G)$ adiacenti; allora solo una delle seguenti proposizioni è vera:
         \begin{enumerate}[label=\roman*), font=\itshape]
             \item $\mathrm{Int}(u) \subseteq \mathrm{Int}(v)$
@@ -981,7 +976,7 @@
     \end{proof}
 
     \begin{proof}[Costo dell'algoritmo.]
-        Si noti che l'algoritmo controlla ogni singolo vertice una ed una sola volta, e la vista avviene in DFS; inoltre, poiché si ha un ciclo \texttt{for} all'interno di ogni livello della ricorsione, per costruzione stessa, l'algoritmo si comporta esattamente come l'\cref{findReachableNodes2}. Allora, poiché il grafo è rappresentato tramite liste di adiacenza, per ragionamento analogo all'\cref{costo findReachableNodes2}, il costo dell'algoritmo è pari a $O(n + m)$.
+        Si noti che l'algoritmo controlla ogni singolo vertice una ed una sola volta, e la vista avviene in DFS; inoltre, poiché si ha un ciclo \texttt{for} all'interno di ogni livello della ricorsione, per costruzione stessa, l'algoritmo si comporta esattamente come l'\cref{findReachableNodes2}. Allora, poiché il grafo è rappresentato tramite liste di adiacenza, per ragionamento analogo all'\cref{costo FRN2}, il costo dell'algoritmo è pari a $O(n + m)$.
     \end{proof}
 
     \subsection{Categorie di archi}
@@ -1286,8 +1281,7 @@
 
     \subsection{Trovare un ordinamento topologico}
 
-    \begin{framedthm}{Presenza di cicli}
-        \label{Cicli diretto}
+    \begin{framedthm}[label={Cicli diretto}]{Presenza di cicli}
         Sia $G$ un grafo diretto connesso; allora $G$ ha un ciclo se e solo se in esso esiste un backward edge in almeno un'arborescenza.
     \end{framedthm}
 
@@ -1299,7 +1293,7 @@
         \end{itemize}
     \end{proof}
 
-    \begin{framedcor}{}
+    \begin{framedcor}{Relazioni tra tempi}
         Sia $G$ un grafo diretto aciclico connesso, sia $\hat v \in V(G)$ un suo vertice, sia $A_{\hat v}$ la relativa arborescenza, e sia $(u, v) \in E(G)$ un arco; allora $t(v) \le T(u)$.
     \end{framedcor}
 
@@ -1311,7 +1305,7 @@
         \end{itemize}
     \end{proof}
 
-    \begin{framedcor}{}
+    \begin{framedcor}{Relazioni tra tempi}
         Sia $G$ un grafo diretto aciclico connesso, sia $\hat v \in V(G)$ un suo vertice, sia $A_{\hat v}$ la relativa arborescenza, e sia $(u, v) \in E(G)$ un arco; allora $T(v) \le T(u)$.
     \end{framedcor}
 
@@ -1503,8 +1497,7 @@
         Infatti, $(4, 5)$ è un ponte poiché gli unici due cicli di $G$ sono $$\{1, (1, 2), 2, (2, 3), 3, (3, 4), 4, (4, 1), 1\}$$ $$\{5, (5, 6), 6, (6, 7), 7, (7, 5), 5\}$$
     \end{example}
 
-    \begin{framedthm}{Presenza di ponti}
-        \label{teorema dei ponti}
+    \begin{framedthm}[label={teorema dei ponti}]{Presenza di ponti}
         Sia $G$ un grafo indiretto connesso, $r \in V(G)$, e sia $T_r$ l'albero di visita in DFS di $r$ in $G$; sia $x \in V(T_r)$, e sia $T_x \subseteq T_r$ il suo sottoalbero in $T_r$; sia inoltre $y \in V(T_x)$ tale che $(x, y) \in E(G)$, e sia $T_y \subseteq T_x$ il suo sottoalbero in $T_x$; allora, esiste un arco $(u, v) \in E(G)$, tale che $u \in V(T_y)$ e $v \in V(T - T_x)$, se e solo se esiste un ciclo in $G$ contenente $(x, y)$.
     \end{framedthm}
 
@@ -1697,8 +1690,7 @@
         esso, presenta $3$ componenti: $$H_1 := (\{1, 2, 3, 4, 6\}, \{(1, 3), (3, 4), (4, 6), (6, 3), (3, 2), (2, 1)\})$$ $$H_2 := (\{5\}, \varnothing)$$ $$H_3 := (\{7\}, \varnothing)$$
     \end{example}
 
-    \begin{framedlem}{Digiunzione delle componenti}
-        \label{disjoint comps}
+    \begin{framedlem}[label={disjoint comps}]{Digiunzione delle componenti}
         Sia $G$ un grafo; allora, le sue componenti sono disgiunte.
     \end{framedlem}
 
@@ -1809,8 +1801,7 @@
         \end{figure}
     \end{example}
 
-    \begin{framedthm}{Contrazioni fortemente connesse}
-        \label{contrazioni fortemente connesse}
+    \begin{framedthm}[label={contrazioni fortemente connesse}]{Contrazioni fortemente connesse}
         Sia $G$ un grafo diretto fortemente connesso, e $H \subseteq G$ un suo sottografo fortemente connesso; allora, $\mathrm{contr}(G, H)$ è ancora fortemente connesso.
     \end{framedthm}
 
@@ -1818,8 +1809,7 @@
         Sia $v_H$ il vertice del grafo contratto $\mathrm{contr}(G, H)$, e $y \in V(G - H)$; poiché $G$ è fortemente connesso, devono necessariamente esistere due vertici $v', v'' \in V(H)$ tali che $y \rightarrow v'$ e $v'' \rightarrow y$; siano i vertici $v'$ e $v''$ per i quali tali cammini siano di minor lunghezza possibile. Allora, effettuando la contrazione di $H$, in $\mathrm{contr}(G, H)$ sarà necessario rimpiazzare gli archi che permettevano tali cammini, e dunque verranno inseriti due nuovi archi, uno entrante uno uscente, verso $v_H$. Allora, necessariamente $\mathrm{contr}(G, H)$ è ancora fortemente connesso.
     \end{proof}
 
-    \begin{framedthm}{Presenza di cicli}
-        \label{presenza di cicli fort conn}
+    \begin{framedthm}[label={presenza di cicli fort conn}]{Presenza di cicli}
         Sia $G$ un grafo diretto fortemente connesso, non composto da un singolo vertice; allora, esso presenta almeno un ciclo.
     \end{framedthm}
 
@@ -1942,8 +1932,7 @@
         allora, in $H_1$ il primo vertice visitato da $A_{\hat v}$ è $2$, in $H_2$ è $4$, e in $H_3$ è $6$; allora le c-radici di $A_{\hat v}$ sono $\{2, 4, 6\}$.
     \end{example}
 
-    \begin{framedthm}{C-radici}
-        \label{cradiciteorema}
+    \begin{framedthm}[label={cradiciteorema}]{C-radici}
         Sia $G$ un grafo diretto, sia $\hat v \in V(G)$ un suo vertice, e sia $A_{\hat v}$ l'arborescenza di $\hat v$ in $G$; sia $u$ la c-radice di $\mathrm{comp}(u)$ in $A_{\hat v}$; allora si verificano le seguenti proposizioni:
 
         \begin{enumerate}[label=\roman*), font=\itshape]
@@ -2182,9 +2171,7 @@
 
     \subsection{Distanza}
 
-    \begin{frameddefn}{Distanza}
-        \label{distanza}
-
+    \begin{frameddefn}[label={distanza}]{Distanza}
         Sia $G$ un grafo, e siano $x, y \in V(G)$ due suoi vertici; si definisce \textit{distanza tra $x$ e $y$}, il numero minimo di archi che costituiscono un cammino $x \rightarrow y$. In simboli, sia $\mathcal{C}$ l'insieme dei cammini $x \rightarrow y$ in $G$; allora $$\mathrm{dist}(x, y) := \min_{c \in \mathcal{C}}{\left |E(c) \right|}$$
     \end{frameddefn}
 
@@ -2398,7 +2385,7 @@
     \end{proof}
 
     \begin{proof}[Costo dell'algoritmo.]
-        Il ciclo \texttt{for} della riga $8$ viene eseguito per ognuno dei vertici adiacenti a $v$, e dunque ha costo $O(\deg(v))$; allora, per ragionamento analogo all'\cref{costo findReachableNodes2}, il costo dell'algoritmo è pari a $O(n +m)$.
+        Il ciclo \texttt{for} della riga $8$ viene eseguito per ognuno dei vertici adiacenti a $v$, e dunque ha costo $O(\deg(v))$; allora, per ragionamento analogo all'\cref{costo FRN2}, il costo dell'algoritmo è pari a $O(n +m)$.
     \end{proof}
 
     \begin{framedobs}{Archi non della visita}
@@ -2638,8 +2625,7 @@
         si noti che, in esso, si ha che $$\mathrm{dist}(1, 4) = 10$$ attraversando l'arco $(1, 4)$, mentre $$\mathrm{dist}_w(1, 4)=w(1, 2) + w(2, 3) + w(3, 4)=1 + 2 + 5 = 8$$ attraversando gli archi $(1, 2), (2, 3)$ e $(3, 4)$, poiché $$w(1, 4) = 10; \ w(1, 3) + w(3, 4) = 6 + 5 = 11$$ entrambi maggiori di $8$.
     \end{example}
 
-    \begin{framedlem}{Caratteristiche delle distanze pesate}
-        \label{caratteristiche distanze pesate}
+    \begin{framedlem}[label={caratteristiche distanze pesate}]{Caratteristiche delle distanze pesate}
         Sia $G$ un grafo; le seguenti proposizioni sono vere:
 
         \begin{enumerate}[label=\roman*), font=\itshape]
@@ -2662,8 +2648,7 @@
         Sia $G$ un grafo diretto, e $x, y \in V(G)$ due suoi vertici; si noti che, in un grafo diretto, $\mathrm{dist}_w$ non è necessariamente simmetrica, e potrebbe verificarsi che $$\mathrm{dist}_w(x, y) \neq \mathrm{dist}_w(y, x)$$
     \end{framedobs}
 
-    \begin{framedlem}{Distanze pesate dei vicini}
-        \label{vicini pesati}
+    \begin{framedlem}[label={vicini pesati}]{Distanze pesate dei vicini}
         Sia $G$ un grafo indiretto pesato attraverso $w$ e $v \in V(G)$ un suo vertice; sia $N(v)$ l'insieme dei vertici adiacenti a $v$, e sia $$u \in \argmin_{x \in N(v)}{w(v, x)}$$ allora necessariamente $$\mathrm{dist}_w(v, u) = w(v, u)$$
     \end{framedlem}
 
@@ -2671,9 +2656,7 @@
         Per ipotesi, $u$ è un vertice adiacente a $v$, attraverso un arco $(v, u) \in E(G)$, avente peso minimo tra gli adiacenti a $v$; allora, considerando qualsiasi altro cammino $c'$ della forma $v \rightarrow u$, non passante per l'arco $(v, u)$, si deve necessariamente avere $$w_p(c') > w_p(\{v, (v, u), u\})$$ poiché il primo arco di $c'$ avrà peso maggiore di $w(v, u)$, per come $u$ è stato scelto in ipotesi.
     \end{proof}
 
-    \begin{framedthm}{Estensioni pesate di insiemi di vertici}
-        \label{dijkstra theorem}
-
+    \begin{framedthm}[label={dijkstra theorem}]{Estensioni pesate di insiemi di vertici}
         Sia $G$ un grafo indiretto, e sia $R \subseteq V(G)$ un sottoinsieme dei suoi vertici; sia $v\in R$ un vertice in $R$, e sia $(x, u) \in E(G)$ un arco con $x \in R$ e $u \in V(G) - R$, tale che $$(x, u) \in \argmin_{\substack{(a, b) \in E(G) \\ a \in R \\ b \in V(G) - R}}{\left(\mathrm{dist}_w(v, x) + w(a, b)\right)}$$ allora necessariamente $$\mathrm{dist}_w(v, u) = \mathrm{dist}_w(v, x) + w(x, u)$$
     \end{framedthm}
 
@@ -2973,9 +2956,7 @@
         \end{figure}
     \end{example}
 
-    \begin{framedlem}{MST aciclici}
-        \label{lemma mst}
-
+    \begin{framedlem}[label={lemma mst}]{MST aciclici}
         Sia $G$ un grafo indiretto pesato, con pesi strettamente positivi, e sia $H$ un suo MST; allora $H$ è aciclico.
     \end{framedlem}
 
@@ -3227,8 +3208,7 @@
         \end{itemize}
     \end{frameddefn}
 
-    \begin{framedthm}{Master theorem - Teorema principale}
-        \label{master theorem}
+    \begin{framedthm}[label={master theorem}]{Master theorem - Teorema principale}
         Siano $\alpha, \beta \ge 1$ tali da descrivere la seguente equazione di ricorrenza: $$\left \{ \begin{array}{l} T(n) = \alpha \cdot T\left(\dfrac{n}{\beta}\right) + f(n) \\ T(1) = \Theta(1) \end{array} \right.$$ allora, si ha che
         \begin{itemize}
             \item se $f(n) = \Theta(n^c)$, con $c < \log_{\beta}{\alpha}$, allora $$T(n) = \Theta(n^{\log_{\beta}{\alpha}})$$
@@ -3488,8 +3468,7 @@
 
     \subsection{Trovare il peso massimo di un cammino}
 
-    \begin{framedlem}{Pesi di cammini}
-        \label{lemma grafi max}
+    \begin{framedlem}[label={lemma grafi max}]{Pesi di cammini}
         Sia $G$ un grafo diretto aciclico, pesato attraverso $w$, siano $u, v \in V(G)$ due suoi vertici, e sia $z \in V(G) - \{u, v\}$ un suo vertice, tale che $(z, v) \in E(G)$; se esiste un cammino della forma $u \rightarrow z$, avente peso $\alpha$, allora esiste un cammino della forma $u \rightarrow v$, avente peso $\alpha + w(z, v)$.
     \end{framedlem}
 
