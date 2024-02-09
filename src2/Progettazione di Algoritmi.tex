@@ -705,7 +705,7 @@
         \end{algorithmic}
     \end{algorithm}
 
-    \begin{proof}[Dimostrazione di correttezza.]
+    \begin{proof}[Correttezza dell'algoritmo.]
         L'algoritmo inizia scegliendo un qualsiasi vertice di $G$, denotato alla riga $2$ con $v$; successivamente, alla riga $3$ viene inizializzato un insieme \texttt{visited} che contterà tutti i vertici visitati attraverso l'algoritmo; inotre, alla riga $4$ viene scelto un altro vertice $v'$, che sia adiacente al $v$ di partenza.
 
         All'interno del ciclo \texttt{while}, alla riga $6$ l'algoritmo salva $v'$ all'interno dell'insieme di vertici visitati, mentre alla riga $7$ viene rimpiazzato $v'$, scegliendo un nuovo vertice, adiacente a $v'$, che sia diverso dal penultimo vertice inserito all'interno di \texttt{visited}. Il motivo per cui quest'ultimo controllo è necessario, è che il penultimo vertice inserito sarà il vertice dal quale $v'$ proveniva, di conseguenza si rischierebbe di ripercorrere uno stesso vertice più di una volta, e dunque non si formerebbe un ciclo. Si noti che è necessaria l'ipotesi per cui $G$ abbia ogni vertice di grado almeno pari a $2$, altrimenti non sarebbe possibile trovare un vertice differente dal penultimo di \texttt{visited}. Il ciclo termina nel momento in cui viene scelto un $v'$ già presente all'interno di \texttt{visited}, in quanto, poiché non è possibile ripercorrere i propri passi, l'unica possibilità in cui si è giunti ad un vertice già visitato è se si è concluso un ciclo.
@@ -739,13 +739,13 @@
 
     \end{framedobs}
 
-    \begin{framedobs}{Costo dell'algoritmo}
+    \begin{proof}[Costo dell'algoritmo.]
         Il costo di questo algoritmo dipende dalla struttura dati utilizzata per rappresentare il grafo in input: nel caso in cui $G$ è rappresentato attraverso una matrice di adiacenza, il costo del ciclo \texttt{while} è pari a $O(n)$, poiché la riga $7$ richiede di trovare un $v'' \in V(G) : v' \sim v''$, il ché potrebbe portare a dover scorrere tutta la riga/colonna di $v''$, dunque nel caso peggiore $O(n)$; differentemente, rappresentando $G$ attraverso liste di adiacenza, basta scegliere il primo vertice contenuto nella lista di $v''$, e se questo dovesse coincidere con il penultimo elemento di \texttt{visited}, sarà sufficiente scegliere il secondo elemento della lista (sicuramente presente per come $G$ è scelto in ipotesi), dunque si ha $O(2) = O(1)$.
 
         Infine, si noti che il ciclo \texttt{while} ha costo $O(n)$, poiché nel caso peggiore si ha un ciclo che percorre tutto il grafo.
 
         Allora, attraverso una rappresentazione matriciale, l'algoritmo ha costo $O(n) \cdot O(n) = O(n^2)$, mentre attraverso la rappresentazione con liste di adiacenza, si ha $O(1) \cdot O(n) = O(n)$.
-    \end{framedobs}
+    \end{proof}
 
     \subsection{Visita in DFS}
 
@@ -783,7 +783,7 @@
         Per assurdo, sia $\hat v \in V(G)$, raggiungibile da $v$ attraverso un cammino, che non sia stato raggiunto dall'algoritmo; allora, per definizione esiste un cammino $\{v, e_1, v_1, \ldots, v_{n - 1}, v_n, \hat v\}$; inoltre, sia $v_i$ il vertice con indice maggiore all'interno del cammino, raggiunto dall'algoritmo, e dunque avendo che $\left \{ \begin{array}{l}v_i \sim v_{i + 1} \\ v_{i + 1} \notin \texttt{visited}  \end{array} \right.$. Allora, per costruzione dell'algoritmo, $v_i$ sarebbe stato rimosso dallo stack, alla riga $11$, prima che $v_{i + 1}$ potesse essere visitato; ma poiché $v_i \sim v_{i +1}$, allora l'algoritmo dovrebbe aver sbagliato esecuzione, poiché $v_{i +1}$ sarebbe stato raggiunto alla riga $7$ inevitabilmente $\lightning$.
     \end{proof}
 
-    \begin{proof}[Dimostrazione di correttezza.]
+    \begin{proof}[Correttezza dell'algoritmo.]
         L'algoritmo inizia definendo un array \texttt{visited}, alla riga 2, contenente inizialmente il valore sentinella 0 per ogni vertice, il quale marcherà la presenza di nodi non ancora visitati dall'algoritmo; successivamente, viene segnato $v$, il vertice in input, come visitato all'interno di \texttt{visited}, alla riga 3, e viene posto all'interno dello stack \texttt{S}, alla riga 4.
 
         Alla riga 5, viene inizializzato un ciclo \texttt{while}, all'interno del quale, fintanto che lo stack \texttt{S} non è vuoto, alla riga 6 viene definito $v_{top}$, pari al primo elemento dello stack, e se esiste un vertice $z \in V(G)$, non ancora visitato dall'algoritmo ($\texttt{visited[}z\texttt{]}=0$), tale che sia adiacente a $v_{top}$, viene inserito all'interno dello stack, alla riga 8, e viene marcato come visitato, alla riga 9. Si noti che queste due ultime operazioni garantiscono che la visita del grafo sia in DFS, poiché $v_{top}$ alla prossima iterazione del \texttt{while} sarà proprio il vertice $z$ appena inserito, e dunque l'algoritmo sta procedendo più in profondità che si possa; se invece un tale vertice $z$ non esiste, può voler dire esclusivamente che ogni singolo vertice adiacente a $v_{top}$ corrente è già stato visitato dall'algoritmo, e dunque è possibile retrocedere di profondità nella visita del grafo, andando dunque a rimuovere dallo stack l'attuale primo vertice, alla riga 11.
@@ -791,13 +791,13 @@
         Per terminare, è sufficiente dunque ritornare l'array \texttt{visited}, che conterrà 1 su tutti e soli i vertici che sono stati raggiunti dall'algoritmo, e sono dunque raggiungibili dal vertice di partenza $v$; infatti, gli unici vertici che non sono stati raggiunti dall'algoritmo, sono vertici che non sono raggiungibili, partendo da $v$, attraverso cammini. Si noti che, nel caso di un $G$ indiretto, è sempre possibile raggiungere qualsiasi vertice, partendo da qualsiasi nodo, a meno di grafi non connessi.
     \end{proof}
 
-    \begin{framedobs}{Costo dell'algoritmo}
+    \begin{proof}[Costo dell'algoritmo.]
         Si consideri $G$ rappresentato attraverso matrice di adiacenza; allora, il costo della riga $7$, nel caso peggiore, è $O(n)$, poiché è necessario controllare tutta la riga/colonna di $v_{top}$ per trovare un vertice $z$ tale che $\texttt{visited[}z\texttt{]} = 0$, dunque non sia stato ancora visitato. Per ragione analoga, rappresentando $G$ attraverso liste di adiacenza, nel caso peggiore si ha una sola lista corrispondente ad un singolo vertice di $G$, e sarà dunque necessario effettuare $O(n - 1) = O(n)$ controlli.
 
         Inoltre, si noti che il caso peggiore dell'algoritmo si ha quando $v$ può raggiungere ogni altro nodo di $G$, e dunque il ciclo \texttt{while} sarà ripetuto $O(2n - 1) = O(2n) = O(n)$ volte, poiché ogni vertice verrà inserito e rimosso dallo stack, eccetto il primo, inserito alla riga $4$.
 
         Allora, il costo complessivo dell'algoritmo, indipendentemente dalla rappresentazione di $G$, è pari a $O(n) \cdot O(n) = O(n^2)$.
-    \end{framedobs}
+    \end{proof}
 
     \begin{framedobs}{Albero}
         \label{Sottografo di un grafo indiretto}
@@ -840,16 +840,16 @@
         \end{algorithmic}
     \end{algorithm}
 
-    \begin{proof}[Dimostrazione di correttezza.]
+    \begin{proof}[Correttezza dell'algoritmo.]
         Questa seconda versione dell'algoritmo presenta una miglioria sostanziale alla riga $8$: infatti, attraverso questa riga si rimuovono di volta in volta i vertici adiacenti appena visitati; di conseguenza, i vertici adiacenti da controllare saranno progressivamente sempre meno. Infatti, si noti che senza la riga $8$, l'algoritmo si comporterebbe come la prima versione.
 
         Il \texttt{break} alla riga $12$ interrompe il ciclo \texttt{while} della riga $6$, facendo sì che $v_{top}$ della riga $5$, all'iterazione successiva del \texttt{while} della riga $4$, sia pari a $z$, dunque cambiando il vertice correntemente in esame. Di conseguenza, alla riga $15$ il controllo sarà valutato a \texttt{True} esclusivamente se non è mai stata eseguita la riga $11$ per tutta l'iterazione del ciclo \texttt{while} della riga $6$, ovvero quando tutti i vertici adiacenti a $v_{top}$ sono già stati visitati.
     \end{proof}
 
-    \begin{framedobs}{Costo dell'algoritmo}
+    \begin{proof}[Costo dell'algoritmo.]
         \label{costo findReachableNodes2}
         Poiché i nodi visitati vengono eliminati, il costo del ciclo \texttt{while} dipende da operazioni eseguite in tempo costante $O(1)$, e da quanti nodi vengono controllati per ogni iterazione del ciclo, ma poiché non si possono ricontrollare più volte gli stessi nodi, allora il costo del ciclo dipende solamente dalla dimensione delle liste di adiacenza, e dunque si ha $\displaystyle O\left( \sum_{v \in V(G)}{1 + \deg(v)}\right)=O\left(\sum_{v \in V(G)}{1}\right) + O\left(\sum_{v \in V(G)}{\deg(v)}\right) = O(n) + O(m) = O(n+ m)$, per il \cref{Somma dei gradi}.
-    \end{framedobs}
+    \end{proof}
 
     \begin{framedobs}{Grafo diretto}
         Per estendere questo algoritmo a grafi diretti, è necessario fornire in input un grafo rappresentato attraverso liste di adiacenza, le quali devono contenere esclusivamente i vertici uscenti, poichè sono gli unici archi percorribili.
@@ -877,17 +877,17 @@
         \end{algorithmic}
     \end{algorithm}
 
-    \begin{proof}[Dimostrazione di correttezza.]
+    \begin{proof}[Correttezza dell'algoritmo.]
         L'algoritmo inizia definendo una lista vuota \texttt{order}, all'interno della quale verrà salvato l'ordinamento topologico; successivamente, alla riga $3$, viene inizializzato un ciclo \texttt{while} che, in ogni iterazione, trova un vertice $v$ il cui numero di vertici adiacenti entranti è $0$, e lo inserisce in \texttt{order}; questo garantisce che ogni vertice inserito venga necessariamente inserito prima di ogni suo arco uscente, e ne esiste sempre almeno uno grazie al \cref{vertici particolari}. Si noti inoltre che, poiché $G$ è aciclico, è garantito che rimuovendo un vertice senza archi entranti, il grafo risultante sarà ancora aciclico, ed è possibile dunque ripetere il ragionamento induttivamente per poter dimostrare la correttezza dell'algoritmo.
     \end{proof}
 
-    \begin{framedobs}{Costo dell'algoritmo}
+    \begin{proof}[Costo dell'algoritmo.]
         Il ciclo \texttt{while} della riga $3$, indipendentemente dalla struttura di rappresentazione del grafo $G$, deve essere eseguito $n$ volte, e dunque ha costo $O(n)$, poiché l'ordinamento topologico deve coinvolgere ogni nodo del grafo, e alla riga $6$ i nodi controllati vengono progressivamente rimossi.
 
         Rappresentando $G$ attraverso matrice di adiacenza, indicando con $1$ i vertici adiacenti entranti, il costo della riga $4$ è pari a $O(n^2)$, poiché per trovare un vertice $v$ che non abbia archi entranti, è necessario controllare tutta la sua riga/colonna, e dunque nel caso peggiore, per trovarlo sarà necessario controllare l'intera matrice; inoltre, per effettuare la rimozione di $v$ alla riga $6$, il costo è $O(n)$, Allora, il costo complessivo dell'algoritmo risulta essere $O(n) \cdot [O(n^2) + O(n)]= O(n) \cdot O(n^2) = O(n^3)$.
 
         Differentemente, rappresentando $G$ attraverso liste di adiacenza, salvando solamente i vertici adiacenti entranti per ogni nodo, alla riga $4$ per trovare un nodo senza archi entranti è sufficiente controllare il numero di elementi della lista di ogni vertice, operazione a costo $O(1)$, e dunque il costo, nel caso peggiore, è $O(n - 1) = O(n)$; inoltre, per rimuovere $v$ alla riga $6$, il costo è pari a $O(n + m)$. Allora, il costo complessivo dell'algoritmo risulta essere $O(n) \cdot [O(n) + O(n + m)] = O(n) \cdot [O(2n + m)] = O(n) \cdot O(n + m) = O(n \cdot (n +m))$.
-    \end{framedobs}
+    \end{proof}
 
     \section{Tempi di visita e di chiusura}
 
@@ -970,7 +970,7 @@
         \end{algorithmic}
     \end{algorithm}
 
-    \begin{proof}[Dimostrazione di correttezza.]
+    \begin{proof}[Correttezza dell'algoritmo.]
         L'algoritmo inizia salvando la radice $r$ all'interno di un insieme \texttt{visited}, ed inizializzando gli array \texttt{t} e \texttt{T} con $0$; inoltre, il tempo di visita di $r$ viene inizializzato a $1$, alla riga $17$; infine, viene istanziato un contatore, partendo da $1$ (poiché la radice è già stata inizializzata).
 
         All'interno della funzione ricorsiva, per ogni livello della ricorsione, viene esplorato ogni vertice adiacente a $v$ in ingresso; in particolare, se gia non visitato, viene scelto un $u$ tale che $u \sim v$. Successivamente, viene aggiornato il contatore, e viene salvato il tempo di visita di $u$; infine, viene aggiunto il vertice a \texttt{visited}. Alla riga $7$, la funzione ricorsiva viene eseguita nuovamente, utilizzando come nuovo nodo di partenza $u$. Infine, per ogni livello di ricorsione, dopo aver terminato i vertici adiacenti, il ciclo \texttt{for} della riga $2$ termina, e alla riga $10$ viene aggiornato il tempo di chiusura del vertice $v$.
@@ -980,9 +980,9 @@
         Si noti che l'algoritmo funziona correttamente, solamente se \texttt{c} è un oggetto e non una variabile; infatti, il contatore si deve comportare come se fosse globale per ogni livello di ricorsione, altrimenti i tempi sarebbero tutti errati; in particolare, senza trattare il contatore come oggetto, il contatore, ritornando indietro con i livelli ricorsivi, decrementerebbe.
     \end{proof}
 
-    \begin{framedobs}{Costo dell'algoritmo}
+    \begin{proof}[Costo dell'algoritmo.]
         Si noti che l'algoritmo controlla ogni singolo vertice una ed una sola volta, e la vista avviene in DFS; inoltre, poiché si ha un ciclo \texttt{for} all'interno di ogni livello della ricorsione, per costruzione stessa, l'algoritmo si comporta esattamente come l'\cref{findReachableNodes2}. Allora, poiché il grafo è rappresentato tramite liste di adiacenza, per ragionamento analogo all'\cref{costo findReachableNodes2}, il costo dell'algoritmo è pari a $O(n + m)$.
-    \end{framedobs}
+    \end{proof}
 
     \subsection{Categorie di archi}
 
@@ -1195,7 +1195,7 @@
         \end{algorithmic}
     \end{nocaptionalg}
 
-    \begin{proof}[Dimostrazione di correttezza.]
+    \begin{proof}[Correttezza dell'algoritmo.]
         Si noti che, dalla riga 2 alla riga 29, l'algoritmo seguente non presenta alcuna differenza dall'\cref{findReachableNodes2}, se non per alcuni accorgimenti al fine di collezionare i tempi di visita e di chiusura dei vari vertici:
 
         \begin{itemize}
@@ -1220,13 +1220,13 @@
         L'algoritmo conclude restituendo le liste contenenti i vari archi del grafo, non facenti parte dell'arborescenza di visita di $G$, radicata in $v$, categorizzati sfruttando i loro intervalli.
     \end{proof}
 
-    \begin{framedobs}{Costo dell'algoritmo}
+    \begin{proof}[Costo dell'algoritmo.]
         Si noti che il ciclo \texttt{while} della riga $11$, e termina alla riga $29$, ha lo stesso costo computazionale dell'\cref{findReachableNodes2}, e dunque il suo costo è pari a $O(n + m)$.
 
         Si noti inoltre che, il ciclo \texttt{for} della riga $33$, effettua un'iterazione per ogni singolo vertice del grafo, ma all'interno di esso è presente un ulteriore ciclo \texttt{for}, alla riga $34$, che itera sui rispettivi vertici adiacenti entranti; allora, il costo di questi due cicli equivale al solo spazio di rappresentazione delle liste di adiacenza di $G$, ovvero $O(n + m)$.
 
         Allora, il costo computazionale è pari a $O(n + m) + O(n + m) = O(n + m)$.
-    \end{framedobs}
+    \end{proof}
 
     \begin{algorithm}[H]
         \caption{
@@ -1259,8 +1259,15 @@
         \end{algorithmic}
     \end{algorithm}
 
-    \begin{proof}[Dimostrazione di correttezza.]
-        Sia \texttt{NodeType} un \texttt{enum}, che può assumere le 4 varianti \texttt{Arborescence}, \texttt{Forward}, \texttt{Backward} e \texttt{Cross}.
+    \begin{proof}[Correttezza dell'algoritmo.]
+        Sia \texttt{NodeType} un \texttt{enum}, che può assumere le 4 seguenti varianti:
+
+        \begin{itemize}
+            \item \texttt{Arborescence}
+            \item \texttt{Forward}
+            \item \texttt{Backward}
+            \item \texttt{Cross}
+        \end{itemize}
 
         L'algoritmo inizia controllando, alla riga 2, se il vertice $x$ è proprio il nodo padre di $y$: in tal caso, vorrebbe dire che il vertice appartiene a \texttt{parents}, e dunque appartiene all'arborescenza di visita del grafo; allora, viene restituita la variante \texttt{NodeType::Arborescence}, alla riga 3.
 
@@ -1271,11 +1278,11 @@
         Infine, se l'arco $(x, y)$ in input non rispetta nessuna delle condizioni precedenti, segue che questo è un cross edge, e viene dunque restituito \texttt{NodeType::Cross} alla riga 18.
     \end{proof}
 
-    \begin{framedobs}{Costo dell'algoritmo}
+    \begin{proof}[Costo dell'algoritmo.]
         I cicli \texttt{while} delle righe 6 e 12, poiché identici, hanno lo stesso costo, ovvero $O(n)$, in quanto semplicemente risalgono ogni nodo della catena di padri in \texttt{parents}, il quale ha esattamente $n$ nodi, e dunque nel caso peggiore verranno visitati tutti i nodi fino alla radice.
 
         Allora, il costo dell'algoritmo è pari a $O(n) + O(n) = O(n)$.
-    \end{framedobs}
+    \end{proof}
 
     \subsection{Trovare un ordinamento topologico}
 
@@ -1358,13 +1365,13 @@
         \end{algorithmic}
     \end{algorithm}
 
-    \begin{proof}[Dimostrazione di correttezza.]
+    \begin{proof}[Correttezza dell'algoritmo.]
         Si noti che l'algoritmo non salva i tempi di chiusura dei vari vertici per ordinarli, ma non è necessario grazie alla ricorsione: infatti, inserendo il vertice alla riga $8$, dunque dopo il loop \texttt{for}, l'inserimento avviene in post-order rispetto alla visita del grafo, e dunque è equivalente a rispettare l'ordinamento crescente dei tempi di chiusura di ogni nodo. Dunque, è sufficiente invertire la lista ottenuta, alla riga $19$, per ottenere un ordinamento topologico.
     \end{proof}
 
-    \begin{framedobs}{Costo dell'algoritmo}
+    \begin{proof}[Costo dell'algoritmo.]
         Si noti che l'algoritmo ha costo $O(n + m)$, poiché attua una sola visita in DFS del grafo, rappresentato attraverso liste di adiacenza, ricorsivamente.
-    \end{framedobs}
+    \end{proof}
 
     \subsection{Trovare un pozzo universale}
 
@@ -1431,7 +1438,7 @@
         \end{algorithmic}
     \end{algorithm}
 
-    \begin{proof}[Dimostrazione di correttezza.]
+    \begin{proof}[Correttezza dell'algoritmo.]
         Per definizione stessa di pozzo universale, indipendentemente dalla scelta del vertice di partenza del grafo in input, percorrendo una qualsiasi sequenza di archi, inevitabilmente, si deve giungere al pozzo universale, poiché esso ha esattamente $n - 1$ archi entranti. Allora, alla riga $2$ viene arbitrariamente scelto un possibile pozzo universale, e il ciclo \texttt{for} della riga $3$ percorre la catena di archi possibili, e ha costo $O(n)$. Si noti però che il vertice a cui si è giunti potrebbe non essere un pozzo universale, ad esempio si consideri questo grafo:
 
         \begin{figure}[H]
@@ -1455,9 +1462,9 @@
         si noti che ndipendentemente dalla scelta iniziale di $p \in V(G)$, al termine del ciclo \texttt{for} si avrà $p = 4$, pur non essendo $4$ un pozzo universale, poiché $(3, 4) \notin E(G)$. Risulta dunque necessario accertarsi che $p$ sia realmente un pozzo universale, andando dunque a controllare, all'interno del ciclo \texttt{for} della riga $8$, se $p$ non ha archi uscenti, ed ogni altro arco è incidente su $p$. Tali controlli vengono effettuati rispettivamente alla riga $9$, in cui il ciclo termina restituendo \texttt{None} se esiste un vertice uscente da $p$, e alla riga $12$, in cui il ciclo termina analogamente se esiste un vertice non adiacente entrante a $p$.
     \end{proof}
 
-    \begin{framedobs}{Costo dell'algoritmo}
+    \begin{proof}[Costo dell'algoritmo.]
         Poiché i due cicli \texttt{for} percorrono ogni vertice di $G$, una ed una sola volta, il costo dell'algoritmo è pari a $O(n) + O(n) = O(n)$.
-    \end{framedobs}
+    \end{proof}
 
     \subsection{Trovare i ponti}
 
@@ -1563,7 +1570,7 @@
         \end{algorithmic}
     \end{algorithm}
 
-    \begin{proof}[Dimostrazione di correttezza.]
+    \begin{proof}[Correttezza dell'algoritmo.]
         L'algoritmo inizia scegliendo un vertice $v$ casuale del grafo $G$ in input; successivamente, vengono definiti gli array \texttt{t}, all'interno del quale verranno salvati i tempi di visita dei vertici, \texttt{parents}, utilizzato per salvare i nodi padri di ogni vertice visitato, e \texttt{back}.
 
         Sia $T$ l'albero di visita in DFS della visita correntemente in esecuzione dall'algoritmo; allora, per un certo vertice $y \in V(T)$, all'interno di $\texttt{back[}y\texttt{]}$, verrà salvato il tempo di visita del vertice $v \in V(T - T_y)$ più lontano, raggiungibile da un discendente $z$ di $y$ (incluso $y$ stesso), attraverso un cammino passante per un arco $(z, v) \notin E(T)$. L'array \texttt{back} verrà sfruttato congiuntamente al \cref{teorema dei ponti}, in quanto l'arco $(\texttt{parents[}y\texttt{]}, y)$ è un ponte, se e solo se non esiste un tale arco $(z, v)$.
@@ -1610,9 +1617,9 @@
         allora, al termine del ciclo \texttt{for} della riga $27$, si avrà $$\texttt{bridges} = \verb|{| (\texttt{parents[}2\texttt{]}, 2), (\texttt{parents[}3\texttt{]}, 3)\verb|}|$$ ovvero $$\texttt{bridges} = \verb|{| (1, 2), (1, 3)\verb|}|$$ poiché $\texttt{back[}2\texttt{]} = \texttt{t[}2\texttt{]} = 4$ e $\texttt{back[}3\texttt{]} = \texttt{t[}3\texttt{]} = 5$; infine, si noti che $\texttt{back[}6\texttt{]} = \texttt{back[}6\texttt{]} = 1$, ma $6 \notin \texttt{bridges}$ poiché $\texttt{parents[}6\texttt{]} = 6$, ed infatti $T_6$ è proprio radicato in $6$.
     \end{proof}
 
-    \begin{framedobs}{Costo dell'algoritmo}
+    \begin{proof}[Costo dell'algoritmo.]
         Il costo dell'algoritmo è $O(n + m)$, poiché è costituito semplicemente da una visita in DFS ricorsiva del grafo in input, e da un ciclo \texttt{for}, alla riga $27$, su tutti i nodi del grafo, e dunque si ha $O(n + m) + O(n) = O(n + m)$.
-    \end{framedobs}
+    \end{proof}
 
     \subsection{Trovare le componenti}
 
@@ -1849,25 +1856,25 @@
         \end{algorithmic}
     \end{algorithm}
 
-    \begin{proof}[Dimostrazione di correttezza.]
+    \begin{proof}[Correttezza dell'algoritmo.]
         Sia $G$ un grafo diretto, e $H \subseteq G$ una sua componente; allora, se $H$ non è composto da un singolo vertice, poiché è fortemente connesso per definizione, per il \cref{presenza di cicli fort conn}, in $H$ è presente un ciclo $C$; allora, contraendo tale ciclo, si otterrà un sottografo $\mathrm{contr}(H, C)$, ancora fortemente connesso, per il \cref{contrazioni fortemente connesse}. Allora, questo garantisce di poter trovare tutte le componenti di un grafo, contraendone ricorsivamente i cicli.
 
         L'algoritmo inizia cercando un ciclo $C$ all'interno del grafo $G$; se non ne viene trovato alcuno, viene raggiunto il caso base della ricorsione, e l'algoritmo restituisce un insieme di insiemi dei singoli vertici di $G$; si noti che tale caso si presenta esclusivamente quando il grafo è massimalmente contratto.
 
         Differentemente, se è presente un ciclo $C$ all'interno del grafo, l'algoritmo procede contraendo $C$ in $v_C$, e rimpiazzando $G$, alla riga $10$; successivamente, viene effettuata una chiamata ricorsiva sul grafo contratto, al termine della quale viene restituito l'insieme di componenti di $G$ corrente.
 
-        Dopo aver contratto ricorsivamente ogni possibile ciclo, l'algoritmo istanzia un loop \texttt{for} alla riga $13$, all'interno del quale viene trovata la componente $H_i$ in cui $v_C$ faceva parte: le componenti che non contengono $v_C$ vengono inserite all'interno dell'insieme \texttt{new\_components}, senza subire modifiche; al contrario, dall'unica componente $H_i$ che contiene $v_C$, viene rimosso $v_C$ stesso, e ad essa verrà aggiunto tutto il ciclo $C$ che era stato contratto, ripristinando dunque il grafo di partenza di ricorsione in ricorsione.
+        Dopo aver contratto ricorsivamente ogni possibile ciclo, l'algoritmo istanzia un loop \texttt{for} alla riga $13$, all'interno del quale viene trovata la componente $H_i$ in cui $v_C$ faceva parte: le componenti che non contengono $v_C$ vengono inserite all'interno di \texttt{new\_components}, senza subire modifiche; al contrario, dall'unica componente $H_i$ che contiene $v_C$, viene rimosso $v_C$ stesso, e ad essa verrà aggiunto tutto il ciclo $C$ che era stato contratto, ripristinando dunque il grafo di partenza di ricorsione in ricorsione.
     \end{proof}
 
-    \begin{framedobs}{Costo dell'algoritmo}
+    \begin{proof}[Costo dell'algoritmo.]
         La funzione \texttt{findCycle} della riga 2 ha costo $O(n + m)$, ed utilizza la funzione dell'\cref{findCycleDir}. Allora, poiché la riga 4 ha costo pari a $O(n)$, dovendo scorrere tutti i vertici dell'attuale $G$ (che nel caso peggiore, contiene ogni vertice del grafo di partenza), il caso base ha costo $O(n+ m)$.
 
         L'operazione di contrazione, alla riga 6, ha costo $O(n+m)$, in quanto contrarre un grafo, nel caso peggiore, implica contrarne ogni vertice, e dunque modificarne ogni arco e nodo presente; inoltre, il ciclo \texttt{for} della riga 9 esegue un loop sulle componenti trovate alla riga 7 dalla chiamata ricorsiva, ed il suo costo dipende dunque dal numero di componenti che nel caso peggiore possono essere trovate, ovvero $n - 1$, dunque $O(n)$, poiché un ciclo è costituito da minimo 2 nodi.
 
-        Allora, il costo dell'algoritmo è $O(n \cdot (n + m))$, poiché nel caso peggiore si hanno $n - 1$ contrazioni (chiamate ricorsive), ovvvero $O(n)$, ed in ogni chiamata ricorsiva si effettuano operazioni in $O(n + m)$.
+        Allora, il costo dell'algoritmo è $O(n \cdot (n + m))$, poiché nel caso peggiore si hanno $n - 1$ contrazioni (chiamate ricorsive), ovvero $O(n)$, ed in ogni chiamata ricorsiva si effettuano operazioni in $O(n + m)$.
 
         Si noti che questa stima è particolarmente approssimativa, e sarebbe necessario risolvere l'equazione di ricorrenza associata all'algoritmo per giustificarne completamente il costo dell'algoritmo, ma è omesso tale calcolo per semplicità.
-    \end{framedobs}
+    \end{proof}
 
     \subsection{Algoritmo di Tarjan}
 
@@ -2014,8 +2021,8 @@
         \end{algorithmic}
     \end{algorithm}
 
-    \begin{proof}[Dimostrazione di correttezza.]
-        L'algoritmo inizia alla riga 25, definendo un array \texttt{components}, attraverso il quale verranno trovate le varie componenti del grafo $G$ in input; in particolare, alla riga 26 viene definito un contatore \texttt{cc}, affinché l'array \texttt{components} contenga, per ogni vertice $v \in V(G)$, un valore $\texttt{components[}v\texttt{]}$ pari a \texttt{cc}, se $v$ fa parte della \texttt{cc}-esima componente trovata dall'algoritmo; infine, alla riga 27 viene definito il contatore \texttt{c}, utilizzato per i tempi di visita dei vertici, ed alla riga 28 si ha uno stack \texttt{S}, che verrà utilizzato per trovare i vertici facenti parte della \texttt{cc}-esima componente.
+    \begin{proof}[Correttezza dell'algoritmo.]
+        L'algoritmo inizia alla riga 25, definendo l'array \texttt{components}, attraverso il quale verranno trovate le varie componenti del grafo $G$ in input; in particolare, alla riga 26 viene definito un contatore \texttt{cc}, affinché l'array \texttt{components} contenga, per ogni vertice $v \in V(G)$, un valore $\texttt{components[}v\texttt{]}$ pari a \texttt{cc}, se $v$ fa parte della \texttt{cc}-esima componente trovata dall'algoritmo; infine, alla riga 27 viene definito il contatore \texttt{c}, utilizzato per i tempi di visita dei vertici, ed alla riga 28 si ha uno stack \texttt{S}, che verrà utilizzato per trovare i vertici facenti parte della \texttt{cc}-esima componente.
         
         Alla riga 29, l'algoritmo inizializza un ciclo \texttt{for}, che per ognuno dei vertici $u \in V(G)$, effettuerà una chiamata ricorsiva alla funzione \texttt{DFS} (riga 31), solo se $u$ non era ancora stato visitato (riga 30).
 
@@ -2028,9 +2035,9 @@
         La funzione ricorsiva termina alla riga 21, restituendo al chiamante il valore $b$ della chiamata ricorsiva corrente. Infine, l'algoritmo termina alla riga 34, restituendo tutte le componenti di $G$.
     \end{proof}
 
-    \begin{framedobs}{Costo dell'algoritmo}
+    \begin{proof}[Costo dell'algoritmo.]
         Poiché l'algoritmo effettua esclusivamente una visita in DFS del grafo $G$ in input, e lo stack \texttt{S} conterrà $n$ nodi nel caso peggiore (all'interno della chiamata ricorsiva più profonda della visita in DFS), l'algoritmo ha costo $O(n + m)$.
-    \end{framedobs}
+    \end{proof}
 
     \subsection{Trovare un ciclo}
 
@@ -2088,7 +2095,7 @@
         \end{algorithmic}
     \end{nocaptionalg}
 
-    \begin{proof}[Dimostrazione di correttezza.]
+    \begin{proof}[Correttezza dell'algoritmo.]
         L'algoritmo inizia effettuando un ciclo \texttt{for}, alla riga $25$, su ogni vertice $v \in V(G)$; in particolare, se $v$ non è stato ancora visitato (riga $26$), viene effettuata una visita ricorsiva in DFS di $G$, partendo da $v$. Si noti che il ciclo \texttt{for} permette di gestire il caso in cui $G$ non sia connesso; inoltre, alla riga 27 viene posto $\texttt{parents[}v\texttt{]} = v$, di fatto definendo più alberi di visita sullo stesso grafo, poiché se $G$ non fosse connesso, si avrebbero necessariamente molteplici visite in DFS, e di conseguenza molteplici alberi di visita.
 
         La funzione che effettua la visita ricorsiva in DFS, inizia con un ciclo \texttt{for}, alla riga $3$, all'interno del quale, per ogni vertice $v \in V(G)$ adiacente a $u$ in input non ancora visitato, viene marcato come tale (riga $5$), ne viene aggiornato il nodo padre in \texttt{parents} (riga $6$), e viene effettuata una chiamata ricorsiva radicata su $v$ stesso, per far si che la visita sia in DFS.
@@ -2100,11 +2107,11 @@
         Nel controllo della riga 29, ci si accerta che non sia ancora stato trovato alcun ciclo, e non appena ne viene trovato uno, viene restituito dall'algoritmo, troncando il loop \texttt{for}.
     \end{proof}
 
-    \begin{framedobs}{Costo dell'algoritmo}
+    \begin{proof}[Costo dell'algoritmo.]
         Poiché l'algoritmo effettua una visita ricorsiva in DFS del grafo $G$ in input, il costo dovrebbe essere $O(n + m)$, ma l'unico caso in cui viene effettuata una visita completa del grafo è nel caso peggiore, ovvero quando il grafo è aciclico. Si noti però che, se $G$ è aciclico, si verifica che $m := |E(G)| = n - 1$, e dunque $O(n + m) = O(n + n - 1) = O(2n - 1) = O(n)$.
 
         Allora, il costo dell'algoritmo è $O(n)$.
-    \end{framedobs}
+    \end{proof}
 
     \begin{algorithm}[H]
         \caption{
@@ -2163,13 +2170,13 @@
         \end{algorithmic}
     \end{nocaptionalg}
 
-    \begin{proof}[Dimostrazione di correttezza.]
+    \begin{proof}[Correttezza dell'algoritmo.]
         Omessa.
     \end{proof}
 
-    \begin{framedobs}{Costo dell'algoritmo}
+    \begin{proof}[Costo dell'algoritmo.]
         Poiché l'algoritmo effettua esclusivamente una visita in DFS del grafo $G$ in input, il suo costo è pari a $O(n + m)$; si noti che, nel caso peggiore, l'intero grafo descrive un ciclo, e dunque il ciclo \texttt{while} della riga 13 ha costo $O(n)$.
-    \end{framedobs}
+    \end{proof}
 
     \section{Breadth-first Search (BFS)}
 
@@ -2222,8 +2229,8 @@
         \end{algorithmic}
     \end{algorithm}
 
-    \begin{proof}[Dimostrazione di correttezza.]
-        L'algoritmo inizia, alla riga 25, chiamando la funzione \texttt{findCommonAncestor}, che restituisce l'antenato, comune ad $x$ ed $y$ in input, a loro più vicino.
+    \begin{proof}[Correttezza dell'algoritmo.]
+        L'algoritmo inizia, alla riga 25, effettuando una chiamata alla funzione \texttt{findCommonAncestor}, che restituisce l'antenato, comune ad $x$ ed $y$ in input, a loro più vicino.
 
         In particolare, viene inizialmente istanziato un array \texttt{ancestorsX} a 0, alla riga 2, e successivamente viene inizializzato un ciclo \texttt{while}, il quale è utilizzato per marcare gli antenati di $x$, risalendo fino alla radice (condizione di uscita del ciclo, alla riga 4); si noti che la riga 8 è necessaria, in quanto $v$, in quel momento, sarà proprio la radice, la quale non potrebbe essere marcata all'interno del ciclo appena terminato, poiché l'incontro della radice è proprio la condizione di uscita di quest'ultimo; inoltre, è importante notare che l'antenato comune più vicino ad $x$ e $y$ potrebbe proprio essere la radice stessa come caso limite, ed è dunque fondamentale segnare anche quest'ultima come antenato di $x$.
 
@@ -2234,13 +2241,13 @@
         Allora, per restituire la distanza tra $x$ ed $y$, sarà sufficiente calcolare $$d_x + d_y - 2 \cdot d_a$$ come descritto nella riga 29, poiché $d_x + d_y$ è una somma di distanze che conterrà 2 volte la distanza tra la radice, e l'antenato, comune ad $x$ ed $y$, a loro più vicino (di fatto, è l'intersezione dei cammini tra radice ed $x$, e radice ed $y$). Si noti che tale formula risulta essere sempre corretta, poiché \texttt{parents} è un array di padri, il quale rappresenta sempre un albero/arborescenza del grafo di partenza, e dunque per definizione la struttura che si sta utilizzando è aciclica, garantendo che l'unico modo per trovare la distanza tra due vertici è proprio attraverso la formula utilizzata dall'algoritmo.
     \end{proof}
 
-    \begin{framedobs}{Costo dell'algoritmo}
+    \begin{proof}[Costo dell'algoritmo.]
         La funzione \texttt{findCommonAncestor} esegue 2 cicli \texttt{while}, i quali entrambi visitano ogni nodo di \texttt{parents}, avente esattamente $n$ nodi, una ed una sola volta; allora, il costo della funzione risulta essere $O(n) + O(n) = O(n)$.
 
         La funzione \texttt{distanceRoot} risale ricorsivamente l'albero \texttt{parents}, e nel caso peggiore dovranno essere ripercorsi tutti i nodi padri del grafo; allora, il suo costo è $O(n)$.
 
         Infine, \texttt{findDistance} effettua una chiamata a \texttt{findCommonAncestor}, e successivamente 3 chiamate a \texttt{distanceRoot}, e dunque il costo totale dell'algoritmo risulta essere $O(n) + 3 \cdot O(n) = 4 \cdot O(n) = O(n)$.
-    \end{framedobs}
+    \end{proof}
 
     \begin{algorithm}[H]
         \caption{
@@ -2279,7 +2286,7 @@
         \end{algorithmic}
     \end{algorithm}
 
-    \begin{proof}[Dimostrazione di correttezza.]
+    \begin{proof}[Correttezza dell'algoritmo.]
         L'algoritmo inizia istanziando un array \texttt{distances}, posto a $-1$ per ogni elemento, valore sentinella che verrà sfruttato dall'algoritmo per determinare se un dato vertice è stato visitato o meno.
 
         Come primo passo, alla riga 17 viene trovata la radice $r$ dell'array \texttt{parents}, il quale rappresenta un albero/arborescenza di visita in DFS del grafo $G$ in input, grazie alla funzione \texttt{findRoot}; quest'ultima, per trovare la radice, esegue un ciclo \texttt{for} sull'array \texttt{parents}, restituendo l'unico vertice $v \in V(G) : \texttt{parents[}v\texttt{]} = v$. Infine, viene salvata la distanza di $r$ dalla radice in \texttt{distances}, pari naturalmente a 0, alla riga 19.
@@ -2289,13 +2296,13 @@
         All'interno di $\texttt{updateDistances}$, alla riga 2, viene controllato se la distanza del padre del vertice $v$ corrente, dalla radice di \texttt{parents}, non sia nota, e in tal caso viene effettuata una chiamata ricorsiva radicata proprio nel padre; questo, di fatto, ha l'effetto di "risalire" l'albero rappresentato da \texttt{parents}, di padre in padre, fintanto che non viene trovato un vertice la cui distanza dalla radice è nota; si noti che, inizialmente, l'unico vertice la cui distanza è nota è la radice stessa, e dunque la riga 19 funge da \textit{caso base} della ricorsione. Infine, una volta risalito l'albero fino alla radice, vengono rimosse le chiamate ricorsive dallo stack-call, aggiornando i valori delle distanze, ora note, dalla radice, secondo la legge $$\texttt{distances[}v\texttt{]} = \texttt{distances[parents[}v\texttt{]]} + 1$$ alla riga 5, poiché naturalmente ogni figlio $v$ sarà ad una distanza, dalla radice $r$, pari alla distanza del proprio padre + 1, quest'ultimo dato dall'arco $(\texttt{parents[}v\texttt{]}, v)$ stesso.
     \end{proof}
 
-    \begin{framedobs}{Costo dell'algoritmo}
-        L'algoritmo esegue inizialmente una chiamata alla funzione \texttt{findRoot}, la quale effettua un singolo ciclo \texttt{for}, che nel caso peggiore ha costo $O(n)$.
+    \begin{proof}[Costo dell'algoritmo.]
+        L'algoritmo inizialmente chiama la funzione \texttt{findRoot}, la quale effettua un singolo ciclo \texttt{for}, che nel caso peggiore ha costo $O(n)$.
 
         Successivamente, viene effettuato un ciclo \texttt{for} per ogni vertice del grafo $G$, il quale, per ogni nodo non ancora visitato, chiama \texttt{updateDistances}; all'interno di quest'ultima, si noti che la ricorsione viene effettuata esclusivamente se il padre del vertice corrente non è stato ancora visitato (riga 2), e dunque l'intero ciclo \texttt{for} della riga 20 ha costo $O(n)$, poiché è garantito che ogni vertice $v \in V(G)$ viene visitato una ed una sola volta.
 
         Allora, il costo dell'algoritmo è pari a $O(n) + O(n) = O(n)$.
-    \end{framedobs}
+    \end{proof}
 
     \subsection{Visita in BFS}
 
@@ -2357,7 +2364,7 @@
         \end{itemize}
     \end{proof}
 
-    \begin{proof}[Dimostrazione di correttezza.]
+    \begin{proof}[Correttezza dell'algoritmo.]
         L'algoritmo inizia definendo un array di nodi padri \texttt{parents}, un array di distanze \texttt{distances} (che conterrà le distanze dei vertici di $G$ dalla radice $u$ di partenza), e una coda \texttt{Q}, contenente $u$ inizialmente (riga $5$).
 
         Successivamente, fintanto che la coda \texttt{Q} non è vuota, viene eseguito il ciclo \texttt{while} della riga $6$, all'interno del quale viene rimosso il primo nodo $v$ della coda \texttt{Q}, alla riga $7$; inoltre, per ognuno dei suoi nodi adiacenti $x \sim v$, se non ancora visitato (la sua distanza da $u$ è $0$, ma non è la radice), ne viene aggiornato il padre, alla riga $10$, e viene aggiornata la sua distanza da $u$, sommando $1$ alla distanza del padre, ossia $v$, dalla radice; infine, $x$ viene posizionato in coda. In particolare, quest'ultima riga permette all'algoritmo di effettuare una visita in BFS del grafo, poiché ogni vertice adiacente a $v$ trovato viene inserito all'interno della coda non appena viene visitato.
@@ -2390,9 +2397,9 @@
 
     \end{proof}
 
-    \begin{framedobs}{Costo dell'algoritmo}
+    \begin{proof}[Costo dell'algoritmo.]
         Il ciclo \texttt{for} della riga $8$ viene eseguito per ognuno dei vertici adiacenti a $v$, e dunque ha costo $O(\deg(v))$; allora, per ragionamento analogo all'\cref{costo findReachableNodes2}, il costo dell'algoritmo è pari a $O(n +m)$.
-    \end{framedobs}
+    \end{proof}
 
     \begin{framedobs}{Archi non della visita}
         Sia $G$ un grafo, e sia $H$ un albero/arborescenza di visita in BFS di $G$, radicato in un certo $r \in V(G)$; allora $$\forall (x, y) \in E(G - H) \quad \mathrm{dist}(r, x) = \left \{ \begin{array}{l} \mathrm{dist}(r, y) \pm 1 \\ \mathrm{dist}(r, y) \end{array} \right.$$
@@ -2489,20 +2496,20 @@
         \end{algorithmic}
     \end{algorithm}
 
-    \begin{proof}[Dimostrazione di correttezza.]
+    \begin{proof}[Correttezza dell'algoritmo.]
         L'algoritmo presenta una semplice modifica dell'\cref{bfs}, inserendo le righe $14$, $16$ e $17$:
 
         \begin{itemize}
             \item alla riga $14$, viene posto il numero di cammini minimi per raggiungere $y$ partendo da $u$, pari al numero di cammini minimi di $v$, ovvero il suo nodo padre; ciò, in quanto alla riga $11$ viene controllato che il nodo non sia stato ancora visitato, e dunque il suo valore in \texttt{count} sarà ancora pari a $0$, e con la riga $14$ viene dunque semplicemente rimpiazzato; inoltre, il numero di cammini minimi per raggiungere un figlio, sara sicuramente almeno pari a quello del padre;
-            \item alla riga $16$, viene controllato che il valore $\texttt{distances[}y\texttt{]}$ sia proprio pari a $\texttt{distances[}v\texttt{]} + 1$, poiché in tal caso il cammino corrente è un cammino minimo verso $y$, e dunque alla riga $17$ viene accumulato al conteggio di $y$, il conteggio di $v$, ovvero il suo nodo padre.
+            \item alla riga $16$, viene controllato che il valore $\texttt{distances[}y\texttt{]}$ sia pari a $\texttt{distances[}v\texttt{]} + 1$, poiché in tal caso il cammino corrente è un cammino minimo verso $y$, e dunque alla riga $17$ viene accumulato al conteggio di $y$, il conteggio di $v$, ovvero il suo nodo padre.
         \end{itemize}
 
         Infatti, si noti che avendo un vertice $y \in V(G)$, figlio di $v_1, \ldots, v_k \in V(G)$, è sempre vero che $$\texttt{count[}y\texttt{]} = \texttt{count[}v_1\texttt{]} + \ldots + \texttt{count[}v_k\texttt{]}$$
     \end{proof}
 
-    \begin{framedobs}{Costo dell'algoritmo}
+    \begin{proof}[Costo dell'algoritmo.]
         L'algoritmo effettua esclusivamente una visita in BFS del grafo $G$ in input, e dunque il suo costo è pari a $O(n+m)$.
-    \end{framedobs}
+    \end{proof}
 
     \subsection{Distanza tra insiemi di vertici}
 
@@ -2545,15 +2552,15 @@
         \end{algorithmic}
     \end{algorithm}
 
-    \begin{proof}[Dimostrazione di correttezza.]
+    \begin{proof}[Correttezza dell'algoritmo.]
         L'algoritmo inizia inserendo ogni vertice $x \in X$ in \texttt{Q}, all'interno del ciclo \texttt{for} della riga 4; successivamente, viene effettuata una visita in BFS di $G$, salvando le distanze trovate all'interno dell'array \texttt{distances}.
 
         Si noti che, per dimostrazione precedente, l'algoritmo di visita in BFS trova la distranza tra vertici, naturalmente relativa al vertice di partenza; tale caratteristica può essere sfruttata, ad esempio in questo algoritmo, per calcolare tutte le distanze tra i vertici di $X$ e di $Y$, semplicemente ponendo ogni vertice di $X$ all'interno della coda \texttt{Q} all'inizio dell'algoritmo: così facendo, la visita in BFS calcolerà le distanze a partire dai vertici $x \in X$, che avranno $\texttt{distances[}x\texttt{]} = 0$, e per trovare $\mathrm{dist}(X, Y)$ cercata, è sufficiente un ciclo \texttt{for}, alla riga 18, con il quale viene semplicemente trovata $$\displaystyle d := \min_{y \in Y}{\texttt{distances[}y\texttt{]}} = \min_{x \in X, y \in Y}{\mathrm{dist}(x, y)} =: \mathrm{dist}(X, Y)$$
     \end{proof}
 
-    \begin{framedobs}{Costo dell'algoritmo}
+    \begin{proof}[Costo dell'algoritmo.]
         L'algoritmo è costituito da una visita in BFS del grafo $G$ in input, partendo dai vertici in $X$, che ha costo $O(n + m)$ per osservazioni precedenti, seguita da un ciclo \texttt{for} su ogni vertice $y \in Y$, che ha dunque costo $O(|Y|)$; di conseguenza, il costo dell'algoritmo è pari a $O(n + m) + O(|Y|)$, ma si noti che $Y \subseteq V(G) \implies |Y| \le |V(G)| =: n \implies O(n + m) + O(|Y|) = O(n + m)$.
-    \end{framedobs}
+    \end{proof}
 
     \chapter{Algoritmi greedy}
 
@@ -2703,7 +2710,7 @@
         \end{algorithmic}
     \end{algorithm}
 
-    \begin{proof}[Dimostrazione di correttezza.]
+    \begin{proof}[Correttezza dell'algoritmo.]
         L'algoritmo inizia definendo, alla riga 2, l'array \texttt{distancesW}, interamente inizializzato a $+ \infty$, che dovrà essere riempito dall'algoritmo e restituito al termine dell'esecuzione; inoltre, alla riga 3 viene definito un insieme di vertici $R \subseteq V(G)$.
 
         Alla riga 5 viene istanziato un ciclo \texttt{while}, il quale procede fintanto che è presente un arco uscente da $R$, dunque composto da un vertice in $R$ ed uno in $V(G) - R$; al suo interno, alla riga 6, viene preso un arco $(x, u)$, uscente da $R$, tale da minimizzare la somma $$\texttt{distancesW[}x\texttt{]} + w(x, u) = \mathrm{dist}_w(v, x) + w(x, u)$$ e si noti che, per il \cref{dijkstra theorem}, si ha che $$\mathrm{dist}_w(v, u) = \mathrm{dist}_w(v, x) + w(x, u)$$ allora, viene aggiornato il valore di $\texttt{distancesW[}u\texttt{]}$ coerentemente, alla riga 7; infine, alla riga 8, viene aggiunto $u$ ad $R$. Infine, si noti inoltre che il \texttt{while} della riga 5 prosegue, fintanto che esistono ancora archi uscenti da $R$, e dunque l'algoritmo termina quando $R$ contiene ogni vertice del grafo.
@@ -2711,11 +2718,11 @@
         Si noti che l'algoritmo, ad ogni iterazione, sceglie dunque un arco $(x, u)$ tale da minimizzare il peso del cammino $\{v \rightarrow x\} \cup (x, u)$, e al termine di ogni iterazione del ciclo \texttt{while} viene inserito $u$ all'interno di $R$, estendendo l'insieme di vertici visitati; di conseguenza, il comportamento dell'algoritmo è greedy. Si noti che, per trovare un tale arco è necessario controllare ogni $(x, u)$ uscente da $R$.
     \end{proof}
 
-    \begin{framedobs}{Costo dell'algoritmo}
+    \begin{proof}[Costo dell'algoritmo.]
         Per trovare l'arco cercato, alla riga 7, è necessario controllare ogni arco uscente da $R$, e trovare quello tale da minimizzare la somma richiesta; si noti che, per il \cref{Somma dei gradi}, si ha che $$\displaystyle \sum_{v \in R_i}{\deg(v)} \le \sum_{v \in V(G)}{\deg(v)} = 2m$$ e dunque la ricerca da effettuare per l'$i$-esima iterazione ha costo $O(m)$; si noti inoltre che il ciclo \texttt{while} prosegue fino all'esaurimento degli archi uscenti da $R$, e dunque fino al termine della visita completa del grafo.
 
         Allora il costo del ciclo, e dunque dell'algoritmo, è pari a $O(n \cdot m)$.
-    \end{framedobs}
+    \end{proof}
 
     \begin{algorithm}[H]
         \caption{
@@ -2747,7 +2754,7 @@
         \end{algorithmic}
     \end{algorithm}
 
-    \begin{proof}[Dimostrazione di correttezza.]
+    \begin{proof}[Correttezza dell'algoritmo.]
         L'algoritmo inizia alla riga 2, ponendo a $+ \infty$ l'array che, al termine dell'algoritmo, conterrà le distanze, pesate su $w$, tra $u$ ed ogni altro vertice di $G$; inoltre, alla riga 3 viene posta la distanza pesata $\mathrm{dist}_w(u, u) = 0$, ed alla riga 4 viene definito \texttt{H}, un min-heap. Successivamente, alla riga 5, viene istanziato un ciclo \texttt{for}, utilizzato per inizializzare il min-heap, ponendo in esso ogni vertice $v \in V(G)$, associando loro i valori $$\texttt{distancesW[}v\texttt{]} = \mathrm{dist}_w(u, v)$$
 
         Alla riga 8, l'algoritmo inizia un ciclo \texttt{while}, che terminerà solamente quando il min-heap diventerà vuoto, ovvero quando ogni elemento al suo interno sarà stato analizzato; infatti, alla riga 9, con l'operazione $\texttt{H.extract\_min()}$, il vertice $v$ che attualmente minimizza la distanza pesata da $u$, viene \textit{rimosso} dal min-heap. Dopo averlo estratto, alla riga 10 ne viene aggiornato il valore all'interno di $\texttt{distancesW[}v\texttt{]}$ (si noti che il valore \textit{correntemente} noto della distanza pesata tra $u$ e $v$ è contenuto all'interno della chiave del min-heap, mentre l'array conterrà il valore finale). Alla riga 11, viene istanziato un ciclo \texttt{for}, il quale per ogni vertice $x$ uscente da $v$, ancora contenuto nel min-heap (e dunque ancora non esaminato), ne aggiorna la chiave all'interno di \texttt{H} (riga 14), se quest'ultima è maggiore di $\texttt{distancesW[}v \texttt{]} + w(v, x)$, ovvero $\mathrm{dist}_w(u, v)$ sommata al peso dell'arco $(v, x)$ stesso (righe 12 e 13).
@@ -2755,7 +2762,7 @@
         L'algoritmo termina restituendo $\texttt{distancesW}$ alla riga 18.
     \end{proof}
 
-    \begin{framedobs}{Costo dell'algoritmo}
+    \begin{proof}[Costo dell'algoritmo.]
         Il primo ciclo \texttt{for}, della riga 5, ha costo $O(n \log n)$, poiché contiene la riga 6, all'interno della quale viene utilizzata la funzione \texttt{H.insert()}, che ha costo $O(\log n)$.
 
         Il ciclo \texttt{for} della riga 11, contiene le righe 11, 13, 14, all'interno delle quale vengono utilizzate rispettivamente le funzioni \texttt{H.contains()}, \texttt{H.get\_key()} e \texttt{H.set\_key()}, che hanno tutte costo $O(\log n)$; inoltre, tale ciclo viene effettuato per ognuno dei vertici adiacenti uscenti da $x$, e dunque il suo costo è pari a $\displaystyle O \left( \sum_{x \in N(v)} 3 \log n \right) = \deg(v) \cdot O(\log n)$, dove con $N(v)$ si sta indicando l'insieme $$N (v) := \{x \in V(G) : (v, x) \in E(G)\}$$ degli archi adiacenti uscenti da $v$, e dunque si ha che $\left|N(v)\right| = \deg(v)$.
@@ -2763,7 +2770,7 @@
         Infine, il ciclo \texttt{while} della riga 8, poiché contiene le rige 9 e 10, che utilizzano rispettivamente le funzioni \texttt{H.extract\_min()} ed \texttt{H.get\_key()}, le quali hanno entrambe costo $O(\log n)$, ha costo pari a $\displaystyle O \left( \sum_{v \in V(G)} 2 \log n + \deg(v) \cdot \log n \right) = O \left( \sum_{v \in V(G)} \log n \right) + O \left ( \sum_{v \in V(G)} \deg(v) \cdot \log n \right) = O(n \log n) + \log n \cdot O (m )$.
 
         Allora, il costo dell'algoritmo è pari a $O (\log n (n + m))$.
-    \end{framedobs}
+    \end{proof}
 
     \section{Intervalli}
 
@@ -2836,7 +2843,7 @@
         \end{itemize}
     \end{proof}
 
-    \begin{proof}[Dimostrazione di correttezza.]
+    \begin{proof}[Correttezza dell'algoritmo.]
         L'algoritmo inizia ordinando l'insieme di intervalli $I$, in ordine crescente del loro estremo destro, alla riga 2; successivamente, all'interno di \texttt{Sol} vengono inseriti tutti gli intervalli $i \in I$, tali che il loro estremo sinistro sia maggiore dell'estremo destro dell'ultimo elemento attualmente in \texttt{Sol}.
 
         Infatti, è possibile controllare esclusivamente l'ultimo elemento in \texttt{Sol}, poiché l'ordinamento iniziale garantisce che gli unici intervalli inseriti al suo interno saranno disgiunti; inoltre, grazie al controllo della riga 6, l'estremo sinistro dell'intervallo corrente deve essere superiore dell'estremo destro di \texttt{Sol.last()}, affinchè questo possa essere inserito in \texttt{Sol}.
@@ -2844,11 +2851,11 @@
         Infine, l'ordinamento della riga 2 garantisce di ottenere in output il sottoinsieme di intervalli disgiunti di cardinalità massima, poiché come primo intervallo in $I$ verrà posto l'intervallo con l'estremo destro inferiore.
     \end{proof}
 
-    \begin{framedobs}{Costo dell'algoritmo}
+    \begin{proof}[Costo dell'algoritmo.]
         Si noti che, all'interno dell'algoritmo si assume \texttt{Sol.last()} abbia costo $O(1)$, andando ad indicizzare correttamente l'ultimo elemento della lista.
 
         Poiché l'ordinamento di $I$, alla riga 2, indipendentemente dall'algoritmo di ordinamento (per confronti) scelto, non può avere costo inferiore a $O(n \log n)$, e il ciclo \texttt{for} della riga 4 ha costo $O(n)$, si ha che l'algoritmo ha costo $O(n \log n) + O(n) = O(n \log n)$.
-    \end{framedobs}
+    \end{proof}
 
     \subsection{Trovare insieme non disgiunto}
 
@@ -2897,7 +2904,7 @@
         \end{itemize}
     \end{proof}
 
-    \begin{proof}[Dimostrazione di correttezza.]
+    \begin{proof}[Correttezza dell'algoritmo.]
         L'algoritmo inizia ordinando gli intervalli in $I$, attraverso il loro estremo destro, e definendo successivamente un insieme \texttt{Sol} che conterrà la soluzione cercata.
 
         Alla riga 4, viene istanziato un ciclo \texttt{for}, che per ogni intervallo $i \in I$, ne inserisce l'estremo destro all'interno di \texttt{Sol}, se e solo tale $i$ non si interca con l'ultimo intervallo contenuto attualmente in \texttt{Sol} stesso.
@@ -2905,11 +2912,11 @@
         Si noti che la scelta dell'estremo destro garantisce di trovare una soluzione ottimale, poiché gli intervalli sono ordinati attraverso il loro estremo destro, ed è dunque necessario utilizzare gli estremi destri degli intervalli anche per trovare i valori da inserire in \texttt{Sol}, altrimenti non sarebbe garantito che quest'ultimo abbia cardinalità minima.
     \end{proof}
 
-    \begin{framedobs}{Costo dell'algoritmo}
+    \begin{proof}[Costo dell'algoritmo.]
         L'ordinamento della riga 2 non può essere eseguito con costo minore di $O(n \log n)$; inoltre, il ciclo \texttt{for} della riga 4 esegue linearmente una sola iterazione, per ogni intervallo in $I$, e dunque il suo costo è pari a $O(n)$.
 
         Allora, il costo dell'algoritmo è pari a $O(n \log n) + O(n) = O(n \log n)$.
-    \end{framedobs}
+    \end{proof}
 
     \section{Minimum Spanning Tree (MST)}
 
@@ -3050,7 +3057,7 @@
         \end{itemize}
     \end{proof}
 
-    \begin{proof}[Dimostrazione di correttezza.]
+    \begin{proof}[Correttezza dell'algoritmo.]
         L'algoritmo inizia ordinando gli archi di $G$, in ordine crescente, attraverso i loro pesi, calcolati con la funzione $w$ in input, alla riga 2; questo ordinamento garantisce che l'algoritmo prenderà in considerazione esclusivamente gli archi col peso minore.
 
         Successivamente, alla riga 3 viene istanziato l'insieme \texttt{Sol}, che conterrà gli archi che comporranno la soluzione dell'algoritmo (ovvero, un MST di $G$), e all'interno del ciclo \texttt{for} della riga 4, l'algoritmo esegue un controllo (riga 5) per ogni singolo arco $e \in E(G)$, inserendolo all'interno di \texttt{Sol} (riga 6), esclusivamente se $\texttt{Sol} \cup \{e\}$ non costituisce un ciclo; questo controllo infatti garantisce che non si vengano a creare cicli all'interno della soluzione, e dunque che l'output sia sicuramente un albero.
@@ -3058,13 +3065,13 @@
         L'algoritmo termina restituendo, alla riga 9, l'insieme $\texttt{Sol} \subseteq E(G)$ degli archi che costituiscono un MST di $G$.
     \end{proof}
 
-    \begin{framedobs}{Costo dell'algoritmo}
+    \begin{proof}[Costo dell'algoritmo.]
         Alla riga 2, gli archi di $G$ vengono ordinati attraverso i pesi forniti dalla funzione $w$, e dunque il costo dell'operazione è pari a $O(m \log m)$. Si noti però che, nel caso peggiore, $G$ ha ogni vertice connesso con ogni altro vertice, e dunque $m = n\cdot ( n - 1) = n^2 - n$, ed è dunque possibile riscrivere il costo dell'operazione nel caso peggiore come segue: $$O (m \log m) = O(m \log (n^2 - n)) = O(m \log n^2) - O(m \log n) =$$ $$= O(m \log n^2) = O(m \cdot 2 \log n) = O(m \log n)$$
 
         Alla riga 4, viene istanziato un ciclo \texttt{for}, che per ognuno degli archi, effettua operazioni in tempo $O(n)$ (si veda l'\cref{findCycleNonDir} per la funzione \texttt{findCycle}), e dunque ha costo $m \cdot O(n) = O(n \cdot m)$.
 
         Allora, l'algoritmo ha costo $O(m \log n) + O(n \cdot m) = O(n \cdot m)$.
-    \end{framedobs}
+    \end{proof}
 
     \subsection{Algoritmo di Prim}
 
@@ -3125,7 +3132,7 @@
         \end{itemize}
     \end{proof}
 
-    \begin{proof}[Dimostrazione di correttezza.]
+    \begin{proof}[Correttezza dell'algoritmo.]
         L'algoritmo inizia scegliendo un verice $v \in V(G)$ qualsiasi, e lo inserisce in $R$ alla riga 4, dove quest'ultimo rappresenterà, nelle successive iterazioni l'insieme di vertici correntemente visitati dall'algoritmo; viene inoltre definto \texttt{Sol} alla riga 3, che sarà l'insieme di archi costituenti un MST di $G$.
 
         All'interno del ciclo \texttt{while} della riga 5, fintanto che $R$ non è pari a $V(G)$ (si noti dunque che ogni vertice del grafo viene visitato, garantendo che \texttt{Sol} copra $G$, poiché quest'ultimo è un grafo indiretto connesso), viene scelto un arco $(x, y)$, avente peso minore, con un estremo in $R$, e l'altro in $V(G) - R$ (dunque, un arco che colleghi la regione di vertici già visitati, con quelli ancora da visitare); ciò garantisce che il grafo in output sia connesso, e poiché viene scelto con peso minimo, è anche garantito che \texttt{Sol} sia minimale rispetto ai pesi di $w$; allora, l'output dell'algoritmo è proprio un MST.
@@ -3133,13 +3140,13 @@
         L'algoritmo termina restituendo, alla riga 10, l'insieme di archi trovato.
     \end{proof}
 
-    \begin{framedobs}{Costo dell'algoritmo}
+    \begin{proof}[Costo dell'algoritmo.]
         L'algoritmo effettua un singolo ciclo \texttt{while}, alla riga 5, che termina nel momento in cui $R$ contiene ogni vertice di $V(G)$, e poiché ad ogni iterazione viene inserito esattamente un vertice in $R$ (riga 8), allora il ciclo viene ripetuto esattamente $n$ volte.
 
         Inoltre, alla riga 6 viene cercato l'arco, uscente da $R$, con peso minore, e il costo di tale operazione, nel caso peggiore, è $O(m)$, poiché implica il controllo del peso di ogni singolo arco uscente da $R$.
 
         Allora, complessivamente l'algoritmo ha costo $n \cdot O(m) = O(n \cdot m)$.
-    \end{framedobs}
+    \end{proof}
 
     \begin{algorithm}[H]
         \caption{
@@ -3179,7 +3186,7 @@
         \end{algorithmic}
     \end{algorithm}
 
-    \begin{proof}[Dimostrazione di correttezza.]
+    \begin{proof}[Correttezza dell'algoritmo.]
         L'algoritmo inizia alla riga 2, scegliendo un vertice qualunque $v \in V(G)$, dal quale partire; alla riga 3, viene definito \texttt{Sol}, che contterrà l'insieme di archi dell'MST di $G$, che verrà restituito alla riga 26 al termine della procedura; alla riga 4, viene inoltre definito un insieme di vertici $R$, che costituirà la regione di vertici correntemente coperta dall'algoritmo, coerentemente con gli archi presenti \texttt{Sol}; infine, alla riga 5, viene inizializzato un min-heap, che viene riempito con le righe 6 e 7, utilizzando tutti i vertici in $V(G)$, eccetto $v$ scelto in partenza; si noti che ad ogni nodo viene associato inizialmente $+ \infty$, poiché per ogni $u \in V(G) - \{v\}$ il criterio di ordinamento del min-heap dovrà essere il peso minimo dell'arco tale da inserire $u$ in $R$, ed è dunque necessario inizializzare le loro chiavi con un valore sufficientemente alto, tale da non essere mai scelto inizialmente dall'algoritmo.
 
         Alla riga 9 viene definito un array di padri \texttt{parents}, il quale non costituirà propriamente un albero di padri della visita del grafo in input, ma un albero i cui padri dei nodi sono sempre i vertici tali da minimizzare l'arco tra padre e figlio; alla riga 10 viene marcata la radice dell'albero ponendo $\texttt{parents[}v\texttt{]} = v$.
@@ -3193,7 +3200,7 @@
         L'algoritmo termina alla riga 26, restituendo l'insieme di archi \texttt{Sol} ottenuto.
     \end{proof}
 
-    \begin{framedobs}{Costo dell'algoritmo}
+    \begin{proof}[Costo dell'algoritmo.]
         Si noti che il costo di inserimento di un nodo all'interno di un heap è pari a $O(\log n)$, e dunque il costo del ciclo \texttt{for} alla riga 6 è pari a $O (n \log n)$, poichè viene inserito ogni nodo in $V(G) - \{v\}$ all'interno di \texttt{H}, e $O(|V(G) - \{v\}|) = O(n - 1) = O(n)$. Inoltre, la creazione dell'array \texttt{parents}, alla riga 9, ha costo $O(n)$.
 
         Il costo di aggiornamento di una chiave all'interno di un heap è pari anch'esso a $O(\log n)$, e dunque la complessità del ciclo \texttt{for} della riga 11 è pari a $\deg(v) \cdot O(\log n)$, per via della riga 13.
@@ -3203,7 +3210,7 @@
         Allora, accorpando il costo del ciclo \texttt{for} della riga 11, all'interno del costo del ciclo \texttt{while} della riga 15, è possibile riscrivere l'equazione precedente come segue: $$\displaystyle O\left(\sum_{y \in V(G)} {\log n}\right) + O \left(\sum_{y \in V(G)}{\deg(y) \cdot \log n}\right) = $$ $$= O(n \log n ) + O(m \log n) = O(\log n \cdot( n + m))$$
 
         Dunque, il costo dell'algoritmo è pari a $O(n \log n) + O(n) + O(\log n \cdot (n + m)) = O(\log n \cdot (n + m))$.
-    \end{framedobs}
+    \end{proof}
 
     \chapter{Algoritmi Divide et Impera}
 
@@ -3275,7 +3282,7 @@
         \end{algorithmic}
     \end{algorithm}
 
-    \begin{proof}[Dimostrazione di correttezza.]
+    \begin{proof}[Correttezza dell'algoritmo.]
         L'algoritmo inizia alla riga 31, chiamando una funzione ricorsiva interna, ovvero \texttt{FMSSInternals}, poiché è necessario inizializzarne correttamente i parametri; infatti, ad essa vengono forniti, oltre all'array di interi \texttt{A}, anche gli estremi di quest'ultimo, in modo da effettuare la ricorsione sull'intero array.
 
         La funzione ricorsiva inizia controllando se $a$ e $b$ in input sono uguali: questo infatti è il caso base della ricorsione, poiché per tale condizione l'array della chiamata ricorsiva corrente è lungo 1, e dunque ha esattamente 1 elemento; allora, in tal caso è sufficiente restituire $\texttt{A[}a\texttt{]}$ stesso, se quest'ultimo fosse positivo, mentre se dovesse essere negativo, è necessario restituire 0. Questo, in quanto, nel caso peggiore, \texttt{A} è costituito esclusivamente da interi negativi, e dunque il sotto-array contiguo di \texttt{A} con somma maggiore risulta essere l'array nullo, che ha sempre somma 0, e dunque la riga 6 garantisce tale risultato in questo caso particolare (per la precisione, si noti che le righe 15 e 22, discusse nella sezione successiva, già garantiscono che il risultato sia 0 nel caso in cui \texttt{A} contenesse eslcusivamente interi negativi, con la sola eccezione in cui \texttt{A} è costituito da un solo intero, negativo, nel qual caso la ricosione non verrebbe effettuata, e dunque la riga 6 garantisce di restituire 0 ugualmente).
@@ -3288,7 +3295,7 @@
 
     \end{proof}
 
-    \begin{framedobs}{Costo dell'algoritmo}
+    \begin{proof}[Costo dell'algoritmo.]
         Il caso base dell'algoritmo è costituito da un controllo, alla riga 2, con costo $\Theta(1)$, e da un secondo controllo, alla riga 3, con costo $\Theta(1)$ anch'esso; allora, il caso base ha costo $\Theta(1)$.
 
         Nel caso ricorsivo, incontrato dall'algoritmo nella riga 8, vengono effettuate 2 chiamate ricorsive, alle righe 10 e 11, che hanno entrambe costo $T\left(\dfrac{n}{2}\right)$, e successivamente vengono eseguiti due cicli \texttt{for}, nelle righe 13 e 19, i quali hanno entrambi costo $\Theta\left(\dfrac{n}{2}\right) = \Theta(n)$; allora, il costo del caso ricorsivo è pari a $2 \cdot T\left(\dfrac{n}{2}\right) + \Theta(n)$.
@@ -3296,7 +3303,7 @@
         Allora, l'equazione di ricorrenza che rappresenta il costo dell'algoritmo è la seguente $$\left \{ \begin{array}{l} T(n) = T\left(\dfrac{n}{2}\right) + \Theta(n) \\ T(1) = \Theta(1) \end{array} \right .$$
 
         Si noti che questa è un'equazione che è possibile risolvere utilizzando il \cref{master theorem}, in quanto $$\left . \begin{array}{l} \alpha = 2 \\ \beta = 2 \end{array} \right \} \implies n ^ {\log_{2}{2}} = n^1 = n$$ e poiché $f(n) = \Theta(n)$, allora ci si trova nel secondo caso del Master theorem, ed infatti ponendo $k = 0$ si ha $$f(n) = \Theta(n) = \Theta(n \log^0 n)$$ e dunque si ha che $$T(n) = \Theta(n ^{\log_{2}{2}} \log ^ {0 + 1}n) = \Theta(n \log n)$$
-    \end{framedobs}
+    \end{proof}
 
     \chapter{Programmazione dinamica}
 
@@ -3366,7 +3373,7 @@
         \end{algorithmic}
     \end{algorithm}
 
-    \begin{proof}[Dimostrazione di correttezza.]
+    \begin{proof}[Correttezza dell'algoritmo.]
         L'algoritmo inizia definendo una matrice \texttt{T} di dimensioni $(n + 1) \times (C + 1)$, inizializzandone ogni cella a $-1$; successivamente, con il ciclo \texttt{for} della riga 3, viene posta ogni cella della prima colonna a 0, e con il ciclo \texttt{for} della riga 6 ogni cella della prima riga a 0.
 
         Lo scopo della matrice costruita dall'algoritmo, è di rappresentare, per ogni cella $\texttt{T[}k\texttt{][}j\texttt{]}$, dati $k$ file aventi dimensione $s_1, \ldots, s_k$, lo spazio massimo che è possibile allocare con un sottoinsieme di tali file, su un disco di capacità $j$; di conseguenza, il numero di file che è possibile allocare con una memoria di capacità nulla, è sicuramente 0 (dunque la prima colonna è sempre costituita interamente da 0), e la memoria che è possibile allocare con 0 file è sicuramente 0 (dunque la prima riga vede solamente il valore 0). In simboli, si ha che $$\forall k \in [0, n], j \in [0, C] \quad \texttt{T[}k\texttt{][}0\texttt{]} = \texttt{T[}0\texttt{][}j\texttt{]} = 0$$
@@ -3382,7 +3389,7 @@
         Infine, l'algoritmo termina alla riga 18, restituendo $\texttt{T[}n\texttt{][}C\texttt{]}$, poiché lo scopo iniziale dell'algoritmo era proprio di trovare la dimensione massima che fosse possibile allocare in una memoria di dimensione $C$, avendo $n$ file aventi dimensioni $s_1, \ldots, s_n$.
     \end{proof}
 
-    \begin{framedobs}{Costo dell'algoritmo}
+    \begin{proof}[Costo dell'algoritmo.]
         L'algoritmo inizializza una matrice \texttt{T} di dimensioni $(n + 1) \times (C + 1)$ alla riga 2, e il costo della sua creazione è dunque $O((n + 1) \cdot (C + 1)) = O(n \cdot C)$; i cicli \texttt{for} delle righe 3 e 6 hanno rispettivamente costo $O(n)$ e $O(C)$.
 
         Il ciclo \texttt{for} della riga 9, poiché contiene un ulteriore ciclo \texttt{for} annidato alla riga 10, ha costo $O(n \cdot C)$; inoltre all'interno di questi vengono svolte solamente operazioni elementari.
@@ -3390,7 +3397,7 @@
         Allora il costo dell'algoritmo è pari a $2 \cdot O(n \cdot C) + O(n) + O(C) = O(n \cdot C)$.
 
         Si noti che l'input contiene $n$ interi $s_1, \ldots, s_n$, e il numero di bit totale per salvarli in memoria è pari a $$\displaystyle \sum_{i = 1}^n{O(\log s_i)} = O \left ( \sum_{i = 1}^n{\log s_i} \right )$$ ma poiché nel caso peggiore i file hanno tutti dimensione pari a $C$, allora $$O \left ( \sum_{i = 1}^n{\log s_i} \right ) = O(n \cdot \log C)$$ poiché $C$ necessita di $O(\log C)$ bit per essere rappresentato; infine, contando anche la dimensione in bit di $C$ in input, si ha che la dimensione dell'input dell'algoritmo è pari a $O((n + 1) \cdot \log C) = O(n \cdot \log C)$. Allora, l'algoritmo non ha tempo polinomiale, poiché il suo costo è pari a $O(n \cdot C)$; infatti, tale problema è NP-completo.
-    \end{framedobs}
+    \end{proof}
 
     \begin{algorithm}[H]
         \caption{
@@ -3415,7 +3422,7 @@
         \end{algorithmic}
     \end{algorithm}
 
-    \begin{proof}[Dimostrazione di correttezza.]
+    \begin{proof}[Correttezza dell'algoritmo.]
         L'algoritmo inizia definendo un insieme vuoto \texttt{Sol} alla riga 2, che conterrà l'insieme di file al termine della procedura; inoltre, alla riga 3 viene definito $j$, pari alla capacità del disco $C$.
 
         Il ciclo \texttt{for} della riga 4 scorre la matrice \texttt{T} in input seguendo un preciso criterio: partendo dall'ultima riga della matrice (si noti che con $k \in [n, 1]$ si sta indicando un ciclo che parte da $n$ e termina ad $1$), il ciclo controlla che la cella corrente, ovvero $\texttt{T[}k\texttt{][}j\texttt{]}$, sia maggiore della cella direttamente sopra ad essa, ovvero $\texttt{T[}k - 1\texttt{][}j\texttt{]}$; in tal caso, l'algoritmo inserisce $s_k$ all'interno della soluzione \texttt{Sol} alla riga 6, e alla riga 7 $j$ viene decrementato di $s_k$;
@@ -3425,11 +3432,11 @@
         L'algoritmo termina restituendo la soluzione accumulata, alla riga 10.
     \end{proof}
 
-    \begin{framedobs}{Costo dell'algoritmo}
+    \begin{proof}[Costo dell'algoritmo.]
         L'algoritmo effettua un solo ciclo \texttt{for} alla riga 4, che scorre la matrice in input parentdo da $k = n$ fino a $k = 1$, ma si noti che non viene controllata ogni cella di \texttt{T}, poiché viene controllata al massimo 1 cella per riga.
 
         Allora, il costo dell'algoritmo è pari a $O(n)$.
-    \end{framedobs}
+    \end{proof}
 
     \subsection{Knapsack problem}
 
@@ -3464,7 +3471,7 @@
         \end{algorithmic}
     \end{algorithm}
 
-    \begin{proof}[Dimostrazione di correttezza.]
+    \begin{proof}[Correttezza dell'algoritmo.]
         Si noti che l'algoritmo presenta eslcusivamente qualche variazione rispetto all'\cref{fileallocation}, poiché quello presentato è una sola generalizzazione del problema dell'allocazione dei file, precedentemente discusso; in particolare, variano le seguenti righe:
 
         \begin{itemize}
@@ -3475,9 +3482,9 @@
         Infine, si noti che anche in questa generalizzazione è possibile descrivere un algoritmo in grado di restituire gli oggetti che hanno permesso di raggiungere tale valore massimo, ma il codice sarebbe uguale in tutto e per tutto all'\cref{fileallocation2}, dove l'input dell'algoritmo sarebbero semplicemente i pesi degli oggetti, e viene dunque omesso.
     \end{proof}
 
-    \begin{framedobs}{Costo dell'algoritmo}
+    \begin{proof}[Costo dell'algoritmo.]
         Poiché l'algoritmo è di fatto una sola generalizzazione dell'\cref{fileallocation}, e il codice è pressochè invariato, il costo è esattamente lo stesso, ovvero $O(n \cdot C)$, ed infatti il problema resta NP-completo.
-    \end{framedobs}
+    \end{proof}
 
     \subsection{Trovare il peso massimo di un cammino}
 
@@ -3527,7 +3534,7 @@
         \end{algorithmic}
     \end{algorithm}
 
-    \begin{proof}[Dimostrazione di correttezza.]
+    \begin{proof}[Correttezza dell'algoritmo.]
         La discussione della correttezza qui presentata fa affidamento a quella dell'\cref{fileallocation}, dunque alcuni dettagli verrano sottointesi poiché l'idea alla base è la medesima.
 
         L'algoritmo inizia alla riga 2, definendo una matrice $n \times n$, inizializzata con ogni cella a $-1$, e successivamente, attraverso un ciclo \texttt{for} alla riga 3, vengono inizializzate tutte le celle della prima riga della matrice a $- \infty$, eccetto per $\texttt{T[}0\texttt{][}u\texttt{]}=0$.
@@ -3559,7 +3566,7 @@
         Per concludere, si noti che invertendo la condizione della riga 15, si ottiene il noto algoritmo di Bellman-Ford, grazie al quale è possibile trovare il peso minimo che cammini tra due nodi di $G$ possono avere (di fatto, la loro distanza pesata).
     \end{proof}
 
-    \begin{framedobs}{Costo dell'algoritmo}
+    \begin{proof}[Costo dell'algoritmo.]
         L'algoritmo costruisce una matrice $n \times n$ alla riga 2, e la sua costruzione ha dunque costo $O(n^2)$; inoltre, il ciclo \texttt{for} della riga 3 ha costo $O(n)$.
 
         Il ciclo della riga 11 scorre ogni nodo del grafo, ma il \texttt{for} in esso annidato, della riga 13, cicla solamente sui nodi adiacenti entranti nel vertice correntemente visitato, dunque il costo di questi due \texttt{for} annidati è $\displaystyle O\left(\sum_{x \in V(G)}{\deg^{in}(x) + 1} \right) = O(n + m)$; allora, poiché questi due cicli si trovano in un ulteriore \texttt{for} (alla riga 10), che percorre ogni intero $k \in [1, n- 1]$, ed ha dunque costo $O(n - 1) = O(n)$, segue che il costo di questa sezione dell'algoritmo è $O(n \cdot (n + m))$
@@ -3567,7 +3574,7 @@
         Allora, il costo dell'algoritmo è pari a $O(n ^2) + O(n) + O(n \cdot(n + m)) = O(n \cdot (n + m))$.
 
         Il grafo $G$ in input, se rappresentato attraverso liste di adiacenza (salvando ad esempio i vertici adiacenti entranti per ogni nodo, facilitando le computazioni del ciclo \texttt{for} della riga 13), ha costo spaziale pari a $O(n + m)$, mentre il costo di $w$ è $O(m) = O(n - 1) = O(n)$, poiché è sufficiente ad esempio un array, che mappi ogni arco ad un peso. Allora, la dimensione dell'input è pari a $O(n + m) + O(n) = O(n + m)$, ma poiché il costo dell'algoritmo è $O(n \cdot (n + m))$, questo risulta dunque essere in P, poiché ha costo polinomiale rispetto alla dimensione del suo input.
-    \end{framedobs}
+    \end{proof}
 
     \begin{algorithm}[H]
         \caption{
@@ -3600,7 +3607,7 @@
         \end{algorithmic}
     \end{algorithm}
 
-    \begin{proof}[Dimostrazione di correttezza.]
+    \begin{proof}[Correttezza dell'algoritmo.]
         L'algoritmo inizia definendo un insieme \texttt{Sol}, alla riga 2, che conterrà l'insieme degli archi che compongono uno dei cammini tali da realizzare il peso massimo di un cammino della forma $u \rightarrow y$; alla riga 3, viene inoltre definito un vertice $v$, posto inizialmente pari ad $y$, per poter iterare successivamente, ed alla riga 3 si ha $k$, posto pari ad $n - 1$, che servirà per puntare alla riga corrente della matrice \texttt{T} (partendo dunque dall'ultima riga).
 
         Nella riga 5, viene istanziato un ciclo \texttt{while}, il quale, fintanto che $v$ non diventa il vertice di partenza del cammino, ovvero $u$, visiterà la matrice \texttt{T}; si noti che la matrice viene attraversata dal basso verso l'alto, analogamente all'\cref{fileallocation2}.
@@ -3610,10 +3617,10 @@
         Al termine del ciclo \texttt{while}, l'algoritmo restituisce l'insieme di archi contenuto in \texttt{Sol}, che comporranno dunque un cammino della forma $u \rightarrow y$, avente il peso massimo cercato.
     \end{proof}
 
-    \begin{framedobs}{Costo dell'algoritmo}
+    \begin{proof}[Costo dell'algoritmo.]
         Partendo dal ciclo \texttt{for} della riga 9, esso controlla tutti i nodi adiacenti entranti in $v$, e nel caso peggiore vanno visitati tutti; inoltre, poiché al suo interno vi sono esclusivamente operazioni in tempo costante, il ciclo ha costo $O(\deg^{in}(v))$.
 
         Infine, tenendo in considerazione la riga 6, che ha costo $O(1)$, si ha che il costo del ciclo \texttt{while} della riga 5 è pari a $\displaystyle O\left(\sum_{v \in V(G)}{\deg^{in}(v) + 1} \right) = O(n + m)$.
-    \end{framedobs}
+    \end{proof}
 
 \end{document}
