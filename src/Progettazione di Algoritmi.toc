@@ -1,52 +1,56 @@
 \babel@toc {italian}{}\relax 
 \babel@toc {italian}{}\relax 
-\contentsline {chapter}{\numberline {1}Elementi di teoria dei grafi}{1}{chapter.1}%
-\contentsline {section}{\numberline {1.1}Grafi}{1}{section.1.1}%
-\contentsline {subsection}{\numberline {1.1.1}Definizioni}{1}{subsection.1.1.1}%
-\contentsline {subsection}{\numberline {1.1.2}Visite}{3}{subsection.1.1.2}%
-\contentsline {section}{\numberline {1.2}Rappresentazione}{9}{section.1.2}%
-\contentsline {subsection}{\numberline {1.2.1}Matrici di adiacenza}{9}{subsection.1.2.1}%
-\contentsline {subsection}{\numberline {1.2.2}Liste di adiacenza}{10}{subsection.1.2.2}%
-\contentsline {section}{\numberline {1.3}Depth-first Search (DFS)}{12}{section.1.3}%
-\contentsline {subsection}{\numberline {1.3.1}Trovare un ciclo}{12}{subsection.1.3.1}%
-\contentsline {subsection}{\numberline {1.3.2}Visita in DFS}{14}{subsection.1.3.2}%
-\contentsline {subsection}{\numberline {1.3.3}Trovare un ordinamento topologico}{17}{subsection.1.3.3}%
-\contentsline {section}{\numberline {1.4}Tempi di visita e di chiusura}{18}{section.1.4}%
-\contentsline {subsection}{\numberline {1.4.1}Definizioni}{18}{subsection.1.4.1}%
-\contentsline {subsection}{\numberline {1.4.2}Categorie di archi}{21}{subsection.1.4.2}%
-\contentsline {subsection}{\numberline {1.4.3}Trovare un ordinamento topologico}{28}{subsection.1.4.3}%
+\contentsline {chapter}{Informazioni e Contatti}{1}{chapter*.2}%
+\contentsline {subsubsection}{Segnalazione errori ed eventuali migliorie:}{1}{subsubsection*.3}%
+\contentsline {subsubsection}{Licenza di distribuzione:}{1}{subsubsection*.4}%
+\contentsline {subsubsection}{Contatti dell'autore e ulteriori link:}{1}{subsubsection*.5}%
+\contentsline {chapter}{\numberline {1}Elementi di teoria dei grafi}{2}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Grafi}{2}{section.1.1}%
+\contentsline {subsection}{\numberline {1.1.1}Definizioni}{2}{subsection.1.1.1}%
+\contentsline {subsection}{\numberline {1.1.2}Visite}{5}{subsection.1.1.2}%
+\contentsline {section}{\numberline {1.2}Rappresentazione}{11}{section.1.2}%
+\contentsline {subsection}{\numberline {1.2.1}Matrici di adiacenza}{11}{subsection.1.2.1}%
+\contentsline {subsection}{\numberline {1.2.2}Liste di adiacenza}{12}{subsection.1.2.2}%
+\contentsline {section}{\numberline {1.3}Depth-first Search (DFS)}{14}{section.1.3}%
+\contentsline {subsection}{\numberline {1.3.1}Trovare un ciclo}{14}{subsection.1.3.1}%
+\contentsline {subsection}{\numberline {1.3.2}Visita in DFS}{16}{subsection.1.3.2}%
+\contentsline {subsection}{\numberline {1.3.3}Trovare un ordinamento topologico}{19}{subsection.1.3.3}%
+\contentsline {section}{\numberline {1.4}Tempi di visita e di chiusura}{20}{section.1.4}%
+\contentsline {subsection}{\numberline {1.4.1}Definizioni}{20}{subsection.1.4.1}%
+\contentsline {subsection}{\numberline {1.4.2}Categorie di archi}{23}{subsection.1.4.2}%
+\contentsline {subsection}{\numberline {1.4.3}Trovare un ordinamento topologico}{29}{subsection.1.4.3}%
 \contentsline {subsection}{\numberline {1.4.4}Trovare un pozzo universale}{31}{subsection.1.4.4}%
 \contentsline {subsection}{\numberline {1.4.5}Trovare i ponti}{33}{subsection.1.4.5}%
 \contentsline {subsection}{\numberline {1.4.6}Trovare le componenti}{37}{subsection.1.4.6}%
-\contentsline {subsection}{\numberline {1.4.7}Algoritmo di Tarjan}{42}{subsection.1.4.7}%
-\contentsline {subsection}{\numberline {1.4.8}Trovare un ciclo}{49}{subsection.1.4.8}%
-\contentsline {section}{\numberline {1.5}Breadth-first Search (BFS)}{53}{section.1.5}%
-\contentsline {subsection}{\numberline {1.5.1}Distanza}{53}{subsection.1.5.1}%
-\contentsline {subsection}{\numberline {1.5.2}Visita in BFS}{58}{subsection.1.5.2}%
-\contentsline {subsection}{\numberline {1.5.3}Trovare il numero di cammini minimi}{62}{subsection.1.5.3}%
-\contentsline {subsection}{\numberline {1.5.4}Distanza tra insiemi di vertici}{63}{subsection.1.5.4}%
-\contentsline {chapter}{\numberline {2}Algoritmi greedy}{66}{chapter.2}%
-\contentsline {section}{\numberline {2.1}Algoritmi greedy}{66}{section.2.1}%
-\contentsline {subsection}{\numberline {2.1.1}Definizioni}{66}{subsection.2.1.1}%
-\contentsline {section}{\numberline {2.2}Distanza pesata}{66}{section.2.2}%
-\contentsline {subsection}{\numberline {2.2.1}Archi pesati}{66}{subsection.2.2.1}%
-\contentsline {subsection}{\numberline {2.2.2}Algoritmo di Dijkstra}{70}{subsection.2.2.2}%
-\contentsline {section}{\numberline {2.3}Intervalli}{74}{section.2.3}%
-\contentsline {subsection}{\numberline {2.3.1}Trovare intervalli disgiunti}{74}{subsection.2.3.1}%
-\contentsline {subsection}{\numberline {2.3.2}Trovare insieme non disgiunto}{77}{subsection.2.3.2}%
-\contentsline {section}{\numberline {2.4}Minimum Spanning Tree (MST)}{79}{section.2.4}%
-\contentsline {subsection}{\numberline {2.4.1}Definizioni}{79}{subsection.2.4.1}%
-\contentsline {subsection}{\numberline {2.4.2}Algoritmo di Kruskal}{81}{subsection.2.4.2}%
-\contentsline {subsection}{\numberline {2.4.3}Algoritmo di Prim}{84}{subsection.2.4.3}%
-\contentsline {chapter}{\numberline {3}Algoritmi Divide et Impera}{91}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Algoritmi Divide et Impera}{91}{section.3.1}%
-\contentsline {subsection}{\numberline {3.1.1}Definizioni}{91}{subsection.3.1.1}%
-\contentsline {subsection}{\numberline {3.1.2}Trovare la somma massima dei sotto-array}{93}{subsection.3.1.2}%
-\contentsline {chapter}{\numberline {4}Programmazione dinamica}{96}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Programmazione dinamica}{96}{section.4.1}%
-\contentsline {subsection}{\numberline {4.1.1}Definizioni}{96}{subsection.4.1.1}%
-\contentsline {section}{\numberline {4.2}Memoizzazione}{97}{section.4.2}%
-\contentsline {subsection}{\numberline {4.2.1}Definizioni}{97}{subsection.4.2.1}%
-\contentsline {subsection}{\numberline {4.2.2}Trovare il massimo spazio allocabile}{97}{subsection.4.2.2}%
-\contentsline {subsection}{\numberline {4.2.3}Knapsack problem}{102}{subsection.4.2.3}%
-\contentsline {subsection}{\numberline {4.2.4}Trovare il peso massimo di un cammino}{103}{subsection.4.2.4}%
+\contentsline {subsection}{\numberline {1.4.7}Algoritmo di Tarjan}{41}{subsection.1.4.7}%
+\contentsline {subsection}{\numberline {1.4.8}Trovare un ciclo}{46}{subsection.1.4.8}%
+\contentsline {section}{\numberline {1.5}Breadth-first Search (BFS)}{49}{section.1.5}%
+\contentsline {subsection}{\numberline {1.5.1}Distanza}{49}{subsection.1.5.1}%
+\contentsline {subsection}{\numberline {1.5.2}Visita in BFS}{53}{subsection.1.5.2}%
+\contentsline {subsection}{\numberline {1.5.3}Trovare il numero di cammini minimi}{56}{subsection.1.5.3}%
+\contentsline {subsection}{\numberline {1.5.4}Distanza tra insiemi di vertici}{57}{subsection.1.5.4}%
+\contentsline {chapter}{\numberline {2}Algoritmi greedy}{59}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Algoritmi greedy}{59}{section.2.1}%
+\contentsline {subsection}{\numberline {2.1.1}Definizioni}{59}{subsection.2.1.1}%
+\contentsline {section}{\numberline {2.2}Distanza pesata}{59}{section.2.2}%
+\contentsline {subsection}{\numberline {2.2.1}Archi pesati}{59}{subsection.2.2.1}%
+\contentsline {subsection}{\numberline {2.2.2}Algoritmo di Dijkstra}{63}{subsection.2.2.2}%
+\contentsline {section}{\numberline {2.3}Intervalli}{66}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1}Trovare intervalli disgiunti}{66}{subsection.2.3.1}%
+\contentsline {subsection}{\numberline {2.3.2}Trovare un insieme non disgiunto}{69}{subsection.2.3.2}%
+\contentsline {section}{\numberline {2.4}Minimum Spanning Tree (MST)}{71}{section.2.4}%
+\contentsline {subsection}{\numberline {2.4.1}Definizioni}{71}{subsection.2.4.1}%
+\contentsline {subsection}{\numberline {2.4.2}Algoritmo di Kruskal}{72}{subsection.2.4.2}%
+\contentsline {subsection}{\numberline {2.4.3}Algoritmo di Prim}{75}{subsection.2.4.3}%
+\contentsline {chapter}{\numberline {3}Algoritmi Divide et Impera}{80}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Algoritmi Divide et Impera}{80}{section.3.1}%
+\contentsline {subsection}{\numberline {3.1.1}Definizioni}{80}{subsection.3.1.1}%
+\contentsline {subsection}{\numberline {3.1.2}Trovare la somma massima dei sotto-array}{81}{subsection.3.1.2}%
+\contentsline {chapter}{\numberline {4}Programmazione dinamica}{84}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Programmazione dinamica}{84}{section.4.1}%
+\contentsline {subsection}{\numberline {4.1.1}Definizioni}{84}{subsection.4.1.1}%
+\contentsline {section}{\numberline {4.2}Memoizzazione}{84}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Definizioni}{84}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.2.2}Trovare il massimo spazio allocabile}{85}{subsection.4.2.2}%
+\contentsline {subsection}{\numberline {4.2.3}Knapsack problem}{88}{subsection.4.2.3}%
+\contentsline {subsection}{\numberline {4.2.4}Trovare il peso massimo di un cammino}{89}{subsection.4.2.4}%
