@@ -4,9 +4,9 @@ Questi sono i miei [appunti](<https://raw.githubusercontent.com/aflaag-notes/alg
 
 # TODO list
 
-- dai nomi ai box che mancano
 - fixa label
-- correttezza dell'algoritmo deve essere un box come dimostrazione
+- fixa cose che escono dai box
+- dai nomi ai box che mancano
 - costo dell'algoritmo deve essere un box come dimostrazione
 - fixa algoritmi
 - rendi breakable (probabilmente dopo aver fatto quelle obs come dim penso che servirà solo per gli alg)
